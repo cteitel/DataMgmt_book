@@ -1,11 +1,10 @@
-# Data structures and importing data {#basics}
+# Data Structures and Importing Data {#importexport}
 
 ## Objectives
 
 * Be able to work with relative file paths to read and write data
 * Bring data into R from a variety of sources and file types
 * Work with text/csv files and R data objects
-
 
 ## Recap: data structures
 
@@ -33,12 +32,45 @@ More often than not, you'll create data frames by importing external files (such
 * `source`, which reads R code files (we will get to this later)
 * `read_excel` from the `readxl` package
 
-<span style="color:red">**Download and read a .csv file**</span>
+To practice, we will use some data from an online repository: 
+Murray, M. H., Sanchez, C. A., Becker, D. J., Byers, K. A., Worsley-Tonks, K. E. L., & Craft, M. E. (2020). Data from: City sicker? a meta-analysis of wildlife health and urbanization [Data set]. Zenodo. https://doi.org/10.5061/dryad.b74d971
+
+<span style="color:red">**Navigate to the repository using the DOI to learn more about the study.**</span>
 
 ```{r}
+library(tidyverse)
+# First, look at the arguments for read_csv
+?read_csv
+
+# read_csv can take any file location, including a URL. Download some data:
+urban_data <- read_csv("https://zenodo.org/records/3870855/files/Murray%20Sanchez%20et%20al_urban%20wildlife%20May%2020%202019.csv")
+
+class(urban_data)
 ```
 
+Notice that `read_csv` gives us information about how it read the file, including:
+
+* the number of rows and columns
+* the delimiter, which separates "cells" from one another (in this case, a comma)
+* the assumed types of each column (here, 14 character columns and 28 "double", or numeric, columns)
+
+When we examine the `class` of the new object, we see that it is a `data.frame`, but it also has other types. This is because we used a `tidyverse` package to read the data, so the object is a special type of data frame called a `tibble`. To learn more, check out `?tbl_df`.
+
+## Writing data from R
+
+Repositories like Zenodo should provide permanent ways to access data, but you should also save a local copy. To save this csv, we can use the `write_csv` function. 
+
+```{r}
+write_csv(urban_data, "data/raw/Murray-Sanchez_urban-wildlife.csv")
+```
+
+You should now see a new file in your raw data folder.
+
 ## Exercise 2
+
+1. Download the zip folder called neon_data.zip from eLC 
+2. Save it in your folder for raw data
+3. Unzip it
 
 <span style="color:red">**Save the following script as a new file and fill in the blanks**</span>
 
@@ -47,9 +79,6 @@ library(tidyverse)
 library(here)
 
 ##############  Section 1: Importing Data ############## 
-# Download the zip folder called neon_data.zip from eLC 
-# save it in your folder for raw data
-# unzip it
 
 # Read in the data file
 project_data <- read_csv("___/neon_data.csv")

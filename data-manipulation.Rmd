@@ -1,0 +1,12 @@
+# Data Manipulation with R {#manipulation}
+
+## Objectives
+
+* 
+
+
+## Exercise 
+
+```{r, eval = F, echo = T}
+
+```

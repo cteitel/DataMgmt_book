@@ -112,6 +112,14 @@ They can also be combined into more complex forms:
 * Data frames, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)
 * Lists, which can contain multiple data types. We will get to lists later.
 
+## A note: tidyverse vs. base R
+
+As we begin to delve more deeply into the `tidyverse`, we should briefly pause to mention some of the reasons for focusing on the `tidyverse` set of tools. In R, there are often many ways to get a job done, and there are other approaches that can accomplish tasks similar to the `tidyverse.`
+
+The phrase *base R* is used to refer to functions contained in R’s default packages. We have already used the base R function `print()`, and we will be using more scattered throughout this lesson (for example, `mean()`). The `tidyverse` refers to a set of packages that have a consisent *syntax* (a way of writing code) that is generally more intuitive and readable than base R. `tidyverse` packages also generally come with clearer help pages and error messages. 
+
+We will focus on `tidyverse` packages throughout this course, but will also note ways to perform the same actions in base R. If you want to collaborate with people who write code differently than you do, it is helpful to be familiar with base R - or at least to recognize that that is what you're seeing.
+
 ## Exercise 1
 
 <span style="color:red">**Save the following script as a new file and fill in the blanks**</span>
@@ -185,18 +193,21 @@ my_data <- data.frame(
 str(___)
 
 # Access the "species" column
-my_data$___
-# Access the "species" column using tidyverse
 pull(my_data, ___)
+# Alternatively, access the "species" column using base R
+my_data$___
 
-# BONUS: Access the count of pines
-pine_row <- which(my_data$species == "___")
-pine_count <- my_data[___, "count"]
-print(pine_count)
-
-# Or, do this in a "tidy" way
+# Access the count of pines
 pines <- filter(my_data, species == "___")
 pine_count <- pull(pines, ___)
+print(pine_count)
+
+# Or, do this using base R
+pine_row <- which(my_data$species == "___")
+# base R uses square brackets to access rows and columns: 
+# data[1,2] accesses the first row and second column.
+# You can also use row names and column names
+pine_count <- my_data[___, "count"]
 print(pine_count)
 
 ##############  Section 4: Bigger data frames ############## 
