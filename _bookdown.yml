@@ -4,7 +4,9 @@ new_session: true
 
 rmd_files: [
   "index.Rmd",
-  "Introduction.Rmd",
-  "Lesson1_basics.Rmd",
+  "introduction.Rmd",
+  "basics.Rmd",
+  "readwrite.Rmd",
+  "data-manipulation.Rmd",
   "06-references.Rmd"
 ]

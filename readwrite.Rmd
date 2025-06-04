@@ -1,10 +1,13 @@
 # Data Structures and Importing Data {#importexport}
 
+Some of this lesson draws from The Carpentries' [Data Organization in Spreadsheets for Ecologists](https://datacarpentry.github.io/spreadsheet-ecology-lesson) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/spreadsheet-ecology-lesson/LICENSE.html) license. It is also based on materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and available at https://ecorepsci.github.io/reproducible-science/.
+
 ## Objectives
 
 * Be able to work with relative file paths to read and write data
 * Bring data into R from a variety of sources and file types
 * Work with text/csv files and R data objects
+* Understand how to use spreadsheets for data entry and management
 
 ## Recap: data structures
 
@@ -23,7 +26,7 @@ They can also be combined into more complex forms:
 
 Your computer can store any number of file types, which are usually indicated by their extension (.docx, .pdf, .csv, .xlsx, etc.). Each file type stores data differently. Some file types are **proprietary** and can only be read by certain software. It is usually best to convert these into open formats before working with them in R or other programming languages. You are likely to receive data as Excel files (.xls, .xlsx). These used to be proprietary but are now open - however, using them with R requires a little practice to know how to import data and what information is lost in the process.
 
-## Reading data into R
+## Reading .csv files into R
 
 More often than not, you'll create data frames by importing external files (such as .csv) into R. A few useful functions for this are:
 
@@ -37,8 +40,11 @@ Murray, M. H., Sanchez, C. A., Becker, D. J., Byers, K. A., Worsley-Tonks, K. E.
 
 <span style="color:red">**Navigate to the repository using the DOI to learn more about the study.**</span>
 
-```{r}
+```{r, echo = T, message = F}
 library(tidyverse)
+```
+
+```{r}
 # First, look at the arguments for read_csv
 ?read_csv
 
@@ -65,6 +71,65 @@ write_csv(urban_data, "data/raw/Murray-Sanchez_urban-wildlife.csv")
 ```
 
 You should now see a new file in your raw data folder.
+
+## Working with spreadsheets, in and out of R
+
+Many spreadsheet programs are available. The most commonly used is Excel, so we will use Excel here, but these same principles apply to Google Sheets, etc.
+
+### Spreadsheets for data entry
+
+Spreadsheets are a great tool for data entry, but to be compatible with future analyses it is important to set them up properly. One common mistake is to use spreadsheets like data sheets or lab notebooks, which include notes for context or lay out data spatially. As humans, we can (usually) interpret these things, but computers don’t view information the same way, and unless we explain to the computer what every single thing means (and that can be hard!), it will not be able to see how our data fits together. 
+
+It is also important to know (and accept) that the best formats for data entry might not be the best formats for data analysis. In the next lesson, we will learn how to use R to automatically convert from one to another, but it is also helpful to understand the principles of data formatting in spreadsheets to make this processes as streamlined as possible. 
+
+### Formatting data in spreadsheets
+
+<span style="color:red">**Open the Murray, Sachez, et al. data in Excel or another spreadsheet program.**</span>
+
+Excel may ask you if you want to covert large numbers into scientific notation. You can say yes.
+
+Examine the spreadsheet. This is easier than looking at data using `head()` or other functions in R and RStudio. That is our first good use of spreadsheets: **familiarizing yourself with data**. 
+
+<span style="color:red">**Discuss**</span>**: what do you notice about the structure of this dataset?**
+
+* How are missing values represented?
+* Where is there duplicated information? Why do you think it is organized this way?
+* Which columns are intuitive? Which are not?
+* What else is confusing or interesting about this dataset?
+
+To answer some of these questions, we need **metadata**, which (as the name implies), is data about our data. Download the README file from the Zenodo repository: https://zenodo.org/records/3870855.
+
+### Tidy data
+This data set is *mostly* in "tidy" format, meaning that it has one observation per row and one variable per column. For example, look at the `host.class` and `aqterr` columns:
+
+![](images/tidycolumns.png)
+When entering data, you might intuitively enter it as "terrestrial mammal,", "terrestrial bird," etc., but this way data can later be filtered or analyzed by a single classification only. One case where this data set does not do this is the `host.species` column:
+
+![](images/speciescolumn.png)
+
+We might later be interested in grouping by genus, but we can't do that with the way the data are entered right now. We will learn how to separate the genus and species in R later.
+
+### Formatting and filtering
+
+<span style="color:red">**Save the Murray, Sanchez, et al. spreadsheet as an Excel workbook in your clean data folder.**</span> This step is important! We don't want to make any edits to the raw data.
+
+
+
+### What to avoid
+
+Some key practices to avoid when creating spreadsheets include:
+
+* Multiple tables in the same sheet --> instead, use multiple tabs (sheets) in the same file (workbook) or, even better, a separate file for each table.
+* Using formatting to convey information: formatting like bold, highlights, etc. can be useful for using spreadsheets, but they won't load across platforms. Instead, add a new column to flag entries.
+
+#https://bookdown.org/rdpeng/rprogdatascience/getting-data-in-and-out-of-r.html
+#https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/#post-lecture-materials
+
+```{r}
+# install.packages("readxl")
+library(readxl)
+
+```
 
 ## Exercise 2
 
