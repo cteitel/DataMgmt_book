@@ -1,0 +1,44 @@
+# Introduction: The what and why of reproducible science {#intro}
+
+## What is reproducible science?
+
+* Workflows
+* Methods
+
+## Why is reproducible science important?
+
+* Reproducibility "crisis"
+* Accessibility
+* Continuation of scientific knowledge
+
+## What complicates the practice of reproducible science?
+
+* Skills
+* Time
+* Motivation/incentives
+
+## Tools we will cover in this course
+
+* File management systems (folders, file types)
+* Coding in R
+* Version control with Git and GitHub
+* Data visualization in R
+* R Markdown documents for writing reports
+
+## Why use R?
+
+* Open-source with many packages and extensions
+* Interdisciplinary
+* Flexibility
+* Online communities and help
+
+## A note on coding
+
+* When to use it
+* When not to use it...
+* How to interact with programming languages
+
+## A note on Generative AI/LLMs
+
+
+

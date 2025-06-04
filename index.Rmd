@@ -1,0 +1,38 @@
+--- 
+title: "Data Management and Reproducible Science"
+author: "Claire S Teitelbaum"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This book contains lessons and exercises for FANR 5950/8950, Data Management and Reproducible Science, Fall 2025."
+---
+
+# Course overview
+
+This book contains lesson and exercises for FANR 5950/8950, Data Management and Reproducible Science, Fall 2025.
+
+Other course materials, including the syllabus, are available on [eLC](https://uga.view.usg.edu/d2l/login).
+
+## How to use this book
+
+Throughout this book, you will find actions indicated by <span style="color:red">**bold red text**</span>. Most exercises will ask you to copy R code from this book into a script on your computer. The code will appear like the one in the box below, and you can copy it by hovering over the box and clicking the clipboard icon in the top-right corner:
+
+```{r, eval = F, echo = T}
+# This is some R code
+class_work <- "this"
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+<!-- bookdown::render_book("index.Rmd") -->

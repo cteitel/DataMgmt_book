@@ -1,0 +1,75 @@
+# Data structures and importing data {#basics}
+
+## Objectives
+
+* Be able to work with relative file paths to read and write data
+* Bring data into R from a variety of sources and file types
+* Work with text/csv files and R data objects
+
+
+## Recap: data structures
+
+Objects in R can come in a number of forms:
+
+* Numbers (R differentiates between decimals or integers)
+* Characters
+* Factors (ordered values)
+
+They can also be combined into more complex forms:
+
+* Data frames, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)
+* Lists, which can contain multiple data types.
+
+## File types and their interaction with R
+
+Your computer can store any number of file types, which are usually indicated by their extension (.docx, .pdf, .csv, .xlsx, etc.). Each file type stores data differently. Some file types are **proprietary** and can only be read by certain software. It is usually best to convert these into open formats before working with them in R or other programming languages. You are likely to receive data as Excel files (.xls, .xlsx). These used to be proprietary but are now open - however, using them with R requires a little practice to know how to import data and what information is lost in the process.
+
+## Reading data into R
+
+More often than not, you'll create data frames by importing external files (such as .csv) into R. A few useful functions for this are:
+
+* `read.csv` and its tidy equivalent `read_csv` from the `readr` package
+* `read.table`, which can read .csv and other text files (.txt, etc.)
+* `source`, which reads R code files (we will get to this later)
+* `read_excel` from the `readxl` package
+
+<span style="color:red">**Download and read a .csv file**</span>
+
+```{r}
+```
+
+## Exercise 2
+
+<span style="color:red">**Save the following script as a new file and fill in the blanks**</span>
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+library(here)
+
+##############  Section 1: Importing Data ############## 
+# Download the zip folder called neon_data.zip from eLC 
+# save it in your folder for raw data
+# unzip it
+
+# Read in the data file
+project_data <- read_csv("___/neon_data.csv")
+
+# View the first few rows
+head(___)
+
+# Check the column names
+names(___)
+
+# Alternatively, load a file using here()
+project_data <- read_csv(here("___", "neon_data.csv"))
+
+# Summarize the dataset
+summary(___)
+
+##############  Bonus practice (optional) ############## 
+
+# Count the number of point counts in the NEON landbird data
+# Use the metadata to figure out which column to use
+point_counts <- pull(project_data, ___)
+
+```
