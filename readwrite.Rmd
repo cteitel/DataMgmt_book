@@ -5,7 +5,7 @@ Some of this lesson draws from The Carpentries' [Data Organization in Spreadshee
 ## Objectives
 
 * Be able to work with relative file paths to read and write data
-* Bring data into R from a variety of sources and file types
+* Bring data into R from different sources and file types
 * Work with text/csv files and R data objects
 * Understand how to use spreadsheets for data entry and management
 
@@ -109,11 +109,6 @@ When entering data, you might intuitively enter it as "terrestrial mammal,", "te
 
 We might later be interested in grouping by genus, but we can't do that with the way the data are entered right now. We will learn how to separate the genus and species in R later.
 
-### Formatting and filtering
-
-<span style="color:red">**Save the Murray, Sanchez, et al. spreadsheet as an Excel workbook in your clean data folder.**</span> This step is important! We don't want to make any edits to the raw data.
-
-
 
 ### What to avoid
 
@@ -122,48 +117,63 @@ Some key practices to avoid when creating spreadsheets include:
 * Multiple tables in the same sheet --> instead, use multiple tabs (sheets) in the same file (workbook) or, even better, a separate file for each table.
 * Using formatting to convey information: formatting like bold, highlights, etc. can be useful for using spreadsheets, but they won't load across platforms. Instead, add a new column to flag entries.
 
-#https://bookdown.org/rdpeng/rprogdatascience/getting-data-in-and-out-of-r.html
-#https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-06-reading-and-writing-data/#post-lecture-materials
-
-```{r}
-# install.packages("readxl")
-library(readxl)
-
-```
 
 ## Exercise 2
 
-1. Download the zip folder called neon_data.zip from eLC 
-2. Save it in your folder for raw data
-3. Unzip it
+We’re going to take a messy data set describe how we would clean it up.
 
-<span style="color:red">**Save the following script as a new file and fill in the blanks**</span>
+* Download the [survey_data_spreadsheet_messy.xlsx](link) data and save it in your course folder.
+* Open up the data in a spreadsheet program.
+* You can see that there are two tabs. Two field assistants conducted the surveys, one in 2013 and one in 2014, and they both kept track of the data in their own way in tabs 2013 and 2014 of the dataset, respectively. Now you’re the person in charge of this project and you want to be able to start analyzing the data.
+* Identify what is wrong with this spreadsheet and the steps you would need to take to clean up the 2013 and 2014 tabs, and to put them all together in one spreadsheet.
+**Important** Make sure you create a new file (or tab) for the cleaned data, never modify your original (raw) data. Create a README file that documents all the changes you made to get from the raw to the clean data.
 
-```{r, eval = F, echo = T}
-library(tidyverse)
+#Answer key
+##Move to single sheet
+##Add species as column for 2013 data
+##Add plot as column for 2014 data
+##Add column indicating scale calibration
+##Fix dates in plots 3 and 4 in 2014 data
+##All the while: no spaces in column names
+
+Now, let's read the [cleaned spreadsheet](link) into R and work with it a little:
+
+```{r, echo = T, eval = F}
+# install.packages("readxl")
+library(readxl)
 library(here)
+library(tidyverse)
 
-##############  Section 1: Importing Data ############## 
+# If you are using a Windows machine, you may need to close the Excel spreadsheet before opening it with R
+# Use double colons :: to indicate the source package. This can be helpful for future users.
+# You can also use double colons to use a function from a package without loading it with library()
+survey_data <- readxl::read_excel("data/clean/survey_data_spreadsheet_clean.xlsx", sheet = 1) 
 
-# Read in the data file
-project_data <- read_csv("___/neon_data.csv")
-
-# View the first few rows
-head(___)
+# Alternatively, load a file using here()
+survey_data <- read_excel(here("data/clean", "survey_data_spreadsheet_clean.xlsx"))
 
 # Check the column names
 names(___)
 
-# Alternatively, load a file using here()
-project_data <- read_csv(here("___", "neon_data.csv"))
+# View the first few rows
+head(___)
 
 # Summarize the dataset
 summary(___)
 
-##############  Bonus practice (optional) ############## 
+# Get all species 
+species_vect <- pull(survey_data, ___)
+print(unique(species_vect)) #we can nest functions like this to save space
 
-# Count the number of point counts in the NEON landbird data
-# Use the metadata to figure out which column to use
-point_counts <- pull(project_data, ___)
+# Get the mean weight of all samples
+mean(___) 
+#You might get a surprise answer here! Use the help function to find out how to fix this:
+?mean 
+mean(___, ___)
 
 ```
+
+### Exercise 2 Questions
+
+1. NA appears twice in the species vector. Why is this? Would you change anything in the data spreadsheet to avoid this, or is it not a problem?
+2. What values in the spreadsheet are interpreted by R as missing values? How would you account for this in data entry?
