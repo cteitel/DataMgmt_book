@@ -5,7 +5,7 @@
 * 
 
 
-## Exercise 
+## Exercise 3
 
 ```{r, eval = F, echo = T}
 

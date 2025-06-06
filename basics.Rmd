@@ -1,4 +1,4 @@
-# Getting Started with R and Reproducible Workflows {#basics}
+# Getting Started with R {#basics}
 
 Much of this lesson draws from The Carpentries' [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/index.html) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/R-ecology-lesson/LICENSE.html) license.
 
@@ -26,6 +26,8 @@ R is the primary coding language used by those in ecology and natural resources.
 * Files/Plots/Packages: plots you create will appear here, and you can browse files or load packages by clicking (though I don't recommend it).
 
 You can customize properties like the organization of the windows and the color scheme using Tools --> Global Options. We will change one setting today: <span style="color:red">**Under the "General" tab**</span>, make sure "Restore .RData into workspace at startup" is unchecked and set "Save workspace to .Rdata on exit" to "Never." We don’t want RStudio reload everything in our current session the next time we start R. This sounds convenient, but for the sake of reproducibility, we want to start with a clean, empty R session every time we work - because anyone following behind us would do so, too. Instead, we will record all steps scripts, save any data we need into files, and store outputs like images as files. 
+
+![](images/workspaceimage.png)
 
 ## Installing packages; also, functions and objects
 

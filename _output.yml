@@ -3,10 +3,11 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Data Management and Reproducible Science</a></li>
+        <li><a href="https://github.com/cteitel/DataMgmt_book" target="blank">Data Management and Reproducible Science</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/rstudio/bookdown-demo/edit/master/%s
+      collapse: section
+      scroll_highlight: true
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:

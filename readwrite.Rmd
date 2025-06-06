@@ -103,6 +103,7 @@ To answer some of these questions, we need **metadata**, which (as the name impl
 This data set is *mostly* in "tidy" format, meaning that it has one observation per row and one variable per column. For example, look at the `host.class` and `aqterr` columns:
 
 ![](images/tidycolumns.png)
+
 When entering data, you might intuitively enter it as "terrestrial mammal,", "terrestrial bird," etc., but this way data can later be filtered or analyzed by a single classification only. One case where this data set does not do this is the `host.species` column:
 
 ![](images/speciescolumn.png)
@@ -126,17 +127,18 @@ We’re going to take a messy data set describe how we would clean it up.
 * Open up the data in a spreadsheet program.
 * You can see that there are two tabs. Two field assistants conducted the surveys, one in 2013 and one in 2014, and they both kept track of the data in their own way in tabs 2013 and 2014 of the dataset, respectively. Now you’re the person in charge of this project and you want to be able to start analyzing the data.
 * Identify what is wrong with this spreadsheet and the steps you would need to take to clean up the 2013 and 2014 tabs, and to put them all together in one spreadsheet.
-**Important** Make sure you create a new file (or tab) for the cleaned data, never modify your original (raw) data. Create a README file that documents all the changes you made to get from the raw to the clean data.
 
-#Answer key
-##Move to single sheet
-##Add species as column for 2013 data
-##Add plot as column for 2014 data
-##Add column indicating scale calibration
-##Fix dates in plots 3 and 4 in 2014 data
-##All the while: no spaces in column names
+**Important!** Make sure you create a new file (or tab) for the cleaned data, never modify your original (raw) data. Create a README file that documents all the changes you made to get from the raw to the clean data.
 
-Now, let's read the [cleaned spreadsheet](link) into R and work with it a little:
+<!-- Answer key -->
+<!-- ##Move to single sheet -->
+<!-- ##Add species as column for 2013 data -->
+<!-- ##Add plot as column for 2014 data -->
+<!-- ##Add column indicating scale calibration -->
+<!-- ##Fix dates in plots 3 and 4 in 2014 data -->
+<!-- ##All the while: no spaces in column names -->
+
+Now, let's read the [cleaned spreadsheet](link) into R and work with it a little. (First, save this spreadsheet in in your folder for clean data):
 
 ```{r, echo = T, eval = F}
 # install.packages("readxl")
