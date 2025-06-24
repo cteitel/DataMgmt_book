@@ -1,0 +1,29 @@
+# Version Control with Git and GitHub
+
+```{r, fig.cap="Fairly accurate. (https://xkcd.com/1597/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
+```
+
+## Objectives
+
+* Understand the benefits and challenges of using Git for version control
+* Modify, stage, and commit changes with Git
+* Push and pull to/from a GitHub repository
+
+## The what and why of version control
+
+Git is a version control system. It tracks all the changes you make to your files and allows you to go back to previous versions as far back in time as you need. Git is useful for keeping yourself organized and can be combined with collaboration software (GitHub) to make sharing code and other files easy. You might have a folder that looks something like this:
+
+![](images/files_with_dates.png)
+
+My past self obviously could have been better about using consistent formatting for dates (some of these include year and some do not), but even if I had done so there are a few drawbacks to this approach:
+
+* Each of these files takes up space on my hard drive. Even if each is very small, they will add up.
+* I don't know what changes were made between each of these versions, so it would be hard for me to go back to an old version to find deleted or modified code.
+* I can't be totally sure which of these is the most recent version. Sometimes, the "date modified" doesn't line up with the date on the file. What to do then?
+
+Git provides a solution to this problem. Using Git, you will only have one file for each script on your computer, but you will have a log of changes, including your own notes on what you changed and why. For example:
+
+
+
+## Exercise

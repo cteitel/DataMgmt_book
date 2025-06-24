@@ -1,0 +1,234 @@
+# Data Manipulation with R {#filter-select-mutate}
+
+Much of this lesson draws from The Carpentries' [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/index.html) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/R-ecology-lesson/LICENSE.html) license.
+
+## Objectives
+
+* Explore the structure and content of data frames
+* Understand vector types and missing data
+* Use vectors as function arguments
+* Understand how R assigns values to objects
+
+## Murray, Sanchez et al. data
+
+So far, we have used data built into R, and practiced loading data from **URLs** and **files**. In this lesson, we will go back to the data from Murray, Sanchez, et al., which is a meta-analysis of relationships between urbanization and wildlife health.
+
+
+```{r}
+library(tidyverse)
+urban_data <- read_csv("data/raw/Murray-Sanchez_urban-wildlife.csv")
+```
+
+<!-- This help page shows you that `complete` is a function in the `tidyr` package *and* data in the `ratdat` package. This can complicate things at times, because R will use a different one by default depending on the order in which you loaded the packages. So, we can assign `ratdat`'s `complete` to an object with a new name to simplify things. We can also use the double colons `::` to specify the package from which we want to pull the object. -->
+
+<!-- ```{r} -->
+<!-- ?ratdat::complete -->
+<!-- rd_complete <- ratdat::complete -->
+<!-- head(rd_complete) -->
+<!-- dim(rd_complete) -->
+<!-- ``` -->
+
+## Filtering rows; creating and selecting columns
+
+One of the most important skills for working with data in R is the ability to manipulate, modify, and reshape data. The `dplyr` and `tidyr` packages in the `tidyverse` provide some very useful functions for many common data manipulation tasks.
+
+### Selecting columns with `select()`
+
+The `select` function allows you to take only some some columns from your data frame. The first argument is the name of the data frame, and the following arguments are the names of the columns you want. Here, we will take only species information and record IDs from the Murray et al. dataset:
+
+```{r}
+urban_species <- select(urban_data, study, host.class, aqterr, host.species)
+head(urban_species)
+dim(urban_species)
+```
+
+This function can be especially useful to clean up your data, for example when you have created intermediate columns, or when you read in a data set that has a lot of extraneous information. Notice that columns are now reordered: `host.species` was specified last within `select`, so it is now the last column.
+
+We can also use `select` to remove columns, using the - symbol.
+
+```{r}
+select(urban_data, -TITLE, -AUTHORS, -YEAR, -JOURNAL)
+```
+
+`select()` also works with numeric vectors for the order of the columns. To select the 3rd, 4th, 5th, and 10th columns, we could run the following code:
+
+```{r}
+select(urban_data, 3:5, 10)
+```
+
+You should be careful when using this method, since you are being less explicit about which columns you want. However, it can be useful if you have a data frame with many columns and you don’t want to type out too many names.
+
+We can also select columns based on their properties using the `where()` function. For example, to select all character columns:
+
+```{r}
+select(urban_data, where(is.character))
+```
+
+### Subsetting data with `filter()`
+
+The `filter()` function subsets a data frame to rows that meet some criteria. For example, to get all rows where the taxon sampled was a bird:
+
+```{r}
+filter(urban_data, host.class == "birds")
+```
+
+Now we are introducing logical statements with the `==` sign! `==` means "is equal to". It is very different from `=`, which specifies arguments in functions (and can be used as an assignment operator, but that is not recommended). A few other useful operators and functions for filtering are:
+
+* `!=`, which means "not equal to." `!` means "not" and can be applied to many logical statements.
+* `%in%`, which asks if the left hand side is found anywhere in the vector on the right side.
+* `is.na`, which asks if the value is missing.
+* `>`, `>=`, `<`, and `<=`, which filter based on the values of numeric columns.
+
+```{r}
+filter(urban_data, host.class != "mammals")
+filter(urban_data, host.class %in% c("birds","fish"))
+filter(urban_data, is.na(pval))
+filter(urban_data, YEAR >= 2010)
+```
+
+We can also filter using multiple criteria simultaneously using `&` (AND) and `|` (OR):
+
+```{r}
+filter(urban_data, host.class != "mammals" & !is.na(pval))
+filter(urban_data, ptype == "Prevalence" | SAMPLE_SIZE > 100)
+```
+
+Can you describe what is being included and excluded in each of these statements?
+
+Use the `urban_data` data to make a data frame with data from 2000 through 2010.
+
+```{r}
+```
+
+### Making new columns with `mutate()`
+
+Another common task is making new columns using values in existing columns. For example, we we can create a new column that measures gross domestic product (GDP, the `gdpbill` column) length in tens of billions instead of billions of dollars:
+
+```{r}
+urban_data <- mutate(urban_data, gdpbill10 = gdpbill/10)
+```
+
+`mutate` can also create multiple columns at once, separated by a comma:
+
+```{r}
+urban_data <- mutate(urban_data, gdpbill10 = gdpbill10/10,
+                      years_since_1998 = YEAR - 1998) #not the best column name - a little long
+# To view the new columns, we will select them, 
+# because this data frame has too many columns to print them all
+# and our new columns are placed at the end
+select(urban_data, gdpbill, gdpbill10, YEAR, years_since_1998)
+```
+
+We can also use `mutate` to modify values in existing columns. For example, we see that the transmission mode columns are coded as integers instead of logical:
+
+```{r}
+unique(urban_data$close)
+```
+
+To replace `1`s with `TRUE`s and `0`s with `FALSE`s, we can use the `as.logical` function:
+
+```{r}
+urban_data_close <- mutate(urban_data, close = as.logical(close))
+unique(urban_data_close$close)
+```
+
+Note that this works because R assumes by default that `0` means `FALSE` and `1` means `TRUE.` We will get into `if` and `ifelse` statements later, which would allow you to convert more types of values. Another way to do the same thing would be using a logical statement:
+
+```{r}
+urban_data_lgl <- mutate(urban_data, nonclose = (nonclose == 1))
+unique(urban_data_lgl$nonclose)
+```
+
+As with `filter`, we can use `mutate` to create multiple columns at once:
+
+```{r}
+urban_data_lgl2 <- mutate(urban_data, close = as.logical(close),
+                      nonclose = as.logical(nonclose))
+```
+
+Finally, we can also apply exactly the same function to multiple columns:
+
+```{r}
+urban_data_lgl <- mutate(urban_data, across(c(close, nonclose, vector, intermediate), as.logical))
+```
+
+Note that this is a little more complicated! The first argument is still the data set (`urban_data`), but the second argument is now a vector of column names, enclosed within `c()`, and the function `across` applies the function to multiple columns. The second argument to `across` is the function that is applied to all the columns.
+
+Another common task is to replace NAs with another value, or to replace certain character strings (e.g., `""`) with `NA`s. For example, for studies with no difference in urbanization across the study area (the `udiff_1000` column), we might want to replace `0` with a missing value. Here, we can use a combination of `mutate` with the `na_if` function from `tidyr`:
+
+```{r}
+mutate(urban_data, udiff_1000 = na_if(udiff_1000, 0))
+```
+
+## Pipes
+
+What if you want to do a bunch of operations in order, for example filtering your data and creating new columns. The most basic way to do this is to create intermediate objects:
+
+```{r}
+urban_data_mamm <- filter(urban_data, host.class == "mammals")
+urban_data_mamm <- mutate(urban_data_mamm, across(c(close, nonclose, vector, intermediate), as.logical))
+```
+
+You could also nest your functions, but as you can see this gets unwieldy quickly:
+
+```{r}
+urban_data_mamm <- filter(mutate(urban_data_mamm, across(c(close, nonclose, vector, intermediate), as.logical)), host.class == "mammals")
+```
+
+`tidyverse` provides a powerful way to tie a squence of actions together: the pipe (`%>%`). Pipes can initially be intimidating (what are those `%` doing?!) and they are by no means necessary to use, but they can make your code neat and easier to understand. 
+
+```{r}
+urban_data_mamm <- urban_data %>%
+  filter(host.class == "mammals") %>%
+  mutate(across(c(close, nonclose, vector, intermediate), as.logical))
+```
+
+You can read the pipe as *then*: take the urban data, *then* take only rows for mammals, *then* convert the transmission mode columns to logical. The pipe takes the output of the previous line and feeds it as input into the next one. Notice that you don't have to repeat the name of the data object,because the data is whatever the pipe is feeding into the function. There are 
+several advantages to using pipes compared to traditional syntax. First, by 
+using a pipe in the example above, we avoided saving intermediate objects (e.g., 
+`no_pkey`) to the environment: we only saved the final result we wanted. Second,
+we typed less. Third, our code is more readable because the syntax of our code
+reflects the logical structure of what we are doing. The shortcut for inserting a pipe
+is `Ctrl + Shift + M` on Windows and `Cmd + Shift + M` on Mac.
+
+
+## Exercise 4
+
+Here, we will practice on a new data set. Download the files `surveys.csv` and `species_info.csv` into a subfolder of your raw data folder. You may need to modify the paths below to match your file organization system.
+
+```{r, eval = F, echo = T}
+# Load the tidyverse
+library(tidyverse)
+
+# Read in the data: modify this path as needed
+surveys <- read_csv("data/raw/survey_data/surveys.csv")
+
+# Take a look at the first few rows
+head(___)
+
+# Select only the species and weight columns
+species_weight <- surveys %>%
+  select(___, ___)
+
+# Filter to only include rows where weight is greater than 100 grams
+heavy_animals <- surveys %>%
+  filter(___ > ___)
+
+# Create a new column that converts weight to kilograms
+surveys_kg <- surveys %>%
+  mutate(weight_kg = weight / ___)
+
+# Create a new column that indicates if weight is above average
+avg_weight <- mean(surveys$weight, na.rm = TRUE)
+
+surveys_flagged <- surveys %>%
+  mutate(above_avg = weight > ___)
+
+
+```
+
+There are many, many more data manipulation functions included in `dplyr` and other R packages that we haven't mentioned yet. You can use some of the same techniques (Google, etc.) we discussed in the [troubleshooting](#troubleshooting) chapter to find the function you need for a given purpose. To practice:
+
+* What `tidyverse` function would you use to sort a data frame by a numeric variable?
+* What `tidyverse` function would you use to subset the first 10 rows of a data frame?
+

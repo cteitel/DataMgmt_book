@@ -1,0 +1,337 @@
+# Dates and Times in R {#lubridate}
+
+Much of this lesson is based on materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+
+## Objectives
+
+* Understand the challenges and considerations of working with date/time data
+* Be able to convert between date and time formats in R
+* Be able to extract portions of dates and times from vectors
+* Perform basic arithmetic with dates and times
+
+## Why are dates and times unique?
+
+Dates and times can be a headache to work with. They are more or less numbers, but they don’t follow regular number rules. Here’s just a handful of things that make dates and times different:
+
+* There’s no 61 after 60 when working with seconds and minutes;
+* There’s no 25 after 24 when working with hours;
+* There’s no 13 after 12 when working with months;
+* Most years are 365-days long, but some are 366-days long;
+* The same time means something different depending on the time zone;
+* The same time means something different between standard and daylight savings time. And daylight savings time starts on a different day each year and on a different day in different places (or not at all).
+
+Keeping track of these rules manually would be a nightmare, especially when working with large datasets. 
+
+```{r, fig.cap="Ask R when year 0 is, and it will tell you it is 1970. (https://xkcd.com/376/)", fig.align='center', out.width='50%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/bug.png")
+```
+
+## Dates and times in R
+
+The basic classes for dates and R are `POSIXct` and `POSIXlt` (other classes we've learned about are integers, characters, etc.). `POSIXct` includes a time, whereas `POSIXlt` is just a date. Although `POSIXt` dates are usually represented in a date format (e.g., "2025-08-13 09:35:00 EDT"), they are stored as numbers under the hood, based on the number of seconds since midnight on January 1, 1970 (negative numbers are also supported and represent days before this date). Let's play with this:
+
+```{r}
+date_chr <- "2025-09-01"
+class(date_chr)
+```
+
+This date is just a character, because that's how it was specified. On the other hand:
+
+```{r}
+date_pox <- as.POSIXlt(date_chr)
+date_pox
+class(date_pox)
+```
+
+Besides `POSIXct` and `POSIXlt`, R also support a data type called `Date.` This is equivalent to Excel’s handling of dates, i.e., the number of days since 1/1/1970:
+
+```{r}
+date_Date <- as.Date(date_chr)
+date_Date
+class(date_Date)
+```
+
+You can see that these perform differently when we ask R to convert them to numbers:
+
+```{r}
+as.numeric(date_chr)
+as.numeric(date_pox)
+as.numeric(date_Date)
+```
+
+You can also see that `date_pox` has an associated time zone (but `date_Date` does not). By default, that is the time zone of your computer (which R can find).
+
+```{r}
+Sys.timezone()
+```
+
+Other useful date functions in R include finding the current date and time:
+
+```{r}
+Sys.Date()
+Sys.time() #careful, this is not the same as system.time. We might get to that one later!
+```
+
+### Formatting dates
+
+In the U.S. we most commonly write dates as month/day/year, without leading zeroes, but "standard" international format is year-month-day with leading zeroes, so you will encounter problems in R if you assume it will understand U.S. dates:
+
+```{r, error = T}
+as.Date("4/15/2025")
+as.Date("1/11/2025")
+```
+
+To fix this, we can use the `format` argument to tell R about the format of our input:
+
+```{r}
+d <- as.Date("01/11/2025", format = "%m/%d/%Y")
+d
+```
+
+Now that R has read it correctly, it will output the date in the "standard" format.
+
+As a side note, this is one reason that is can be helpful to get used to entering dates in this format. Another big benefit is that sorting is easier: alphabetical, numerical, and time orders will line up if the year is first, but not if the month is first.
+
+## The `lubridate` package
+
+The `tidyverse` way of working with dates and times is in the `lubridate` package, but `lubridate` is not part of core `tidyverse`, so we need to install it. Working with dates and times using `lubridate` is slightly easier than doing so with base R because it streamlines some processes, including parsing dates and times from character strings and extracting information (e.g., the year) from dates.
+
+```{r, eval = F}
+install.packages("lubridate")
+```
+
+### Parsing dates from characters
+
+Lubridate's functions for parsing dates are:
+
+```{r, eval = F}
+ymd()
+mdy()
+dmy()
+
+ymd_hms()
+mdy_hms()
+dmy_hms()
+
+hms()
+hm()
+ms()
+```
+
+The separator (/ or -) does not matter, and neither do leading zeroes (unless you don't use a separator). For example, with the example above, I could use:
+
+```{r}
+library(lubridate)
+mdy("01/11/2025")
+ymd_hms("2021-01-09 00:01:23")
+mdy("01112025")
+```
+
+Notice that the functions from `lubridate` assume a default time zone of Coordinated Universal Time (UTC), not the local time zone! UTC is the same time zone as Greenwich Mean Time (GMT), but without daylight savings. This is a more reproducible default, because the result will be exactly the same regardless of where the user is sitting.
+
+As you might expect, it's important to make sure the format in the input matches the format of the function:
+
+```{r, error = T}
+lubridate::mdy("2028-01-01")
+```
+
+Note that this provides a *warning*, not an *error* and outputs `NA`. This feature can be useful, for example if you have a data column with missing information, but can also be dangerous (imagine a whole column of `NA`s or missing values where you had a typo in data entry).
+
+As we saw above with the base R function, these functions (`ymd()`, `mdy()`, etc.) tell `lubridate` how to read the format of the **input**; the format of the **output** is always the same:
+
+```{r}
+class(mdy("01/11/2025"))
+class(ymd_hms("2021-01-09 00:01:23"))
+```
+
+### Extracting parts of dates
+
+`lubridate` also provides functions to extract components of a date:
+
+```{r, eval = F}
+year()
+month()
+day()
+
+hour()
+minute()
+second()
+
+wday() #day of the week
+yday() #day of the year
+```
+
+```{r}
+ts <- ymd_hms("2021-01-09 00:01:23")
+year(ts)
+hour(ts)
+```
+
+## Calculations with dates
+
+Often, we want to perform calculations with dates, like adding or subtracting time from them or figuring out the time between them. Often this is possible with simple mathematical symbols:
+
+```{r}
+d1 <- ymd("2022-01-14")
+d2 <- ymd_hms("2022-01-15 10:06:00")
+d3 <- ymd("2022-01-16")
+
+d3 - d1
+```
+
+But we have to be careful; the object types must match:
+
+```{r}
+d1 - d2
+```
+
+The function `difftime` is a better way of doing this, because it can accommodate these different object types. It also allows you to specify units for the output:
+
+```{r}
+difftime(d2, d1)
+difftime(d2, d1, units = "hours")
+```
+
+*We did not specify a time for `d1`, just a date. Based on the results from `difftime`, what time did R use for this calculation?*
+
+We can also add and subtract time from dates:
+
+```{r}
+d1 + 1
+d2 + 1
+```
+
+Notice that adding 1 did different things in these two cases: at added a day to `d1` and a second to `d2`! This is because the precision of the two objects was different, but it's not intuitive! To be more careful, we can instead specify the units of a number with the following `lubridate` functions:
+
+```{r, eval = F}
+seconds()
+minutes()
+hours()
+days()
+weeks()
+months()
+years()
+```
+
+For example: 
+
+```{r}
+d1 + years(1)
+d1 + minutes(10)
+```
+
+Notice that these are changing the year and minute component of the dates, but aren't accounting for any irregularities, like leap years or months of different lengths. Technically, a year (on average) is 365 days + 6 hours. We won't go into that here, but `lubridate` also provides functions for these (e.g., using `dyears()` instead of `years()`).
+
+Finally, you might want to round dates. Here, we use similar functions as for numbers, `floor_date()`, `ceiling_date()`, and `round_date()`, but instead of specifying number of digits, we specify time precision:
+
+```{r}
+round_date(d1)
+round_date(d1, unit = "year")
+round_date(d2, unit = "day")
+```
+
+## Time zones
+
+As noted above, a new time or date created with `lubridate` will by default be in UTC. To specify a time zone, you can use the `tz` argument:
+
+```{r}
+d2 <- ymd_hms("2022-01-15 10:06:00", tz = "America/New_York")
+```
+
+You can get the list of time zones with:
+
+```{r}
+tzs <- OlsonNames()
+head(tzs)
+```
+
+You can also change the time zone of an existing object. This is often useful when you read in data that have a time zone already, but R doesn't know that. For example:
+
+```{r}
+d4 <- ymd_hms("2025-02-05 15:40:29")
+tz(d4) <- "America/New_York"
+d4
+```
+
+Notice that the time is the same but the time zone is different, so the actual moment in time has changed. You can use `with_tz()` to convert across time zones while keeping the moment the same, for example to make plots in local time when data was measured in UTC:
+
+```{r}
+d4 <- ymd_hms("2025-02-05 15:40:29")
+with_tz(d4, "America/New_York")
+```
+
+
+## Exercise 6
+
+Now that you have learned about date-time objects, this exercise will allow you to practice working with them in the context of data frames.
+
+```{r, eval = F}
+# Load tidyverse and lubridate
+library(tidyverse)
+library(lubridate)
+library(here)
+
+# Read in the field observations dataset
+observations <- read_csv("data/raw/field_observations.csv")
+
+# View the first few rows
+head(___)
+
+# Convert the datetime column to a proper date-time object
+observations <- observations %>%
+  mutate(datetime = ymd_hm(___))
+
+# Extract the date only (no time)
+observations <- observations %>%
+  mutate(date_only = as_date(___))
+
+# What class is the datetime column?
+class(observations$___)
+
+# Extract year, month, and weekday
+observations <- observations %>%
+  mutate(
+    year = year(___),
+    month = month(___, label = TRUE),
+    weekday = wday(___, label = TRUE)
+  )
+
+# Count observations by weekday
+obs_by_weekday <- observations %>%
+  group_by(weekday) %>%
+  summarize(n = n())
+
+print(obs_by_weekday)
+
+# Filter for observations from 2023 only
+obs_2023 <- observations %>%
+  filter(year == ___)
+
+# Filter for observations after July 1, 2023
+obs_after_july <- observations %>%
+  filter(date_only > ymd("___"))
+
+# Filter for afternoon observations (after 12:00)
+obs_afternoon <- observations %>%
+  filter(hour(datetime) >= ___)
+
+# Calculate the time since the first observation for each row
+first_obs <- min(observations$datetime, na.rm = TRUE)
+
+observations <- observations %>%
+  mutate(
+    minutes_since_start = as.numeric(difftime(datetime, ___, units = "mins"))
+  )
+
+# Create a duration object
+d <- minutes(___)  # e.g., 90 minutes
+
+# Add the duration to the datetime to simulate end time
+observations <- observations %>%
+  mutate(
+    end_time = datetime + d
+  )
+
+```
+
