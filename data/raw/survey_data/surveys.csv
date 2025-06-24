@@ -1,0 +1,9 @@
+species,sex,weight,habitat,year
+sp1,M,120,forest,2020
+sp2,F,85,grassland,2020
+sp1,F,95,forest,2021
+sp3,M,200,wetland,2020
+sp2,M,110,grassland,2021
+sp1,F,130,forest,2022
+sp4,F,75,wetland,2022
+sp2,U,90,grassland,2022

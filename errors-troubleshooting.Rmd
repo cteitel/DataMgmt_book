@@ -1,6 +1,6 @@
 # Troubleshooting in R {#troubleshooting}
 
-This lesson draws heavily from materials from WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and available at https://ecorepsci.github.io/reproducible-science/.
+This lesson draws heavily from materials from [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
 ## Objectives
 
@@ -16,7 +16,7 @@ Computers only do what we *tell* them to do, not what we *want* them to do. Some
 
 ## How to interpret error messages
 
-Error messages can be frustrating but they can be an important ally in diagnosing problems in your code. Some error messages (the good ones) are clear and point you to the problem quite explicitly. Others are cryptic, but they are so typical of  certain situations that they end up working as pretty good hints of what is wrong. The worst kind of error is the undescriptive, rare one that gives you no real clue where the problem is. Yoiu will encounter all of these. 
+Error messages can be frustrating but they can be an important ally in diagnosing problems in your code. Some error messages (the good ones) are clear and point you to the problem quite explicitly. Others are cryptic, but they are so typical of  certain situations that they end up working as pretty good hints of what is wrong. The worst kind of error is the undescriptive, rare one that gives you no real clue where the problem is. You will encounter all of these. 
 
 R provides three main types of outputs in the console:
 
@@ -91,7 +91,7 @@ Bottom line: use the first component of the error message (the one after
   
 Perhaps the most classic of error messages is this:
 
-```{r trb7, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 vec <- c(1, 4, 6, 7, 8))
 ```
 
@@ -182,7 +182,7 @@ Most often, Googling will take you to StackOverflow...
 
 In most cases, somebody has probably already run into your problem and posted about on StackOverflow or similar websites. This gets less true if you are using a new or uncommon package, but usually the difficult part is to be able to apply the answers from these forums to your problem. The specifics of the dataset the other person is using may not be exactly identical to yours. This is where thinking outside the box and drawing parallels between your case and somebody else's case becomes critical. For instance, say that I run the following code and get an error:
 
-```{r trb10, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 vec <- 1:10
 
 mat <- matrix(NA, 5, 5)
@@ -208,7 +208,7 @@ knitr::include_graphics("images/debugging.jpg")
 
 Consider the following loop:
 
-```{r trb11, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 
 my_list <- list(11, 4, TRUE, 98, FALSE, "yellow", 34, FALSE, TRUE, "dog")
 
@@ -229,7 +229,7 @@ thus, `i` is an object in your environment. If one iteration returns an error,
 the loop stops. So the value of `i` after the loop stops will tell you which was
 the element that produced the error:
 
-```{r trb12, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = TRUE}
 i
 ```
 
@@ -237,7 +237,7 @@ In this case, the sixth iteration is the one that failed. Now that we know this,
 the second trick to know is that we can step through the loop one line at a time 
 while having `i = 6` and see where the error occurs:
 
-```{r trb13, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 i <- 6
 
 item <- my_list[[i]] # this line returns no error
@@ -271,7 +271,7 @@ environment where temporary objects are saved. Then, once the final output is
 ready to be returned, the function saves that and only that to the global 
 environment. Consider the following function:
 
-```{r trb14, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = TRUE}
 
 fun_test <- function(x) {
   
@@ -292,7 +292,7 @@ the function, we need to "move" the process into our global environment. This
 means that we need to define an `x` object in our global environment and then
 step through the code inside the curly braces manually:
 
-```{r trb15, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 (x <- 1)
 (y <- x * 2)
 (z <- y + 10)
@@ -301,7 +301,7 @@ step through the code inside the curly braces manually:
 Now let's make an example with `lapply`. Say that we want to apply our function
 to the list we used in the loop above:
 
-```{r trb16, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 my_list <- list(11, 4, TRUE, 98, FALSE, "yellow", 34, FALSE, TRUE, "dog")
 
 lapply(my_list, fun_test)
@@ -312,7 +312,7 @@ Here's the error again. This time, we don't get the luxury of looking at the
 iteration index to get a hint on where things went wrong. So what we can do
 instead is step through the list elements one at a time: 
 
-```{r trb17, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = TRUE}
 x <- my_list[[1]] # first we assign the first element of the list to x
 
 # then we step through the code inside the function
@@ -324,7 +324,7 @@ x <- my_list[[1]] # first we assign the first element of the list to x
 This went smoothly, so that must not have been the problematic item. If we keep
 going with the other elements, eventually we find the culprit:
 
-```{r trb18, eval = TRUE, echo = TRUE, error = TRUE}
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
 x <- my_list[[6]] 
 
 (y <- x * 2)
@@ -355,7 +355,7 @@ available in R, you can use that. Otherwise, you can use the function `dput` to
 generate code to recreate your current dataset and then copy-paste it into your
 script:
 
-```{r trb19, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = TRUE}
 df <- data.frame(numbers = 1:5,
                  letters = c("A", "B", "C", "D", "E"),
                  animals = c("cat", "dog", "lion", "cheetah", "giraffe"))
@@ -363,7 +363,7 @@ df <- data.frame(numbers = 1:5,
 dput(df)
 ```
 
-```{r trb20, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = TRUE}
 df <- structure(list(numbers = 1:5, 
                      letters = c("A", "B", "C", "D", "E"), 
                      animals = c("cat", "dog", "lion", "cheetah", "giraffe")), 
@@ -375,7 +375,7 @@ df <- structure(list(numbers = 1:5,
 using the `sessionInfo` function. Copy-paste the output as a comment into your 
 reproducible example script:
 
-```{r trb21, eval = TRUE, echo = TRUE}
+```{r, eval = TRUE, echo = TRUE}
 sessionInfo()
 ```
 
@@ -388,4 +388,58 @@ It consists of explaining code, line by line, to a rubber duck. While this debug
 * AI/LLM tools: ChatGPT and other LLMs can be great troubleshooting buddies, especially if you ask them to explain why you were getting your error in the first place. But be careful - sometimes they'll change other parts of your code along the way!
 
 
+## Exercise 3
 
+Below are some code snippets that produce errors. For each error below:
+
+1. describe (in words) the issue creating the error
+2. edit the code to fix it
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+dat <- data.frame(animals = c("gray squirrel","white-tailed deer","scarlet tanager"),
+                  counts = c(1, 5, 2))
+dat$observer <- c("Claire", "Claire", "Unknown", "Unknown")
+```
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+sites <- data.frame(long = c(-110.281, -115.831, -115.076),
+                    lat = c(43.891, 44.001, 38.765))
+print(sties)
+```
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+more sites <- data.frame(long = c(-120.214, -120.130, -121.001),
+                    lat = c(44.441, 45.011, 40.598))
+```
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+values <- c(1,2,6,1,6,)
+print(values)
+```
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+mean(c(1,3,0,10)
+```
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+here()
+```
+
+
+The following pieces of code give unexpected results. Can you describe the error and fix them?
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+sqirrels <- filter(dat, animals == "grey squirrel")
+nrow(squirrels)
+```
+
+
+```{r, eval = TRUE, echo = TRUE, error = TRUE}
+mean(4,6,10)
+```
+
+## Some final wisdom
+
+```{r, fig.cap="You can always try this. (https://xkcd.com/1024/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/error_code.png")
+```

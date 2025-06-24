@@ -1,0 +1,13 @@
+observer,species,location,datetime
+a.smith,sp1,siteB,2023-07-21 11:01
+a.smith,sp2,siteB,2023-07-24 16:15
+l.chen,sp2,siteA,2023-07-08 12:47
+j.doe,sp3,siteA,2023-07-05 05:47
+j.doe,sp2,siteA,2023-07-30 01:05
+j.doe,sp1,siteA,2023-07-19 21:02
+a.smith,sp3,siteB,2023-07-01 10:13
+a.smith,sp2,siteA,2023-07-09 00:38
+j.doe,sp3,siteA,2023-07-02 01:12
+a.smith,sp1,siteA,2023-07-24 04:44
+a.smith,sp2,siteB,2023-07-18 21:14
+j.doe,sp1,siteB,2023-07-16 02:17
