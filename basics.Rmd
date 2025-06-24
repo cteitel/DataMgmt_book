@@ -33,6 +33,17 @@ You can customize properties like the organization of the windows and the color 
 
 R comes with many built-in *functions* (we will define this later), but relies heavily on *packages,* which increase the amount you can do with R. For example, there are packages specifically built for making plots, animating graphics, running machine learning models, etc. In this lesson, we will use two packages: `tidyverse` and `here`. `tidyverse` provides a _lot_ of functions for reading, manipulating, and writing data, which we will focus on at the beginning of this course. `here` provides a way of locating files on your computer.
 
+The so-called *core* tidyverse includes the following packages:
+
+* `dplyr` for data manipulation;
+* `tidyr` for tidying data;
+* `ggplot2` for plotting;
+* `readr` for reading in data files of various formats;
+* `stringr` for manipulating character strings;
+* `tibble` for extensions of data frames;
+* `purrr` for functional programming;
+* `forcats` for better handling categorical variables. 
+
 <span style="color:red">**Install these packages**</span>: First create a new R script in RStudio by clicking on File --> New File --> R script. Your "Source" window will expand with an empty text file. Copy the following code into your R script, then run each line by copying it to the console and pressing Enter/Return.
 
 ```{r, eval = F, echo = T}
@@ -40,7 +51,7 @@ install.packages("tidyverse")
 install.packages("here")
 ```
 
-Now, what is this code doing? As we know, it is intalling the packages `tidyverse` and `here`. The code `install.packages` is called a *function.* You can think of this as a verb or a command. It tells R what to. Functions take *arguments*; you can think of these as grammatical objects (the thing the verb is acting on). In R, arguments are included in parentheses after the function. Other programming languages use different syntax (for example, spaces or dots). Here `"tidyverse"` is an argument, which allows us to tell `install.packages` which package to install.
+Now, what is this code doing? As we know, it is intalling the packages `tidyverse` and `here`. The code `install.packages` is called a *function.* You can think of this as a verb or a command. It tells R what to. Functions take *arguments*; you can think of these as grammatical objects (the thing the verb is acting on). In R, arguments are included in parentheses after the function. Other programming languages use different syntax (for example, spaces or dots). Here `"tidyverse"` is an argument, which allows us to tell `install.packages` which package to install. (We'll get into why it is in quotes later.)
 
 You only need to run `install.packages` once for each package. Like a program/application, they are now stored on your machine. Now, to use each package, you need to <span style="color:red">**run**</span> the `library` function. This time, use RStudio's feature to automatically send your code to the console by moving your blinking cursor to each line, then clicking "Run" (top left) or Ctrl+Enter (Cmd+Return on Mac). 
 
@@ -89,7 +100,7 @@ Projects are not necessary for using R and RStudio, but they are helpful. One be
 
 R's *functions* take *arguments*, but they can also create *objects.* Objects are stored in the *environment,* which allows you to come back to them. 
 
-In the following code, we create an object called `my_number`, which is just a number with a value of 4. If you run this first line, you will see that nothing seems to happen.
+In the following code, we will use the assignment arrow (`<-`) to create an object called `my_number`, which is just a number with a value of 4. If you run this first line, you will see that nothing seems to happen.
 
 ```{r, eval = F, echo = T}
 my_number <- 4
@@ -103,22 +114,89 @@ print(my_number + 2)
 my_number2 <- my_number + 2
 ```
 
-Objects can come in a number of forms:
+Vectors (a 1-dimensional sequence of values) can come in a number of forms:
 
-* Numbers (R differentiates between decimals or integers)
-* Characters
-* Factors (ordered values)
+* Numbers (R differentiates between decimals - called *double* and *integers*)
+* *Characters*
+* *Factors* (ordered values)
+* *Logical* (True/False)
 
 They can also be combined into more complex forms:
 
-* Data frames, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)
-* Lists, which can contain multiple data types. We will get to lists later.
+* *Data frames*, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)
+* *Lists*, which can contain multiple data types. For example, one element of a list might be a 2-column/100-row data frame, and the next element of the list might be a 21-element character vector. We will get to lists later.
+
+```{r}
+# A numeric vector
+vec_dbl <- c(1.2, 102, 104.11, 0.1)
+
+# A character vector
+vec_chr <- c("apple", "durian", "canteloupe", "banana")
+
+# A logical vector
+vec_lgl <- c(TRUE, FALSE, TRUE, TRUE)
+
+# Combine these into a data frame
+df_all <- data.frame(vec_dbl, vec_chr, vec_lgl)
+print(df_all)
+```
+
+  In this code snippet, you can also see that R does not recognize text preceded by `#` as code. You can use this to leave yourself notes, or to "comment out" bits of code that you want to keep in your script, but don't want to run.
+
+Vectors (and, by extension, columns of data frames) can only hold one data type. If you give it more than one data type, R will "coerce" the vector to one of those data types. For example:
+
+```{r}
+vec_mixed <- c(1, 2, "three", "four", TRUE)
+print(vec_mixed)
+```
+
+You can also coerce vectors yourself, using functions like `as.numeric`, `as.character`, `as.factor`, etc. 
+
+```{r}
+vec_mixed_num <- as.numeric(vec_mixed)
+print(vec_mixed_num)
+```
+
+R didn't know how to create numbers from the character values "three", "four", and "TRUE", so those are now `NA`. If you would like to practice, try converting different types of vectors to one another. Can you figure out some of the rules governing these conversions?
+
+```{r}
+as.integer(vec_lgl)
+as.character(vec_dbl)
+```
+
+### Factors
+
+Categorical data is represented in R using *factors*. A factor is stored as a 
+vector of labels called *levels* but, under the hood, each level gets assigned 
+an integer (or index value). R uses the integer component of a factor to do its 
+job but it displays the level to you so that it's descriptive and meaningful. 
+This weird nature of factors is often a source of confusion. For example, if we 
+have the following factor,
+
+```{r, echo = TRUE, eval = TRUE}
+years <- factor(c(2017, 2018, 2019, 2020, 2021))
+```
+
+and we want to convert the years back into numeric, we would maybe try:
+
+```{r, echo = TRUE, eval = TRUE}
+as.numeric(years)
+```
+
+The result is not what we expected. This is because R converted the index values 
+into numbers, not the factor levels. To specify that we want to convert the 
+factor levels into numbers, not the underlying vector of integers, we have to be
+explicit about it:
+
+```{r, echo = TRUE, eval = TRUE}
+as.numeric(levels(years))
+```
 
 ## A note: tidyverse vs. base R
 
 As we begin to delve more deeply into the `tidyverse`, we should briefly pause to mention some of the reasons for focusing on the `tidyverse` set of tools. In R, there are often many ways to get a job done, and there are other approaches that can accomplish tasks similar to the `tidyverse.`
 
-The phrase *base R* is used to refer to functions contained in R’s default packages. We have already used the base R function `print()`, and we will be using more scattered throughout this lesson (for example, `mean()`). The `tidyverse` refers to a set of packages that have a consisent *syntax* (a way of writing code) that is generally more intuitive and readable than base R. `tidyverse` packages also generally come with clearer help pages and error messages. 
+The phrase *base R* is used to refer to functions contained in R’s default packages. We have already used the base R functions `print()`, `as.numeric`, etc., and we will be using more scattered throughout this course and lesson (for example, `mean()`). The `tidyverse` refers to a set of packages that have a consisent *syntax* (a way of writing code) that is generally more intuitive and readable than base R. `tidyverse` packages also generally come with clearer help pages and more informative error messages. 
 
 We will focus on `tidyverse` packages throughout this course, but will also note ways to perform the same actions in base R. If you want to collaborate with people who write code differently than you do, it is helpful to be familiar with base R - or at least to recognize that that is what you're seeing.
 

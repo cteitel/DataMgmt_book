@@ -1,10 +1,12 @@
 # Data Structures and Importing Data {#importexport}
 
-Some of this lesson draws from The Carpentries' [Data Organization in Spreadsheets for Ecologists](https://datacarpentry.github.io/spreadsheet-ecology-lesson) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/spreadsheet-ecology-lesson/LICENSE.html) license. It is also based on materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and available at https://ecorepsci.github.io/reproducible-science/.
+Some of this lesson draws from The Carpentries' [Data Organization in Spreadsheets for Ecologists](https://datacarpentry.github.io/spreadsheet-ecology-lesson) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/spreadsheet-ecology-lesson/LICENSE.html) license. It is also based on materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+For more detail on `tidyverse` approaches to reading data, see the "Data Import" chapter of R for Data Science: https://r4ds.had.co.nz/data-import.html
 
 ## Objectives
 
-* Be able to work with relative file paths to read and write data
+* Work with relative file paths to read and write data
 * Bring data into R from different sources and file types
 * Work with text/csv files and R data objects
 * Understand how to use spreadsheets for data entry and management
@@ -13,14 +15,15 @@ Some of this lesson draws from The Carpentries' [Data Organization in Spreadshee
 
 Objects in R can come in a number of forms:
 
-* Numbers (R differentiates between decimals or integers)
-* Characters
-* Factors (ordered values)
+* Numbers (R differentiates between decimals - called *double* and *integers*)
+* *Characters*
+* *Factors* (ordered values)
+* *Logical* (True/False)
 
 They can also be combined into more complex forms:
 
-* Data frames, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)
-* Lists, which can contain multiple data types.
+* *Data frames*, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)
+* *Lists*, which can contain multiple data types. 
 
 ## File types and their interaction with R
 
@@ -75,6 +78,10 @@ You should now see a new file in your raw data folder.
 ## Working with spreadsheets, in and out of R
 
 Many spreadsheet programs are available. The most commonly used is Excel, so we will use Excel here, but these same principles apply to Google Sheets, etc.
+
+```{r, fig.cap="The temptations of spreadsheets (https://xkcd.com/2180/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/spreadsheets.png")
+```
 
 ### Spreadsheets for data entry
 

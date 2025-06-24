@@ -1,12 +1,154 @@
 # Data Manipulation with R {#manipulation}
 
+Much of this lesson draws from The Carpentries' [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/index.html) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/R-ecology-lesson/LICENSE.html) license.
+
 ## Objectives
 
-* 
+* Be able to use a split-apply-combine approach to summarize data sets
+* Understand how to augment datasets, both by adding observations and by adding variables
+* Understand different types of joins and relates
 
+## Grouping and summarizing data
 
-## Exercise 3
+**ADD AN INTRODUCTION HERE**
+
+One of the most common tasks in data exploration is summarizing data. For example, we might want to know the mean of a response variable across a treatment, or how many samples were taken on a given day, and so on. `dplyr` allows us to easily summarize data by combining the functions `group_by` and `summarize`. For example:
+
+```{r}
+library(tidyverse)
+urban_data <- read_csv("data/raw/Murray-Sanchez_urban-wildlife.csv")
+urban_data %>%
+  group_by(host.class) %>%
+  summarize(mean_r = mean(r, na.rm=T), n = n())
+```
+
+We end up with a mean value of *r* for each host group and the number of records in that group. A common function you will use when grouping is `n()`, which gives the current group size. Other common summary functions include:
+
+* `n_distinct()`, which gives the number of unique values in a group and takes a column name as its argument;
+* quantitative summaries, like `mean()`, `median()`, `sd()`, and `sum()`;
+
+```{r}
+urban_data %>%
+  group_by(host.class) %>%
+  summarize(mean_r = mean(r, na.rm=T), n = n(), n_studies = n_distinct(study))
+```
+
+## Combining and augmenting data sets
+
+Often, we have multiple data sets that relate to each other in one way or another, or we want to combine multiple sources of the same data. For example, we might have separate data sheets from multiple field seasons and want to combine them. Or, we might have one data table that describes characteristics of plots and one that describes characteristics of trees, and we want to add the plot information for each tree. 
+
+### Binding rows and columns
+
+Adding ("binding") rows and columns is the easiest way to add data to a data frame. For example, if we have two separate data sets, we can add more rows with `bind_rows`:
+
+```{r}
+ds1 <- data.frame(plot = 1:10, observer = "Me", n_obs = sample(1:100, 10), date = "2024-04-01")
+ds2 <- data.frame(plot = 1:10, observer = "You", n_obs = sample(1:100, 10), date = "2025-01-01")
+
+ds_full <- bind_rows(ds1, ds2)
+nrow(ds_full)
+head(ds_full)
+tail(ds_full)
+```
+
+`bind_rows` looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:
+
+```{r}
+ds1 <- data.frame(plot = 1:10, observer = "Me", n_obs = sample(1:100, 10))
+ds2 <- data.frame(Plot = 1:10, obs = "You", N = sample(1:100, 10))
+
+ds_full <- bind_rows(ds1, ds2)
+nrow(ds_full)
+head(ds_full)
+```
+
+We can also add more information with `bind_cols`, though joins (below) are usually a better way to add columns to a data set. `bind_cols` is also useful for creating new data frames from vectors:
+
+```{r}
+plots <- c(1:10)
+observers <- rep("Me", 10)
+N <- sample(1:100, 10)
+
+ds1 <- bind_cols(plot = plots, observer = observers, n_obs = N)
+```
+
+### Joins
+
+There are several types of join. The most common types are left join, inner join, or full join. To understand this terminology, consider this: whenever you are joining two tables, the first table you mention (the one to which you’re joining) is called the left table, whereas the second table (the one you’re joining to the first) is called the right table. With a left join, you keep all the records in the left table and add information from the right table whenever there’s a matching row. A full join means that you retain all rows from both tables, matching them whenever possible. An inner join means that you only retain the rows that match between the two tables.
+
+Let's practice with the Murray et al. data. First, we need to download some extra data to add. The EltonTraits database provides foraging attributes and body mass for birds and mammals. These might be interesting, for example to see if species' responses to urbanization vary depending on their body size or foraging traits.
+
+```{r}
+elton <- read_csv("data/raw/EltonTraits/BirdFuncDat.csv")
+urban_birds <- filter(urban_data, host.class == "birds")
+```
+
+This can be a little tricky: EltonTraits and the Murray et al. database use different taxonomies, so there are a few birds in `urban_birds` that aren't in EltonTraits. To really use these data we would need to correct those discrepancies, but for now this will help illustrate the different types of joins. 
+
+```{r}
+# Which birds are missing?
+urban_birds %>%
+  filter(!host.species %in% elton$Scientific) %>%
+  select(host.species)
+```
+
+Left joins are probably the most common type you will use, because they help add new information to a reference data set.
+
+```{r}
+urban_traits <- left_join(urban_birds, elton, by = c("host.species" = "Scientific"))
+ncol(urban_birds)
+ncol(urban_traits)
+```
+
+The `by` argument is the second-trickiest part of a join (the trickiest part is making sure it did what you expected). Here, we specify that we want to match up values in the column `host.species` from the first data frame with values in the column `Scientific` in the second data set. The `tidyverse` join functions will automatically use columns with the same names if you don't specify `by`. If you specify a single character, it will look for columns with that name in both data sets. Finally, you can specify multiple columns (for example, if you had a study design with `block` nested within `plot` and you wanted to match both).
+
+An inner join would be similar, but would eliminate those species that are not in EltonTraits, because they are not present in both data sets:
+
+```{r}
+urban_traits <- inner_join(urban_birds, elton, by = c("host.species" = "Scientific"))
+nrow(urban_birds)
+nrow(urban_traits)
+```
+
+An full join would be helpful if you want to include all the effect sizes and all the trait information in a single data set, regardless of whether you have the other information:
+
+```{r}
+urban_traits <- full_join(urban_birds, elton, by = c("host.species" = "Scientific"))
+ncol(urban_traits)
+nrow(urban_traits)
+```
+
+## Exercise 7
+
+Here, we will practice on a new data set. Download the files `surveys.csv` and `species_info.csv` into a subfolder of your raw data folder. You may need to modify the paths below to match your file organization system.
 
 ```{r, eval = F, echo = T}
+# Load the tidyverse
+library(tidyverse)
+
+# Read in the data: modify this path as needed
+surveys <- read_csv("data/raw/survey_data/surveys.csv")
+
+# Calculate the average weight by species
+avg_by_species <- surveys %>%
+  group_by(___) %>%
+  summarize(avg_weight = mean(weight, na.rm = TRUE))
+
+# Count the number of observations per habitat type
+counts_by_habitat <- surveys %>%
+  group_by(___) %>%
+  summarize(count = n())
+
+# Read in the species info file
+species_info <- read_csv("data/raw/survey_data/species_info.csv")
+
+# Join the two datasets using species as the key
+surveys_joined <- surveys %>%
+  left_join(___, by = "___")
+
+# View the first few rows
+head(surveys_joined)
 
 ```
+
+

@@ -8,6 +8,12 @@ rmd_files: [
   "basics.Rmd",
   "readwrite.Rmd",
   "errors-troubleshooting.Rmd",
+  "rows-columns.Rmd",
+  "numbers-strings.Rmd",
+  "dates-times.Rmd",
   "data-manipulation.Rmd",
+  "data-visualization-ggplot.Rmd",
+  "style.Rmd",
+  "version-control-git-github.Rmd",
   "06-references.Rmd"
 ]

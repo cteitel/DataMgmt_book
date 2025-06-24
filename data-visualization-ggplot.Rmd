@@ -1,0 +1,5 @@
+# Data Visualization with `ggplot2` {#ggplot}
+
+```{r debugging, fig.cap="Visualization visualizations. (https://xkcd.com/688/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/self_description.png")
+```

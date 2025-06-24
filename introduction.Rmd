@@ -1,4 +1,8 @@
-# Introduction: The what and why of reproducible science {#intro}
+# Introduction: The What and Why of Reproducible Science {#intro}
+
+```{r debugging, fig.cap="Notes to your future self (https://xkcd.com/1421/)", fig.align='center', out.width='30%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/future_self.png")
+```
 
 ## What is reproducible science?
 
