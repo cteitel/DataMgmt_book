@@ -15,5 +15,6 @@ rmd_files: [
   "data-visualization-ggplot.Rmd",
   "style.Rmd",
   "version-control-git-github.Rmd",
+  "collaboration-github.Rmd",
   "06-references.Rmd"
 ]

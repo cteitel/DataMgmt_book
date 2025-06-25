@@ -1,6 +1,6 @@
-# Version Control with Git and GitHub
+# Version Control with Git and GitHub {#git}
 
-```{r, fig.cap="Fairly accurate. (https://xkcd.com/1597/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+```{r, fig.cap="Fairly accurate. (https://xkcd.com/1597/)", fig.align='center', out.width='50%', echo = FALSE, eval = TRUE}
 knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
 ```
 
@@ -52,9 +52,11 @@ To make a GitHub account:
 3. Verify your email address with GitHub.
 4. Configure multifactor authentication. You can use Duo or any other authenicator app you already have.
 
-### GitHub Desktop
+### GUIs
 
-As an easy on-ramp to using Git, we will use a graphical user interface (GUI) called GitHub Desktop. GUIs provide point-and-click interfaces. Most of the applications you use provide a GUI - you don't have to type in commands for them to work. In this lesson, we will use the GUI side-by-side with the command-line method so you can see which works best for you. The GUI is more limited in its functionality but a good place to get familiar with the principles of version control before moving on to more advanced applications.
+As an easy on-ramp to using Git, we will use a graphical user interface (GUI) within RStudio. GUIs provide point-and-click interfaces. Most of the applications you use provide a GUI - you don't have to type in commands for them to work. In this lesson, we will use the GUI side-by-side with the command-line method so you can see which works best for you. The GUI is more limited in its functionality but a good place to get familiar with the principles of version control before moving on to more advanced applications.
+
+In addition to the RStudio GUI, another good option is GitHub Desktop. Its functionality is more limited than some other GUIs but it is very easy to get started:
 
 --> [Download and install GitHub Desktop](https://desktop.github.com/download/)
 
@@ -115,7 +117,7 @@ git config --global user.name "My name"
 git config --global user.email "myemail@uga.edu"
 ```
 
-This user name and email will be associated with your subsequent Git activity, which means that any changes pushed to GitHub, BitBucket, GitLab or another Git host server will include this information. The email address used should be the same as the one used when setting up your GitHub account. There are more configuration options you can personalize, but we won’t get into that. If you want to check what configuration options you have active, you can use:
+This user name and email will be associated with your subsequent Git activity, which means that any changes pushed to GitHub, BitBucket, GitLab, etc. will include this information. The email address used should be the same as the one used when setting up your account. There are more configuration options you can personalize, but we won’t get into that. If you want to check what configuration options you have active, you can use:
 
 ```{bash, eval = F}
 git config --list
@@ -208,7 +210,7 @@ Each commit should be accompanied by a message, added with the flag -m. The mess
 
 When you next edit any of these files, you will need to repeat this process: move it to the staging area and commit those changes.
 
-## Un-staging files
+### Un-staging files
 
 Staging initially seems like an annoying extra step, but it serves as a good check on your process before you commit something (because committing is permanent!). The following command un-stages files and saves us from having to commit them:
 
@@ -224,14 +226,98 @@ git rm --cached \*.jpg
 
 In both of these cases, you probably then want to add the file names or extensions to your .gitignore file.
 
+### Accessing file histories
+
+Git will allow you to recover previous versions of any tracked file at the time it was committed. You can access the history of commits using:
+
+```{bash, eval = F}
+git log
+```
+
+![](images/git_history.png)
+
+The string of numbers and letters following the word ‘commit’ in the log is called the hash and it uniquely identifies each commit. If I wanted to revert to the version of the data manipulation lesson before I split it in two, I would use:
+
+```{bash, eval = F}
+git checkout 91568057d886b9b2cf9966ccbd82c4fd51ba119f -- data_manipulation.Rmd
+```
+
+
+If my commit messages are not as helpful as I would like, or I want more detail, I can also ask for a line-by-line comparison of old and new versions of a file using `git diff`. Text I added will be preceded by a "+" and text I deleted with a "-".
+
+```{bash, eval = F}
+git diff version-control-git-github.Rmd
+```
+
 ## Using Git with GUIs
 
-We just learned how to use Git the hard way. Two common GUIs can make this process easier to visualize, though they provide fewer advanced functions. One is even built into RStudio.
+We just learned how to use Git the hard way. Two common GUIs can make this process easier to visualize, although they provide fewer advanced functions. I find GUIs especially helpful for looking at history and working with GitHub. One GUI is even built into RStudio.
 
 ### RStudio
 
-RStudio integrates Git with projects. Luckily, we already created a project for this class. If you followed the instructions above, when you open that project, you will probably already see a "Git" tab in your "Environment" panel in RStudio.
+RStudio integrates Git with R projects. This does not work if your scripts are not part of a project but luckily, we already created a project for this class. If you followed the instructions above, when you open that project, you will probably already see a "Git" tab in your "Environment" panel in RStudio. If you don't (or want to go another route for your next project), you can initiate version control in the project options: 
 
-### GitHub Desktop
+![](images/rstudio_git_setup.png)
+
+![](images/rstudio_git_setup2.png)
+
+Once version control is set up, you should see the "Git" menu above the Source panel and a Git tab in the Environment panel.
+
+Using the "Commit" menu, you can easily stage changes, write commit messages, and see changes to be committed:
+
+![](images/rstudio_git_commit.png)
+
+![](images/rstudio_git_commit2.png)
+
+You also see the "Pull" and "Push" buttons available in the top-left corner of this menu. These will be greyed out if you haven't get set up your repository with a remote repository (e.g., on GitHub). We will set this up later.
+
+### Other GUIs
+
+Many other GUIs have similar functionality to RStudio's GUI, in which you check boxes to stage, type messages in a box, and then click to commit. The main difference is that GitHub Desktop doesn't require you to have an R project established and works outside RStudio, which can be helpful if you are working with files outside of R and don't want to open RStudio just to use Git.
+
+## Adding a remote repository (GitHub)
+
+A remote repository is a copy of a repository that is stored elsewhere than your local copy. In most cases, when collaborating, you’ll have a copy of a repository on your machine (the local repository) and a copy on a server that is accessible to others (the remote repository). The remote repository can be hosted on GitHub.
+
+There are two ways to set up your local and remote repositories to interact. 
+
+1. Set up the local first and link it with a remote later. 
+2. Create the remote first and “clone it” on your computer to get a local copy. 
+
+If you’re starting a brand new repository you can go either way, but the first approach is what you would do if you wanted to link a repository that already exists on your local machine to a GitHub repository.
+
+### Adding a remote to a local repository
+
+Starting from an existing Git repository on your computer, you can link this to its GitHub counterpart by adding a remote URL. To set up a URL, go on the GitHub website, click on the ‘+’ sign in the top-right corner and select ‘New Repository’.
+
+![](github_new_repository.png)
+
+Follow the steps to create a new repository, giving it the same name as the folder on your computer (this isn't necessary, but is helpful). Make sure you do *not* add a README, .gitignore, or license file. This repository should be empty when created so that it does not conflict with any of the files in the local repository.
+
+To connect the local and remote repositories, you can copy the URL of the remote repository and run this command in the terminal (again, after navigating to the location of your local repository):
+
+```{bash, eval = F}
+git remote add origin https://github.com/cteitel/myrepo.git
+```
+
+‘Origin’ is the conventional name given to a remote repository. You could use any other name, but since GitHub uses ‘origin’ as the default name when creating a repository from the website, using this convention will make it easier to follow help guides online. Some GUIs also allow you to do this through menus.
+
+### Pushing to a remote repository
+
+Now we have linked the local and remote repository, but if you look in the repository on your GitHub page, you won't see any files in it. First, we need to "push" a cope of the local files to the remote repository. The first time you push, it’s a good idea to specify which branch Git should use as the default remote for the local main branch in the future. We do this by adding the flag ‘-u’ (for upstream), followed by the name of the remote and the name of the local branch that you want to link up:
+
+```{bash, eval = F}
+git push -u origin main
+```
+
+You only have to set the upstream the first time you push a certain branch. After the upstream is set up, you will be able to just push changes to the remote repository by doing:
+
+`git push`
+
+You will be prompted to enter your GitHub password.
+
+Once you push, all the files you committed are transferred and your two repositories will mirror each other. To keep the remote repository synchronized with the local, any time you commit changes to tracked files you will also need to push them. 
+
+In the next lesson, we will expand on these skills to learn how to use GitHub to collaborate with others and to share your projects.
 
 ## Exercise

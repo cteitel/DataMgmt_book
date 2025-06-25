@@ -1,0 +1,30 @@
+# Collaboration with GitHub (or friends) {#github}
+
+```{r, fig.cap="Fairly accurate. (https://xkcd.com/1597/)", fig.align='center', out.width='50%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
+```
+
+https://ecorepsci.github.io/reproducible-science/version-control-git.html 
+
+## Objectives
+
+* Clone and fork repositories from GitHub
+* Understand merge conflicts, how to resolve them, and how to avoid them
+* Work with branches in repositories
+
+## Collaboration on code
+
+* problems magnify with code vs. track changes
+* 
+
+### Cloning a repository
+
+The other way to get a local-remote repository pair set up is to create a GitHub repository first and clone it on your computer. In this case, it doesn’t matter whether the remote repository is empty or not. Cloning a repository is also useful if you are collaborating on a project with someone on their repository. You and your collaborator/s can all have a copy of the same repository on each of your computers by cloning a shared remote repository, which will then be synchronized with changes made by anyone on the team. The person who created the repository will need to add the others as collaborators so that they’re able to clone it.
+
+To clone a repository, open the terminal and navigate to the folder where you want to download it. Then use the following command:
+
+```{bash, eval = F}
+git clone https://github.com/picardis/myrepo.git
+```
+
+## Exercise

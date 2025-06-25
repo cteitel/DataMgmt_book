@@ -279,7 +279,7 @@ as.integer(as.character(site_ids_fct))
 
 We will work with the urban wildlife health data to practice manipulating factors, strings, and numbers in data frames.
 
-```{r}
+```{r, eval = F, echo = T}
 # Load the tidyverse
 library(tidyverse)
 
