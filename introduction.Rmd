@@ -44,5 +44,5 @@ knitr::include_graphics("https://imgs.xkcd.com/comics/future_self.png")
 
 ## A note on Generative AI/LLMs
 
-
+Large language models (LLMs) are *very good at coding.* This makes sense - LLMs are designed to predict sentence structure and vocabulary, and coding is essentially a language with a very consistent vocabulary and sentence structure. Pretty much all the programming exercises in this course could easily be "solved" by an AI chatbot. However, I hope that by working through them, you will learn more about the principles of how computers and programming work - in other words, learn to think like a computer. In doing so, you will learn to be more critical of the treatment of data and scientific results. In the future, you may use LLMs to do most of your programming, but by  learning the basics of what is going on "under the hood", you will be able to write more useful prompts. You will also be able to troubleshoot errors in AI-generated code, which become more common as problems get more complex. Nevertheless, these tools are very useful for [troubleshooting](#troubleshooting) and, for an experienced user, can help you think through problems.
 

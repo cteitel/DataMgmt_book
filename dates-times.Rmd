@@ -2,13 +2,16 @@
 
 Much of this lesson is based on materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
-
 ## Objectives
 
 * Understand the challenges and considerations of working with date/time data
 * Be able to convert between date and time formats in R
 * Be able to extract portions of dates and times from vectors
 * Perform basic arithmetic with dates and times
+
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 17: Dates and times. Available: https://r4ds.hadley.nz/datetimes.html
 
 ## Why are dates and times unique?
 

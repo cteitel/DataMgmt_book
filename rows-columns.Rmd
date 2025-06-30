@@ -9,6 +9,10 @@ Much of this lesson draws from The Carpentries' [Data Analysis and Visualization
 * Use vectors as function arguments
 * Understand how R assigns values to objects
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 3: Data transformation, sections 3.1-3.4. Available: https://r4ds.hadley.nz/data-transform.html
+
 ## Murray, Sanchez et al. data
 
 So far, we have used data built into R, and practiced loading data from **URLs** and **files**. In this lesson, we will go back to the data from Murray, Sanchez, et al., which is a meta-analysis of relationships between urbanization and wildlife health.

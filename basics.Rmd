@@ -10,6 +10,10 @@ Much of this lesson draws from The Carpentries' [Data Analysis and Visualization
 * Define functions, objects, arguments, and the working directory
 * Use R to create new objects and get basic information about object types and structures
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 2: Workflow: basics. Available: https://r4ds.hadley.nz/workflow-basics.html
+
 ## Install R and RStudio
 
 R is the primary coding language used by those in ecology and natural resources. RStudio is an integrated development environment (IDE) that makes using R easier. It provides some point-and-click options and a way of organizing inputs and outputs, making R easier to use.

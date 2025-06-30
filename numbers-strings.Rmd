@@ -8,6 +8,14 @@
 
 In this lesson and the following one about dates and times, we will learn basic principles on simple R objects, then apply them to columns of data frames to build on your knowledge of data managements (`mutate`, etc.).
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 13: Numbers. Available: https://r4ds.hadley.nz/numbers.html
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 14: Strings. Available: https://r4ds.hadley.nz/strings.html
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 16: Factors. Available: https://r4ds.hadley.nz/factors.html
+
 ## Numbers: integers and numeric variables
 
 In R, numbers come in two flavors: integers and double (both called "numeric"). Integers are non-decimal, negative or non-negative numbers. Although integers are, to some extent, a subset of all numbers, they sometimes act differently when coding. For example, some functions only take integers as their inputs.

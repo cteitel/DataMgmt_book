@@ -8,11 +8,15 @@ Much of this lesson draws from The Carpentries' [Data Analysis and Visualization
 * Understand how to augment datasets, both by adding observations and by adding variables
 * Understand different types of joins and relates
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 3: Data transformation, sections 3.5-3.7. Available: https://r4ds.hadley.nz/data-transform.html
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 5: Data tidying. Available: https://r4ds.hadley.nz/data-transform.html
+
 ## Grouping and summarizing data
 
-**ADD AN INTRODUCTION HERE**
-
-One of the most common tasks in data exploration is summarizing data. For example, we might want to know the mean of a response variable across a treatment, or how many samples were taken on a given day, and so on. `dplyr` allows us to easily summarize data by combining the functions `group_by` and `summarize`. For example:
+One of the most common tasks in data exploration is summarizing data. For example, we might want to know the mean of a response variable across a treatment, or how many samples were taken on a given day, and so on. `dplyr` allows us to easily summarize data by combining the functions `group_by()` and `summarize()`. For example:
 
 ```{r}
 library(tidyverse)

@@ -4,8 +4,9 @@
 knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
 ```
 
-https://swcarpentry.github.io/git-novice
-https://ecorepsci.github.io/reproducible-science/version-control-git.html 
+This lesson is mostly copied, with minimal editing except new images, from materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. 
+
+Some elements are based on The Carpentries' [Version Control with Git](https://swcarpentry.github.io/git-novice) workshop, also licensed under [CC-BY 4.0](https://swcarpentry.github.io/git-novice/LICENSE.html).
 
 ## Objectives
 
@@ -17,7 +18,9 @@ https://ecorepsci.github.io/reproducible-science/version-control-git.html
 
 Git is a version control system. It tracks all the changes you make to your files and allows you to go back to previous versions as far back in time as you need. Git is useful for keeping yourself organized and can be combined with collaboration software (GitHub) to make sharing code and other files easy. You might have a folder that looks something like this:
 
-![](images/files_with_dates.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/files_with_dates.png")
+```
 
 My past self obviously could have been better about using consistent formatting for dates (some of these include year and some do not), but even if I had done so there are a few drawbacks to this approach:
 
@@ -27,11 +30,15 @@ My past self obviously could have been better about using consistent formatting 
 
 Git provides a solution to this problem. Using Git, you will only have one file for each script on your computer, but you will have a log of changes, including your own notes on what you changed and why. For example:
 
-![](images/git_commits.png)
+```{r, fig.cap="Commit message examples", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/git_commits.png")
+```
 
 You can also easily see the changes made at each stage:
 
-![](images/git_changes.png)
+```{r, fig.cap="A diff example", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/git_changes.png")
+```
 
 Additional reading: https://swcarpentry.github.io/git-novice/01-basics.html
 
@@ -39,7 +46,7 @@ Additional reading: https://swcarpentry.github.io/git-novice/01-basics.html
 
 ### Git
 
---> [Follow these instructions to install Git.](https://carpentries.github.io/workshop-template/install_instructions/#git)
+--> [Follow these instructions to install Git.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ### GitHub
 
@@ -62,7 +69,9 @@ In addition to the RStudio GUI, another good option is GitHub Desktop. Its funct
 
 ## Basic Git structure and commands
 
-![](images/git_schematic.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/git_schematic.png")
+```
 
 The central commands for using Git are:
 
@@ -234,7 +243,9 @@ Git will allow you to recover previous versions of any tracked file at the time 
 git log
 ```
 
-![](images/git_history.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/git_history.png")
+```
 
 The string of numbers and letters following the word ‘commit’ in the log is called the hash and it uniquely identifies each commit. If I wanted to revert to the version of the data manipulation lesson before I split it in two, I would use:
 
@@ -257,17 +268,25 @@ We just learned how to use Git the hard way. Two common GUIs can make this proce
 
 RStudio integrates Git with R projects. This does not work if your scripts are not part of a project but luckily, we already created a project for this class. If you followed the instructions above, when you open that project, you will probably already see a "Git" tab in your "Environment" panel in RStudio. If you don't (or want to go another route for your next project), you can initiate version control in the project options: 
 
-![](images/rstudio_git_setup.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/rstudio_git_setup.png")
+```
 
-![](images/rstudio_git_setup2.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/rstudio_git_setup2.png")
+```
 
 Once version control is set up, you should see the "Git" menu above the Source panel and a Git tab in the Environment panel.
 
 Using the "Commit" menu, you can easily stage changes, write commit messages, and see changes to be committed:
 
-![](images/rstudio_git_commit.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/rstudio_git_commit.png")
+```
 
-![](images/rstudio_git_commit2.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/rstudio_git_commit2.png")
+```
 
 You also see the "Pull" and "Push" buttons available in the top-left corner of this menu. These will be greyed out if you haven't get set up your repository with a remote repository (e.g., on GitHub). We will set this up later.
 
@@ -319,5 +338,3 @@ You will be prompted to enter your GitHub password.
 Once you push, all the files you committed are transferred and your two repositories will mirror each other. To keep the remote repository synchronized with the local, any time you commit changes to tracked files you will also need to push them. 
 
 In the next lesson, we will expand on these skills to learn how to use GitHub to collaborate with others and to share your projects.
-
-## Exercise

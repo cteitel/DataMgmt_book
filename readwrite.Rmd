@@ -11,6 +11,12 @@ For more detail on `tidyverse` approaches to reading data, see the "Data Import"
 * Work with text/csv files and R data objects
 * Understand how to use spreadsheets for data entry and management
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 20: Spreadsheets. Available: https://r4ds.hadley.nz/spreadsheets.html
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 7: Data import. Available: https://r4ds.hadley.nz/data-import.html
+
 ## Recap: data structures
 
 Objects in R can come in a number of forms:

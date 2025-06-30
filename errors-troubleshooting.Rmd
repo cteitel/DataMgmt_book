@@ -8,6 +8,10 @@ This lesson draws heavily from materials from [WILD 6900: Tools for Reproducible
 * Understand basic steps to troubleshoot code
 * Build awareness of resources available for troubleshooting
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 8: Workflow: getting help. Available: https://r4ds.hadley.nz/workflow-help.html
+
 ## Introduction
 
 By this point, you have probably encountered a few error and warning messages in R. These can be frustrating! But no matter how good you get at programming, you will always make mistakes, whether these are typos or fundamental problems with your code. Troubleshooting is a fundamental programming skill. 

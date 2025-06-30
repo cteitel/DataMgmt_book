@@ -1,1 +1,9 @@
 # Code Style {#style}
+
+## Objectives
+
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 4: Workflow: code style. Available: https://r4ds.hadley.nz/workflow-style.html
+
+## Exercise
