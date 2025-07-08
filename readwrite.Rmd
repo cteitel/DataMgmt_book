@@ -47,7 +47,7 @@ More often than not, you'll create data frames by importing external files (such
 To practice, we will use some data from an online repository: 
 Murray, M. H., Sanchez, C. A., Becker, D. J., Byers, K. A., Worsley-Tonks, K. E. L., & Craft, M. E. (2020). Data from: City sicker? a meta-analysis of wildlife health and urbanization [Data set]. Zenodo. https://doi.org/10.5061/dryad.b74d971
 
-<span style="color:red">**Navigate to the repository using the DOI to learn more about the study.**</span>
+**Navigate to the repository using the DOI to learn more about the study.**
 
 ```{r, echo = T, message = F}
 library(tidyverse)
@@ -131,64 +131,3 @@ Some key practices to avoid when creating spreadsheets include:
 * Multiple tables in the same sheet --> instead, use multiple tabs (sheets) in the same file (workbook) or, even better, a separate file for each table.
 * Using formatting to convey information: formatting like bold, highlights, etc. can be useful for using spreadsheets, but they won't load across platforms. Instead, add a new column to flag entries.
 
-
-## Exercise 2
-
-We’re going to take a messy data set describe how we would clean it up.
-
-* Download the [survey_data_spreadsheet_messy.xlsx](link) data and save it in your course folder.
-* Open up the data in a spreadsheet program.
-* You can see that there are two tabs. Two field assistants conducted the surveys, one in 2013 and one in 2014, and they both kept track of the data in their own way in tabs 2013 and 2014 of the dataset, respectively. Now you’re the person in charge of this project and you want to be able to start analyzing the data.
-* Identify what is wrong with this spreadsheet and the steps you would need to take to clean up the 2013 and 2014 tabs, and to put them all together in one spreadsheet.
-
-**Important!** Make sure you create a new file (or tab) for the cleaned data, never modify your original (raw) data. Create a README file that documents all the changes you made to get from the raw to the clean data.
-
-<!-- Answer key -->
-<!-- ##Move to single sheet -->
-<!-- ##Add species as column for 2013 data -->
-<!-- ##Add plot as column for 2014 data -->
-<!-- ##Add column indicating scale calibration -->
-<!-- ##Fix dates in plots 3 and 4 in 2014 data -->
-<!-- ##All the while: no spaces in column names -->
-
-Now, let's read the [cleaned spreadsheet](link) into R and work with it a little. (First, save this spreadsheet in in your folder for clean data):
-
-```{r, echo = T, eval = F}
-# install.packages("readxl")
-library(readxl)
-library(here)
-library(tidyverse)
-
-# If you are using a Windows machine, you may need to close the Excel spreadsheet before opening it with R
-# Use double colons :: to indicate the source package. This can be helpful for future users.
-# You can also use double colons to use a function from a package without loading it with library()
-survey_data <- readxl::read_excel("data/clean/survey_data_spreadsheet_clean.xlsx", sheet = 1) 
-
-# Alternatively, load a file using here()
-survey_data <- read_excel(here("data/clean", "survey_data_spreadsheet_clean.xlsx"))
-
-# Check the column names
-names(___)
-
-# View the first few rows
-head(___)
-
-# Summarize the dataset
-summary(___)
-
-# Get all species 
-species_vect <- pull(survey_data, ___)
-print(unique(species_vect)) #we can nest functions like this to save space
-
-# Get the mean weight of all samples
-mean(___) 
-#You might get a surprise answer here! Use the help function to find out how to fix this:
-?mean 
-mean(___, ___)
-
-```
-
-### Exercise 2 Questions
-
-1. NA appears twice in the species vector. Why is this? Would you change anything in the data spreadsheet to avoid this, or is it not a problem?
-2. What values in the spreadsheet are interpreted by R as missing values? How would you account for this in data entry?

@@ -4,9 +4,7 @@
 knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
 ```
 
-This lesson is mostly copied, with minimal editing except new images, from materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. 
-
-Some elements are based on The Carpentries' [Version Control with Git](https://swcarpentry.github.io/git-novice) workshop, also licensed under [CC-BY 4.0](https://swcarpentry.github.io/git-novice/LICENSE.html).
+This lesson draws from materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. Lesson elements about Git/GitHub setup the RStudio GUI are based on The Carpentries' [Version Control with Git](https://swcarpentry.github.io/git-novice) workshop, also licensed under [CC-BY 4.0](https://swcarpentry.github.io/git-novice/LICENSE.html).
 
 ## Objectives
 
@@ -28,7 +26,7 @@ My past self obviously could have been better about using consistent formatting 
 * I don't know what changes were made between each of these versions, so it would be hard for me to go back to an old version to find deleted or modified code.
 * I can't be totally sure which of these is the most recent version. Sometimes, the "date modified" doesn't line up with the date on the file. What to do then?
 
-Git provides a solution to this problem. Using Git, you will only have one file for each script on your computer, but you will have a log of changes, including your own notes on what you changed and why. For example:
+Git provides a solution to this problem. Instead of manually saving edits to a file in a separate copy “just in case”, and instead of having to keep track of which is the most recent version, we can put our files under version control and let Git keep track of the changes we make. Using Git, you will only have one file for each script on your computer, but you will have a log of changes, including your own notes on what you changed and why. For example:
 
 ```{r, fig.cap="Commit message examples", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
 knitr::include_graphics("images/git_commits.png")
@@ -86,6 +84,8 @@ When using a remote repository on GitHub (or another platform, we add):
 * `git pull`: Gets changes from the remote repository and makes the corresponding changes to local files
 
 ## Using Git in the command line
+
+*This section is mostly copied, with minimal editing, from materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/)*
 
 ### The command line
 
@@ -288,13 +288,15 @@ knitr::include_graphics("images/rstudio_git_commit.png")
 knitr::include_graphics("images/rstudio_git_commit2.png")
 ```
 
-You also see the "Pull" and "Push" buttons available in the top-left corner of this menu. These will be greyed out if you haven't get set up your repository with a remote repository (e.g., on GitHub). We will set this up later.
+You also see the "Pull" and "Push" buttons available in the top-left corner of this menu. These will be grayed out if you haven't get set up your repository with a remote repository (e.g., on GitHub). We will set this up later.
 
 ### Other GUIs
 
 Many other GUIs have similar functionality to RStudio's GUI, in which you check boxes to stage, type messages in a box, and then click to commit. The main difference is that GitHub Desktop doesn't require you to have an R project established and works outside RStudio, which can be helpful if you are working with files outside of R and don't want to open RStudio just to use Git.
 
 ## Adding a remote repository (GitHub)
+
+*This section is mostly copied, with minimal editing, from materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/)*
 
 A remote repository is a copy of a repository that is stored elsewhere than your local copy. In most cases, when collaborating, you’ll have a copy of a repository on your machine (the local repository) and a copy on a server that is accessible to others (the remote repository). The remote repository can be hosted on GitHub.
 
@@ -333,7 +335,7 @@ You only have to set the upstream the first time you push a certain branch. Afte
 
 `git push`
 
-You will be prompted to enter your GitHub password.
+You will be prompted to for your GitHub credentials. You may be asked to use a personal access token, in which case you need to follow [these instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
 
 Once you push, all the files you committed are transferred and your two repositories will mirror each other. To keep the remote repository synchronized with the local, any time you commit changes to tracked files you will also need to push them. 
 

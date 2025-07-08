@@ -8,3 +8,4 @@ _bookdown_files
 datamgmt-book.rds
 .Rbuildignore
 .DS_Store
+outputs/

@@ -1,4 +1,4 @@
-# Data Manipulation with R {#filter-select-mutate}
+# Data Manipulation with R, Part 1 {#filter-select-mutate}
 
 Much of this lesson draws from The Carpentries' [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/index.html) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/R-ecology-lesson/LICENSE.html) license.
 
@@ -164,6 +164,40 @@ Another common task is to replace NAs with another value, or to replace certain 
 mutate(urban_data, udiff_1000 = na_if(udiff_1000, 0))
 ```
 
+Finally, a very useful function for creating new columns is `if_else()` (or the base R version, `ifelse`). This is a simplified version of the `if` statements that we will learn about later in the class. Again makes a vector as a function of another vector, this time conditionally. I provide a conditional statement ("if") and an alternative ("else"). The example above is essentially a streamlined ifelse function; the following code does the same thing:
+
+```{r}
+mutate(urban_data, udiff_1000 = if_else(udiff_1000 == 0, NA, udiff_1000))
+```
+
+Here, the first argument is the condition: I am asking whether `udiff_1000` is equal to zero. The second argument is the output if the condition is true: in this place I would like the function to return `NA`. The second argument is the output if the condition is false: in this case I would like it to return the original value of the vector/column, i.e., `udiff_1000`.
+
+Some simpler examples:
+
+```{r}
+# Create a vector
+species <- c("elephant", "snow leopard", "indian leopard", "sloth bear", "bengal tiger")
+# Check whether these animals are cats
+if_else(species %in% c("snow leopard", "indian leopard", "bengal tiger"), "cat" , "not a cat")
+
+# Create a vector
+nums <- c(50, 194, 281, 92)
+# Check if each element is even or odd
+if_else(nums %% 2 == 0,"even","odd")
+```
+
+Notice that here, `%%` returns the remainder of a division, so numbers divided by two with a remainder of zero are even.
+
+The main difference between the `tidyverse's` `if_else` and base R's `ifelse` is that `if_else` preserves factor levels and other types (for example, dates, which we will learn about soon).
+
+```{r}
+# Unlike `ifelse()`, `if_else()` preserves types
+# This example comes from the help page for if_else
+x <- factor(c("a", "i", "e", "f", "g", "c", "i", "b"))
+ifelse(x %in% c("a", "b", "c"), x, NA)
+if_else(x %in% c("a", "b", "c"), x, NA)
+```
+
 ## Pipes
 
 What if you want to do a bunch of operations in order, for example filtering your data and creating new columns. The most basic way to do this is to create intermediate objects:
@@ -196,43 +230,4 @@ reflects the logical structure of what we are doing. The shortcut for inserting 
 is `Ctrl + Shift + M` on Windows and `Cmd + Shift + M` on Mac.
 
 
-## Exercise 4
-
-Here, we will practice on a new data set. Download the files `surveys.csv` and `species_info.csv` into a subfolder of your raw data folder. You may need to modify the paths below to match your file organization system.
-
-```{r, eval = F, echo = T}
-# Load the tidyverse
-library(tidyverse)
-
-# Read in the data: modify this path as needed
-surveys <- read_csv("data/raw/survey_data/surveys.csv")
-
-# Take a look at the first few rows
-head(___)
-
-# Select only the species and weight columns
-species_weight <- surveys %>%
-  select(___, ___)
-
-# Filter to only include rows where weight is greater than 100 grams
-heavy_animals <- surveys %>%
-  filter(___ > ___)
-
-# Create a new column that converts weight to kilograms
-surveys_kg <- surveys %>%
-  mutate(weight_kg = weight / ___)
-
-# Create a new column that indicates if weight is above average
-avg_weight <- mean(surveys$weight, na.rm = TRUE)
-
-surveys_flagged <- surveys %>%
-  mutate(above_avg = weight > ___)
-
-
-```
-
-There are many, many more data manipulation functions included in `dplyr` and other R packages that we haven't mentioned yet. You can use some of the same techniques (Google, etc.) we discussed in the [troubleshooting](#troubleshooting) chapter to find the function you need for a given purpose. To practice:
-
-* What `tidyverse` function would you use to sort a data frame by a numeric variable?
-* What `tidyverse` function would you use to subset the first 10 rows of a data frame?
 

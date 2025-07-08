@@ -12,9 +12,16 @@ rmd_files: [
   "numbers-strings.Rmd",
   "dates-times.Rmd",
   "data-manipulation.Rmd",
-  "data-visualization-ggplot.Rmd",
   "style.Rmd",
+  "data-visualization-ggplot.Rmd",
+  "data-presentation-ggplot.Rmd",
+  "data-tables.Rmd",
   "version-control-git-github.Rmd",
   "collaboration-github.Rmd",
-  "06-references.Rmd"
+  "markdown.Rmd",
+  "data-cleaning.Rmd",
+  "for-if.Rmd",
+  "functions-errors.Rmd",
+  "lists.Rmd",
+  "spatial.Rmd"
 ]

@@ -1,4 +1,4 @@
-# Data Manipulation with R {#manipulation}
+# Data Manipulation with R, Part 2 {#manipulation}
 
 Much of this lesson draws from The Carpentries' [Data Analysis and Visualization in R for Ecologists](https://datacarpentry.github.io/R-ecology-lesson/index.html) workshop, which is published under a [CC-BY 4.0](https://datacarpentry.github.io/R-ecology-lesson/LICENSE.html) license.
 
@@ -122,37 +122,101 @@ ncol(urban_traits)
 nrow(urban_traits)
 ```
 
-## Exercise 7
+## Pivoting between wide and long format
 
-Here, we will practice on a new data set. Download the files `surveys.csv` and `species_info.csv` into a subfolder of your raw data folder. You may need to modify the paths below to match your file organization system.
+We talked about wide and long formats when discussing data entry and spreadsheets, but it is still useful to know how to transform your data sets once they get into R. Why? Well, sometimes you will have a data set that isn't set up in long form. Other times, wide form is useful for visualization or making tables.
 
-```{r, eval = F, echo = T}
-# Load the tidyverse
-library(tidyverse)
+### Long to wide
 
-# Read in the data: modify this path as needed
-surveys <- read_csv("data/raw/survey_data/surveys.csv")
+Let's start with a data set in long form: one observation per row, one variable per column. The urban wildlife data set follows this structure. Let's say we want to know how many studies we have per year and health metric:
 
-# Calculate the average weight by species
-avg_by_species <- surveys %>%
-  group_by(___) %>%
-  summarize(avg_weight = mean(weight, na.rm = TRUE))
-
-# Count the number of observations per habitat type
-counts_by_habitat <- surveys %>%
-  group_by(___) %>%
-  summarize(count = n())
-
-# Read in the species info file
-species_info <- read_csv("data/raw/survey_data/species_info.csv")
-
-# Join the two datasets using species as the key
-surveys_joined <- surveys %>%
-  left_join(___, by = "___")
-
-# View the first few rows
-head(surveys_joined)
-
+```{r}
+urban_data %>%
+  group_by(health, YEAR) %>%
+  summarize(n = n())
 ```
+
+To present this in a paper, we might consider tranforming it to wide form:
+
+```{r}
+urban_data %>%
+  group_by(health, YEAR) %>%
+  summarize(n = n()) %>%
+  pivot_wider(id_cols = YEAR, names_from = health, values_from = n, values_fill = 0)
+```
+
+Here we use the `pivot_wider()` function from the `tidyr` package (part of the `tidyverse`). Here `id_cols` tells the function which variable to use to define a row in the new table. `names_from` defines the column in the long-form data that will become the column names, and `values_from` defines the column in the long-form data that will be used to fill those columns. Finally, you don't always need `values_fill`, but when an id-name combination is missing in the original data, this tells the funciton what to include in the new table (by default, it will be `NA`).
+
+Pivoting data frames takes some practice. One of the most common pitfalls in going from wide to long form is that each id-name combination needs to have a unique value. For example, let's say we first summarized the data by both year and host habitat:
+
+```{r}
+urban_data %>%
+  group_by(health, YEAR, aqterr) %>%
+  summarize(n = n()) %>%
+  pivot_wider(id_cols = YEAR, names_from = health, values_from = n)
+```
+
+You see this gave us a warning message and that the new columns are lists. This is because some of the cells in this wide data frame now have more than one element (i.e., years where both aquatic and terrestrial hosts had data for a given health metric). We can fix this by including `aqterr` as either and ID or a names column:
+
+```{r}
+urban_data %>%
+  group_by(health, YEAR, aqterr) %>%
+  summarize(n = n()) %>%
+  pivot_wider(id_cols = c(YEAR, aqterr), names_from = health, values_from = n, values_fill = 0) %>%
+  head()
+
+urban_data %>%
+  group_by(health, YEAR, aqterr) %>%
+  summarize(n = n()) %>%
+  pivot_wider(id_cols = YEAR, names_from = c(health, aqterr), values_from = n, values_fill = 0) %>%
+  head()
+```
+
+In the second case, we end up with the health and habitat data being sandwiched together into new column names.
+
+### Wide to long
+
+In the other direction, we sometimes end up with data that is wide and needs to be long. For example, let's say we have a data set with counts by site across years:
+
+```{r}
+survey_data <- sample(0:100, 10*12, replace = T) %>% 
+  matrix(nrow = 10, ncol = 12) %>%
+  as.data.frame() %>%
+  setNames(str_c("site",1:12)) %>%
+  bind_cols(year = 2000:2009) %>% 
+  select(year, everything())
+survey_data
+```
+
+(Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)
+
+```{r}
+survey_data %>%
+  pivot_longer(cols = -year, names_to = "site", values_to = "count")
+```
+
+Here, we use the `pivot_longer()` function, also from `tidyr` and identify the columns that we want to pivot with `cols`. Because we want to get values from all the columns *except* the `year` column, we use a minus sign (-) to indicate that. We could also list all the columns (`c(site1, site2, site3)`), but this would be unwieldy. We also specify the column names of the new columns we are creating: one for what were the column names in the old wide data frame (`names_to`) and one for what were the values. 
+
+One common challenge with pivoting longer is when we have a data frame that has more columns than the ones we want to include in the long data. For example, let's say our survey data also included information about the observer:
+
+```{r, error = T}
+survey_data <- mutate(survey_data, observer = sample(c("A","B","C"), nrow(survey_data), replace = T))
+survey_data %>%
+  pivot_longer(cols = -year, names_to = "site", values_to = "count")
+```
+
+Here, we get an error because `pivot_longer()` is trying to make a single column ("count") that includes both numbers and a character. We can get around this by removing the observer from the data before pivoting or, if we want that information, including it in our column specification:
+
+```{r}
+survey_data %>%
+  select(-observer) %>%
+  pivot_longer(cols = -year, names_to = "site", values_to = "count") %>%
+  head()
+
+survey_data %>%
+  pivot_longer(cols = -c(year, observer), names_to = "site", values_to = "count") 
+```
+
+
 
 

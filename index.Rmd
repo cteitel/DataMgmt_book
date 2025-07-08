@@ -3,6 +3,9 @@ title: "Data Management and Reproducible Science"
 author: "Claire S Teitelbaum"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+format:
+  html:
+    html-table-processing: none
 output: bookdown::gitbook
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -20,7 +23,7 @@ Other course materials, including the syllabus, are available on [eLC](https://u
 
 ## How to use this book
 
-Throughout this book, you will find actions indicated by <span style="color:red">**bold red text**</span>. Most exercises will ask you to copy R code from this book into a script on your computer. The code will appear like the one in the box below, and you can copy it by hovering over the box and clicking the clipboard icon in the top-right corner:
+Throughout this book, you will find text interspersed with R code. Though not required, it is recommended that you follow along by copying R code from this book into a script on your computer. The code will appear like the one in the box below, and you can copy it by hovering over the box and clicking the clipboard icon in the top-right corner:
 
 ```{r, eval = F, echo = T}
 # This is some R code
@@ -44,3 +47,18 @@ knitr::write_bib(c(
 * To take the previous two points together: when in doubt, try taking another road and seeing if it leads you to the same place.
 * Your system or code may be different than your collaborator's or friend's. That is usually not a problem, as long as they can understand how to find what they need and what to do with it when they do.
 
+## Course schedule
+
+Below is the current schedule for this course. This is subject to change as the semester progresses.
+
+```{r, echo = F, message = F}
+library(tidyverse)
+library(kableExtra)
+readxl::read_excel("../DataMgmtSchedule.xlsx") %>%
+  mutate(Date = format(Date, "%A, %B %e, %Y")) %>%
+  mutate_all(replace_na, "") %>%
+  knitr::kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                font_size = 12) %>%
+  column_spec(5, width_max = "5cm")
+```

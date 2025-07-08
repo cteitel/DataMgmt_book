@@ -1,6 +1,6 @@
 # Data Visualization with `ggplot2` {#ggplot}
 
-```{r debugging, fig.cap="Visualization visualizations. (https://xkcd.com/688/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+```{r, fig.cap="Visualizing visualizations. (https://xkcd.com/688/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
 knitr::include_graphics("https://imgs.xkcd.com/comics/self_description.png")
 ```
 
@@ -204,7 +204,9 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
 
 Wait, what is that `stat_` thing? It's not a `geom_` but produces elements of a plot. Under the hood, `geom`s use `stat`s. In most cases, `stat="identity"`, so `ggplot` is just plotting the raw values. But, for example, in a bar plot, the stat is "count" by default:
 
-![](images/geom_bar.png)
+```{r, fig.cap="", fig.align='left', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/geom_bar.png")
+```
 
 This is just one example of customization options in `ggplot2`.
 

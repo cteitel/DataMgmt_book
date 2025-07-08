@@ -18,20 +18,22 @@ Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Scienc
 
 R is the primary coding language used by those in ecology and natural resources. RStudio is an integrated development environment (IDE) that makes using R easier. It provides some point-and-click options and a way of organizing inputs and outputs, making R easier to use.
 
-<span style="color:red">**Install R and RStudio**</span>: To get started, [install R from the CRAN website](https://cran.r-project.org/). Then, [install RStudio](https://posit.co/download/rstudio-desktop/#download). 
+**Install R and RStudio**: To get started, [install R from the CRAN website](https://cran.r-project.org/). Then, [install RStudio](https://posit.co/download/rstudio-desktop/#download). 
 
 ## Familiarize yourself with RStudio
 
-<span style="color:red">**Open RStudio**</span> and you will see four windows on one screen:
+**Open RStudio** and you will see four windows on one screen:
 
 * Source: this is a *text editor,* where you can write and save your code.
 * Environment/History/Connections: this panel tells you what *objects* are available (we will define these later, but for now think of them like files or spreadsheets)
 * Console: this is where R does its work and provides outputs to the code you run.
 * Files/Plots/Packages: plots you create will appear here, and you can browse files or load packages by clicking (though I don't recommend it).
 
-You can customize properties like the organization of the windows and the color scheme using Tools --> Global Options. We will change one setting today: <span style="color:red">**Under the "General" tab**</span>, make sure "Restore .RData into workspace at startup" is unchecked and set "Save workspace to .Rdata on exit" to "Never." We don’t want RStudio reload everything in our current session the next time we start R. This sounds convenient, but for the sake of reproducibility, we want to start with a clean, empty R session every time we work - because anyone following behind us would do so, too. Instead, we will record all steps scripts, save any data we need into files, and store outputs like images as files. 
+You can customize properties like the organization of the windows and the color scheme using Tools --> Global Options. We will change one setting today: **Under the "General" tab**, make sure "Restore .RData into workspace at startup" is unchecked and set "Save workspace to .Rdata on exit" to "Never." We don’t want RStudio reload everything in our current session the next time we start R. This sounds convenient, but for the sake of reproducibility, we want to start with a clean, empty R session every time we work - because anyone following behind us would do so, too. Instead, we will record all steps scripts, save any data we need into files, and store outputs like images as files. 
 
-![](images/workspaceimage.png)
+```{r, fig.cap="Setting up defaults in R for maximum reproducibility", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/workspaceimage.png")
+```
 
 ## Installing packages; also, functions and objects
 
@@ -48,7 +50,7 @@ The so-called *core* tidyverse includes the following packages:
 * `purrr` for functional programming;
 * `forcats` for better handling categorical variables. 
 
-<span style="color:red">**Install these packages**</span>: First create a new R script in RStudio by clicking on File --> New File --> R script. Your "Source" window will expand with an empty text file. Copy the following code into your R script, then run each line by copying it to the console and pressing Enter/Return.
+**Install these packages**: First create a new R script in RStudio by clicking on File --> New File --> R script. Your "Source" window will expand with an empty text file. Copy the following code into your R script, then run each line by copying it to the console and pressing Enter/Return.
 
 ```{r, eval = F, echo = T}
 install.packages("tidyverse")
@@ -57,7 +59,7 @@ install.packages("here")
 
 Now, what is this code doing? As we know, it is intalling the packages `tidyverse` and `here`. The code `install.packages` is called a *function.* You can think of this as a verb or a command. It tells R what to. Functions take *arguments*; you can think of these as grammatical objects (the thing the verb is acting on). In R, arguments are included in parentheses after the function. Other programming languages use different syntax (for example, spaces or dots). Here `"tidyverse"` is an argument, which allows us to tell `install.packages` which package to install. (We'll get into why it is in quotes later.)
 
-You only need to run `install.packages` once for each package. Like a program/application, they are now stored on your machine. Now, to use each package, you need to <span style="color:red">**run**</span> the `library` function. This time, use RStudio's feature to automatically send your code to the console by moving your blinking cursor to each line, then clicking "Run" (top left) or Ctrl+Enter (Cmd+Return on Mac). 
+You only need to run `install.packages` once for each package. Like a program/application, they are now stored on your machine. Now, to use each package, you need to run the `library` function. This time, use RStudio's feature to automatically send your code to the console by moving your blinking cursor to each line, then clicking "Run" (top left) or Ctrl+Enter (Cmd+Return on Mac). 
 
 ```{r, eval = F, echo = T}
 library(tidyverse)
@@ -72,7 +74,7 @@ Programming differs from using other types of applications because there is no m
 
 Before we keep moving, it is important to remember that coding on its own is not reproducible. Scripts are rarely self-contained: they read and write data, create intermediate files, and need to be found and stored for future use. This practice requires using file systems -- a fancy way of talking about the folders on your computer. 
 
-<span style="color:red">**Create a directory for this course**</span>. If you already have a folder for this course, create a subfolder called "scripts" (or similar); if you don't, create a folder for the course and a sub-folder for scripts. Now, save the script you have just created in this folder. This might seem basic, but we will build on this organizational system throughout the course.
+**Create a directory for this course**. If you already have a folder for this course, create a subfolder called "scripts" (or similar); if you don't, create a folder for the course and a sub-folder for scripts. Now, save the script you have just created in this folder. This might seem basic, but we will build on this organizational system throughout the course.
 
 Many programming languages do not tolerate spaces well, so it is good practice to name your files and folders without spaces in the names. For example, you might want to call this script "lesson1.R" instead of "lesson 1.R." Even though your scripts are just text files, they will be saved with the ".R" extension, which tells your computer that R or RStudio should be the default program used to open them.
 
@@ -203,139 +205,3 @@ As we begin to delve more deeply into the `tidyverse`, we should briefly pause t
 The phrase *base R* is used to refer to functions contained in R’s default packages. We have already used the base R functions `print()`, `as.numeric`, etc., and we will be using more scattered throughout this course and lesson (for example, `mean()`). The `tidyverse` refers to a set of packages that have a consisent *syntax* (a way of writing code) that is generally more intuitive and readable than base R. `tidyverse` packages also generally come with clearer help pages and more informative error messages. 
 
 We will focus on `tidyverse` packages throughout this course, but will also note ways to perform the same actions in base R. If you want to collaborate with people who write code differently than you do, it is helpful to be familiar with base R - or at least to recognize that that is what you're seeing.
-
-## Exercise 1
-
-<span style="color:red">**Save the following script as a new file and fill in the blanks**</span>
-
-```{r, eval = F, echo = T}
-library(tidyverse)
-library(here)
-
-##############  Section 1: Working with Directories and Projects ##############  
-# What is your current working directory?
-getwd()
-# Pull up the help page for this function
-?getwd #Note the absence of parentheses when pulling up the help page
-
-# Set your working directory (if needed)
-# setwd("___")  # Uncomment and fill in if you want to manually set your working directory
-# If working in an R project, you should not need to use getwd() and setwd()
-
-# Instead, use here to check your project's root directory
-here()
-
-# Identify files in your working directory
-dir()
-
-# Create a new folder called "data" within this directory (if it doesn't exist)
-dir.create("___") #add folder name "data" here
-# Check that this worked: do you see a new entry with your chosen folder name?
-dir()
-
-# BONUS: list files in one directory above and one directory below this one
-dir("../") #../navigates up
-dir("___") #directory name
-
-##############  Section 2: Simple vectors ############## 
-# Assign a value to a variable
-my_name <- ___  # your name as a character string
-
-# Print your name
-print(___)
-
-# What is the class of the variable you just created?
-class(___)
-
-# What else do you want to know about this variable?
-length(___)
-nchar(___)
-
-# Create a numeric vector
-my_vector <- c(___, ___, ___)
-
-# Get the length of the vector
-length(___)
-
-# Get the mean of the vector
-mean(___)
-
-# Add another number to the numeric vector
-my_vector <- c(my_vector, ___)
-
-# Get the length of the vector
-length(___)
-
-##############  Section 3: data frames in R ############## 
-# Create a data frame with two columns: species and count
-my_data <- data.frame(
-  species = c("oak", "pine", "maple"),
-  count = c(___, ___, ___)
-)
-
-# View the structure of the data frame
-str(___)
-
-# Access the "species" column
-pull(my_data, ___)
-# Alternatively, access the "species" column using base R
-my_data$___
-
-# Access the count of pines
-pines <- filter(my_data, species == "___")
-pine_count <- pull(pines, ___)
-print(pine_count)
-
-# Or, do this using base R
-pine_row <- which(my_data$species == "___")
-# base R uses square brackets to access rows and columns: 
-# data[1,2] accesses the first row and second column.
-# You can also use row names and column names
-pine_count <- my_data[___, "count"]
-print(pine_count)
-
-##############  Section 4: Bigger data frames ############## 
-# Load some data that is built into R
-
-# What datasets are built into R?
-library(help = "datasets") 
-# These can be useful to know about for testing code or plotting functions
-
-# Today, we will use the PlantGrowth dataset
-?PlantGrowth
-
-# View the first few rows
-head(___)
-
-# Check the column names
-names(___)
-
-# Summarize the dataset
-summary(___)
-
-# We will get into plotting later, but here's an example:
-boxplot(weight ~ group, data = PlantGrowth, main = "PlantGrowth data",
-        ylab = "Dried weight of plants", col = "lightgray")
-# What does this plot suggest about the results of the study?
-
-##############  Practice on your own ############## 
-
-# Pick another dataset from the datasets help page
-
-# What type of object is this data set?
-___
-
-# If it is a data frame or matrix:
-## What are the column names?
-___
-## What is the mean of the first numeric column?
-___
-
-# If it is a numeric or integer vector:
-## What is the mean value?
-___
-## How many elements does it have?
-___
-
-```
-
