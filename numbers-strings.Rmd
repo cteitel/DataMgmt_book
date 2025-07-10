@@ -231,8 +231,9 @@ str_to_lower(species)
 
 Most of `stringr`'s functions start with `str_`, so if you're looking for a new function for something you want to do, you can type in `str_` and get some suggestions:
 
-![](images/stringr_funs.png)
-Which of these do you want to explore more?
+```{r, fig.cap="Autofill for stringr functions", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/stringr_funs.png")
+```
 
 ## Factors: character/integer hybrids
 

@@ -113,16 +113,20 @@ Examine the spreadsheet. This is easier than looking at data using `head()` or o
 To answer some of these questions, we need **metadata**, which (as the name implies), is data about our data. Download the README file from the Zenodo repository: https://zenodo.org/records/3870855.
 
 ### Tidy data
+
 This data set is *mostly* in "tidy" format, meaning that it has one observation per row and one variable per column. For example, look at the `host.class` and `aqterr` columns:
 
-![](images/tidycolumns.png)
+```{r, fig.cap="Tidy data format", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/tidycolumns.png")
+```
 
 When entering data, you might intuitively enter it as "terrestrial mammal,", "terrestrial bird," etc., but this way data can later be filtered or analyzed by a single classification only. One case where this data set does not do this is the `host.species` column:
 
-![](images/speciescolumn.png)
+```{r, fig.cap="Slightly less tidy data format", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/speciescolumn.png")
+```
 
 We might later be interested in grouping by genus, but we can't do that with the way the data are entered right now. We will learn how to separate the genus and species in R later.
-
 
 ### What to avoid
 

@@ -341,47 +341,47 @@ And there it is: element #6 is a character string and we get an error because
 we are trying to do math on it. 
 -->
 
-## Reproducible examples 
+<!-- ## Reproducible examples  -->
 
-In the unlikely event that you run into an error that no human has posted on 
-StackOverflow before, you can post a request for help. It is best to do so by
-sharing a reproducible example. A reproducible example is a standalone script
-that allows someone else to reproduce your problem on their computer. Without 
-it, all people can do is read your code and *imagine* what the output of each 
-step should look like, and it's hard to diagnose errors that way. To write a 
-good reproducible example, you need to provide the following:
+<!-- In the unlikely event that you run into an error that no human has posted on  -->
+<!-- StackOverflow before, you can post a request for help. It is best to do so by -->
+<!-- sharing a reproducible example. A reproducible example is a standalone script -->
+<!-- that allows someone else to reproduce your problem on their computer. Without  -->
+<!-- it, all people can do is read your code and *imagine* what the output of each  -->
+<!-- step should look like, and it's hard to diagnose errors that way. To write a  -->
+<!-- good reproducible example, you need to provide the following: -->
 
-* Required packages: it's good practice to load these at the top of your script
-so people can quickly see if they need to install anything before running the 
-code;
-* Data: if you can reproduce your problem using one of the built-in datasets 
-available in R, you can use that. Otherwise, you can use the function `dput` to
-generate code to recreate your current dataset and then copy-paste it into your
-script:
+<!-- * Required packages: it's good practice to load these at the top of your script -->
+<!-- so people can quickly see if they need to install anything before running the  -->
+<!-- code; -->
+<!-- * Data: if you can reproduce your problem using one of the built-in datasets  -->
+<!-- available in R, you can use that. Otherwise, you can use the function `dput` to -->
+<!-- generate code to recreate your current dataset and then copy-paste it into your -->
+<!-- script: -->
 
-```{r, eval = TRUE, echo = TRUE}
-df <- data.frame(numbers = 1:5,
-                 letters = c("A", "B", "C", "D", "E"),
-                 animals = c("cat", "dog", "lion", "cheetah", "giraffe"))
+<!-- ```{r, eval = TRUE, echo = TRUE} -->
+<!-- df <- data.frame(numbers = 1:5, -->
+<!--                  letters = c("A", "B", "C", "D", "E"), -->
+<!--                  animals = c("cat", "dog", "lion", "cheetah", "giraffe")) -->
 
-dput(df)
-```
+<!-- dput(df) -->
+<!-- ``` -->
 
-```{r, eval = TRUE, echo = TRUE}
-df <- structure(list(numbers = 1:5, 
-                     letters = c("A", "B", "C", "D", "E"), 
-                     animals = c("cat", "dog", "lion", "cheetah", "giraffe")), 
-                class = "data.frame", row.names = c(NA, -5L))
-```
+<!-- ```{r, eval = TRUE, echo = TRUE} -->
+<!-- df <- structure(list(numbers = 1:5,  -->
+<!--                      letters = c("A", "B", "C", "D", "E"),  -->
+<!--                      animals = c("cat", "dog", "lion", "cheetah", "giraffe")),  -->
+<!--                 class = "data.frame", row.names = c(NA, -5L)) -->
+<!-- ``` -->
 
-* Code: the code that you want to get help with;
-* R environment: you can obtain information on your current session environment 
-using the `sessionInfo` function. Copy-paste the output as a comment into your 
-reproducible example script:
+<!-- * Code: the code that you want to get help with; -->
+<!-- * R environment: you can obtain information on your current session environment  -->
+<!-- using the `sessionInfo` function. Copy-paste the output as a comment into your  -->
+<!-- reproducible example script: -->
 
-```{r, eval = TRUE, echo = TRUE}
-sessionInfo()
-```
+<!-- ```{r, eval = TRUE, echo = TRUE} -->
+<!-- sessionInfo() -->
+<!-- ``` -->
 
 
 ## Other troubleshooting tips
@@ -389,4 +389,10 @@ sessionInfo()
 * The rubber duck: The rubber duck is a method of debugging code introduced by software engineers. 
 It consists of explaining code, line by line, to a rubber duck. While this debugging technique might sound silly, it does work for many people: saying out loud what the code is supposed to do in each step forces us to identify details that might not have been clear in our minds, or might not have gotten from our minds to the script. 
 * Step away: Like many other problems, sometimes a short break will clear your mind and help you re-focus. The problem might become clear when you come back to it
-* AI/LLM tools: ChatGPT and other LLMs can be great troubleshooting buddies, especially if you ask them to explain why you were getting your error in the first place. But be careful - sometimes they'll change other parts of your code along the way!
+* AI/LLM tools: ChatGPT and other LLMs can be great troubleshooting buddies, especially if you ask them to explain why you were getting your error in the first place. But be careful - sometimes they'll change other parts of your code along the way.
+
+## Some final wisdom
+
+```{r, fig.cap="You can always try this. (https://xkcd.com/1024/)", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/error_code.png")
+```
