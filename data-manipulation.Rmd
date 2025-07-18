@@ -136,7 +136,7 @@ urban_data %>%
   summarize(n = n())
 ```
 
-To present this in a paper, we might consider tranforming it to wide form:
+To present this in a paper, we might consider transforming it to wide form:
 
 ```{r}
 urban_data %>%

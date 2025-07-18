@@ -6,7 +6,7 @@
 * Manipulate character/string objects and columns
 * Create and convert factors
 
-In this lesson and the following one about dates and times, we will learn basic principles on simple R objects, then apply them to columns of data frames to build on your knowledge of data managements (`mutate`, etc.).
+In this lesson and the following one about dates and times, we will learn basic principles on simple R objects, then apply them to columns of data frames to build on your knowledge of data management (`mutate`, etc.).
 
 ## Additional reading
 
@@ -284,53 +284,53 @@ as.character(site_ids_fct)
 as.integer(as.character(site_ids_fct))
 ```
 
-## Exercise 5
+<!-- ## Exercise 5 -->
 
-We will work with the urban wildlife health data to practice manipulating factors, strings, and numbers in data frames.
+<!-- We will work with the urban wildlife health data to practice manipulating factors, strings, and numbers in data frames. -->
 
-```{r, eval = F, echo = T}
-# Load the tidyverse
-library(tidyverse)
+<!-- ```{r, eval = F, echo = T} -->
+<!-- # Load the tidyverse -->
+<!-- library(tidyverse) -->
 
-# Read in the urban wildlife dataset
-urban_data <- read_csv("data/raw/Murray-Sanchez_urban-wildlife.csv")
+<!-- # Read in the urban wildlife dataset -->
+<!-- urban_data <- read_csv("data/raw/Murray-Sanchez_urban-wildlife.csv") -->
 
-# Create a new column that includes both host type and host habitat
-urban_data <- mutate(urban_data, class_hab = str_c(___, ___, sep = ___))
+<!-- # Create a new column that includes both host type and host habitat -->
+<!-- urban_data <- mutate(urban_data, class_hab = str_c(___, ___, sep = ___)) -->
 
-# OPTIONAL CHALLENGE: create a new column with the full citation, 
-# including the date in parentheses
-urban_data <- mutate(urban_data, citation = ___)
+<!-- # OPTIONAL CHALLENGE: create a new column with the full citation,  -->
+<!-- # including the date in parentheses -->
+<!-- urban_data <- mutate(urban_data, citation = ___) -->
 
-# Create a new column in urban_data that calculates 
-# number of years since the study
-urban_data <- mutate(urban_data, years_ago = ___)
+<!-- # Create a new column in urban_data that calculates  -->
+<!-- # number of years since the study -->
+<!-- urban_data <- mutate(urban_data, years_ago = ___) -->
 
-# Create a new column in urban_data 
-# with the absolute value of the effect size
-urban_data <- mutate(urban_data, r_abs = ___(r))
+<!-- # Create a new column in urban_data  -->
+<!-- # with the absolute value of the effect size -->
+<!-- urban_data <- mutate(urban_data, r_abs = ___(r)) -->
 
-# Create a new column in urban_data
-# that tells you whether the p-value is sigificant at alpha=0.05
-urban_data <- mutate(urban_data, sig = ___)
+<!-- # Create a new column in urban_data -->
+<!-- # that tells you whether the p-value is sigificant at alpha=0.05 -->
+<!-- urban_data <- mutate(urban_data, sig = ___) -->
 
-# Filter the data to parasites only
-para_data <- filter(urban_data, ___)
+<!-- # Filter the data to parasites only -->
+<!-- para_data <- filter(urban_data, ___) -->
 
-# With the parasite-only data, change the "parasite2" column 
-# to remove the redundant "parasite" word
-para_data <- mutate(para_data, parasite2 = str_remove(___, ___))
+<!-- # With the parasite-only data, change the "parasite2" column  -->
+<!-- # to remove the redundant "parasite" word -->
+<!-- para_data <- mutate(para_data, parasite2 = str_remove(___, ___)) -->
 
-# Convert the parasite2 column to a factor
-para_data <- mutate(para_data, ___)
+<!-- # Convert the parasite2 column to a factor -->
+<!-- para_data <- mutate(para_data, ___) -->
 
-# What is the order of the levels of the parasite2 factor?
-levels(para_data$___)
+<!-- # What is the order of the levels of the parasite2 factor? -->
+<!-- levels(para_data$___) -->
 
-# What is the mean effect size in the entire data set?
-mean(___)
+<!-- # What is the mean effect size in the entire data set? -->
+<!-- mean(___) -->
 
-# What is the mean effect size in the parasite-only data set?
-mean(___)
+<!-- # What is the mean effect size in the parasite-only data set? -->
+<!-- mean(___) -->
 
-```
+<!-- ``` -->

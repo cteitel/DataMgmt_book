@@ -227,6 +227,7 @@ reprex({
 })
 ```
 
+
 ```{r, fig.cap="The output of reprex in your RStudio viewer pane", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
 knitr::include_graphics("images/reprex.png")
 ```

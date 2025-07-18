@@ -1,10 +1,46 @@
 # Data Cleaning in R {#qaqc}
 
-```{r, fig.cap="", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
-```
-
 ## Objectives
 
-## Additional reading
+* Fix issues related to reading data and data formatting
+* Summarize and visualize data to identify likely errors
+* Resolve missing data using tools in R
 
-## 
+## Principles of data cleaning
+
+Many of the tools we will use to clean data in R are functions and approaches we have already covered. Learning how to use these approaches to identify, fix, and document errors in data is a key part of a reproducible workflow. Although you *could* fix many of these issues manually in Excel, doing so programatically provides a record of your methods and changes. It also allows you to use the same approaches over and over again, with less effort each time.
+
+## Fixing issues with data entry and reading data
+
+Some errors in data come in through inconsistencies in data entry, or incompatibility of data entry with the way R reads data. 
+
+### Column names
+
+R has a few rules for column names: they cannot contain spaces and cannot start with numbers. If you read in a data file with these characteristics, R will do its best to fix them - but not usually in the way you would like.
+
+```{r}
+fish <- read_csv("data/raw/messy_georgia_fish_data.csv")
+head(fish)
+
+unique(fish$`Fish Length (mm)`)
+unique(fish$`Date Collected`)
+unique(fish$`Sample Location`)
+```
+
+Multi-format columns
+
+Strings and special characters
+
+## Identifying likely errors
+
+Duplicates
+
+Outliers
+
+## Dealing with missing data
+
+Filtering
+
+Imputing
+
+Restructuring

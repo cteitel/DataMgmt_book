@@ -6,7 +6,6 @@ Much of this lesson draws from The Carpentries' [Data Analysis and Visualization
 
 * Explore the structure and content of data frames
 * Understand vector types and missing data
-* Use vectors as function arguments
 * Understand how R assigns values to objects
 
 ## Additional reading
@@ -22,15 +21,6 @@ So far, we have used data built into R, and practiced loading data from **URLs**
 library(tidyverse)
 urban_data <- read_csv("data/raw/Murray-Sanchez_urban-wildlife.csv")
 ```
-
-<!-- This help page shows you that `complete` is a function in the `tidyr` package *and* data in the `ratdat` package. This can complicate things at times, because R will use a different one by default depending on the order in which you loaded the packages. So, we can assign `ratdat`'s `complete` to an object with a new name to simplify things. We can also use the double colons `::` to specify the package from which we want to pull the object. -->
-
-<!-- ```{r} -->
-<!-- ?ratdat::complete -->
-<!-- rd_complete <- ratdat::complete -->
-<!-- head(rd_complete) -->
-<!-- dim(rd_complete) -->
-<!-- ``` -->
 
 ## Filtering rows; creating and selecting columns
 
@@ -196,6 +186,33 @@ The main difference between the `tidyverse's` `if_else` and base R's `ifelse` is
 x <- factor(c("a", "i", "e", "f", "g", "c", "i", "b"))
 ifelse(x %in% c("a", "b", "c"), x, NA)
 if_else(x %in% c("a", "b", "c"), x, NA)
+```
+
+### Sorting data tables
+
+In many cases, the order of data in table is not important; the information is the same regardless of its row number. Sorting and ordering tables can be useful for filtering them and for calculating some columns. The `dplyr` function `arrange()` will sort a data frame by a column:
+
+```{r}
+head(select(urban_data, study, AUTHORS, r))
+
+r_ordered <- arrange(urban_data, r)
+head(select(r_ordered, study, AUTHORS, r))
+```
+
+`arrange()` can take multiple column names, in which case the data frame is sorted first by the first column. Then, if any values are duplicated in that column, the rows are sorted within that group by the second column, and so on:
+
+```{r}
+author_ordered <- arrange(urban_data, AUTHORS)
+head(select(author_ordered, study, AUTHORS, r))
+
+author_r_ordered <- arrange(urban_data, AUTHORS, r)
+head(select(author_r_ordered, study, AUTHORS, r))
+```
+
+And the base R function `sort` will order a vector:
+
+```{r}
+sort(x)
 ```
 
 ## Pipes

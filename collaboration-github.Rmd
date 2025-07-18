@@ -1,9 +1,5 @@
 # Collaboration with GitHub (or friends) {#github}
 
-```{r, fig.cap="Fairly accurate. (https://xkcd.com/1597/)", fig.align='center', out.width='50%', echo = FALSE, eval = TRUE}
-knitr::include_graphics("https://imgs.xkcd.com/comics/git.png")
-```
-
 ## Objectives
 
 * Clone and fork repositories from GitHub
