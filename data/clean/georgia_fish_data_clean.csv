@@ -1,0 +1,51 @@
+sample_id,common_name,scientific_name,fish_length_mm,date_collected,sample_location,coordinates,method1,method2,notes,date,latitude,longitude,lat,long
+1,Bluegill,Lepomis macrochirus,NA,10/4/24,NA,NA,NA,gill net,Unknown location,2024-10-04,NA,,NA,NA
+2,Brown Bullhead,Ameiurus nebulosus,160,10/4/24,NA,NA,seine,gill net,NA,2024-10-04,NA,,NA,NA
+3,Redbreast Sunfish,Lepomis auritus,NA,10/4/24,Lake Allatoona,"34¡07'59.2""N, 84¡37'27.8""W",trawl,trawl,NA,2024-10-04,"34¡07'59.2""N"," 84¡37'27.8""W",34.13311111111111,84.62438888888889
+4,Redbreast Sunfish,Lepomis auritus,NA,10/4/24,NA,NA,seine,gill net,NA,2024-10-04,NA,,NA,NA
+5,Warmouth,Lepomis gulosus,201,10/4/24,Chattahoochee@Crnra,"33¡59'12.48""N, 84¡19'25.32""W",NA,hook and line,NA,2024-10-04,"33¡59'12.48""N"," 84¡19'25.32""W",33.9868,84.3237
+6,Bluegill,Lepomis macrochirus,521,7/5/24,Lake Allatoona,"34¡ 7'59.16""N, 84¡37'27.84""W",hook and line,electrofishing,NA,2024-07-05,"34¡ 7'59.16""N"," 84¡37'27.84""W",34.1331,84.6244
+7,Redbreast Sunfish,Lepomis auritus,NA,19-Jun-24,Chattahoochee@Crnra,"33¡59'12.48""N, 84¡19'25.32""W",hook and line,electrofishing,NA,2024-06-19,"33¡59'12.48""N"," 84¡19'25.32""W",33.9868,84.3237
+8,Black Crappie,Pomoxis nigromaculatus,NA,6/4/24,NA,NA,trawl,trawl,NA,2024-06-04,NA,,NA,NA
+9,Largemouth Bass,Micropterus salmoides,750,6/17/24,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",seine,gill net,NA,2024-06-17,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+10,Bluegill,Lepomis macrochirus,NA,25-Jun-24,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",electrofishing,seine,NA,2024-06-25,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+11,Bluegill,Lepomis macrochirus,108,4/27/24,Chattahoochee@Crnra,"33¡59'12.48""N, 84¡19'25.32""W",gill net,seine,NA,2024-04-27,"33¡59'12.48""N"," 84¡19'25.32""W",33.9868,84.3237
+12,Largemouth Bass,Micropterus salmoides,301,NA,Flint River,"31¡16'18.6""N, 84¡20'51.4""W",trawl,electrofishing,NA,NA,"31¡16'18.6""N"," 84¡20'51.4""W",31.271833333333333,84.3476111111111
+13,Warmouth,Lepomis gulosus,NA,5/21/24,Flint River,"31¡16'18.6""N, 84¡20'51.4""W",seine,gill net,NA,2024-05-21,"31¡16'18.6""N"," 84¡20'51.4""W",31.271833333333333,84.3476111111111
+14,Black Crappie,Pomoxis nigromaculatus,462,29/06/2024,Lake Lanier,"34¡14'24""N, 83¡57'00""W",hook and line,electrofishing,NA,2024-06-29,"34¡14'24""N"," 83¡57'00""W",34.24,83.95
+15,Redbreast Sunfish,Lepomis auritus,NA,6/29/24,NA,NA,hook and line,electrofishing,NA,2024-06-29,NA,,NA,NA
+16,Spotted Bass,Micropterus punctulatus,NA,4/29/24,NA,NA,seine,gill net,NA,2024-04-29,NA,,NA,NA
+17,Spotted Bass,Micropterus punctulatus,NA,4/29/24,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",seine,gill net,NA,2024-04-29,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+18,Black Crappie,Pomoxis nigromaculatus,NA,24-Apr-24,NA,NA,trawl,electrofishing,NA,2024-04-24,NA,,NA,NA
+19,Channel Catfish,Ictalurus punctatus,NA,6-May-24,Ocmulgee River,"33¡19'15""N, 83¡50'39""W",hook and line,hook and line,NA,2024-05-06,"33¡19'15""N"," 83¡50'39""W",33.32083333333334,83.84416666666667
+20,Black Crappie,Pomoxis nigromaculatus,272,4/5/24,Lake Allatoona,"34¡ 7'59.16""N, 84¡37'27.84""W",gill net,gill net,NA,2024-04-05,"34¡ 7'59.16""N"," 84¡37'27.84""W",34.1331,84.6244
+21,Warmouth,Lepomis gulosus,174,22/05/2024,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",electrofishing,electrofishing,NA,2024-05-22,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+22,Largemouth Bass,Micropterus salmoides,NA,5/23/24,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",seine,gillnet,NA,2024-05-23,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+23,Largemouth Bass,Micropterus salmoides,86,9/4/24,Chattahoochee@Crnra,"33¡59'12.48""N, 84¡19'25.32""W",NA,NA,NA,2024-09-04,"33¡59'12.48""N"," 84¡19'25.32""W",33.9868,84.3237
+24,Warmouth,Lepomis gulosus,88,NA,NA,NA,NA,NA,NA,NA,NA,,NA,NA
+25,Yellow Perch,Perca flavescens,NA,28/05/2024,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",gill net,seine,NA,2024-05-28,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+26,Channel Catfish,Ictalurus punctatus,NA,4-Apr-24,Ocmulgee River,"33¡19'15""N, 83¡50'39""W",seine,gillnet,NA,2024-04-04,"33¡19'15""N"," 83¡50'39""W",33.32083333333334,83.84416666666667
+27,Brown Bullhead,Ameiurus nebulosus,NA,8-May-24,Flint River,"31¡16'18.6""N, 84¡20'51.4""W",gill net,seine,NA,2024-05-08,"31¡16'18.6""N"," 84¡20'51.4""W",31.271833333333333,84.3476111111111
+28,Warmouth,Lepomis gulosus,399,10-Apr-24,Flint River,"31¡16'18.6""N, 84¡20'51.4""W",NA,NA,NA,2024-04-10,"31¡16'18.6""N"," 84¡20'51.4""W",31.271833333333333,84.3476111111111
+29,Bluegill,Lepomis macrochirus,390,22/06/2024,NA,NA,gill net,seine,NA,2024-06-22,NA,,NA,NA
+30,Channel Catfish,Ictalurus punctatus,220,2-Jun-24,Flint River,"31¡16'18.6""N, 84¡20'51.4""W",trawl,electrofishing,NA,2024-06-02,"31¡16'18.6""N"," 84¡20'51.4""W",31.271833333333333,84.3476111111111
+31,Bluegill,Lepomis macrochirus,272,30/05/2024,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",gill net,seine,NA,2024-05-30,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+32,Brown Bullhead,Ameiurus nebulosus,NA,16/05/2024,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",seine,gillnet,NA,2024-05-16,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+33,Largemouth Bass,Micropterus salmoides,180,5/29/24,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",hook and line,electrofishing,NA,2024-05-29,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+34,Brown Bullhead,Ameiurus nebulosus,210,15-May-24,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",NA,NA,NA,2024-05-15,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+35,Yellow Perch,Perca flavescens,NA,18-Jun-24,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",NA,NA,NA,2024-06-18,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+36,Warmouth,Lepomis gulosus,NA,18-Jun-24,NA,NA,electrofishing,NA,NA,2024-06-18,NA,,NA,NA
+37,Channel Catfish,Ictalurus punctatus,NA,18-Jun-24,Chattahoochee@Crnra,NA,trawl,seine,NA,2024-06-18,NA,,33.9868,84.3237
+38,Spotted Bass,Micropterus punctulatus,320,4/21/24,Chattahoochee River,"33¡16'39.4""N, 85¡05'52.8""W",NA,NA,NA,2024-04-21,"33¡16'39.4""N"," 85¡05'52.8""W",33.27761111111111,85.098
+39,Spotted Bass,Micropterus punctulatus,301,NA,NA,NA,gill net,seine,NA,NA,NA,,NA,NA
+40,Warmouth,Lepomis gulosus,200,28/04/2024,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",NA,NA,NA,2024-04-28,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+41,White Crappie,Pomoxis annularis,NA,26-Jun-24,Chattahoochee@Crnra,NA,NA,NA,NA,2024-06-26,NA,,33.9868,84.3237
+42,Warmouth,Lepomis gulosus,102,12/6/24,Chattahoochee@Crnra,"33¡59'12.48""N, 84¡19'25.32""W",electrofishing,NA,NA,2024-12-06,"33¡59'12.48""N"," 84¡19'25.32""W",33.9868,84.3237
+43,Warmouth,Lepomis gulosus,27,26-Jun-24,Lake Allatoona,"34¡ 7'59.16""N, 84¡37'27.84""W",NA,NA,NA,2024-06-26,"34¡ 7'59.16""N"," 84¡37'27.84""W",34.1331,84.6244
+44,Spotted Bass,Micropterus punctulatus,NA,5/28/24,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",NA,NA,NA,2024-05-28,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+45,Yellow Perch,Perca flavescens,200,4/5/24,Lake Allatoona,"34¡ 7'59.16""N, 84¡37'27.84""W",electrofishing,NA,NA,2024-04-05,"34¡ 7'59.16""N"," 84¡37'27.84""W",34.1331,84.6244
+46,Channel Catfish,Ictalurus punctatus,NA,NA,NA,NA,seine,gill net,NA,NA,NA,,NA,NA
+47,Yellow Perch,Perca flavescens,NA,19/06/2024,Satilla River,"31¡14'18.4""N, 82¡19'22.2""W",NA,gill net,NA,2024-06-19,"31¡14'18.4""N"," 82¡19'22.2""W",31.238444444444447,82.32283333333334
+48,White Crappie,Pomoxis annularis,101,NA,NA,NA,hook and line,NA,NA,NA,NA,,NA,NA
+49,Yellow Perch,Perca flavescens,555,13-Apr-24,Ocmulgee River,"33¡19'15""N, 83¡50'39""W",hook and line,NA,NA,2024-04-13,"33¡19'15""N"," 83¡50'39""W",33.32083333333334,83.84416666666667
+50,Black Crappie,Pomoxis nigromaculatus,NA,4-Apr-24,NA,NA,seine,gill net,NA,2024-04-04,NA,,NA,NA
