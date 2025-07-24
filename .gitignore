@@ -4,7 +4,6 @@
 README.html
 _book
 _bookdown_files
-*.html
 datamgmt-book.rds
 .Rbuildignore
 .DS_Store

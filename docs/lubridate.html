@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Dates and Times in R | Data Management and Reproducible Science</title>
+<meta name="author" content="Claire S Teitelbaum">
+<meta name="description" content="Much of this lesson is based on materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a CC-BY 4.0 license.  8.1...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="8 Dates and Times in R | Data Management and Reproducible Science">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Much of this lesson is based on materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a CC-BY 4.0 license.  8.1...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Dates and Times in R | Data Management and Reproducible Science">
+<meta name="twitter:description" content="Much of this lesson is based on materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a CC-BY 4.0 license.  8.1...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Management and Reproducible Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Course overview</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction: The What and Why of Reproducible Science</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></li>
+<li><a class="" href="importexport.html"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="" href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></li>
+<li><a class="" href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></li>
+<li><a class="" href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="active" href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="" href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></li>
+<li><a class="" href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></li>
+<li><a class="" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
+<li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></li>
+<li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
+<li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
+<li><a class="" href="spatial.html"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lubridate" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Dates and Times in R<a class="anchor" aria-label="anchor" href="#lubridate"><i class="fas fa-link"></i></a>
+</h1>
+<p>Much of this lesson is based on materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a>, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> license.</p>
+<div id="objectives-5" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-5"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Understand the challenges and considerations of working with date/time data</li>
+<li>Be able to convert between date and time formats in R</li>
+<li>Be able to extract portions of dates and times from vectors</li>
+<li>Perform basic arithmetic with dates and times</li>
+</ul>
+</div>
+<div id="additional-reading-5" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-5"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 17: Dates and times. Available: <a href="https://r4ds.hadley.nz/datetimes.html" class="uri">https://r4ds.hadley.nz/datetimes.html</a></p>
+</div>
+<div id="why-are-dates-and-times-unique" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Why are dates and times unique?<a class="anchor" aria-label="anchor" href="#why-are-dates-and-times-unique"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dates and times can be a headache to work with. They are more or less numbers, but they don’t follow regular number rules. Here’s just a handful of things that make dates and times different:</p>
+<ul>
+<li>There’s no 61 after 60 when working with seconds and minutes;</li>
+<li>There’s no 25 after 24 when working with hours;</li>
+<li>There’s no 13 after 12 when working with months;</li>
+<li>Most years are 365-days long, but some are 366-days long;</li>
+<li>The same time means something different depending on the time zone;</li>
+<li>The same time means something different between standard and daylight savings time. And daylight savings time starts on a different day each year and on a different day in different places (or not at all).</li>
+</ul>
+<p>Keeping track of these rules manually would be a nightmare, especially when working with large datasets.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="https://imgs.xkcd.com/comics/bug.png" alt="Ask R when year 0 is, and it will tell you it is 1970. (https://xkcd.com/376/)" width="50%"><p class="caption">
+Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="https://xkcd.com/376/" class="uri">https://xkcd.com/376/</a>)
+</p>
+</div>
+</div>
+<div id="dates-and-times-in-r" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Dates and times in R<a class="anchor" aria-label="anchor" href="#dates-and-times-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>The basic classes for dates and R are <code>POSIXct</code> and <code>POSIXlt</code> (other classes we’ve learned about are integers, characters, etc.). <code>POSIXct</code> includes a time, whereas <code>POSIXlt</code> is just a date. Although <code>POSIXt</code> dates are usually represented in a date format (e.g., “2025-08-13 09:35:00 EDT”), they are stored as numbers under the hood, based on the number of seconds since midnight on January 1, 1970 (negative numbers are also supported and represent days before this date). Let’s play with this:</p>
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">date_chr</span> <span class="op">&lt;-</span> <span class="st">"2025-09-01"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "character"</code></pre>
+<p>This date is just a character, because that’s how it was specified. On the other hand:</p>
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">date_pox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span>
+<span><span class="va">date_pox</span></span></code></pre></div>
+<pre><code>## [1] "2025-09-01 EDT"</code></pre>
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">date_pox</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "POSIXlt" "POSIXt"</code></pre>
+<p>Besides <code>POSIXct</code> and <code>POSIXlt</code>, R also support a data type called <code>Date.</code> This is equivalent to Excel’s handling of dates, i.e., the number of days since 1/1/1970:</p>
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">date_Date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span>
+<span><span class="va">date_Date</span></span></code></pre></div>
+<pre><code>## [1] "2025-09-01"</code></pre>
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">date_Date</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Date"</code></pre>
+<p>You can see that these perform differently when we ask R to convert them to numbers:</p>
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_pox</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1756699200</code></pre>
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_Date</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 20332</code></pre>
+<p>You can also see that <code>date_pox</code> has an associated time zone (but <code>date_Date</code> does not). By default, that is the time zone of your computer (which R can find).</p>
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "America/New_York"</code></pre>
+<p>Other useful date functions in R include finding the current date and time:</p>
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2025-07-24"</code></pre>
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#careful, this is not the same as system.time. We might get to that one later!</span></span></code></pre></div>
+<pre><code>## [1] "2025-07-24 14:58:35 EDT"</code></pre>
+<div id="formatting-dates" class="section level3" number="8.4.1">
+<h3>
+<span class="header-section-number">8.4.1</span> Formatting dates<a class="anchor" aria-label="anchor" href="#formatting-dates"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the U.S. we most commonly write dates as month/day/year, without leading zeroes, but “standard” international format is year-month-day with leading zeroes, so you will encounter problems in R if you assume it will understand U.S. dates:</p>
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"4/15/2025"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Error in charToDate(x): character string is not in a standard unambiguous format</code></pre>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1/11/2025"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "0001-11-20"</code></pre>
+<p>To fix this, we can use the <code>format</code> argument to tell R about the format of our input:</p>
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"01/11/2025"</span>, format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span></span>
+<span><span class="va">d</span></span></code></pre></div>
+<pre><code>## [1] "2025-01-11"</code></pre>
+<p>Now that R has read it correctly, it will output the date in the “standard” format.</p>
+<p>As a side note, this is one reason that is can be helpful to get used to entering dates in this format. Another big benefit is that sorting is easier: alphabetical, numerical, and time orders will line up if the year is first, but not if the month is first.</p>
+</div>
+</div>
+<div id="the-lubridate-package" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> The <code>lubridate</code> package<a class="anchor" aria-label="anchor" href="#the-lubridate-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <code>tidyverse</code> way of working with dates and times is in the <code>lubridate</code> package, but <code>lubridate</code> is not part of core <code>tidyverse</code>, so we need to install it. Working with dates and times using <code>lubridate</code> is slightly easier than doing so with base R because it streamlines some processes, including parsing dates and times from character strings and extracting information (e.g., the year) from dates.</p>
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"lubridate"</span><span class="op">)</span></span></code></pre></div>
+<div id="parsing-dates-from-characters" class="section level3" number="8.5.1">
+<h3>
+<span class="header-section-number">8.5.1</span> Parsing dates from characters<a class="anchor" aria-label="anchor" href="#parsing-dates-from-characters"><i class="fas fa-link"></i></a>
+</h3>
+<p>Lubridate’s functions for parsing dates are:</p>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">mdy_hms</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">dmy_hms</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hms.html">hms</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hms.html">hm</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hms.html">ms</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The separator (/ or -) does not matter, and neither do leading zeroes (unless you don’t use a separator). For example, with the example above, I could use:</p>
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'lubridate'</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"01/11/2025"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2025-01-11"</code></pre>
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2021-01-09 00:01:23"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2021-01-09 00:01:23 UTC"</code></pre>
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"01112025"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2025-01-11"</code></pre>
+<p>Notice that the functions from <code>lubridate</code> assume a default time zone of Coordinated Universal Time (UTC), not the local time zone! UTC is the same time zone as Greenwich Mean Time (GMT), but without daylight savings. This is a more reproducible default, because the result will be exactly the same regardless of where the user is sitting.</p>
+<p>As you might expect, it’s important to make sure the format in the input matches the format of the function:</p>
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"2028-01-01"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: All formats failed to parse. No formats found.</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Note that this provides a <em>warning</em>, not an <em>error</em> and outputs <code>NA</code>. This feature can be useful, for example if you have a data column with missing information, but can also be dangerous (imagine a whole column of <code>NA</code>s or missing values where you had a typo in data entry).</p>
+<p>As we saw above with the base R function, these functions (<code><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy()</a></code>, etc.) tell <code>lubridate</code> how to read the format of the <strong>input</strong>; the format of the <strong>output</strong> is always the same:</p>
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"01/11/2025"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Date"</code></pre>
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2021-01-09 00:01:23"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "POSIXct" "POSIXt"</code></pre>
+</div>
+<div id="extracting-parts-of-dates" class="section level3" number="8.5.2">
+<h3>
+<span class="header-section-number">8.5.2</span> Extracting parts of dates<a class="anchor" aria-label="anchor" href="#extracting-parts-of-dates"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>lubridate</code> also provides functions to extract components of a date:</p>
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">day</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/minute.html">minute</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/second.html">second</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#day of the week</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">yday</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#day of the year</span></span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2021-01-09 00:01:23"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 2021</code></pre>
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+</div>
+<div id="calculations-with-dates" class="section level2" number="8.6">
+<h2>
+<span class="header-section-number">8.6</span> Calculations with dates<a class="anchor" aria-label="anchor" href="#calculations-with-dates"><i class="fas fa-link"></i></a>
+</h2>
+<p>Often, we want to perform calculations with dates, like adding or subtracting time from them or figuring out the time between them. Often this is possible with simple mathematical symbols:</p>
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2022-01-14"</span><span class="op">)</span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2022-01-15 10:06:00"</span><span class="op">)</span></span>
+<span><span class="va">d3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2022-01-16"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">d3</span> <span class="op">-</span> <span class="va">d1</span></span></code></pre></div>
+<pre><code>## Time difference of 2 days</code></pre>
+<p>But we have to be careful; the object types must match:</p>
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">-</span> <span class="va">d2</span></span></code></pre></div>
+<pre><code>## Warning: Incompatible methods ("-.Date", "-.POSIXt") for "-"</code></pre>
+<pre><code>## [1] "-4494282-06-17"</code></pre>
+<p>The function <code>difftime</code> is a better way of doing this, because it can accommodate these different object types. It also allows you to specify units for the output:</p>
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">d2</span>, <span class="va">d1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Time difference of 1.420833 days</code></pre>
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">d2</span>, <span class="va">d1</span>, units <span class="op">=</span> <span class="st">"hours"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Time difference of 34.1 hours</code></pre>
+<p><em>We did not specify a time for <code>d1</code>, just a date. Based on the results from <code>difftime</code>, what time did R use for this calculation?</em></p>
+<p>We can also add and subtract time from dates:</p>
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
+<pre><code>## [1] "2022-01-15"</code></pre>
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d2</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
+<pre><code>## [1] "2022-01-15 10:06:01 UTC"</code></pre>
+<p>Notice that adding 1 did different things in these two cases: at added a day to <code>d1</code> and a second to <code>d2</code>! This is because the precision of the two objects was different, but it’s not intuitive! To be more careful, we can instead specify the units of a number with the following <code>lubridate</code> functions:</p>
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">seconds</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">weeks</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>For example:</p>
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2023-01-14"</code></pre>
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2022-01-14 00:10:00 UTC"</code></pre>
+<p>Notice that these are changing the year and minute component of the dates, but aren’t accounting for any irregularities, like leap years or months of different lengths. Technically, a year (on average) is 365 days + 6 hours. We won’t go into that here, but <code>lubridate</code> also provides functions for these (e.g., using <code><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears()</a></code> instead of <code><a href="https://lubridate.tidyverse.org/reference/period.html">years()</a></code>).</p>
+<p>Finally, you might want to round dates. Here, we use similar functions as for numbers, <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>, and <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date()</a></code>, but instead of specifying number of digits, we specify time precision:</p>
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span><span class="op">(</span><span class="va">d1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2022-01-14 UTC"</code></pre>
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span><span class="op">(</span><span class="va">d1</span>, unit <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2022-01-01"</code></pre>
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span><span class="op">(</span><span class="va">d2</span>, unit <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2022-01-15 UTC"</code></pre>
+</div>
+<div id="time-zones" class="section level2" number="8.7">
+<h2>
+<span class="header-section-number">8.7</span> Time zones<a class="anchor" aria-label="anchor" href="#time-zones"><i class="fas fa-link"></i></a>
+</h2>
+<p>As noted above, a new time or date created with <code>lubridate</code> will by default be in UTC. To specify a time zone, you can use the <code>tz</code> argument:</p>
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2022-01-15 10:06:00"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span></code></pre></div>
+<p>You can get the list of time zones with:</p>
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tzs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tzs</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
+## [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</code></pre>
+<p>You can also change the time zone of an existing object. This is often useful when you read in data that have a time zone already, but R doesn’t know that. For example:</p>
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2025-02-05 15:40:29"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/tz.html">tz</a></span><span class="op">(</span><span class="va">d4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"America/New_York"</span></span>
+<span><span class="va">d4</span></span></code></pre></div>
+<pre><code>## [1] "2025-02-05 15:40:29 EST"</code></pre>
+<p>Notice that the time is the same but the time zone is different, so the actual moment in time has changed. You can use <code><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz()</a></code> to convert across time zones while keeping the moment the same, for example to make plots in local time when data was measured in UTC:</p>
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2025-02-05 15:40:29"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">d4</span>, <span class="st">"America/New_York"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2025-02-05 10:40:29 EST"</code></pre>
+<!-- ## Exercise 6 -->
+<!-- Now that you have learned about date-time objects, this exercise will allow you to practice working with them in the context of data frames. -->
+<!-- ```{r, eval = F} -->
+<!-- # Load tidyverse and lubridate -->
+<!-- library(tidyverse) -->
+<!-- library(lubridate) -->
+<!-- library(here) -->
+<!-- # Read in the field observations dataset -->
+<!-- observations <- read_csv("data/raw/field_observations.csv") -->
+<!-- # View the first few rows -->
+<!-- head(___) -->
+<!-- # Convert the datetime column to a proper date-time object -->
+<!-- observations <- observations %>% -->
+<!--   mutate(datetime = ymd_hm(___)) -->
+<!-- # Extract the date only (no time) -->
+<!-- observations <- observations %>% -->
+<!--   mutate(date_only = as_date(___)) -->
+<!-- # What class is the datetime column? -->
+<!-- class(observations$___) -->
+<!-- # Extract year, month, and weekday -->
+<!-- observations <- observations %>% -->
+<!--   mutate( -->
+<!--     year = year(___), -->
+<!--     month = month(___, label = TRUE), -->
+<!--     weekday = wday(___, label = TRUE) -->
+<!--   ) -->
+<!-- # Count observations by weekday -->
+<!-- obs_by_weekday <- observations %>% -->
+<!--   group_by(weekday) %>% -->
+<!--   summarize(n = n()) -->
+<!-- print(obs_by_weekday) -->
+<!-- # Filter for observations from 2023 only -->
+<!-- obs_2023 <- observations %>% -->
+<!--   filter(year == ___) -->
+<!-- # Filter for observations after July 1, 2023 -->
+<!-- obs_after_july <- observations %>% -->
+<!--   filter(date_only > ymd("___")) -->
+<!-- # Filter for afternoon observations (after 12:00) -->
+<!-- obs_afternoon <- observations %>% -->
+<!--   filter(hour(datetime) >= ___) -->
+<!-- # Calculate the time since the first observation for each row -->
+<!-- first_obs <- min(observations$datetime, na.rm = TRUE) -->
+<!-- observations <- observations %>% -->
+<!--   mutate( -->
+<!--     minutes_since_start = as.numeric(difftime(datetime, ___, units = "mins")) -->
+<!--   ) -->
+<!-- # Create a duration object -->
+<!-- d <- minutes(___)  # e.g., 90 minutes -->
+<!-- # Add the duration to the datetime to simulate end time -->
+<!-- observations <- observations %>% -->
+<!--   mutate( -->
+<!--     end_time = datetime + d -->
+<!--   ) -->
+<!-- ``` -->
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></div>
+<div class="next"><a href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lubridate"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="nav-link" href="#objectives-5"><span class="header-section-number">8.1</span> Objectives</a></li>
+<li><a class="nav-link" href="#additional-reading-5"><span class="header-section-number">8.2</span> Additional reading</a></li>
+<li><a class="nav-link" href="#why-are-dates-and-times-unique"><span class="header-section-number">8.3</span> Why are dates and times unique?</a></li>
+<li>
+<a class="nav-link" href="#dates-and-times-in-r"><span class="header-section-number">8.4</span> Dates and times in R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#formatting-dates"><span class="header-section-number">8.4.1</span> Formatting dates</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#the-lubridate-package"><span class="header-section-number">8.5</span> The lubridate package</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#parsing-dates-from-characters"><span class="header-section-number">8.5.1</span> Parsing dates from characters</a></li>
+<li><a class="nav-link" href="#extracting-parts-of-dates"><span class="header-section-number">8.5.2</span> Extracting parts of dates</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#calculations-with-dates"><span class="header-section-number">8.6</span> Calculations with dates</a></li>
+<li><a class="nav-link" href="#time-zones"><span class="header-section-number">8.7</span> Time zones</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-07-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

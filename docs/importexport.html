@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Data Structures and Importing Data | Data Management and Reproducible Science</title>
+<meta name="author" content="Claire S Teitelbaum">
+<meta name="description" content="Some of this lesson draws from The Carpentries’ Data Organization in Spreadsheets for Ecologists workshop, which is published under a CC-BY 4.0 license. It is also based on materials for WILD...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="4 Data Structures and Importing Data | Data Management and Reproducible Science">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Some of this lesson draws from The Carpentries’ Data Organization in Spreadsheets for Ecologists workshop, which is published under a CC-BY 4.0 license. It is also based on materials for WILD...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Data Structures and Importing Data | Data Management and Reproducible Science">
+<meta name="twitter:description" content="Some of this lesson draws from The Carpentries’ Data Organization in Spreadsheets for Ecologists workshop, which is published under a CC-BY 4.0 license. It is also based on materials for WILD...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Management and Reproducible Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Course overview</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction: The What and Why of Reproducible Science</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></li>
+<li><a class="active" href="importexport.html"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="" href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></li>
+<li><a class="" href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></li>
+<li><a class="" href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="" href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="" href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></li>
+<li><a class="" href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></li>
+<li><a class="" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
+<li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></li>
+<li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
+<li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
+<li><a class="" href="spatial.html"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="importexport" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Data Structures and Importing Data<a class="anchor" aria-label="anchor" href="#importexport"><i class="fas fa-link"></i></a>
+</h1>
+<p>Some of this lesson draws from The Carpentries’ <a href="https://datacarpentry.github.io/spreadsheet-ecology-lesson">Data Organization in Spreadsheets for Ecologists</a> workshop, which is published under a <a href="https://datacarpentry.github.io/spreadsheet-ecology-lesson/LICENSE.html">CC-BY 4.0</a> license. It is also based on materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a>, Spring 2021, Utah State University, by Dr. Simona Picardi, also published under a <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> license.</p>
+<p>For more detail on <code>tidyverse</code> approaches to reading data, see the “Data Import” chapter of R for Data Science: <a href="https://r4ds.had.co.nz/data-import.html" class="uri">https://r4ds.had.co.nz/data-import.html</a></p>
+<div id="objectives-1" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-1"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Work with relative file paths to read and write data</li>
+<li>Bring data into R from different sources and file types</li>
+<li>Work with text/csv files and R data objects</li>
+<li>Understand how to use spreadsheets for data entry and management</li>
+</ul>
+</div>
+<div id="additional-reading-1" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 20: Spreadsheets. Available: <a href="https://r4ds.hadley.nz/spreadsheets.html" class="uri">https://r4ds.hadley.nz/spreadsheets.html</a></p>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 7: Data import. Available: <a href="https://r4ds.hadley.nz/data-import.html" class="uri">https://r4ds.hadley.nz/data-import.html</a></p>
+</div>
+<div id="recap-data-structures" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Recap: data structures<a class="anchor" aria-label="anchor" href="#recap-data-structures"><i class="fas fa-link"></i></a>
+</h2>
+<p>Objects in R can come in a number of forms:</p>
+<ul>
+<li>Numbers (R differentiates between decimals - called <em>double</em> and <em>integers</em>)</li>
+<li><em>Characters</em></li>
+<li>
+<em>Factors</em> (ordered values)</li>
+<li>
+<em>Logical</em> (True/False)</li>
+</ul>
+<p>They can also be combined into more complex forms:</p>
+<ul>
+<li>
+<em>Data frames</em>, which consist of rows and columns. Columns must have the same data type (character, integer, etc.)</li>
+<li>
+<em>Lists</em>, which can contain multiple data types.</li>
+</ul>
+</div>
+<div id="file-types-and-their-interaction-with-r" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> File types and their interaction with R<a class="anchor" aria-label="anchor" href="#file-types-and-their-interaction-with-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Your computer can store any number of file types, which are usually indicated by their extension (.docx, .pdf, .csv, .xlsx, etc.). Each file type stores data differently. Some file types are <strong>proprietary</strong> and can only be read by certain software. It is usually best to convert these into open formats before working with them in R or other programming languages. You are likely to receive data as Excel files (.xls, .xlsx). These used to be proprietary but are now open - however, using them with R requires a little practice to know how to import data and what information is lost in the process.</p>
+</div>
+<div id="reading-.csv-files-into-r" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Reading .csv files into R<a class="anchor" aria-label="anchor" href="#reading-.csv-files-into-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>More often than not, you’ll create data frames by importing external files (such as .csv) into R. A few useful functions for this are:</p>
+<ul>
+<li>
+<code>read.csv</code> and its tidy equivalent <code>read_csv</code> from the <code>readr</code> package</li>
+<li>
+<code>read.table</code>, which can read .csv and other text files (.txt, etc.)</li>
+<li>
+<code>source</code>, which reads R code files (we will get to this later)</li>
+<li>
+<code>read_excel</code> from the <code>readxl</code> package</li>
+</ul>
+<p>To practice, we will use some data from an online repository:
+Murray, M. H., Sanchez, C. A., Becker, D. J., Byers, K. A., Worsley-Tonks, K. E. L., &amp; Craft, M. E. (2020). Data from: City sicker? a meta-analysis of wildlife health and urbanization [Data set]. Zenodo. <a href="https://doi.org/10.5061/dryad.b74d971" class="uri">https://doi.org/10.5061/dryad.b74d971</a></p>
+<p><strong>Navigate to the repository using the DOI to learn more about the study.</strong></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># First, look at the arguments for read_csv</span></span>
+<span><span class="op">?</span><span class="va">read_csv</span></span>
+<span></span>
+<span><span class="co"># read_csv can take any file location, including a URL. Download some data:</span></span>
+<span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://zenodo.org/records/3870855/files/Murray%20Sanchez%20et%20al_urban%20wildlife%20May%2020%202019.csv"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Rows: 516 Columns: 42
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (14): TITLE, AUTHORS, JOURNAL, health, condition, toxtype, ptype, stress...
+## dbl (28): study, YEAR, SAMPLE_SIZE, EFFECT_DIRECTION, pval, r, yi, vi, rlowe...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"</code></pre>
+<p>Notice that <code>read_csv</code> gives us information about how it read the file, including:</p>
+<ul>
+<li>the number of rows and columns</li>
+<li>the delimiter, which separates “cells” from one another (in this case, a comma)</li>
+<li>the assumed types of each column (here, 14 character columns and 28 “double”, or numeric, columns)</li>
+</ul>
+<p>When we examine the <code>class</code> of the new object, we see that it is a <code>data.frame</code>, but it also has other types. This is because we used a <code>tidyverse</code> package to read the data, so the object is a special type of data frame called a <code>tibble</code>. To learn more, check out <code><a href="https://tibble.tidyverse.org/reference/tbl_df-class.html">?tbl_df</a></code>.</p>
+</div>
+<div id="writing-data-from-r" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Writing data from R<a class="anchor" aria-label="anchor" href="#writing-data-from-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Repositories like Zenodo should provide permanent ways to access data, but you should also save a local copy. To save this csv, we can use the <code>write_csv</code> function.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="st">"data/raw/Murray-Sanchez_urban-wildlife.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>You should now see a new file in your raw data folder.</p>
+</div>
+<div id="working-with-spreadsheets-in-and-out-of-r" class="section level2" number="4.7">
+<h2>
+<span class="header-section-number">4.7</span> Working with spreadsheets, in and out of R<a class="anchor" aria-label="anchor" href="#working-with-spreadsheets-in-and-out-of-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Many spreadsheet programs are available. The most commonly used is Excel, so we will use Excel here, but these same principles apply to Google Sheets, etc.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="https://imgs.xkcd.com/comics/spreadsheets.png" alt="The temptations of spreadsheets (https://xkcd.com/2180/)" width="80%"><p class="caption">
+Figure 4.1: The temptations of spreadsheets (<a href="https://xkcd.com/2180/" class="uri">https://xkcd.com/2180/</a>)
+</p>
+</div>
+<div id="spreadsheets-for-data-entry" class="section level3" number="4.7.1">
+<h3>
+<span class="header-section-number">4.7.1</span> Spreadsheets for data entry<a class="anchor" aria-label="anchor" href="#spreadsheets-for-data-entry"><i class="fas fa-link"></i></a>
+</h3>
+<p>Spreadsheets are a great tool for data entry, but to be compatible with future analyses it is important to set them up properly. One common mistake is to use spreadsheets like data sheets or lab notebooks, which include notes for context or lay out data spatially. As humans, we can (usually) interpret these things, but computers don’t view information the same way, and unless we explain to the computer what every single thing means (and that can be hard!), it will not be able to see how our data fits together.</p>
+<p>It is also important to know (and accept) that the best formats for data entry might not be the best formats for data analysis. In the next lesson, we will learn how to use R to automatically convert from one to another, but it is also helpful to understand the principles of data formatting in spreadsheets to make this processes as streamlined as possible.</p>
+</div>
+<div id="formatting-data-in-spreadsheets" class="section level3" number="4.7.2">
+<h3>
+<span class="header-section-number">4.7.2</span> Formatting data in spreadsheets<a class="anchor" aria-label="anchor" href="#formatting-data-in-spreadsheets"><i class="fas fa-link"></i></a>
+</h3>
+<p><span style="color:red"><strong>Open the Murray, Sachez, et al. data in Excel or another spreadsheet program.</strong></span></p>
+<p>Excel may ask you if you want to covert large numbers into scientific notation. You can say yes.</p>
+<p>Examine the spreadsheet. This is easier than looking at data using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> or other functions in R and RStudio. That is our first good use of spreadsheets: <strong>familiarizing yourself with data</strong>.</p>
+<p><span style="color:red"><strong>Discuss</strong></span><strong>: what do you notice about the structure of this dataset?</strong></p>
+<ul>
+<li>How are missing values represented?</li>
+<li>Where is there duplicated information? Why do you think it is organized this way?</li>
+<li>Which columns are intuitive? Which are not?</li>
+<li>What else is confusing or interesting about this dataset?</li>
+</ul>
+<p>To answer some of these questions, we need <strong>metadata</strong>, which (as the name implies), is data about our data. Download the README file from the Zenodo repository: <a href="https://zenodo.org/records/3870855" class="uri">https://zenodo.org/records/3870855</a>.</p>
+</div>
+<div id="tidy-data" class="section level3" number="4.7.3">
+<h3>
+<span class="header-section-number">4.7.3</span> Tidy data<a class="anchor" aria-label="anchor" href="#tidy-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>This data set is <em>mostly</em> in “tidy” format, meaning that it has one observation per row and one variable per column. For example, look at the <code>host.class</code> and <code>aqterr</code> columns:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="images/tidycolumns.png" alt="Tidy data format" width="80%"><p class="caption">
+Figure 4.2: Tidy data format
+</p>
+</div>
+<p>When entering data, you might intuitively enter it as “terrestrial mammal,”, “terrestrial bird,” etc., but this way data can later be filtered or analyzed by a single classification only. One case where this data set does not do this is the <code>host.species</code> column:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="images/speciescolumn.png" alt="Slightly less tidy data format" width="80%"><p class="caption">
+Figure 4.3: Slightly less tidy data format
+</p>
+</div>
+<p>We might later be interested in grouping by genus, but we can’t do that with the way the data are entered right now. We will learn how to separate the genus and species in R later.</p>
+</div>
+<div id="what-to-avoid" class="section level3" number="4.7.4">
+<h3>
+<span class="header-section-number">4.7.4</span> What to avoid<a class="anchor" aria-label="anchor" href="#what-to-avoid"><i class="fas fa-link"></i></a>
+</h3>
+<p>Some key practices to avoid when creating spreadsheets include:</p>
+<ul>
+<li>Multiple tables in the same sheet –&gt; instead, use multiple tabs (sheets) in the same file (workbook) or, even better, a separate file for each table.</li>
+<li>Using formatting to convey information: formatting like bold, highlights, etc. can be useful for using spreadsheets, but they won’t load across platforms. Instead, add a new column to flag entries.</li>
+</ul>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></div>
+<div class="next"><a href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#importexport"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="nav-link" href="#objectives-1"><span class="header-section-number">4.1</span> Objectives</a></li>
+<li><a class="nav-link" href="#additional-reading-1"><span class="header-section-number">4.2</span> Additional reading</a></li>
+<li><a class="nav-link" href="#recap-data-structures"><span class="header-section-number">4.3</span> Recap: data structures</a></li>
+<li><a class="nav-link" href="#file-types-and-their-interaction-with-r"><span class="header-section-number">4.4</span> File types and their interaction with R</a></li>
+<li><a class="nav-link" href="#reading-.csv-files-into-r"><span class="header-section-number">4.5</span> Reading .csv files into R</a></li>
+<li><a class="nav-link" href="#writing-data-from-r"><span class="header-section-number">4.6</span> Writing data from R</a></li>
+<li>
+<a class="nav-link" href="#working-with-spreadsheets-in-and-out-of-r"><span class="header-section-number">4.7</span> Working with spreadsheets, in and out of R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#spreadsheets-for-data-entry"><span class="header-section-number">4.7.1</span> Spreadsheets for data entry</a></li>
+<li><a class="nav-link" href="#formatting-data-in-spreadsheets"><span class="header-section-number">4.7.2</span> Formatting data in spreadsheets</a></li>
+<li><a class="nav-link" href="#tidy-data"><span class="header-section-number">4.7.3</span> Tidy data</a></li>
+<li><a class="nav-link" href="#what-to-avoid"><span class="header-section-number">4.7.4</span> What to avoid</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-07-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>14 Version Control with Git and GitHub | Data Management and Reproducible Science</title>
+<meta name="author" content="Claire S Teitelbaum">
+<meta name="description" content="Figure 3.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="14 Version Control with Git and GitHub | Data Management and Reproducible Science">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Figure 3.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14 Version Control with Git and GitHub | Data Management and Reproducible Science">
+<meta name="twitter:description" content="Figure 3.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Management and Reproducible Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Course overview</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction: The What and Why of Reproducible Science</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></li>
+<li><a class="" href="importexport.html"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="" href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></li>
+<li><a class="" href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></li>
+<li><a class="" href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="" href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="" href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></li>
+<li><a class="" href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></li>
+<li><a class="" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
+<li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
+<li><a class="active" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></li>
+<li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
+<li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
+<li><a class="" href="spatial.html"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git" class="section level1" number="14">
+<h1>
+<span class="header-section-number">14</span> Version Control with Git and GitHub<a class="anchor" aria-label="anchor" href="#git"><i class="fas fa-link"></i></a>
+</h1>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="https://imgs.xkcd.com/comics/git.png" alt="Fairly accurate. (https://xkcd.com/1597/)" width="50%"><p class="caption">
+Figure 3.1: Fairly accurate. (<a href="https://xkcd.com/1597/" class="uri">https://xkcd.com/1597/</a>)
+</p>
+</div>
+<p>This lesson draws from materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a>, Spring 2021, Utah State University, by Dr. Simona Picardi, published under a <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> license. Lesson elements about Git/GitHub setup the RStudio GUI are based on The Carpentries’ <a href="https://swcarpentry.github.io/git-novice">Version Control with Git</a> workshop, also licensed under <a href="https://swcarpentry.github.io/git-novice/LICENSE.html">CC-BY 4.0</a>.</p>
+<div id="objectives-11" class="section level2" number="14.1">
+<h2>
+<span class="header-section-number">14.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-11"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Understand the benefits and challenges of using Git for version control</li>
+<li>Modify, stage, and commit changes with Git</li>
+<li>Fetch and push code from/to a remote repository</li>
+</ul>
+</div>
+<div id="the-what-and-why-of-version-control" class="section level2" number="14.2">
+<h2>
+<span class="header-section-number">14.2</span> The what and why of version control<a class="anchor" aria-label="anchor" href="#the-what-and-why-of-version-control"><i class="fas fa-link"></i></a>
+</h2>
+<p>Git is a version control system. It tracks all the changes you make to your files and allows you to go back to previous versions as far back in time as you need. Git is useful for keeping yourself organized and can be combined with collaboration software (GitHub) to make sharing code and other files easy. You might have a folder that looks something like this:</p>
+<div class="inline-figure"><img src="images/files_with_dates.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<p>My past self obviously could have been better about using consistent formatting for dates (some of these include year and some do not), but even if I had done so there are a few drawbacks to this approach:</p>
+<ul>
+<li>Each of these files takes up space on my hard drive. Even if each is very small, they will add up.</li>
+<li>I don’t know what changes were made between each of these versions, so it would be hard for me to go back to an old version to find deleted or modified code.</li>
+<li>I can’t be totally sure which of these is the most recent version. Sometimes, the “date modified” doesn’t line up with the date on the file. What to do then?</li>
+</ul>
+<p>Git provides a solution to this problem. Instead of manually saving edits to a file in a separate copy “just in case”, and instead of having to keep track of which is the most recent version, we can put our files under version control and let Git keep track of the changes we make. Using Git, you will only have one file for each script on your computer, but you will have a log of changes, including your own notes on what you changed and why. For example:</p>
+<div class="figure" style="text-align: left">
+<span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="images/git_commits.png" alt="Commit message examples" width="80%"><p class="caption">
+Figure 14.1: Commit message examples
+</p>
+</div>
+<p>You can also easily see the changes made at each stage:</p>
+<div class="figure" style="text-align: left">
+<span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="images/git_changes.png" alt="A diff example" width="80%"><p class="caption">
+Figure 4.1: A diff example
+</p>
+</div>
+<p>Additional reading: <a href="https://swcarpentry.github.io/git-novice/01-basics.html" class="uri">https://swcarpentry.github.io/git-novice/01-basics.html</a></p>
+</div>
+<div id="getting-started-with-git-and-github" class="section level2" number="14.3">
+<h2>
+<span class="header-section-number">14.3</span> Getting started with Git and GitHub<a class="anchor" aria-label="anchor" href="#getting-started-with-git-and-github"><i class="fas fa-link"></i></a>
+</h2>
+<div id="git-1" class="section level3" number="14.3.1">
+<h3>
+<span class="header-section-number">14.3.1</span> Git<a class="anchor" aria-label="anchor" href="#git-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>–&gt; <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Follow these instructions to install Git.</a></p>
+</div>
+<div id="github" class="section level3" number="14.3.2">
+<h3>
+<span class="header-section-number">14.3.2</span> GitHub<a class="anchor" aria-label="anchor" href="#github"><i class="fas fa-link"></i></a>
+</h3>
+<p>GitHub extends Git for collaboration (including with yourself by syncing across your devices, if applicable). Two people can have the same repository on their computers, then sync these changes to the remote repository (called fetching/pulling and pushing). During this process, you can see what changes your collaborator made and identify and conflicts, for example where you edited the same code at the same time.</p>
+<p>To make a GitHub account:</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://github.com" class="uri">https://github.com</a> and follow the “Sign up” link at the top-right of the window.</li>
+<li>Follow the instructions to create an account.</li>
+<li>Verify your email address with GitHub.</li>
+<li>Configure multifactor authentication. You can use Duo or any other authenicator app you already have.</li>
+</ol>
+</div>
+<div id="guis" class="section level3" number="14.3.3">
+<h3>
+<span class="header-section-number">14.3.3</span> GUIs<a class="anchor" aria-label="anchor" href="#guis"><i class="fas fa-link"></i></a>
+</h3>
+<p>As an easy on-ramp to using Git, we will use a graphical user interface (GUI) within RStudio. GUIs provide point-and-click interfaces. Most of the applications you use provide a GUI - you don’t have to type in commands for them to work. In this lesson, we will use the GUI side-by-side with the command-line method so you can see which works best for you. The GUI is more limited in its functionality but a good place to get familiar with the principles of version control before moving on to more advanced applications.</p>
+<p>In addition to the RStudio GUI, another good option is GitHub Desktop. Its functionality is more limited than some other GUIs but it is very easy to get started:</p>
+<p>–&gt; <a href="https://desktop.github.com/download/">Download and install GitHub Desktop</a></p>
+</div>
+</div>
+<div id="basic-git-structure-and-commands" class="section level2" number="14.4">
+<h2>
+<span class="header-section-number">14.4</span> Basic Git structure and commands<a class="anchor" aria-label="anchor" href="#basic-git-structure-and-commands"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-figure"><img src="images/git_schematic.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<p>The central commands for using Git are:</p>
+<ul>
+<li>
+<code>git init</code>: Creates a new empty repository in your current directory</li>
+<li>
+<code>git add</code>: Sends a new or changed file in your working directory to the staging area</li>
+<li>
+<code>git commit</code>: Sends a staged file to the local repository</li>
+</ul>
+<p>When using a remote repository on GitHub (or another platform, we add):</p>
+<ul>
+<li>
+<code>git push</code>: Sends changes from the local repository to the remote repository</li>
+<li>
+<code>git fetch</code>: Gets changes from the remote repository and compares them with the local repository (but does nothing to local files)</li>
+<li>
+<code>git pull</code>: Gets changes from the remote repository and makes the corresponding changes to local files</li>
+</ul>
+</div>
+<div id="using-git-in-the-command-line" class="section level2" number="14.5">
+<h2>
+<span class="header-section-number">14.5</span> Using Git in the command line<a class="anchor" aria-label="anchor" href="#using-git-in-the-command-line"><i class="fas fa-link"></i></a>
+</h2>
+<p><em>This section is mostly copied, with minimal editing, from materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a></em></p>
+<div id="the-command-line" class="section level3" number="14.5.1">
+<h3>
+<span class="header-section-number">14.5.1</span> The command line<a class="anchor" aria-label="anchor" href="#the-command-line"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can use Git from the command line in the computer’s terminal. The command line can be intimidating if you haven’t used it before, but using Git only requires basic familiarity with it. Commands are slightly different between operating systems (Windows vs. Mac/Linux).</p>
+<p>When you open up the terminal (or command prompt) on your computer, you’ll see a symbol, on many computers it is a “$” or “&gt;”, followed by a blinking cursor. That symbol is called the prompt, and it means the terminal is waiting for your input. If you copy-paste any code from this chapter into your terminal, make sure you only copy the part after the prompt (don’t copy the &gt;). Also, if Ctrl+V does not work in the terminal, you can right-click to paste (Cmd+V should work on a Mac).</p>
+<p>When you open the terminal, you should automatically be located in the root directory of your file system (or your home directory, if you have a computer with multiple users). On a Mac, this will usually look like</p>
+<pre><code>COMPUTER-NAME: ~username$</code></pre>
+<p>And on Windows</p>
+<pre><code>C:\Users\username&gt;</code></pre>
+<p>To move around directories we use the command <code>cd</code>, which stands for “change directory”. For example, to move to the Research subfolder in my Documents folder, I might type in:</p>
+<div class="sourceCode" id="cb500"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb500-1"><a href="git.html#cb500-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Research</span></code></pre></div>
+<p>To go up a directory, use “..”. The following command would take me back up to my Documents folder:</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb501-1"><a href="git.html#cb501-1" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div>
+</div>
+<div id="configuring-git-one-time-only" class="section level3" number="14.5.2">
+<h3>
+<span class="header-section-number">14.5.2</span> Configuring Git (one time only)<a class="anchor" aria-label="anchor" href="#configuring-git-one-time-only"><i class="fas fa-link"></i></a>
+</h3>
+<p>On a command line, Git commands are written as <code>git</code> <code>verb</code> <code>options</code>, where <code>verb</code> is what we actually want to do and <code>options</code> is additional optional information which may be needed for the verb. To set up Git for the first time:</p>
+<div class="sourceCode" id="cb502"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb502-1"><a href="git.html#cb502-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"My name"</span></span>
+<span id="cb502-2"><a href="git.html#cb502-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"myemail@uga.edu"</span></span></code></pre></div>
+<p>This user name and email will be associated with your subsequent Git activity, which means that any changes pushed to GitHub, BitBucket, GitLab, etc. will include this information. The email address used should be the same as the one used when setting up your account. There are more configuration options you can personalize, but we won’t get into that. If you want to check what configuration options you have active, you can use:</p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb503-1"><a href="git.html#cb503-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--list</span></span></code></pre></div>
+</div>
+<div id="creating-a-repository-one-time-per-project" class="section level3" number="14.5.3">
+<h3>
+<span class="header-section-number">14.5.3</span> Creating a repository (one time per project)<a class="anchor" aria-label="anchor" href="#creating-a-repository-one-time-per-project"><i class="fas fa-link"></i></a>
+</h3>
+<p>To create a repository (in other words, to put a directory under version control), we first have to navigate to that directory. Here, we will create a repository for this class.</p>
+<div class="sourceCode" id="cb504"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb504-1"><a href="git.html#cb504-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Classes/FANR8950_Fall2025</span></code></pre></div>
+<blockquote>
+<p>A side note: if you have spaces in any of your directory names (for example, if your directories are in OneDrive), you will need to put the path in quotes. Otherwise, the terminal thinks those spaces indicate a new argument or command.</p>
+</blockquote>
+<p>Now we will enable Git to start tracking everything inside this folder:</p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb505-1"><a href="git.html#cb505-1" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div>
+<p>This command initializes Git. You won’t immediately notice any changes in the directory, but if you show hidden files in your file explorer you will notice there is a new subfolder called .git. That folder is where Git will store all of its version control information. You don’t have to worry about the content of that folder.</p>
+</div>
+<div id="staging-files" class="section level3" number="14.5.4">
+<h3>
+<span class="header-section-number">14.5.4</span> Staging files<a class="anchor" aria-label="anchor" href="#staging-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>Creating a repository enables Git to start tracking files within it, but that does not happen automatically. We have to tell Git which files we want to track. We can check what Git is tracking so far by using:</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb506-1"><a href="git.html#cb506-1" tabindex="-1"></a><span class="fu">git</span> status </span></code></pre></div>
+<p>At the bottom, we’ll see a list of untracked files. We need to switch on tracking on those. To begin tracking a new file, we use the verb ‘add’. For example, to track a file named “exercise2.R” we would type:</p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb507-1"><a href="git.html#cb507-1" tabindex="-1"></a><span class="fu">git</span> add exercise2.R</span></code></pre></div>
+<p>This works well if we want to add a specific file. If we want to start tracking the whole content of the folder, we can do:</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb508-1"><a href="git.html#cb508-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
+</div>
+<div id="ignoring-files" class="section level3" number="14.5.5">
+<h3>
+<span class="header-section-number">14.5.5</span> Ignoring files<a class="anchor" aria-label="anchor" href="#ignoring-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>Git is optimized to work with plain text files (for example .txt or R scripts), and it doesn’t really understand binary files (which is how Word files and PDFs are stored, for example). Also, some files typically do not need to be version controlled, such as images; in fact, because they are large files, version controlling images can end up clogging your workflow. Make sure you are always aware of what exactly you’re adding when you use ‘git add –all’. When in doubt, add files one by one. We can set up some rules to exclude types of files or individual files that we don’t want to track. Some rules of thumb:</p>
+<ul>
+<li>File encoding (plain-text vs. binary): Git cannot track changes within binary files, so, even though you <strong>can</strong> store these files under version control, you won’t be able to use Git to compare different version, so there’s really no point in tracking these;</li>
+<li>Code-generated: anything that can be reproduced by running code does not need to be version-controlled;</li>
+<li>Size: files that are too big will slow down the functioning of Git. As a benchmark, you can keep in mind the maximum size limit enforced by GitHub, which is 100 MB – but if you follow the two criteria above, you will rarely end up with this problem because 100 MB’s worth of plain-text files is a whole lot of plain text.</li>
+</ul>
+<p>You can create a text file called “.gitignore” in our repository by using your default text editor (Notepad for Windows, TextEdit for MacOS, etc). The name must be exactly “.gitignore” for Git to recognize it. The file must have no extension (i.e., .txt) so go ahead and delete that (don’t worry about any warnings).</p>
+<p>Once .gitignore is created, we can start adding rules. Nothing prevents us from listing files in .gitignore one by one, but this approach is not efficient. Instead, we can use pattern matching to kill many birds with one stone. What all these files have in common is they are all either .jpg’s or .docx’s. We can use the wildcard ’*’ to signify “any character” before the file extension:</p>
+<pre><code>\*.jpg  
+\*.docx  </code></pre>
+<p>This will exclude any .jpg or .docx file from being tracked by Git in this repository. Since the images are conveniently located all together in one folder, we can also just do this:</p>
+<pre><code>figures/</code></pre>
+<p>We should also add the following rules to ignore the user-specific R project files:</p>
+<pre><code>\*.Rhistory   
+/.Rproj.user/  </code></pre>
+<p>We can add as many rules as we like, then save the .gitignore text file when we’re done. Now, if we didn’t forget to include anything that needed to be ignored, we can safely add all our files in one go:</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb512-1"><a href="git.html#cb512-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
+</div>
+<div id="committing-files" class="section level3" number="14.5.6">
+<h3>
+<span class="header-section-number">14.5.6</span> Committing files<a class="anchor" aria-label="anchor" href="#committing-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that our files are staged, we are ready to send them to the local repository. This is called committing. Each commit is a snapshot of what the repository looked like at the time it was committed. When you commit a file, you save that version forever and will be able to go back to it. Remember, this is many steps beyond clicking “Save” on your script - you should commit a file when you feel you have made significant changes that you might want to go back to (or undo).</p>
+<p>For our first commit, we use the following command:</p>
+<div class="sourceCode" id="cb513"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb513-1"><a href="git.html#cb513-1" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"First commit"</span></span></code></pre></div>
+<p>Each commit should be accompanied by a message, added with the flag -m. The message should describe the changes made to the file/s since the previous commit. It is a good habit to write detailed commit messages, so that when we need to go back and recover a previous version of a file, you can read the history of commits and easily find the version we are looking for.</p>
+<p>When you next edit any of these files, you will need to repeat this process: move it to the staging area and commit those changes.</p>
+</div>
+<div id="un-staging-files" class="section level3" number="14.5.7">
+<h3>
+<span class="header-section-number">14.5.7</span> Un-staging files<a class="anchor" aria-label="anchor" href="#un-staging-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>Staging initially seems like an annoying extra step, but it serves as a good check on your process before you commit something (because committing is permanent!). The following command un-stages files and saves us from having to commit them:</p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb514-1"><a href="git.html#cb514-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> filename</span></code></pre></div>
+<p>You can use pattern matching here as well, but you’ll need to put a backslash in front of the wildcard:</p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb515-1"><a href="git.html#cb515-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="dt">\*</span>.jpg</span></code></pre></div>
+<p>In both of these cases, you probably then want to add the file names or extensions to your .gitignore file.</p>
+</div>
+<div id="accessing-file-histories" class="section level3" number="14.5.8">
+<h3>
+<span class="header-section-number">14.5.8</span> Accessing file histories<a class="anchor" aria-label="anchor" href="#accessing-file-histories"><i class="fas fa-link"></i></a>
+</h3>
+<p>Git will allow you to recover previous versions of any tracked file at the time it was committed. You can access the history of commits using:</p>
+<div class="sourceCode" id="cb516"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb516-1"><a href="git.html#cb516-1" tabindex="-1"></a><span class="fu">git</span> log</span></code></pre></div>
+<div class="inline-figure"><img src="images/git_history.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<p>The string of numbers and letters following the word ‘commit’ in the log is called the hash and it uniquely identifies each commit. If I wanted to revert to the version of the data manipulation lesson before I split it in two, I would use:</p>
+<div class="sourceCode" id="cb517"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb517-1"><a href="git.html#cb517-1" tabindex="-1"></a><span class="fu">git</span> checkout 91568057d886b9b2cf9966ccbd82c4fd51ba119f <span class="at">--</span> data_manipulation.Rmd</span></code></pre></div>
+<p>If my commit messages are not as helpful as I would like, or I want more detail, I can also ask for a line-by-line comparison of old and new versions of a file using <code>git diff</code>. Text I added will be preceded by a “+” and text I deleted with a “-”.</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb518-1"><a href="git.html#cb518-1" tabindex="-1"></a><span class="fu">git</span> diff version-control-git-github.Rmd</span></code></pre></div>
+</div>
+</div>
+<div id="using-git-with-guis" class="section level2" number="14.6">
+<h2>
+<span class="header-section-number">14.6</span> Using Git with GUIs<a class="anchor" aria-label="anchor" href="#using-git-with-guis"><i class="fas fa-link"></i></a>
+</h2>
+<p>We just learned how to use Git the hard way. Two common GUIs can make this process easier to visualize, although they provide fewer advanced functions. I find GUIs especially helpful for looking at history and working with GitHub. One GUI is even built into RStudio.</p>
+<div id="rstudio" class="section level3" number="14.6.1">
+<h3>
+<span class="header-section-number">14.6.1</span> RStudio<a class="anchor" aria-label="anchor" href="#rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio integrates Git with R projects. This does not work if your scripts are not part of a project but luckily, we already created a project for this class. If you followed the instructions above, when you open that project, you will probably already see a “Git” tab in your “Environment” panel in RStudio. If you don’t (or want to go another route for your next project), you can initiate version control in the project options:</p>
+<div class="inline-figure"><img src="images/rstudio_git_setup.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<div class="inline-figure"><img src="images/rstudio_git_setup2.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<p>Once version control is set up, you should see the “Git” menu above the Source panel and a Git tab in the Environment panel.</p>
+<p>Using the “Commit” menu, you can easily stage changes, write commit messages, and see changes to be committed:</p>
+<div class="inline-figure"><img src="images/rstudio_git_commit.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<div class="inline-figure"><img src="images/rstudio_git_commit2.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<p>You also see the “Pull” and “Push” buttons available in the top-left corner of this menu. These will be grayed out if you haven’t get set up your repository with a remote repository (e.g., on GitHub). We will set this up later.</p>
+</div>
+<div id="other-guis" class="section level3" number="14.6.2">
+<h3>
+<span class="header-section-number">14.6.2</span> Other GUIs<a class="anchor" aria-label="anchor" href="#other-guis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Many other GUIs have similar functionality to RStudio’s GUI, in which you check boxes to stage, type messages in a box, and then click to commit. The main difference is that GitHub Desktop doesn’t require you to have an R project established and works outside RStudio, which can be helpful if you are working with files outside of R and don’t want to open RStudio just to use Git.</p>
+</div>
+</div>
+<div id="adding-a-remote-repository-github" class="section level2" number="14.7">
+<h2>
+<span class="header-section-number">14.7</span> Adding a remote repository (GitHub)<a class="anchor" aria-label="anchor" href="#adding-a-remote-repository-github"><i class="fas fa-link"></i></a>
+</h2>
+<p><em>This section is mostly copied, with minimal editing, from materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a></em></p>
+<p>A remote repository is a copy of a repository that is stored elsewhere than your local copy. In most cases, when collaborating, you’ll have a copy of a repository on your machine (the local repository) and a copy on a server that is accessible to others (the remote repository). The remote repository can be hosted on GitHub.</p>
+<p>There are two ways to set up your local and remote repositories to interact.</p>
+<ol style="list-style-type: decimal">
+<li>Set up the local first and link it with a remote later.</li>
+<li>Create the remote first and “clone it” on your computer to get a local copy.</li>
+</ol>
+<p>If you’re starting a brand new repository you can go either way, but the first approach is what you would do if you wanted to link a repository that already exists on your local machine to a GitHub repository.</p>
+<div id="adding-a-remote-to-a-local-repository" class="section level3" number="14.7.1">
+<h3>
+<span class="header-section-number">14.7.1</span> Adding a remote to a local repository<a class="anchor" aria-label="anchor" href="#adding-a-remote-to-a-local-repository"><i class="fas fa-link"></i></a>
+</h3>
+<p>Starting from an existing Git repository on your computer, you can link this to its GitHub counterpart by adding a remote URL. To set up a URL, go on the GitHub website, click on the ‘+’ sign in the top-right corner and select ‘New Repository’.</p>
+<div class="inline-figure"><img src="github_new_repository.png"></div>
+<p>Follow the steps to create a new repository, giving it the same name as the folder on your computer (this isn’t necessary, but is helpful). Make sure you do <em>not</em> add a README, .gitignore, or license file. This repository should be empty when created so that it does not conflict with any of the files in the local repository.</p>
+<p>To connect the local and remote repositories, you can copy the URL of the remote repository and run this command in the terminal (again, after navigating to the location of your local repository):</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb519-1"><a href="git.html#cb519-1" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/cteitel/myrepo.git</span></code></pre></div>
+<p>‘Origin’ is the conventional name given to a remote repository. You could use any other name, but since GitHub uses ‘origin’ as the default name when creating a repository from the website, using this convention will make it easier to follow help guides online. Some GUIs also allow you to do this through menus.</p>
+</div>
+<div id="pushing-to-a-remote-repository" class="section level3" number="14.7.2">
+<h3>
+<span class="header-section-number">14.7.2</span> Pushing to a remote repository<a class="anchor" aria-label="anchor" href="#pushing-to-a-remote-repository"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now we have linked the local and remote repository, but if you look in the repository on your GitHub page, you won’t see any files in it. First, we need to “push” a cope of the local files to the remote repository. The first time you push, it’s a good idea to specify which branch Git should use as the default remote for the local main branch in the future. We do this by adding the flag ‘-u’ (for upstream), followed by the name of the remote and the name of the local branch that you want to link up:</p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb520-1"><a href="git.html#cb520-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div>
+<p>You only have to set the upstream the first time you push a certain branch. After the upstream is set up, you will be able to just push changes to the remote repository by doing:</p>
+<p><code>git push</code></p>
+<p>You will be prompted to for your GitHub credentials. You may be asked to use a personal access token, in which case you need to follow <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic">these instructions</a>.</p>
+<p>Once you push, all the files you committed are transferred and your two repositories will mirror each other. To keep the remote repository synchronized with the local, any time you commit changes to tracked files you will also need to push them.</p>
+<p>In the next lesson, we will expand on these skills to learn how to use GitHub to collaborate with others and to share your projects.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></div>
+<div class="next"><a href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#git"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="nav-link" href="#objectives-11"><span class="header-section-number">14.1</span> Objectives</a></li>
+<li><a class="nav-link" href="#the-what-and-why-of-version-control"><span class="header-section-number">14.2</span> The what and why of version control</a></li>
+<li>
+<a class="nav-link" href="#getting-started-with-git-and-github"><span class="header-section-number">14.3</span> Getting started with Git and GitHub</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#git-1"><span class="header-section-number">14.3.1</span> Git</a></li>
+<li><a class="nav-link" href="#github"><span class="header-section-number">14.3.2</span> GitHub</a></li>
+<li><a class="nav-link" href="#guis"><span class="header-section-number">14.3.3</span> GUIs</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#basic-git-structure-and-commands"><span class="header-section-number">14.4</span> Basic Git structure and commands</a></li>
+<li>
+<a class="nav-link" href="#using-git-in-the-command-line"><span class="header-section-number">14.5</span> Using Git in the command line</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-command-line"><span class="header-section-number">14.5.1</span> The command line</a></li>
+<li><a class="nav-link" href="#configuring-git-one-time-only"><span class="header-section-number">14.5.2</span> Configuring Git (one time only)</a></li>
+<li><a class="nav-link" href="#creating-a-repository-one-time-per-project"><span class="header-section-number">14.5.3</span> Creating a repository (one time per project)</a></li>
+<li><a class="nav-link" href="#staging-files"><span class="header-section-number">14.5.4</span> Staging files</a></li>
+<li><a class="nav-link" href="#ignoring-files"><span class="header-section-number">14.5.5</span> Ignoring files</a></li>
+<li><a class="nav-link" href="#committing-files"><span class="header-section-number">14.5.6</span> Committing files</a></li>
+<li><a class="nav-link" href="#un-staging-files"><span class="header-section-number">14.5.7</span> Un-staging files</a></li>
+<li><a class="nav-link" href="#accessing-file-histories"><span class="header-section-number">14.5.8</span> Accessing file histories</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#using-git-with-guis"><span class="header-section-number">14.6</span> Using Git with GUIs</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rstudio"><span class="header-section-number">14.6.1</span> RStudio</a></li>
+<li><a class="nav-link" href="#other-guis"><span class="header-section-number">14.6.2</span> Other GUIs</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#adding-a-remote-repository-github"><span class="header-section-number">14.7</span> Adding a remote repository (GitHub)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#adding-a-remote-to-a-local-repository"><span class="header-section-number">14.7.1</span> Adding a remote to a local repository</a></li>
+<li><a class="nav-link" href="#pushing-to-a-remote-repository"><span class="header-section-number">14.7.2</span> Pushing to a remote repository</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-07-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

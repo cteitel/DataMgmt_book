@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>15 Collaboration with GitHub (or friends) | Data Management and Reproducible Science</title>
+<meta name="author" content="Claire S Teitelbaum">
+<meta name="description" content="15.1 Objectives Clone and fork repositories from GitHub Understand merge conflicts, how to resolve them, and how to avoid them Work with branches in repositories  15.2 Collaboration on code In the...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="15 Collaboration with GitHub (or friends) | Data Management and Reproducible Science">
+<meta property="og:type" content="book">
+<meta property="og:description" content="15.1 Objectives Clone and fork repositories from GitHub Understand merge conflicts, how to resolve them, and how to avoid them Work with branches in repositories  15.2 Collaboration on code In the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15 Collaboration with GitHub (or friends) | Data Management and Reproducible Science">
+<meta name="twitter:description" content="15.1 Objectives Clone and fork repositories from GitHub Understand merge conflicts, how to resolve them, and how to avoid them Work with branches in repositories  15.2 Collaboration on code In the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Management and Reproducible Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Course overview</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction: The What and Why of Reproducible Science</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></li>
+<li><a class="" href="importexport.html"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="" href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></li>
+<li><a class="" href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></li>
+<li><a class="" href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="" href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="" href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></li>
+<li><a class="" href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></li>
+<li><a class="" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
+<li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="active" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></li>
+<li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
+<li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
+<li><a class="" href="spatial.html"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="github" class="section level1" number="15">
+<h1>
+<span class="header-section-number">15</span> Collaboration with GitHub (or friends)<a class="anchor" aria-label="anchor" href="#github"><i class="fas fa-link"></i></a>
+</h1>
+<div id="objectives-12" class="section level2" number="15.1">
+<h2>
+<span class="header-section-number">15.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-12"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Clone and fork repositories from GitHub</li>
+<li>Understand merge conflicts, how to resolve them, and how to avoid them</li>
+<li>Work with branches in repositories</li>
+</ul>
+</div>
+<div id="collaboration-on-code" class="section level2" number="15.2">
+<h2>
+<span class="header-section-number">15.2</span> Collaboration on code<a class="anchor" aria-label="anchor" href="#collaboration-on-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>In <a href="git.html#git">the previous lesson</a>, we learned how to manage your own code using version control and how to sync it with a remote repository. This is probably the bulk of what you will you do with version control. However, many of the benefits of using version control magnify when collaborating with others on code. For example:</p>
+<ul>
+<li>Code often builds on itself, so a single small change can change an entire workflow (or break a script).</li>
+<li>Unlike in word processing programs, there is limited opportunity for “track changes” in code.</li>
+<li>A section of code usually depends on what comes before it, so it isn’t usually feasible for collaborators to write code chunks separately and combine them later.</li>
+</ul>
+<p>The rest of this lesson is copied, with minimal editing to images and links, from materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a>, Spring 2021, Utah State University, by Dr. Simona Picardi, published under a <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> license.</p>
+<div id="cloning-a-repository" class="section level3" number="15.2.1">
+<h3>
+<span class="header-section-number">15.2.1</span> Cloning a repository<a class="anchor" aria-label="anchor" href="#cloning-a-repository"><i class="fas fa-link"></i></a>
+</h3>
+<p>The other way to get a local-remote repository pair set up is to create a GitHub repository first and clone it on your computer. In this case, it doesn’t matter whether the remote repository is empty or not. Cloning a repository is also useful if you are collaborating on a project with someone on their repository. You and your collaborator/s can all have a copy of the same repository on each of your computers by cloning a shared remote repository, which will then be synchronized with changes made by anyone on the team. The person who created the repository will need to add the others as collaborators so that they’re able to clone it.</p>
+<p>To clone a repository, open the terminal and navigate to the folder where you want to download it. Then use the following command:</p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb521-1"><a href="github.html#cb521-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/cteitel/hello-world.git</span></code></pre></div>
+<p>The repository will be copied to your computer into the folder you specified.</p>
+</div>
+</div>
+<div id="synchronizing-changes-among-collaborators" class="section level2" number="15.3">
+<h2>
+<span class="header-section-number">15.3</span> Synchronizing changes among collaborators<a class="anchor" aria-label="anchor" href="#synchronizing-changes-among-collaborators"><i class="fas fa-link"></i></a>
+</h2>
+<p>The inverse of pushing is pulling, which transfers files and changes from the remote repository to the local one:</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb522-1"><a href="github.html#cb522-1" tabindex="-1"></a><span class="fu">git</span> pull </span></code></pre></div>
+<p>When you are working with collaborators on a shared GitHub repository, you will periodically need to pull from it to make sure your local copy is synchronized with changes somebody else might have made. You always need to pull before you push your own changes, because Git won’t allow you to push if the remote repository has changes that you don’t have on your local copy. It is therefore good practice to pull changes before starting work. If the two repositories are already up-to-date and you try to pull, nothing will happen because there are no changes on the remote repository that aren’t already in the local.</p>
+<p>If a collaborator makes a change that is in conflict with what we committed to our own local repository, when we try to pull we are going to encounter a merge conflict. Merge conflicts occur when two collaborators work on the same file at the same time. GitHub does not know how to automatically reconcile changes to the same file (how would it?), and it will throw an error that we’ll need to resolve manually.</p>
+</div>
+<div id="resolving-conflicts" class="section level2" number="15.4">
+<h2>
+<span class="header-section-number">15.4</span> Resolving conflicts<a class="anchor" aria-label="anchor" href="#resolving-conflicts"><i class="fas fa-link"></i></a>
+</h2>
+<p>Having to deal with merge conflicts is eventually very likely when working on collaborative projects, but they can be handled and resolved without too much pain.</p>
+<p>If two collaborators edit the same file at the same time without pulling each other’s changes first, when one tries to push their changes to the remote they will get an error message that looks like this:</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb523-1"><a href="github.html#cb523-1" tabindex="-1"></a><span class="ex">To</span> https://github.com/picardis/myrepo.git</span>
+<span id="cb523-2"><a href="github.html#cb523-2" tabindex="-1"></a> <span class="ot">! </span><span class="ex">[rejected]</span>        master <span class="at">-</span><span class="op">&gt;</span> master <span class="er">(</span><span class="ex">fetch</span> first<span class="kw">)</span></span>
+<span id="cb523-3"><a href="github.html#cb523-3" tabindex="-1"></a><span class="ex">error:</span> failed to push some refs to <span class="st">'https://github.com/picardis/myrepo.git'</span></span>
+<span id="cb523-4"><a href="github.html#cb523-4" tabindex="-1"></a><span class="ex">hint:</span> Updates were rejected because the remote contains work that you do</span>
+<span id="cb523-5"><a href="github.html#cb523-5" tabindex="-1"></a><span class="ex">hint:</span> not have locally. This is usually caused by another repository pushing</span>
+<span id="cb523-6"><a href="github.html#cb523-6" tabindex="-1"></a><span class="ex">hint:</span> to the same ref. You may want to first integrate the remote changes</span>
+<span id="cb523-7"><a href="github.html#cb523-7" tabindex="-1"></a><span class="ex">hint:</span> <span class="er">(</span><span class="ex">e.g.,</span> <span class="st">'git pull ...'</span><span class="kw">)</span> <span class="ex">before</span> pushing again.</span>
+<span id="cb523-8"><a href="github.html#cb523-8" tabindex="-1"></a><span class="ex">hint:</span> See the <span class="st">'Note about fast-forwards'</span> in <span class="st">'git push --help'</span> for details.</span></code></pre></div>
+<p>Git is rejecting the push because it found some updates in the remote repository that have not been incorporated in the local copy. To solve this, the person who got the error will need to pull the most recent changes, merge them into their current copy, and then push the resulting file.</p>
+<p>After pulling, if we open the file where the conflict is, we’ll find that Git did not erase one person’s changes in favor of the other’s; instead, it marked the lines where conflicting changes occur. The beginning and end of the problematic chunk are highlighted, and the two versions are separated by ‘=’ signs.</p>
+<div class="figure" style="text-align: left">
+<span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="images/merge_conflict.png" alt="Merge conflict in this R Markdown document" width="80%"><p class="caption">
+Figure 4.1: Merge conflict in this R Markdown document
+</p>
+</div>
+<p>Now it is up to us to reconcile these changes however we consider appropriate. We could keep our own changes, keep the changes made by our collaborator, write something new to replace both, or delete the change entirely. Once the conflict is removed and the file is saved, we can proceed as usual by staging the file, committing it, and pushing it. Now, when any of the other collaborators pulls from the repository again, they will get the merged version of this file.</p>
+<p>In some cases, collaborators will make simultaneous changes to a file that are mutually exclusive – for example, one person will delete a line of code while another person will edit that same line. However, changes don’t need to be mutually exclusive for a merge conflict to happen: any time two users edit the same line of the same file at the same time, Git is going to play it safe and call a merge conflict regardless of whether the changes contradict each other or not. Conflict resolution requires the user to verify whether the changes affect each other and if they can both stay or not.</p>
+</div>
+<div id="avoiding-conflicts" class="section level2" number="15.5">
+<h2>
+<span class="header-section-number">15.5</span> Avoiding conflicts<a class="anchor" aria-label="anchor" href="#avoiding-conflicts"><i class="fas fa-link"></i></a>
+</h2>
+<p>Merge conflicts need to be manually resolved by a person, which is time-consuming. More importantly, the person who resolves a merge conflicts is making a judgement call on what is the best way of fixing the situation. Having to introduce subjective judgement calls is perhaps the weakest spot of the entire collaborative version control workflow. Preventing conflicts from happening in the first place is better than having to fix them. There are a few things that can help prevent merge conflicts:</p>
+<ul>
+<li>Pull often: decreases probability that your working version is not up-to-date;</li>
+<li>Make small and frequent commits: decreases probability that your recent changes are not in other people’s working version;</li>
+<li>Organize your code in small modules: decreases probability of two users working on the same file;</li>
+<li>Working on branches or forks… more on this in the next sections.</li>
+</ul>
+</div>
+<div id="working-with-branches" class="section level2" number="15.6">
+<h2>
+<span class="header-section-number">15.6</span> Working with branches<a class="anchor" aria-label="anchor" href="#working-with-branches"><i class="fas fa-link"></i></a>
+</h2>
+<p>By default, a new repository contains a single branch: the main branch. However, we can create new branches within a repository. A branch is like a parallel universe where any changes we make on the files only exist on that branch and do not affect the main branch. Branches allow you to freely experiment with editing files and code without affecting the original project until you’re ready to merge them.</p>
+<p>The command to create a branch called “my-branch” is:</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb524-1"><a href="github.html#cb524-1" tabindex="-1"></a><span class="fu">git</span> branch my-branch</span></code></pre></div>
+<p>You can also click the “New Branch” button in RStudio.</p>
+<p>To start working on the new branch, we switch to it with the following command:</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb525-1"><a href="github.html#cb525-1" tabindex="-1"></a><span class="fu">git</span> checkout my-branch</span></code></pre></div>
+<p>To verify which branch we’re on, we can use ‘git log’ (we’ve used this same command before to look at the commit history):</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb526-1"><a href="github.html#cb526-1" tabindex="-1"></a><span class="fu">git</span> log </span></code></pre></div>
+<p>The word ‘HEAD’ in the output of <code>git log</code> is called a pointer; it tells us which branch we’re currently working on. On creation, a new branch shares the commit history of the main branch up until the moment the branch was created. After that, the two commit histories are allowed to diverge. Any changes we commit to a branch will be only effective on the that branch and not affect the others. This takes off all the pressure of making changes to your code that could potentially break your workflow downstream. Once you’ve had a chance to verify that the changes work the way you want them to, you can merge the branches back into one.</p>
+<p>To merge changes made in a branch into the main branch we use:</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb527-1"><a href="github.html#cb527-1" tabindex="-1"></a><span class="fu">git</span> merge my-branch</span></code></pre></div>
+<p>And then we can delete the ‘my-branch’ branch which is no longer needed:</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb528-1"><a href="github.html#cb528-1" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> my-branch</span></code></pre></div>
+<p>If there are conflicting changes on the two branches we are trying to merge, Git will halt the process and issue a merge conflict similar to what we have seen before.</p>
+</div>
+<div id="forking-a-repository" class="section level2" number="15.7">
+<h2>
+<span class="header-section-number">15.7</span> Forking a repository<a class="anchor" aria-label="anchor" href="#forking-a-repository"><i class="fas fa-link"></i></a>
+</h2>
+<p>Forking a repository means creating a copy of an existing repository where you can make changes without affecting the original repository. You can technically fork your own repository, but forking is mostly used to get a copy of somebody else’s repository. For example, if you want to contribute to a project that was created by a person you don’t know, or if you want to build off of their code because it does something similar to what you need to do, you can fork their repository and work on it without their copy being affected.</p>
+<p>The cool thing about forking is that, if the owner makes changes to their repository, you can pull those changes to your fork so that your copy of the repository stays in sync with the original. Also, you can contribute your own changes by submitting them to the original repository through pull requests. This is the main difference between forking and cloning somebody else’s repository: by cloning, you won’t be able to update your copy to include new changes made in the original and you won’t be able to contribute back unless you’re added as a collaborator.</p>
+<p>Unlike all the other functionalities we have seen so far, which are Git commands, forking is a GitHub functionality. There is no built-in Git function to fork a repository from the command line. To fork a repository, go to the web page of that repository and click “Fork” in the top-right corner. This will create a copy of the repository on your GitHub account.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:github03"></span>
+<img src="images/fork.png" alt="Fork GitHub repository" width="80%"><p class="caption">
+Figure 15.1: Fork GitHub repository
+</p>
+</div>
+<p>The repository is now in your GitHub account. If you also want a local copy of this repository on your computer, you can clone your fork. For example, if I forked octocat’s Spoon-Knife repository onto my GitHub account, I could then clone it onto my computer like so:</p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb529-1"><a href="github.html#cb529-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/picardis/Spoon-Knife</span></code></pre></div>
+<p>To keep my fork up-to-date with the original repository, I can configure it as follows:</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb530-1"><a href="github.html#cb530-1" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/octocat/Spoon-Knife.git</span></code></pre></div>
+<p>Now I will be able to pull from the original repository and keep my local copy synchronized. I won’t be able to push because I do not have collaborator privileges on this repository.</p>
+</div>
+<div id="pull-requests" class="section level2" number="15.8">
+<h2>
+<span class="header-section-number">15.8</span> Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"><i class="fas fa-link"></i></a>
+</h2>
+<p>Pull requests are the way to ask that the edits you made in a fork (or a branch) get merged into the original repository (or main branch). To ask the owner of a repository to view and potentially integrate the changes you made in your own forked version, you submit a pull request. Similarly, to let your collaborators know about the edits you made and let them review them before they get merged, you submit a pull request. There is a key difference here: while as an external agent you have no other choice but submitting a pull request to merge a fork into a repository, as a collaborator you could simply merge your edits if you wanted to. If you are working on your own repository by yourself, there is no need to go through pull requests to merge a branch. But if you are collaborating with people, it is still good and courteous practice to use pull requests as a heads-up before you merge your changes, so that others on the project can review and approve them.</p>
+<p>The most straightforward way to submit a pull request is from the GitHub website. To start a pull request, you must have some changes committed to the repository or branch where you want to merge them. Then you can go to the repository page on GitHub and click on the ‘Pull requests’ tab, then click ‘New pull request’. Choose your target branch, enter a title and description, and then click ‘Send pull request’. Once the pull request is open, everyone can write comments on it, see all the commits it includes, and look at the changes it proposes within files.</p>
+<p>Once everyone is happy with the proposed changes, you are ready to merge the pull request. If there are no merge conflicts, you will see a ‘Merge pull request’ button.</p>
+</div>
+<div id="references" class="section level2" number="15.9">
+<h2>
+<span class="header-section-number">15.9</span> References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>GitHub Community Forum: <a href="https://github.community/" class="uri">https://github.community/</a>
+</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></div>
+<div class="next"><a href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#github"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="nav-link" href="#objectives-12"><span class="header-section-number">15.1</span> Objectives</a></li>
+<li>
+<a class="nav-link" href="#collaboration-on-code"><span class="header-section-number">15.2</span> Collaboration on code</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#cloning-a-repository"><span class="header-section-number">15.2.1</span> Cloning a repository</a></li></ul>
+</li>
+<li><a class="nav-link" href="#synchronizing-changes-among-collaborators"><span class="header-section-number">15.3</span> Synchronizing changes among collaborators</a></li>
+<li><a class="nav-link" href="#resolving-conflicts"><span class="header-section-number">15.4</span> Resolving conflicts</a></li>
+<li><a class="nav-link" href="#avoiding-conflicts"><span class="header-section-number">15.5</span> Avoiding conflicts</a></li>
+<li><a class="nav-link" href="#working-with-branches"><span class="header-section-number">15.6</span> Working with branches</a></li>
+<li><a class="nav-link" href="#forking-a-repository"><span class="header-section-number">15.7</span> Forking a repository</a></li>
+<li><a class="nav-link" href="#pull-requests"><span class="header-section-number">15.8</span> Pull requests</a></li>
+<li><a class="nav-link" href="#references"><span class="header-section-number">15.9</span> References</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-07-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

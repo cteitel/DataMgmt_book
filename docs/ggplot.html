@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Data Visualization with ggplot2 | Data Management and Reproducible Science</title>
+<meta name="author" content="Claire S Teitelbaum">
+<meta name="description" content="Figure 3.1: Visualizing visualizations. (https://xkcd.com/688/)   11.1 Objectives Become familiar with the basic approach of the ggplot2 package Create simple graphics, including scatterplots,...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="11 Data Visualization with ggplot2 | Data Management and Reproducible Science">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Figure 3.1: Visualizing visualizations. (https://xkcd.com/688/)   11.1 Objectives Become familiar with the basic approach of the ggplot2 package Create simple graphics, including scatterplots,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Data Visualization with ggplot2 | Data Management and Reproducible Science">
+<meta name="twitter:description" content="Figure 3.1: Visualizing visualizations. (https://xkcd.com/688/)   11.1 Objectives Become familiar with the basic approach of the ggplot2 package Create simple graphics, including scatterplots,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Management and Reproducible Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Course overview</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction: The What and Why of Reproducible Science</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></li>
+<li><a class="" href="importexport.html"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="" href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></li>
+<li><a class="" href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></li>
+<li><a class="" href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="" href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="" href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></li>
+<li><a class="" href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></li>
+<li><a class="active" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
+<li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></li>
+<li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
+<li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
+<li><a class="" href="spatial.html"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ggplot" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Data Visualization with <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#ggplot"><i class="fas fa-link"></i></a>
+</h1>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="https://imgs.xkcd.com/comics/self_description.png" alt="Visualizing visualizations. (https://xkcd.com/688/)" width="80%"><p class="caption">
+Figure 3.1: Visualizing visualizations. (<a href="https://xkcd.com/688/" class="uri">https://xkcd.com/688/</a>)
+</p>
+</div>
+<div id="objectives-8" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-8"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Become familiar with the basic approach of the <code>ggplot2</code> package</li>
+<li>Create simple graphics, including scatterplots, line plots, bar charts, and histograms</li>
+<li>Articulate the value of data visualization for data exploration</li>
+</ul>
+</div>
+<div id="assigned-reading" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Assigned reading<a class="anchor" aria-label="anchor" href="#assigned-reading"><i class="fas fa-link"></i></a>
+</h2>
+<p>Carl Bergstrom and Jevin West (2020). Calling Bullshit. Chapter 7: Data Visualization. <a href="https://research.ebsco.com/plink/92d403ed-42b0-3601-94b4-c84627c98892" class="uri">https://research.ebsco.com/plink/92d403ed-42b0-3601-94b4-c84627c98892</a></p>
+</div>
+<div id="additional-reading-8" class="section level2" number="11.3">
+<h2>
+<span class="header-section-number">11.3</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-8"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 1: Data visualization. Available: <a href="https://r4ds.hadley.nz/data-visualize.html" class="uri">https://r4ds.hadley.nz/data-visualize.html</a></p>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 9: Layers. Available: <a href="https://r4ds.hadley.nz/data-visualize.html" class="uri">https://r4ds.hadley.nz/data-visualize.html</a></p>
+</div>
+<div id="an-introduction-to-ggplot2" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> An introduction to <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#an-introduction-to-ggplot2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data visualization is an important part of the scientific process, from study design to data exploration to results dissemination. For many people, it is also the most fun. Here, we will use the <code>ggplot2</code> package, part of the <code>tidyverse</code>, to build graphics. There is a bit of a learning curve to <code>ggplot2</code>, but it is a powerful, flexible, and popular way to create graphics in R. We will start with learning how to visualize data for exploration, then in the next lesson we will work on creating presentation-ready graphics.</p>
+<p>To get started, here’s an example of one kind of figure we could create using base R graphics:</p>
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/raw/Murray-Sanchez_urban-wildlife.csv"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Rows: 516 Columns: 42
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (14): TITLE, AUTHORS, JOURNAL, health, condition, toxtype, ptype, stress...
+## dbl (28): study, YEAR, SAMPLE_SIZE, EFFECT_DIRECTION, pval, r, yi, vi, rlowe...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">r</span> <span class="op">~</span> <span class="va">host.class</span>, data <span class="op">=</span> <span class="va">urban_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<p>Here, we say that we want a <em>boxplot</em> that shows the effect size (r) on the y-axis, as a function of host class on the x-axis (with <code>~</code> standard in function notation in R). We tell R to draw these variables from the <code>urban_data</code> data frame. We then add a horizontal line at 0 (<code>h=0</code>).</p>
+<p>In <code>ggplot2</code>, this looks like:</p>
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<p>This produces the same plot, albeit with some differences in default formatting. However, the way we get there is really different! First, we initiate a plot with <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> and give it the data frame to use. We then give it the variables and their assignments within <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>, which stands for “aesthetics”. We then use <code>+</code> to add plot elements: in this case, a boxplot (which draws <code>x</code> and <code>y</code> from the first line) and a horizontal line (“hline”). Although the base R code is initially more intuitive (and simpler, for simple plots like this one), the benefit of <code>ggplot2</code> is that is provides a structured approach that allows you to add elements to a single object.</p>
+<p>A ggplot is composed to three basic components:</p>
+<ul>
+<li>
+<strong>Data</strong>: intuitively, this is the data you want to show in your plot</li>
+<li>
+<strong>Aesthetics</strong> (or “mapping”): the variables represented in the plot, which correspond to plot features like x- and y-axes, color, shape, etc.</li>
+<li>
+<strong>Geometries</strong> (or “layers”): the actual features of the plot (points, lines, boxes, etc.)</li>
+</ul>
+<p>Other optional elements are <strong>scales</strong>, <strong>facets</strong>, <strong>coordinates</strong>, and <strong>themes</strong>. We will get to these in our lesson on presentation-ready graphics.</p>
+</div>
+<div id="layering-up-a-ggplot" class="section level2" number="11.5">
+<h2>
+<span class="header-section-number">11.5</span> Layering up a ggplot<a class="anchor" aria-label="anchor" href="#layering-up-a-ggplot"><i class="fas fa-link"></i></a>
+</h2>
+<p>First, define the data:</p>
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">urban_data</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>This just produces a blank plot with no axes or data on it - because we haven’t defined those yet. We can do that next:</p>
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<p>This results in a blank plot with axes, because we haven’t added any geometries yet. Then, we add geometries:</p>
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<p>If you look at the help file for <code>geom_boxplot</code>, you’ll see that the first two arguments are <code>mapping</code> and <code>data</code>. These are the same as the ones we specified in <code>ggplot</code>. We didn’t need to specify them again in <code>geom_boxplot</code> because the ones provided in the first line (<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>) are global plot settings that will be implicitly assumed for every layer downstream.</p>
+<p>Other common <code>geom_*</code> functions include <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col()</a></code>. As you continue making more plots, you will become familiar with more of these.</p>
+</div>
+<div id="exploring-data-with-plots" class="section level2" number="11.6">
+<h2>
+<span class="header-section-number">11.6</span> Exploring data with plots<a class="anchor" aria-label="anchor" href="#exploring-data-with-plots"><i class="fas fa-link"></i></a>
+</h2>
+<p>What can we say from this first plot? Well, it looks like there might be a stronger negative effect of urbanization on health in invertebrates than in other taxa, and/or a smaller effect in mammals. What other variables might influence this relationship? How about the type of health metric used?</p>
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">health</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p>Can you think of a way we might display both of these together? Think about using other types of aesthetics, the number of plots, etc.</p>
+<p>Here’s one way:</p>
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>health_class <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">host.class</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">health_class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>This doesn’t really work, but it does highlight one way of combining ggplots with data manipulation. Here, I added a new column <code>health_class</code>, which combines the health and host.class variables. I then piped the data into the ggplot (notice that the <code>data=</code> argument is missing, because by default the piped data goes into the first argument of the receiving function).</p>
+<p>Another way:</p>
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span>, color <span class="op">=</span> <span class="va">health</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">health</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>It looks to me like there might be a stronger negative effect of toxicants across groups, and intertebrates might have more toxicant studies, which is why their average is lower.</p>
+<p>Notice that in the second plot, I added an additional <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> argument within <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>. This is because I wanted to color the points, but not the boxplots, by health metric. You can always re-specify <code>data</code> and <code>mapping</code> within geometries, but be careful doing so with <code>data</code> as you might not always be showing what is expected.</p>
+</div>
+<div id="other-plot-types" class="section level2" number="11.7">
+<h2>
+<span class="header-section-number">11.7</span> Other plot types<a class="anchor" aria-label="anchor" href="#other-plot-types"><i class="fas fa-link"></i></a>
+</h2>
+<div id="scatterplots" class="section level3" number="11.7.1">
+<h3>
+<span class="header-section-number">11.7.1</span> Scatterplots<a class="anchor" aria-label="anchor" href="#scatterplots"><i class="fas fa-link"></i></a>
+</h3>
+<p>Scatterplots are probably the most common type of plot you see, and are useful for visualizing relationships between continuous variables. For example, we might want to see if effect sizes depend on urbanization gradients:</p>
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">udiff_1000</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: Removed 61 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<p>We can also include error bars using <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange()</a></code>:</p>
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">udiff_1000</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">rlower</span>, ymax <span class="op">=</span> <span class="va">rupper</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: Removed 61 rows containing missing values or values outside the scale range
+## (`geom_pointrange()`).</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+</div>
+<div id="histograms" class="section level3" number="11.7.2">
+<h3>
+<span class="header-section-number">11.7.2</span> Histograms<a class="anchor" aria-label="anchor" href="#histograms"><i class="fas fa-link"></i></a>
+</h3>
+<p>Histograms are useful for visualizing distributions of data. They take only an x variable, because the y-axis is always the count in a given bin.</p>
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+<p>We can also specify the number of bins or bin width:</p>
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+</div>
+<div id="bar-and-column-plots" class="section level3" number="11.7.3">
+<h3>
+<span class="header-section-number">11.7.3</span> Bar and column plots<a class="anchor" aria-label="anchor" href="#bar-and-column-plots"><i class="fas fa-link"></i></a>
+</h3>
+<p>Like boxplots, bar and column plots are useful for visualizing the relationship between a categorical varible and a continuous (usually count) variable.</p>
+<p>If you, like, me, think a bar plot and a column plot are the same thing, think again! Though the appearance of these two plots is very similar, <code>ggplot2</code> defines a column plot as having a y-axis and a bar plot as having only an x-axis (so the y-axis is implicitly a sample size).</p>
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">host.class</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n_countries <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">COUNTRY</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">n_countries</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
+<p>If you are displaying non-count data (for example, a mean effect size across groups), you are usually better off with a scatterplot or boxplot. For example, <code>ggplot2</code> will make this bar chart for you:</p>
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<p>What you are essentially getting is the sum of all positive and negative effect sizes for each host class, which might look nice but doesn’t mean much.</p>
+</div>
+</div>
+<div id="basic-visual-statistical-summaries-geom_smooth-and-stat_summary" class="section level2" number="11.8">
+<h2>
+<span class="header-section-number">11.8</span> Basic visual statistical summaries: <code>geom_smooth()</code> and <code>stat_summary()</code><a class="anchor" aria-label="anchor" href="#basic-visual-statistical-summaries-geom_smooth-and-stat_summary"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sometimes, we have too much data, or too much overlapping data, to effectively visualize. <code>ggplot2</code> provides some ways to summarize data and produce a plot, all in one step. However, note that these are doing stats under the hood! They are good for data exploration but if you want to present them you need to make sure you know what the underlying model is.</p>
+<p>One way to summarize trends in time or relationships between variables is with <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>. Under the hood, this function models nonlinear relationships between variables.</p>
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">YEAR</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## No summary function supplied, defaulting to `mean_se()`</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>Wait, what is that <code>stat_</code> thing? It’s not a <code>geom_</code> but produces elements of a plot. Under the hood, <code>geom</code>s use <code>stat</code>s. In most cases, <code>stat="identity"</code>, so <code>ggplot</code> is just plotting the raw values. But, for example, in a bar plot, the stat is “count” by default:</p>
+<div class="inline-figure"><img src="images/geom_bar.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
+<p>This is just one example of customization options in <code>ggplot2</code>.</p>
+</div>
+<div id="groups-and-symbology" class="section level2" number="11.9">
+<h2>
+<span class="header-section-number">11.9</span> Groups and symbology<a class="anchor" aria-label="anchor" href="#groups-and-symbology"><i class="fas fa-link"></i></a>
+</h2>
+<p>You can also specify other symbology for your plots to represent variables. All of these parameters can also be specified as fixed (for example, to change all points to a given color). You can do this by defining the parameter outside of <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>.</p>
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<div id="color" class="section level3" number="11.9.1">
+<h3>
+<span class="header-section-number">11.9.1</span> Color<a class="anchor" aria-label="anchor" href="#color"><i class="fas fa-link"></i></a>
+</h3>
+<p>Color is usually the first step to visualize groups or variables in plots, especially for exploratory data visualization. We will get more into color scales and schemes in the next lesson.</p>
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">udiff_10000</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">udiff_10000</span>, y <span class="op">=</span> <span class="va">r</span>, color <span class="op">=</span> <span class="va">host.class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<p>For barplots, boxplots, and other plot types with polygons, <code>ggplot</code> distinguishes between the <code>fill</code> and the <code>color</code>:</p>
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">aqterr</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">host.class</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">aqterr</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-22-2.png" width="672"></div>
+</div>
+<div id="shape" class="section level3" number="11.9.2">
+<h3>
+<span class="header-section-number">11.9.2</span> Shape<a class="anchor" aria-label="anchor" href="#shape"><i class="fas fa-link"></i></a>
+</h3>
+<p>Shape is a little harder to see than color for most people, but can serve as a helpful secondary indicator. It can be useful to pair shape with color. Shape should generally be only used for categorical variables and shouldn’t be used with &gt;6 levels, as the shapes become very difficult to distinguish.</p>
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">udiff_10000</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">udiff_10000</span>, y <span class="op">=</span> <span class="va">r</span>, shape <span class="op">=</span> <span class="va">host.class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">YEAR</span>, <span class="va">host.class</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">YEAR</span>, y <span class="op">=</span> <span class="va">r</span>, linetype <span class="op">=</span> <span class="va">host.class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'YEAR'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+</div>
+<div id="size" class="section level3" number="11.9.3">
+<h3>
+<span class="header-section-number">11.9.3</span> Size<a class="anchor" aria-label="anchor" href="#size"><i class="fas fa-link"></i></a>
+</h3>
+<p>Size is usually best used for continuous (or at least number-related) variables. By default, the size of a point in <code>ggplot</code> is based on its dimensions, e.g., radius for a round point. This is important to note, because a point with twice the radius of another point has four times the area. Size is therefore not ideal for representing variables where inferring the value is important, but can help emphasize general patterns or draw attention to some data points over others.</p>
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">YEAR</span>, y <span class="op">=</span> <span class="va">r</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">SAMPLE_SIZE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+</div>
+<div id="transparency" class="section level3" number="11.9.4">
+<h3>
+<span class="header-section-number">11.9.4</span> Transparency<a class="anchor" aria-label="anchor" href="#transparency"><i class="fas fa-link"></i></a>
+</h3>
+<p>Transparency is indicated with the <code>alpha</code> parameter. Transparency is most intuitively used to symbolize importance, for example sample size:</p>
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">YEAR</span>, y <span class="op">=</span> <span class="va">r</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">SAMPLE_SIZE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
+<p>But it can also be convenient to use transparency to show densities of overlapping data, or to plot models over data.</p>
+</div>
+<div id="groups" class="section level3" number="11.9.5">
+<h3>
+<span class="header-section-number">11.9.5</span> Groups<a class="anchor" aria-label="anchor" href="#groups"><i class="fas fa-link"></i></a>
+</h3>
+<p>Some geoms benefit from specification of groups, which tell <code>ggplot</code> which data points to link together. For example, the boxplots we made above were grouped by the <code>host.class</code> variable (with no group, we would have just had one boxplot of all the data). By default, <code>ggplot</code> will usually take your other aesthetics and combine them to make groups - in the cases above, those were <code>x</code> and <code>color</code>. However, sometimes this doesn’t work by default, or we want to specify groups that aren’t linked to symbology.</p>
+<p>For example, this line chart without groups:</p>
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">YEAR</span>, <span class="va">host.class</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">YEAR</span>, y <span class="op">=</span> <span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'YEAR'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
+<p>And with groups:</p>
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">YEAR</span>, <span class="va">host.class</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">YEAR</span>, y <span class="op">=</span> <span class="va">r</span>, group <span class="op">=</span> <span class="va">host.class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'YEAR'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="inline-figure"><img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
+</div>
+</div>
+<div id="additional-reference" class="section level2" number="11.10">
+<h2>
+<span class="header-section-number">11.10</span> Additional reference<a class="anchor" aria-label="anchor" href="#additional-reference"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data visualization with ggplot2 :: Cheat Sheet. Available: <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html" class="uri">https://rstudio.github.io/cheatsheets/html/data-visualization.html</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></div>
+<div class="next"><a href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ggplot"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="nav-link" href="#objectives-8"><span class="header-section-number">11.1</span> Objectives</a></li>
+<li><a class="nav-link" href="#assigned-reading"><span class="header-section-number">11.2</span> Assigned reading</a></li>
+<li><a class="nav-link" href="#additional-reading-8"><span class="header-section-number">11.3</span> Additional reading</a></li>
+<li><a class="nav-link" href="#an-introduction-to-ggplot2"><span class="header-section-number">11.4</span> An introduction to ggplot2</a></li>
+<li><a class="nav-link" href="#layering-up-a-ggplot"><span class="header-section-number">11.5</span> Layering up a ggplot</a></li>
+<li><a class="nav-link" href="#exploring-data-with-plots"><span class="header-section-number">11.6</span> Exploring data with plots</a></li>
+<li>
+<a class="nav-link" href="#other-plot-types"><span class="header-section-number">11.7</span> Other plot types</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#scatterplots"><span class="header-section-number">11.7.1</span> Scatterplots</a></li>
+<li><a class="nav-link" href="#histograms"><span class="header-section-number">11.7.2</span> Histograms</a></li>
+<li><a class="nav-link" href="#bar-and-column-plots"><span class="header-section-number">11.7.3</span> Bar and column plots</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#basic-visual-statistical-summaries-geom_smooth-and-stat_summary"><span class="header-section-number">11.8</span> Basic visual statistical summaries: geom_smooth() and stat_summary()</a></li>
+<li>
+<a class="nav-link" href="#groups-and-symbology"><span class="header-section-number">11.9</span> Groups and symbology</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#color"><span class="header-section-number">11.9.1</span> Color</a></li>
+<li><a class="nav-link" href="#shape"><span class="header-section-number">11.9.2</span> Shape</a></li>
+<li><a class="nav-link" href="#size"><span class="header-section-number">11.9.3</span> Size</a></li>
+<li><a class="nav-link" href="#transparency"><span class="header-section-number">11.9.4</span> Transparency</a></li>
+<li><a class="nav-link" href="#groups"><span class="header-section-number">11.9.5</span> Groups</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#additional-reference"><span class="header-section-number">11.10</span> Additional reference</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-07-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

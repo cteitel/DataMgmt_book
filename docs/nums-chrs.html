@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Numbers, Characters, and Factors in R | Data Management and Reproducible Science</title>
+<meta name="author" content="Claire S Teitelbaum">
+<meta name="description" content="7.1 Objectives Perform basic functions on numeric and integer objects and columns Manipulate character/string objects and columns Create and convert factors In this lesson and the following one...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="7 Numbers, Characters, and Factors in R | Data Management and Reproducible Science">
+<meta property="og:type" content="book">
+<meta property="og:description" content="7.1 Objectives Perform basic functions on numeric and integer objects and columns Manipulate character/string objects and columns Create and convert factors In this lesson and the following one...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Numbers, Characters, and Factors in R | Data Management and Reproducible Science">
+<meta name="twitter:description" content="7.1 Objectives Perform basic functions on numeric and integer objects and columns Manipulate character/string objects and columns Create and convert factors In this lesson and the following one...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Management and Reproducible Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Course overview</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction: The What and Why of Reproducible Science</a></li>
+<li><a class="" href="basics.html"><span class="header-section-number">3</span> Getting Started with R</a></li>
+<li><a class="" href="importexport.html"><span class="header-section-number">4</span> Data Structures and Importing Data</a></li>
+<li><a class="" href="troubleshooting.html"><span class="header-section-number">5</span> Troubleshooting in R</a></li>
+<li><a class="" href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></li>
+<li><a class="active" href="nums-chrs.html"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="" href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></li>
+<li><a class="" href="manipulation.html"><span class="header-section-number">9</span> Data Manipulation with R, Part 2</a></li>
+<li><a class="" href="style.html"><span class="header-section-number">10</span> Coding Best Practices</a></li>
+<li><a class="" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
+<li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
+<li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown</a></li>
+<li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
+<li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
+<li><a class="" href="spatial.html"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="nums-chrs" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Numbers, Characters, and Factors in R<a class="anchor" aria-label="anchor" href="#nums-chrs"><i class="fas fa-link"></i></a>
+</h1>
+<div id="objectives-4" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-4"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Perform basic functions on numeric and integer objects and columns</li>
+<li>Manipulate character/string objects and columns</li>
+<li>Create and convert factors</li>
+</ul>
+<p>In this lesson and the following one about dates and times, we will learn basic principles on simple R objects, then apply them to columns of data frames to build on your knowledge of data management (<code>mutate</code>, etc.).</p>
+</div>
+<div id="additional-reading-4" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 13: Numbers. Available: <a href="https://r4ds.hadley.nz/numbers.html" class="uri">https://r4ds.hadley.nz/numbers.html</a></p>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 14: Strings. Available: <a href="https://r4ds.hadley.nz/strings.html" class="uri">https://r4ds.hadley.nz/strings.html</a></p>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 16: Factors. Available: <a href="https://r4ds.hadley.nz/factors.html" class="uri">https://r4ds.hadley.nz/factors.html</a></p>
+</div>
+<div id="numbers-integers-and-numeric-variables" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Numbers: integers and numeric variables<a class="anchor" aria-label="anchor" href="#numbers-integers-and-numeric-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>In R, numbers come in two flavors: integers and double (both called “numeric”). Integers are non-decimal, negative or non-negative numbers. Although integers are, to some extent, a subset of all numbers, they sometimes act differently when coding. For example, some functions only take integers as their inputs.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">num1</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "numeric"</code></pre>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">num2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">num2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "integer"</code></pre>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">num3</span> <span class="op">&lt;-</span> <span class="fl">10L</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">num3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "integer"</code></pre>
+<p>Performing math on integers will sometimes automatically convert them to double:</p>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">num2</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "numeric"</code></pre>
+<p>You might expect R to return <code>NA</code> if you try to convert a decimal into an integer, but instead it truncates:</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fl">2.7</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>The distinction between integers and numeric objects becomes most important when using them as arguments in functions. For example, the function <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> takes an argument <code>digits</code> telling it how many digits to round to. For example:</p>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">12.2918</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">12.2918</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 12.292</code></pre>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">12.2918</span>, digits <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>In contrast, <code>round(12.2918, digits = 1.2)</code> doesn’t make any sense (though R will still return a value, in this case without an error message). This can become important when using objects/variables as arguments in functions:</p>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">round_val</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">12.2918</span>, digits <span class="op">=</span> <span class="va">round_val</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 12.3</code></pre>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># That was too big, let's make it smaller</span></span>
+<span><span class="va">round_val2</span> <span class="op">&lt;-</span> <span class="va">round_val</span><span class="op">/</span><span class="fl">2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">12.2918</span>, digits <span class="op">=</span> <span class="va">round_val2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 12.3</code></pre>
+<p>With both integers and numeric variables, we can perform basic arithmetic:</p>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">12</span> <span class="op">+</span> <span class="fl">10</span> <span class="op">+</span> <span class="fl">4</span></span></code></pre></div>
+<pre><code>## [1] 26</code></pre>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">12</span> <span class="op">-</span> <span class="fl">10</span> <span class="op">-</span> <span class="fl">4</span></span></code></pre></div>
+<pre><code>## [1] -2</code></pre>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">12</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">*</span> <span class="fl">4</span></span></code></pre></div>
+<pre><code>## [1] 480</code></pre>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>,<span class="fl">10</span>,<span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">vals</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 26</code></pre>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">vals</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 480</code></pre>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">vals</span><span class="op">)</span> <span class="co">#Nope, this is not the same as the arithmetic above. What is it doing?</span></span></code></pre></div>
+<pre><code>## [1] -2 -6</code></pre>
+<p>You can use most mathematical operations in R on numbers or vectors of numbers. A few examples include:</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="parsing-numbers" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> Parsing numbers<a class="anchor" aria-label="anchor" href="#parsing-numbers"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes, when you import numeric data, it doesn’t read in correctly and ends up as a string/character instead of as a number. This is usually because there are typos or oddities in the raw data. The <code>readr</code> <code>tidyverse</code> package provides the <code><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number()</a></code> function to help with these issues.</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nums_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"10 days"</span>, <span class="st">"2 days"</span>, <span class="st">"&lt;1 days"</span>, <span class="st">"190d"</span><span class="op">)</span></span>
+<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">nums_in</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1]  10   2   1 190</code></pre>
+<p>But, please don’t enter data this way! For example, if the data were in different units, <code>parse_number</code> would not know this. When we go into strings below we will learn about another way to deal with these irregularities in data entry.</p>
+</div>
+<div id="precision-and-comparing-numbers" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> Precision and comparing numbers<a class="anchor" aria-label="anchor" href="#precision-and-comparing-numbers"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the previous lesson, we learned about equalities (<code>==</code> and <code>!=</code>). These can be used for numbers, too:</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">num</span> <span class="op">&lt;-</span> <span class="fl">4</span><span class="op">/</span><span class="fl">2</span></span>
+<span><span class="va">num</span> <span class="op">==</span> <span class="fl">2</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>However, there is a limited degree of precision in doubles, which can only take up a fixed amount of memory. For example, numbers with inifite decimal places (e.g., <span class="math inline">\(\sqrt{2}\)</span>, <span class="math inline">\(\pi\)</span>) are not infinite.</p>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sqrt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">sqrt2</span></span></code></pre></div>
+<pre><code>## [1] 1.414214</code></pre>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">two</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></span>
+<span><span class="va">two</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">two</span> <span class="op">==</span> <span class="fl">2</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Instead, you can use <code><a href="https://dplyr.tidyverse.org/reference/near.html">dplyr::near()</a></code>, which uses the system’s default precision to determine equality:</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/near.html">near</a></span><span class="op">(</span><span class="va">two</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="characters" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Characters<a class="anchor" aria-label="anchor" href="#characters"><i class="fas fa-link"></i></a>
+</h2>
+<p>Characters (or “strings”) seem simple on the surface: to some extent, they are exactly what they appear to be. But, dealing with data inputs and outputs can become a lot easier when you know how to manipulate strings automatically. The <code>tidyverse</code> package called <code>stringr</code> provides a lot of very useful functions for this. Many of these are present in base R, but with slightly less intuitive function names and syntax.</p>
+<div id="creating-strings-and-using-special-characters" class="section level3" number="7.4.1">
+<h3>
+<span class="header-section-number">7.4.1</span> Creating strings and using special characters<a class="anchor" aria-label="anchor" href="#creating-strings-and-using-special-characters"><i class="fas fa-link"></i></a>
+</h3>
+<p>We have used strings before: they are just characters enclosed in quotes:</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">string1</span> <span class="op">&lt;-</span> <span class="st">"string"</span></span>
+<span><span class="va">string_vect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"I"</span>, <span class="st">"am"</span>, <span class="st">"a"</span>, <span class="st">"vector"</span><span class="op">)</span></span></code></pre></div>
+<p>To create a quotes within a string, use a combination of single quotes (<code>''</code>) and double quotes (<code>""</code>):</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="nums-chrs.html#cb162-1" tabindex="-1"></a><span class="st">"I said, 'I did not know you could do this'"</span></span>
+<span id="cb162-2"><a href="nums-chrs.html#cb162-2" tabindex="-1"></a><span class="st">'"You totally can", she said, "and it works either way"'</span></span>
+<span id="cb162-3"><a href="nums-chrs.html#cb162-3" tabindex="-1"></a><span class="st">""</span>Just don<span class="st">'t try this""</span></span></code></pre></div>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:3:3: unexpected symbol
+## 2: '"You totally can", she said, "and it works either way"'
+## 3: ""Just
+##      ^</code></pre>
+<p>If you forget to close a quote, you won’t get an error: instead, you’ll see <code>+</code> and won’t be able to do anything else, because all your code is being entered as part of the string:</p>
+<pre><code>&gt; "I forgot to close my quotation marks
++ 
++ </code></pre>
+<p>If you can’t figure out which quote to close, press Escape to cancel.</p>
+<p>Some characters act unusually within strings, usually because they also code for something else. For example, the backslash <code>\</code> is the escape character, meaning that R will now ignore the programmatic meaning of whatever comes after it. This can be useful, for example if you want to include a single quotation mark within a string:</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">quotestring</span> <span class="op">&lt;-</span> <span class="st">"This is a single quotation mark: \", but I made it work!"</span></span>
+<span><span class="va">quotestring</span></span></code></pre></div>
+<pre><code>## [1] "This is a single quotation mark: \", but I made it work!"</code></pre>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">quotestring</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## This is a single quotation mark: ", but I made it work!</code></pre>
+<p>Backslashes will be helpful when you want to insert special characters, for example Greek letters in figure and table legends, or non-English characters. We can do this by looking up the Unicode character codes. For example the Unicode character for beta is U+03B2. This is a more advanced topic, but is useful to keep in mind:</p>
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="st">"\u03b2"</span></span></code></pre></div>
+<pre><code>## [1] "β"</code></pre>
+<p>But if you want to include a backslash in your string, you then need to escape <em>that</em>:</p>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Backslash \\"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Backslash \</code></pre>
+<p>You probably noticed that we used <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> here instead of <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> and that this changed the way the string showed up. This is because <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> prints text to the screen, while <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> (and just the object name alone) show the actual object. It’s a subtle difference but is important in some cases.</p>
+<p>Sometimes, we might want to create a string out of multiple strings. For example, we might have two vectors of strings that we want to combine:</p>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="st">"orange"</span>, <span class="st">"purple"</span><span class="op">)</span></span>
+<span><span class="va">fruits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"banana"</span>, <span class="st">"tangerine"</span>, <span class="st">"blueberry"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">colors</span>, <span class="va">fruits</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "yellow banana"    "orange tangerine" "purple blueberry"</code></pre>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Equivalent "base R" way of doing this:</span></span>
+<span><span class="co">#paste(colors, fruits)</span></span></code></pre></div>
+<p>We’ve put together the corresponding authors and years. We can also do this with a single value:</p>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"This is a"</span>, <span class="va">colors</span>, <span class="va">fruits</span>, <span class="st">"."</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "This is a yellow banana ."    "This is a orange tangerine ."
+## [3] "This is a purple blueberry ."</code></pre>
+<p>If we are picky, we could nest our functions to get rid of the space before each period:</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"This is a "</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">colors</span>, <span class="va">fruits</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>, <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "This is a yellow banana."    "This is a orange tangerine."
+## [3] "This is a purple blueberry."</code></pre>
+</div>
+<div id="manipulating-strings-with-stringr" class="section level3" number="7.4.2">
+<h3>
+<span class="header-section-number">7.4.2</span> Manipulating strings with <code>stringr</code><a class="anchor" aria-label="anchor" href="#manipulating-strings-with-stringr"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes, character strings exist but not in the form we want, or we want to create new strings from old ones. For example, take our urban wildlife data set:</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/raw/Murray-Sanchez_urban-wildlife.csv"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Rows: 516 Columns: 42
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (14): TITLE, AUTHORS, JOURNAL, health, condition, toxtype, ptype, stress...
+## dbl (28): study, YEAR, SAMPLE_SIZE, EFFECT_DIRECTION, pval, r, yi, vi, rlowe...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">$</span><span class="va">host.species</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Trichosurus_vulpecula" "Trichosurus_vulpecula" "Trichosurus_vulpecula"
+## [4] "Trichosurus_vulpecula" "Trichosurus_vulpecula" "Trichosurus_vulpecula"</code></pre>
+<p>The <code>host.species</code> variable includes both the genus and species. What if we just want the genus? To possible functions come in here: <code><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split()</a></code> and its cousin, <code><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed()</a></code></p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">splitting_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">$</span><span class="va">host.species</span>, pattern <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">splitting_species</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] "Trichosurus" "vulpecula"  
+## 
+## [[2]]
+## [1] "Trichosurus" "vulpecula"  
+## 
+## [[3]]
+## [1] "Trichosurus" "vulpecula"  
+## 
+## [[4]]
+## [1] "Trichosurus" "vulpecula"  
+## 
+## [[5]]
+## [1] "Trichosurus" "vulpecula"  
+## 
+## [[6]]
+## [1] "Trichosurus" "vulpecula"</code></pre>
+<p>Now we have a list (oops, we haven’t gotten to those yet!) of vectors. Each element of the list now has the genus and species separated. In many cases, you can use <code><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed()</a></code>, which will instead return a matrix. It just requires that each element has the same number of elements in the output:</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">splitting_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">$</span><span class="va">host.species</span>, pattern <span class="op">=</span> <span class="st">"_"</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">splitting_species</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      [,1]          [,2]       
+## [1,] "Trichosurus" "vulpecula"
+## [2,] "Trichosurus" "vulpecula"
+## [3,] "Trichosurus" "vulpecula"
+## [4,] "Trichosurus" "vulpecula"
+## [5,] "Trichosurus" "vulpecula"
+## [6,] "Trichosurus" "vulpecula"</code></pre>
+<p>The complication here is that we could imagine a case where we have subspecies sometimes and not others:</p>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Anas acuta"</span>, <span class="st">"Anas crecca"</span>, <span class="st">"Anas crecca carolinensis"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed</a></span><span class="op">(</span><span class="va">species</span>, <span class="st">" "</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      [,1]   [,2]                 
+## [1,] "Anas" "acuta"              
+## [2,] "Anas" "crecca"             
+## [3,] "Anas" "crecca carolinensis"</code></pre>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed</a></span><span class="op">(</span><span class="va">species</span>, <span class="st">" "</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      [,1]   [,2]     [,3]          
+## [1,] "Anas" "acuta"  ""            
+## [2,] "Anas" "crecca" ""            
+## [3,] "Anas" "crecca" "carolinensis"</code></pre>
+<p>We can also change capitalization using functions like <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower()</a></code>, <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper()</a></code>, and <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence()</a></code>.</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "anas acuta"               "anas crecca"             
+## [3] "anas crecca carolinensis"</code></pre>
+<p>Most of <code>stringr</code>’s functions start with <code>str_</code>, so if you’re looking for a new function for something you want to do, you can type in <code>str_</code> and get some suggestions:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-25"></span>
+<img src="images/stringr_funs.png" alt="Autofill for stringr functions" width="80%"><p class="caption">
+Figure 7.1: Autofill for stringr functions
+</p>
+</div>
+</div>
+</div>
+<div id="factors-characterinteger-hybrids" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> Factors: character/integer hybrids<a class="anchor" aria-label="anchor" href="#factors-characterinteger-hybrids"><i class="fas fa-link"></i></a>
+</h2>
+<p>Factors are used for categorical variables, i.e. variables that have a known set of possible values. Some common categorical variables are months of the year and days of the week; in scientific studies, site names and individual IDs are other common applications of factors. Factors are useful not only because they limit the number of values a variable can take (and provide errors/warnings when that is violated) but also because they can be sorted in non-alphabetical/non-numerical order. These possible values are called <code>levels</code> by R. For example:</p>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">survey_months</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"January"</span>,<span class="st">"February"</span>,<span class="st">"April"</span>,<span class="st">"May"</span>,<span class="st">"July"</span>,<span class="st">"August"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">survey_months</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "April"    "August"   "February" "January"  "July"     "May"</code></pre>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">survey_months_fct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">survey_months</span>, levels <span class="op">=</span> <span class="va">survey_months</span><span class="op">)</span></span>
+<span><span class="va">survey_months_fct</span></span></code></pre></div>
+<pre><code>## [1] January  February April    May      July     August  
+## Levels: January February April May July August</code></pre>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">survey_months_fct2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">survey_months</span>, levels <span class="op">=</span> <span class="va">month.name</span><span class="op">)</span> <span class="co">#month.name is conveniently built into R</span></span>
+<span><span class="va">survey_months_fct2</span></span></code></pre></div>
+<pre><code>## [1] January  February April    May      July     August  
+## 12 Levels: January February March April May June July August ... December</code></pre>
+<p>Not all levels need to appear in a vector, but the vector cannot take any values not in the levels:</p>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">survey_months_fct2</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Tuesday"</span></span></code></pre></div>
+<pre><code>## Warning in `[&lt;-.factor`(`*tmp*`, 2, value = "Tuesday"): invalid factor level,
+## NA generated</code></pre>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">survey_months_fct2</span></span></code></pre></div>
+<pre><code>## [1] January &lt;NA&gt;    April   May     July    August 
+## 12 Levels: January February March April May June July August ... December</code></pre>
+<p>If you ever need to get the the set of levels, you can do so with <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code>. This is sometimes helpful after you have filtered your data but all levels are still present:</p>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">survey_months_fct2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+##  [7] "July"      "August"    "September" "October"   "November"  "December"</code></pre>
+<p>Under the hood, R considers factors to be integers, corresponding to their levels. For example:</p>
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">survey_months_fct</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6</code></pre>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">survey_months_fct2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1]  1 NA  4  5  7  8</code></pre>
+<p>Remember this if you ever have a factor (for example, site number!) that otherwise appears as an integer:</p>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">site_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">9</span>, <span class="fl">12</span>, <span class="fl">15</span><span class="op">)</span></span>
+<span><span class="va">site_ids_fct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">site_ids</span><span class="op">)</span></span>
+<span><span class="va">site_ids_fct</span></span></code></pre></div>
+<pre><code>## [1] 1  3  4  9  12 15
+## Levels: 1 3 4 9 12 15</code></pre>
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">site_ids_fct</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6</code></pre>
+<p>One way to go get the actual site IDs back from this factor is to go through a character type, because the character no longer has the levels associated with it:</p>
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">site_ids_fct</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "1"  "3"  "4"  "9"  "12" "15"</code></pre>
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">site_ids_fct</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1]  1  3  4  9 12 15</code></pre>
+<!-- ## Exercise 5 -->
+<!-- We will work with the urban wildlife health data to practice manipulating factors, strings, and numbers in data frames. -->
+<!-- ```{r, eval = F, echo = T} -->
+<!-- # Load the tidyverse -->
+<!-- library(tidyverse) -->
+<!-- # Read in the urban wildlife dataset -->
+<!-- urban_data <- read_csv("data/raw/Murray-Sanchez_urban-wildlife.csv") -->
+<!-- # Create a new column that includes both host type and host habitat -->
+<!-- urban_data <- mutate(urban_data, class_hab = str_c(___, ___, sep = ___)) -->
+<!-- # OPTIONAL CHALLENGE: create a new column with the full citation,  -->
+<!-- # including the date in parentheses -->
+<!-- urban_data <- mutate(urban_data, citation = ___) -->
+<!-- # Create a new column in urban_data that calculates  -->
+<!-- # number of years since the study -->
+<!-- urban_data <- mutate(urban_data, years_ago = ___) -->
+<!-- # Create a new column in urban_data  -->
+<!-- # with the absolute value of the effect size -->
+<!-- urban_data <- mutate(urban_data, r_abs = ___(r)) -->
+<!-- # Create a new column in urban_data -->
+<!-- # that tells you whether the p-value is sigificant at alpha=0.05 -->
+<!-- urban_data <- mutate(urban_data, sig = ___) -->
+<!-- # Filter the data to parasites only -->
+<!-- para_data <- filter(urban_data, ___) -->
+<!-- # With the parasite-only data, change the "parasite2" column  -->
+<!-- # to remove the redundant "parasite" word -->
+<!-- para_data <- mutate(para_data, parasite2 = str_remove(___, ___)) -->
+<!-- # Convert the parasite2 column to a factor -->
+<!-- para_data <- mutate(para_data, ___) -->
+<!-- # What is the order of the levels of the parasite2 factor? -->
+<!-- levels(para_data$___) -->
+<!-- # What is the mean effect size in the entire data set? -->
+<!-- mean(___) -->
+<!-- # What is the mean effect size in the parasite-only data set? -->
+<!-- mean(___) -->
+<!-- ``` -->
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="filter-select-mutate.html"><span class="header-section-number">6</span> Data Manipulation with R, Part 1</a></div>
+<div class="next"><a href="lubridate.html"><span class="header-section-number">8</span> Dates and Times in R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#nums-chrs"><span class="header-section-number">7</span> Numbers, Characters, and Factors in R</a></li>
+<li><a class="nav-link" href="#objectives-4"><span class="header-section-number">7.1</span> Objectives</a></li>
+<li><a class="nav-link" href="#additional-reading-4"><span class="header-section-number">7.2</span> Additional reading</a></li>
+<li>
+<a class="nav-link" href="#numbers-integers-and-numeric-variables"><span class="header-section-number">7.3</span> Numbers: integers and numeric variables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#parsing-numbers"><span class="header-section-number">7.3.1</span> Parsing numbers</a></li>
+<li><a class="nav-link" href="#precision-and-comparing-numbers"><span class="header-section-number">7.3.2</span> Precision and comparing numbers</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#characters"><span class="header-section-number">7.4</span> Characters</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-strings-and-using-special-characters"><span class="header-section-number">7.4.1</span> Creating strings and using special characters</a></li>
+<li><a class="nav-link" href="#manipulating-strings-with-stringr"><span class="header-section-number">7.4.2</span> Manipulating strings with stringr</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#factors-characterinteger-hybrids"><span class="header-section-number">7.5</span> Factors: character/integer hybrids</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-07-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
