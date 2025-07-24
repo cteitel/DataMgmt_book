@@ -5,22 +5,34 @@
 <p class="caption">(\#fig:debugging)Notes to your future self (https://xkcd.com/1421/)</p>
 </div>
 
-## What is reproducible science?
+## Reading:
 
-* Workflows
-* Methods
+Alston, J. M., & Rick, J. A. (2021). A beginner’s guide to conducting reproducible research. *Bulletin of the Ecological Society of America, 102*(2), 1-14. https://doi.org/10.1002/bes2.1801
 
-## Why is reproducible science important?
+## Questions for discussion
 
-* Reproducibility "crisis"
-* Accessibility
-* Continuation of scientific knowledge
+1. What is reproducible science?
 
-## What complicates the practice of reproducible science?
+<!-- * Workflows -->
+<!-- * Methods -->
 
-* Skills
-* Time
-* Motivation/incentives
+2. Why is reproducible science important?
+
+<!-- * Reproducibility "crisis" -->
+<!-- * Accessibility -->
+<!-- * Continuation of scientific knowledge -->
+
+3. What complicates the practice of reproducible science?
+
+<!-- * Skills -->
+<!-- * Time -->
+<!-- * Motivation/incentives -->
+
+4. Why is coding so central to reproducibility? 
+
+<!-- * When to use it -->
+<!-- * When not to use it... -->
+<!-- * How to interact with programming languages -->
 
 ## Tools we will cover in this course
 
@@ -33,15 +45,9 @@
 ## Why use R?
 
 * Open-source with many packages and extensions
-* Interdisciplinary
+* Interdisciplinary applications
 * Flexibility
 * Online communities and help
-
-## A note on coding
-
-* When to use it
-* When not to use it...
-* How to interact with programming languages
 
 ## A note on Generative AI/LLMs
 
