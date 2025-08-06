@@ -14,6 +14,13 @@ Much of this lesson draws from The Carpentries' [Data Analysis and Visualization
 
 Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 2: Workflow: basics. Available: https://r4ds.hadley.nz/workflow-basics.html
 
+## Some general guidance about coding and data management
+
+* There is rarely one right way to write code. One way might be faster, and/or easier to read, and/or simpler, but there are always a *lot* of roads to get to the same destination.
+* All programming languages are there to do what you tell them to do. They do that very well. What they do not do is what you want them to do! If your code is throwing errors or producing unexpected results, it's probably because it didn't understand what you wanted it to do. 
+* To take the previous two points together: when in doubt, try taking another road and seeing if it leads you to the same place.
+* Your system or code may be different than your collaborator's or friend's. That is usually not a problem, as long as they can understand how to find what they need and what to do with it when they do.
+
 ## Install R and RStudio
 
 R is the primary coding language used by those in ecology and natural resources. RStudio is an integrated development environment (IDE) that makes using R easier. It provides some point-and-click options and a way of organizing inputs and outputs, making R easier to use.

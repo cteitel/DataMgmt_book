@@ -2,6 +2,130 @@
 
 ## Objectives
 
+* Apply loops to automate repeating tasks
+* Use conditional statements within loops
+* Understand when to use `for`, `while`, and `if` statements
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+```
+
+## Motivation
+
+We are now in the "Advanced R" section of the course. Although the concepts we're learning here might require a little more practice to get right, they are also the main *power* of programming. For the most part, the operations we have learned so far might not have been as easily *reproducible* if done in Excel, but they would have been possible. For example, pivot tables can group and summarize data. In this lesson, we will use R to automate repeating a task using what is called a `for` loop, as well as working with some other programming tools that work well with a `for` loop.
+
+## What is a loop?
+
+A loop allows you to iterate a task, telling R to do the same thing over and over again. For-loops keep code clean and avoid unnecessary repetition of a code block. Loops are especially useful when you want to edit that task later, since you only need to edit the operation once instead of each time it was applied.
+
+## Using loops
+
+Loops are easiest to understand with an example. The basic syntax for a `for` loop is:
+
+```
+for(variable in sequence){
+  do something
+}
+```
+
+For example:
+
+```{r}
+vals <- c(1, 10, 100, 1000, 10000, 100000)
+for(x in vals){
+  print(log10(x))
+}
+```
+
+Here, I have *looped over* the values in the object called `vals`. Each time R goes through the loop, it assigns the next value in `vals` to `x`. I have then asked it to take the logarithm of `x` and print that to the screen.
+
+This is not a good application of a loop because the function `log10()` can take a vector as its argument, so we would get the same result with `print(log10(vals))`. 
+
+Loops become useful when (a) a function can't operate on a vector, and (b) when we want to include conditional statements (more on that below).
+
+For example, to sample 100 values from from a normal distribution with a mean of 0 and a standard deviation of 2, we use `rnorm(n = 100, mean = 0, sd = 2)`. But what if we wanted to look at these distributions with staandard deviations ranging from 1 to 10? `rnorm()` can only take a single number for `sd`, so we would want to use a loop.
+
+```{r}
+# Define the vector of standard deviations
+sd_vals <- c(1:10)
+# Loop over SDs
+for(x in sd_vals){
+  # For each SD (x), get 100 values from a normal distribution with mean=0 and sd=x
+  rnorm(n = 100, mean = 0, sd = x)
+}
+```
+
+**Wait, did that work? There's no output!** This is one finicky aspect of loops that takes some getting used to. Because the operation is happening inside the loop, it doesn't print to the screen by default. It also takes some practice to assign new objects in loops, because if we did this:
+
+```{r}
+# Define the vector of standard deviations
+sd_vals <- c(1:10) 
+# Loop over SDs
+for(x in sd_vals){
+  # For each SD (x), get 100 values from a normal distribution with mean=0 and sd=x
+  norm_dist <- rnorm(n = 100, mean = 0, sd = x)
+}
+```
+
+We would end up with only the last iteration saved in `norm_dist`. To solve this problem, think about the type of object you would like to get out of the loop. Here's let's say we want a long-form data frame with two columns: one stating the standard deviation and one with the 100 values for each distribution. We can initiate this data frame before the loop starts, then add to it as it goes:
+
+```{r}
+# Define the vector of standard deviations
+sd_vals <- c(1:10)
+# Create an empty data frame in which to save data
+results <- tibble()
+# Loop over SDs
+for(x in sd_vals){
+  # For each SD (x), get 100 values from a normal distribution with mean=0 and sd=x
+  norm_vals <- rnorm(n = 100, mean = 0, sd = x)
+  # Create a two-column data frame with a column saving the SD (x) and a column with all simulated values
+  norm_vals_tib <- bind_cols(sd = x, val = norm_vals)
+  # Add these to the results data frame
+  results <- bind_rows(results, norm_vals_tib)
+}
+```
+
+Now, we have all our results saved:
+
+```{r}
+dim(results)
+names(results)
+
+ggplot(results, aes(x = val, color = sd, group = sd)) +
+  geom_density() 
+```
+
+Loops do take some practice, but with these basics you should be able to practice and perfect. Remember:
+
+1. Create an object *outside* the loop where you will save your results
+2. Loops don't print to the screen by default. Add `print()` if you want to see what's happening.
+3. You can loop over vectors, but also over columns or rows in a data frame. We will practice this later.
+4. Troubleshooting loops can be difficult, but you can always take a look at the index where it stopped (`x` in the examples above) to see if it had a problem with one item in particular, or if there's something wrong from the get-go. 
+
+## `if` statements
+
+We used the `if_else()` function earlier to create new columns that are *conditional* on other columns. The `if` statement is the basic form of `if_else()`. In a similar format as a `for` loop, we ask R to do something if a condition is met, then potentially give it alternatives if not. The basic syntax of an `if` statement is:
+
+```
+if(condition){
+  do something
+}
+```
+
+`condition` should return a single logical value (`TRUE` or `FALSE`). This is why `if` and loops are so closely tied - `if` statements do not take vector arguments. We can also add `else` to keep going:
+
+```
+if(condition1) {
+  do something
+} else if(condition2) {
+  do something else
+} else {
+  do yet another thing
+}
+```
+
+Here, we ask R to evaluate `condition1`. If that returns `FALSE`, it will move on to `condition2`. If `condition2` is `FALSE` it will do "yet another thing". This differs from the example above, where if `condition` was `FALSE`, R would do *nothing*.
+
 
 ## Additional reading
 
