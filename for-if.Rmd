@@ -6,6 +6,11 @@
 * Use conditional statements within loops
 * Understand when to use `for`, `while`, and `if` statements
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 27: A field guide to base R; Section 27.5: `for` loops. Available: https://r4ds.hadley.nz/base-R.html#for-loops
+
+
 ```{r, echo = F, message = F, warning = F}
 library(tidyverse)
 ```
@@ -124,9 +129,51 @@ if(condition1) {
 }
 ```
 
-Here, we ask R to evaluate `condition1`. If that returns `FALSE`, it will move on to `condition2`. If `condition2` is `FALSE` it will do "yet another thing". This differs from the example above, where if `condition` was `FALSE`, R would do *nothing*.
+Here, we ask R to evaluate `condition1`. If that returns `FALSE`, it will move on to `condition2`. If `condition2` is `FALSE` it will do "yet another thing". This differs from the first example, where if `condition` was `FALSE`, R would do *nothing*.
 
+Let's try an example:
 
-## Additional reading
+```{r}
+animal <- "squirrel"
+# Evaluate the first condition
+if(animal %in% c("mallard","whimbrel","trumpeter swan")){
+  print("This is a bird.")
+} else{ #If not met, do this other thing
+  print("This is not a bird.")
+}
+```
 
+This is not a great use for an `if` statement because it is the same as:
 
+```{r}
+if_else(animal %in% c("mallard","whimbrel","trumpeter swan"),
+        "This is a bird.",
+        "This is not a bird.")
+```
+
+`if` statements and `for` loops are especially useful with lists, which we will cover soon.
+
+## `while` loops
+
+Writing a `for` loop requires that we know what sequence to loop over. However, sometimes, we want to perform a calculation until a condition is met. Here, we can use a `while` loop. A `while` loop combines the syntax of a `for` loop with the condition of an `if` statement. For example, let's say we wanted to draw numbers from a vector until the sum was greater than 10. We would do this:
+
+```{r}
+# Define a vector of values to sample from
+all_vals <- rnorm(100, 4, 4)
+# Define empty objects to use within the loop
+vect <- vector()
+sum_vect <- 0
+# Run the loop as long as the sum_vect obejct is less than 10
+while(sum_vect <= 10){
+  # Randomly sample a value from the all_vals vector
+  new_val <- sample(all_vals, size = 1)
+  # Add this to our vector of values
+  vect <- c(vect, new_val)
+  # Take the sum and assign it to summ_vect, which goes back to "while"
+  sum_vect <- sum(vect)
+}
+print(vect)
+print(sum_vect)
+```
+
+`while` loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! This is when the stop sign icon (top-right of your console) and the Session-->Interrupt R menu are useful!
