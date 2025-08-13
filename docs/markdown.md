@@ -11,6 +11,14 @@
 -   Format text in R Markdown and Quarto documents, including complex characters and code outputs
 -   Customize output and display in R Markdown and Quarto documents
 
+## Additional reading
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 28: Quarto. Available: <https://r4ds.hadley.nz/quarto.html>
+
+Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (1e). Chapter 27: R Markdown Available: <https://r4ds.hadley.nz/quarto.html>
+
+Getting Started with Quarto in RStudio: <https://quarto.org/docs/get-started/hello/rstudio.html>
+
 ## Why use R Markdown/Quarto?
 
 We have already used R Markdown in this course. Your homework assignemnts are R Markdown documents, so you probably understand the concept of integrating code, text, and output. In this lesson, we will go deeper into the many options and ways to use these documents.
@@ -53,7 +61,19 @@ As mentioned above, these documents fundamentally have three types of informatio
 
 ### Text
 
-You can type in a Quarto document just like in any other text editor.
+You can type in a Quarto document just like in any other text editor. You can also add inline code using the syntax `` `r some_code_here` ``. This code will run and will be displayed as normal text. This can be helpful if you want to insert results or summary statistics within a sentence, for example. To create text that looks like code but isn't executed, just leave off the "r". For example, I do this when I mention functions and packages in the book.
+
+You can also format text in the source editor. Toggling between the source and visual editors can help you learn these details, but some common formatting options are:
+
+* text surrounded by asterixes (`*text*`) creates *italics*
+* text surrounded by double asterixes (`**text**`) creates **bold**
+* text preceded by a ">" at the beginning of a line creates a block quote
+
+> block quote
+
+To create a bulleted or numbered list, start a new line with "*", "-", or a number. Numbering is automatic even if your list is out of order...you can start every item with "1." and it will render as an ordered list!
+
+Other types of text to explore include equations, other non-Latin symbols, and color formatting.
 
 ### Code and Output
 
@@ -123,11 +143,3 @@ execute:
 ```
 
 Unlike in R code, where indenting is helpful but not required, YAML reads indents as subsections, so make sure you follow these conventions. The [Quarto documentation](https://quarto.org/docs/output-formats/html-basics.html) shows many more options for document formatting and output control.
-
-## Additional reading
-
-Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 28: Quarto. Available: <https://r4ds.hadley.nz/quarto.html>
-
-Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (1e). Chapter 27: R Markdown Available: <https://r4ds.hadley.nz/quarto.html>
-
-Getting Started with Quarto in RStudio: <https://quarto.org/docs/get-started/hello/rstudio.html>

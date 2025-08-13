@@ -50,8 +50,5 @@ library(kableExtra)
 readxl::read_excel("../DataMgmtSchedule.xlsx") %>%
   mutate(Date = format(Date, "%A, %B %e, %Y")) %>%
   mutate_all(replace_na, "") %>%
-  knitr::kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                font_size = 12) %>%
-  column_spec(5, width_max = "5cm")
+  knitr::kable() 
 ```

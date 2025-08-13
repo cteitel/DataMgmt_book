@@ -17,9 +17,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -95,16 +93,27 @@
 </h2>
 <p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 2: Workflow: basics. Available: <a href="https://r4ds.hadley.nz/workflow-basics.html" class="uri">https://r4ds.hadley.nz/workflow-basics.html</a></p>
 </div>
-<div id="install-r-and-rstudio" class="section level2" number="3.3">
+<div id="some-general-guidance-about-coding-and-data-management" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">3.3</span> Install R and RStudio<a class="anchor" aria-label="anchor" href="#install-r-and-rstudio"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Some general guidance about coding and data management<a class="anchor" aria-label="anchor" href="#some-general-guidance-about-coding-and-data-management"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>There is rarely one right way to write code. One way might be faster, and/or easier to read, and/or simpler, but there are always a <em>lot</em> of roads to get to the same destination.</li>
+<li>All programming languages are there to do what you tell them to do. They do that very well. What they do not do is what you want them to do! If your code is throwing errors or producing unexpected results, it’s probably because it didn’t understand what you wanted it to do.</li>
+<li>To take the previous two points together: when in doubt, try taking another road and seeing if it leads you to the same place.</li>
+<li>Your system or code may be different than your collaborator’s or friend’s. That is usually not a problem, as long as they can understand how to find what they need and what to do with it when they do.</li>
+</ul>
+</div>
+<div id="install-r-and-rstudio" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Install R and RStudio<a class="anchor" aria-label="anchor" href="#install-r-and-rstudio"><i class="fas fa-link"></i></a>
 </h2>
 <p>R is the primary coding language used by those in ecology and natural resources. RStudio is an integrated development environment (IDE) that makes using R easier. It provides some point-and-click options and a way of organizing inputs and outputs, making R easier to use.</p>
 <p><strong>Install R and RStudio</strong>: To get started, <a href="https://cran.r-project.org/">install R from the CRAN website</a>. Then, <a href="https://posit.co/download/rstudio-desktop/#download">install RStudio</a>.</p>
 </div>
-<div id="familiarize-yourself-with-rstudio" class="section level2" number="3.4">
+<div id="familiarize-yourself-with-rstudio" class="section level2" number="3.5">
 <h2>
-<span class="header-section-number">3.4</span> Familiarize yourself with RStudio<a class="anchor" aria-label="anchor" href="#familiarize-yourself-with-rstudio"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5</span> Familiarize yourself with RStudio<a class="anchor" aria-label="anchor" href="#familiarize-yourself-with-rstudio"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Open RStudio</strong> and you will see four windows on one screen:</p>
 <ul>
@@ -121,9 +130,9 @@ Figure 3.1: Setting up defaults in R for maximum reproducibility
 </p>
 </div>
 </div>
-<div id="installing-packages-also-functions-and-objects" class="section level2" number="3.5">
+<div id="installing-packages-also-functions-and-objects" class="section level2" number="3.6">
 <h2>
-<span class="header-section-number">3.5</span> Installing packages; also, functions and objects<a class="anchor" aria-label="anchor" href="#installing-packages-also-functions-and-objects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6</span> Installing packages; also, functions and objects<a class="anchor" aria-label="anchor" href="#installing-packages-also-functions-and-objects"><i class="fas fa-link"></i></a>
 </h2>
 <p>R comes with many built-in <em>functions</em> (we will define this later), but relies heavily on <em>packages,</em> which increase the amount you can do with R. For example, there are packages specifically built for making plots, animating graphics, running machine learning models, etc. In this lesson, we will use two packages: <code>tidyverse</code> and <code>here</code>. <code>tidyverse</code> provides a <em>lot</em> of functions for reading, manipulating, and writing data, which we will focus on at the beginning of this course. <code>here</code> provides a way of locating files on your computer.</p>
 <p>The so-called <em>core</em> tidyverse includes the following packages:</p>
@@ -157,9 +166,9 @@ Figure 3.1: Setting up defaults in R for maximum reproducibility
 <p>You now have more functions available to you!</p>
 <p>Programming differs from using other types of applications because there is no menu of functions. At first, this is challenging - how can you know what is possible? - but just like any other language, you will learn the names of functions and how to find new ones.</p>
 </div>
-<div id="folders-and-files" class="section level2" number="3.6">
+<div id="folders-and-files" class="section level2" number="3.7">
 <h2>
-<span class="header-section-number">3.6</span> Folders and files<a class="anchor" aria-label="anchor" href="#folders-and-files"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.7</span> Folders and files<a class="anchor" aria-label="anchor" href="#folders-and-files"><i class="fas fa-link"></i></a>
 </h2>
 <p>Before we keep moving, it is important to remember that coding on its own is not reproducible. Scripts are rarely self-contained: they read and write data, create intermediate files, and need to be found and stored for future use. This practice requires using file systems – a fancy way of talking about the folders on your computer.</p>
 <p><strong>Create a directory for this course</strong>. If you already have a folder for this course, create a subfolder called “scripts” (or similar); if you don’t, create a folder for the course and a sub-folder for scripts. Now, save the script you have just created in this folder. This might seem basic, but we will build on this organizational system throughout the course.</p>
@@ -177,17 +186,17 @@ Figure 3.1: Setting up defaults in R for maximum reproducibility
 │
 └─── documents</code></pre>
 </div>
-<div id="r-projects" class="section level2" number="3.7">
+<div id="r-projects" class="section level2" number="3.8">
 <h2>
-<span class="header-section-number">3.7</span> R projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.8</span> R projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
 </h2>
 <p>In addition to having this folder structure, RStudio can keep track of our folders and files in a <strong>Project</strong>. To create a new project that includes your existing folders, click on File –&gt; New Project. You will see a window that asks how to initiate the project. In this case, we have already created a directory (i.e., a folder), so choose “Existing Directory” and browse to find your course folder.</p>
 <p>Next time you open RStudio, your project might automatically open. If not, you can use the dropdown menu in the top-right corner of your screen (in the Console window) to open the project.</p>
 <p>Projects are not necessary for using R and RStudio, but they are helpful. One benefit is that they automatically set your <em>working directory</em> to the home folder for the project. Your working directory is the place where R starts when looking for files or when saving files; having this directory already set helps make your workflow more reproducible because anyone can pick up your project and start using it.</p>
 </div>
-<div id="data-structures-in-r" class="section level2" number="3.8">
+<div id="data-structures-in-r" class="section level2" number="3.9">
 <h2>
-<span class="header-section-number">3.8</span> Data structures in R<a class="anchor" aria-label="anchor" href="#data-structures-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9</span> Data structures in R<a class="anchor" aria-label="anchor" href="#data-structures-in-r"><i class="fas fa-link"></i></a>
 </h2>
 <p>R’s <em>functions</em> take <em>arguments</em>, but they can also create <em>objects.</em> Objects are stored in the <em>environment,</em> which allows you to come back to them.</p>
 <p>In the following code, we will use the assignment arrow (<code>&lt;-</code>) to create an object called <code>my_number</code>, which is just a number with a value of 4. If you run this first line, you will see that nothing seems to happen.</p>
@@ -252,9 +261,9 @@ Figure 3.1: Setting up defaults in R for maximum reproducibility
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">vec_dbl</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "1.2"    "102"    "104.11" "0.1"</code></pre>
-<div id="factors" class="section level3" number="3.8.1">
+<div id="factors" class="section level3" number="3.9.1">
 <h3>
-<span class="header-section-number">3.8.1</span> Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.9.1</span> Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
 </h3>
 <p>Categorical data is represented in R using <em>factors</em>. A factor is stored as a
 vector of labels called <em>levels</em> but, under the hood, each level gets assigned
@@ -277,9 +286,9 @@ explicit about it:</p>
 <pre><code>## [1] 2017 2018 2019 2020 2021</code></pre>
 </div>
 </div>
-<div id="a-note-tidyverse-vs.-base-r" class="section level2" number="3.9">
+<div id="a-note-tidyverse-vs.-base-r" class="section level2" number="3.10">
 <h2>
-<span class="header-section-number">3.9</span> A note: tidyverse vs. base R<a class="anchor" aria-label="anchor" href="#a-note-tidyverse-vs.-base-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.10</span> A note: tidyverse vs. base R<a class="anchor" aria-label="anchor" href="#a-note-tidyverse-vs.-base-r"><i class="fas fa-link"></i></a>
 </h2>
 <p>As we begin to delve more deeply into the <code>tidyverse</code>, we should briefly pause to mention some of the reasons for focusing on the <code>tidyverse</code> set of tools. In R, there are often many ways to get a job done, and there are other approaches that can accomplish tasks similar to the <code>tidyverse.</code></p>
 <p>The phrase <em>base R</em> is used to refer to functions contained in R’s default packages. We have already used the base R functions <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>, etc., and we will be using more scattered throughout this course and lesson (for example, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>). The <code>tidyverse</code> refers to a set of packages that have a consisent <em>syntax</em> (a way of writing code) that is generally more intuitive and readable than base R. <code>tidyverse</code> packages also generally come with clearer help pages and more informative error messages.</p>
@@ -296,15 +305,16 @@ explicit about it:</p>
 <li><a class="nav-link" href="#basics"><span class="header-section-number">3</span> Getting Started with R</a></li>
 <li><a class="nav-link" href="#objectives"><span class="header-section-number">3.1</span> Objectives</a></li>
 <li><a class="nav-link" href="#additional-reading"><span class="header-section-number">3.2</span> Additional reading</a></li>
-<li><a class="nav-link" href="#install-r-and-rstudio"><span class="header-section-number">3.3</span> Install R and RStudio</a></li>
-<li><a class="nav-link" href="#familiarize-yourself-with-rstudio"><span class="header-section-number">3.4</span> Familiarize yourself with RStudio</a></li>
-<li><a class="nav-link" href="#installing-packages-also-functions-and-objects"><span class="header-section-number">3.5</span> Installing packages; also, functions and objects</a></li>
-<li><a class="nav-link" href="#folders-and-files"><span class="header-section-number">3.6</span> Folders and files</a></li>
-<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.7</span> R projects</a></li>
+<li><a class="nav-link" href="#some-general-guidance-about-coding-and-data-management"><span class="header-section-number">3.3</span> Some general guidance about coding and data management</a></li>
+<li><a class="nav-link" href="#install-r-and-rstudio"><span class="header-section-number">3.4</span> Install R and RStudio</a></li>
+<li><a class="nav-link" href="#familiarize-yourself-with-rstudio"><span class="header-section-number">3.5</span> Familiarize yourself with RStudio</a></li>
+<li><a class="nav-link" href="#installing-packages-also-functions-and-objects"><span class="header-section-number">3.6</span> Installing packages; also, functions and objects</a></li>
+<li><a class="nav-link" href="#folders-and-files"><span class="header-section-number">3.7</span> Folders and files</a></li>
+<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.8</span> R projects</a></li>
 <li>
-<a class="nav-link" href="#data-structures-in-r"><span class="header-section-number">3.8</span> Data structures in R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#factors"><span class="header-section-number">3.8.1</span> Factors</a></li></ul>
+<a class="nav-link" href="#data-structures-in-r"><span class="header-section-number">3.9</span> Data structures in R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#factors"><span class="header-section-number">3.9.1</span> Factors</a></li></ul>
 </li>
-<li><a class="nav-link" href="#a-note-tidyverse-vs.-base-r"><span class="header-section-number">3.9</span> A note: tidyverse vs. base R</a></li>
+<li><a class="nav-link" href="#a-note-tidyverse-vs.-base-r"><span class="header-section-number">3.10</span> A note: tidyverse vs. base R</a></li>
 </ul>
 
       <div class="book-extra">
@@ -321,7 +331,7 @@ explicit about it:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-05.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

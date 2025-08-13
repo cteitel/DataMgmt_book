@@ -14,7 +14,6 @@ fig:github03
 fig:markdown
 course-overview
 how-to-use-this-book
-some-general-guidance-about-coding-and-data-management
 course-schedule
 intro
 reading
@@ -25,6 +24,7 @@ a-note-on-generative-aillms
 basics
 objectives
 additional-reading
+some-general-guidance-about-coding-and-data-management
 install-r-and-rstudio
 familiarize-yourself-with-rstudio
 installing-packages-also-functions-and-objects
@@ -199,13 +199,13 @@ pull-requests
 references
 markdown
 objectives-13
+additional-reading-11
 why-use-r-markdownquarto
 basic-elements-of-a-quarto-document
 quarto-documents-in-rstudio
 text
 code-and-output
 header
-additional-reading-11
 qaqc
 objectives-14
 principles-of-data-cleaning
@@ -223,6 +223,11 @@ saving-clean-data
 for-if
 objectives-15
 additional-reading-12
+motivation
+what-is-a-loop
+using-loops
+if-statements
+while-loops
 functions
 objectives-16
 additional-reading-13
