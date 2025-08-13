@@ -47,8 +47,17 @@ Below is the current schedule for this course. This is subject to change as the 
 ```{r, echo = F, message = F}
 library(tidyverse)
 library(kableExtra)
-readxl::read_excel("../DataMgmtSchedule.xlsx") %>%
+tab <- readxl::read_excel("../DataMgmtSchedule.xlsx") %>%
   mutate(Date = format(Date, "%A, %B %e, %Y")) %>%
-  mutate_all(replace_na, "") %>%
-  knitr::kable() 
+  mutate_all(replace_na, "")
+knitr::kable(tab) 
+
+library(gt)
+tab %>%
+  mutate(Readings = str_replace_all(Readings, "\\[(.*?)\\]\\(.*?\\)", "\\1")) %>%
+  select(-Week) %>%
+  gt() %>%
+  gtsave("../DataMgmtSchedule.pdf",
+         zoom = 2)
+
 ```
