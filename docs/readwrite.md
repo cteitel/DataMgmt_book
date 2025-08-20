@@ -35,6 +35,29 @@ They can also be combined into more complex forms:
 
 Your computer can store any number of file types, which are usually indicated by their extension (.docx, .pdf, .csv, .xlsx, etc.). Each file type stores data differently. Some file types are **proprietary** and can only be read by certain software. It is usually best to convert these into open formats before working with them in R or other programming languages. You are likely to receive data as Excel files (.xls, .xlsx). These used to be proprietary but are now open - however, using them with R requires a little practice to know how to import data and what information is lost in the process.
 
+## The `here` package and working directories
+
+In the last lesson, you practiced setting and getting your working directory and setting up an R project. If you are working in an R project, your working directory will automatically be set to the project's home directory. However, some tools complicate this rule; for example, when you *knit* R Markdown documents (which we use for exercises), the working directory is automatically set to the *script's* directory - not the project directory. This is a problem because the code you run line-by-line while working will have a different default working directory than when the document is knitted! There are two ways to solve this problem:
+
+First, you can set the default working directory for your R Markdown file in the options at the top of the document:
+
+
+``` r
+knitr::opts_chunk(root.dir = "../")
+```
+
+This option would set the "root directory" (i.e., default working directory) of the document to one directory above where the script is stored. With the file organization we used, this would be the project directory.
+
+Another option is to use the `here` package, which uses relative file paths within the project directory. Any file path enclosed within the function `here()` will start at the project directory. `here` can also take multiple directory arguments. For example, the following commands are equivalent:
+
+
+``` r
+here("data", "raw", "new_dataset.csv")
+here("data/raw/new_dataset.csv")
+```
+
+For the rest of the lesson, we will use `here` to read and write files.
+
 ## Reading .csv files into R
 
 More often than not, you'll create data frames by importing external files (such as .csv) into R. A few useful functions for this are:
@@ -45,13 +68,14 @@ More often than not, you'll create data frames by importing external files (such
 * `read_excel` from the `readxl` package
 
 To practice, we will use some data from an online repository: 
-Murray, M. H., Sanchez, C. A., Becker, D. J., Byers, K. A., Worsley-Tonks, K. E. L., & Craft, M. E. (2020). Data from: City sicker? a meta-analysis of wildlife health and urbanization [Data set]. Zenodo. https://doi.org/10.5061/dryad.b74d971
+Murray, M. H., Sanchez, C. A., Becker, D. J., Byers, K. A., Worsley-Tonks, K. E. L., & Craft, M. E. (2020). Data from: City sicker? a meta-analysis of wildlife health and urbanization [Data set]. Zenodo (https://zenodo.org/records/3870855). https://doi.org/10.5061/dryad.b74d971
 
 **Navigate to the repository using the DOI to learn more about the study.**
 
 
 ``` r
 library(tidyverse)
+library(here)
 ```
 
 
@@ -96,7 +120,7 @@ Repositories like Zenodo should provide permanent ways to access data, but you s
 
 
 ``` r
-write_csv(urban_data, "data/raw/Murray-Sanchez_urban-wildlife.csv")
+write_csv(urban_data, here("data/raw/Murray-Sanchez_urban-wildlife.csv"))
 ```
 
 You should now see a new file in your raw data folder.
@@ -107,7 +131,7 @@ Many spreadsheet programs are available. The most commonly used is Excel, so we 
 
 <div class="figure" style="text-align: center">
 <img src="https://imgs.xkcd.com/comics/spreadsheets.png" alt="The temptations of spreadsheets (https://xkcd.com/2180/)" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-4)The temptations of spreadsheets (https://xkcd.com/2180/)</p>
+<p class="caption">(\#fig:unnamed-chunk-6)The temptations of spreadsheets (https://xkcd.com/2180/)</p>
 </div>
 
 ### Spreadsheets for data entry
@@ -139,14 +163,14 @@ This data set is *mostly* in "tidy" format, meaning that it has one observation 
 
 <div class="figure" style="text-align: center">
 <img src="images/tidycolumns.png" alt="Tidy data format" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-5)Tidy data format</p>
+<p class="caption">(\#fig:unnamed-chunk-7)Tidy data format</p>
 </div>
 
 When entering data, you might intuitively enter it as "terrestrial mammal,", "terrestrial bird," etc., but this way data can later be filtered or analyzed by a single classification only. One case where this data set does not do this is the `host.species` column:
 
 <div class="figure" style="text-align: center">
 <img src="images/speciescolumn.png" alt="Slightly less tidy data format" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-6)Slightly less tidy data format</p>
+<p class="caption">(\#fig:unnamed-chunk-8)Slightly less tidy data format</p>
 </div>
 
 We might later be interested in grouping by genus, but we can't do that with the way the data are entered right now. We will learn how to separate the genus and species in R later.

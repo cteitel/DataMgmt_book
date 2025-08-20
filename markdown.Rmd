@@ -49,7 +49,7 @@ knitr::include_graphics("images/quarto-create2.png")
 
 Once your Quarto document is open, you can toggle between two views: Source and Visual. Source is more "code-like", while the visual editor includes more point-and-click formatting tools and a preview of your formatting. If you toggle between the two, you can see how formatting is translated into Markdown language.
 
-```{r, fig.cap='Two views of Quarto', fig.align='center', fig.show = 'hold', out.width='80%', echo = FALSE, eval = TRUE}
+```{r, fig.cap='Two views of Quarto', fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
 #| fig.show: "hold"
 
 knitr::include_graphics(c("images/quarto-source.png",

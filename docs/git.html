@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>14 Version Control with Git and GitHub | Data Management and Reproducible Science</title>
 <meta name="author" content="Claire S Teitelbaum">
-<meta name="description" content="Figure 3.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
+<meta name="description" content="Figure 2.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
 <meta property="og:title" content="14 Version Control with Git and GitHub | Data Management and Reproducible Science">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Figure 3.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
+<meta property="og:description" content="Figure 2.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="14 Version Control with Git and GitHub | Data Management and Reproducible Science">
-<meta name="twitter:description" content="Figure 3.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
+<meta name="twitter:description" content="Figure 2.1: Fairly accurate. (https://xkcd.com/1597/)  This lesson draws from materials for WILD 6900: Tools for Reproducible Science, Spring 2021, Utah State University, by Dr. Simona Picardi,...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -77,7 +77,7 @@
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="https://imgs.xkcd.com/comics/git.png" alt="Fairly accurate. (https://xkcd.com/1597/)" width="50%"><p class="caption">
-Figure 3.1: Fairly accurate. (<a href="https://xkcd.com/1597/" class="uri">https://xkcd.com/1597/</a>)
+Figure 2.1: Fairly accurate. (<a href="https://xkcd.com/1597/" class="uri">https://xkcd.com/1597/</a>)
 </p>
 </div>
 <p>This lesson draws from materials for <a href="https://ecorepsci.github.io/reproducible-science/">WILD 6900: Tools for Reproducible Science</a>, Spring 2021, Utah State University, by Dr. Simona Picardi, published under a <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> license. Lesson elements about Git/GitHub setup the RStudio GUI are based on The Carpentries’ <a href="https://swcarpentry.github.io/git-novice">Version Control with Git</a> workshop, also licensed under <a href="https://swcarpentry.github.io/git-novice/LICENSE.html">CC-BY 4.0</a>.</p>
@@ -114,7 +114,7 @@ Figure 14.1: Commit message examples
 <div class="figure" style="text-align: left">
 <span style="display:block;" id="fig:unnamed-chunk-4"></span>
 <img src="images/git_changes.png" alt="A diff example" width="80%"><p class="caption">
-Figure 4.1: A diff example
+Figure 14.2: A diff example
 </p>
 </div>
 <p>Additional reading: <a href="https://swcarpentry.github.io/git-novice/01-basics.html" class="uri">https://swcarpentry.github.io/git-novice/01-basics.html</a></p>
@@ -191,31 +191,31 @@ Figure 4.1: A diff example
 <p>And on Windows</p>
 <pre><code>C:\Users\username&gt;</code></pre>
 <p>To move around directories we use the command <code>cd</code>, which stands for “change directory”. For example, to move to the Research subfolder in my Documents folder, I might type in:</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb500-1"><a href="git.html#cb500-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Research</span></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb502-1"><a href="git.html#cb502-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Research</span></code></pre></div>
 <p>To go up a directory, use “..”. The following command would take me back up to my Documents folder:</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb501-1"><a href="git.html#cb501-1" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb503-1"><a href="git.html#cb503-1" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div>
 </div>
 <div id="configuring-git-one-time-only" class="section level3" number="14.5.2">
 <h3>
 <span class="header-section-number">14.5.2</span> Configuring Git (one time only)<a class="anchor" aria-label="anchor" href="#configuring-git-one-time-only"><i class="fas fa-link"></i></a>
 </h3>
 <p>On a command line, Git commands are written as <code>git</code> <code>verb</code> <code>options</code>, where <code>verb</code> is what we actually want to do and <code>options</code> is additional optional information which may be needed for the verb. To set up Git for the first time:</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb502-1"><a href="git.html#cb502-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"My name"</span></span>
-<span id="cb502-2"><a href="git.html#cb502-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"myemail@uga.edu"</span></span></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb504-1"><a href="git.html#cb504-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"My name"</span></span>
+<span id="cb504-2"><a href="git.html#cb504-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"myemail@uga.edu"</span></span></code></pre></div>
 <p>This user name and email will be associated with your subsequent Git activity, which means that any changes pushed to GitHub, BitBucket, GitLab, etc. will include this information. The email address used should be the same as the one used when setting up your account. There are more configuration options you can personalize, but we won’t get into that. If you want to check what configuration options you have active, you can use:</p>
-<div class="sourceCode" id="cb503"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb503-1"><a href="git.html#cb503-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--list</span></span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb505-1"><a href="git.html#cb505-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--list</span></span></code></pre></div>
 </div>
 <div id="creating-a-repository-one-time-per-project" class="section level3" number="14.5.3">
 <h3>
 <span class="header-section-number">14.5.3</span> Creating a repository (one time per project)<a class="anchor" aria-label="anchor" href="#creating-a-repository-one-time-per-project"><i class="fas fa-link"></i></a>
 </h3>
 <p>To create a repository (in other words, to put a directory under version control), we first have to navigate to that directory. Here, we will create a repository for this class.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb504-1"><a href="git.html#cb504-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Classes/FANR8950_Fall2025</span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb506-1"><a href="git.html#cb506-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Classes/FANR8950_Fall2025</span></code></pre></div>
 <blockquote>
 <p>A side note: if you have spaces in any of your directory names (for example, if your directories are in OneDrive), you will need to put the path in quotes. Otherwise, the terminal thinks those spaces indicate a new argument or command.</p>
 </blockquote>
 <p>Now we will enable Git to start tracking everything inside this folder:</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb505-1"><a href="git.html#cb505-1" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb507-1"><a href="git.html#cb507-1" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div>
 <p>This command initializes Git. You won’t immediately notice any changes in the directory, but if you show hidden files in your file explorer you will notice there is a new subfolder called .git. That folder is where Git will store all of its version control information. You don’t have to worry about the content of that folder.</p>
 </div>
 <div id="staging-files" class="section level3" number="14.5.4">
@@ -223,11 +223,11 @@ Figure 4.1: A diff example
 <span class="header-section-number">14.5.4</span> Staging files<a class="anchor" aria-label="anchor" href="#staging-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>Creating a repository enables Git to start tracking files within it, but that does not happen automatically. We have to tell Git which files we want to track. We can check what Git is tracking so far by using:</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb506-1"><a href="git.html#cb506-1" tabindex="-1"></a><span class="fu">git</span> status </span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb508-1"><a href="git.html#cb508-1" tabindex="-1"></a><span class="fu">git</span> status </span></code></pre></div>
 <p>At the bottom, we’ll see a list of untracked files. We need to switch on tracking on those. To begin tracking a new file, we use the verb ‘add’. For example, to track a file named “exercise2.R” we would type:</p>
-<div class="sourceCode" id="cb507"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb507-1"><a href="git.html#cb507-1" tabindex="-1"></a><span class="fu">git</span> add exercise2.R</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb509-1"><a href="git.html#cb509-1" tabindex="-1"></a><span class="fu">git</span> add exercise2.R</span></code></pre></div>
 <p>This works well if we want to add a specific file. If we want to start tracking the whole content of the folder, we can do:</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb508-1"><a href="git.html#cb508-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb510-1"><a href="git.html#cb510-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
 </div>
 <div id="ignoring-files" class="section level3" number="14.5.5">
 <h3>
@@ -249,7 +249,7 @@ Figure 4.1: A diff example
 <pre><code>\*.Rhistory   
 /.Rproj.user/  </code></pre>
 <p>We can add as many rules as we like, then save the .gitignore text file when we’re done. Now, if we didn’t forget to include anything that needed to be ignored, we can safely add all our files in one go:</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb512-1"><a href="git.html#cb512-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb514-1"><a href="git.html#cb514-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
 </div>
 <div id="committing-files" class="section level3" number="14.5.6">
 <h3>
@@ -257,7 +257,7 @@ Figure 4.1: A diff example
 </h3>
 <p>Now that our files are staged, we are ready to send them to the local repository. This is called committing. Each commit is a snapshot of what the repository looked like at the time it was committed. When you commit a file, you save that version forever and will be able to go back to it. Remember, this is many steps beyond clicking “Save” on your script - you should commit a file when you feel you have made significant changes that you might want to go back to (or undo).</p>
 <p>For our first commit, we use the following command:</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb513-1"><a href="git.html#cb513-1" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"First commit"</span></span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb515-1"><a href="git.html#cb515-1" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"First commit"</span></span></code></pre></div>
 <p>Each commit should be accompanied by a message, added with the flag -m. The message should describe the changes made to the file/s since the previous commit. It is a good habit to write detailed commit messages, so that when we need to go back and recover a previous version of a file, you can read the history of commits and easily find the version we are looking for.</p>
 <p>When you next edit any of these files, you will need to repeat this process: move it to the staging area and commit those changes.</p>
 </div>
@@ -266,9 +266,9 @@ Figure 4.1: A diff example
 <span class="header-section-number">14.5.7</span> Un-staging files<a class="anchor" aria-label="anchor" href="#un-staging-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>Staging initially seems like an annoying extra step, but it serves as a good check on your process before you commit something (because committing is permanent!). The following command un-stages files and saves us from having to commit them:</p>
-<div class="sourceCode" id="cb514"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb514-1"><a href="git.html#cb514-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> filename</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb516-1"><a href="git.html#cb516-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> filename</span></code></pre></div>
 <p>You can use pattern matching here as well, but you’ll need to put a backslash in front of the wildcard:</p>
-<div class="sourceCode" id="cb515"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb515-1"><a href="git.html#cb515-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="dt">\*</span>.jpg</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb517-1"><a href="git.html#cb517-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="dt">\*</span>.jpg</span></code></pre></div>
 <p>In both of these cases, you probably then want to add the file names or extensions to your .gitignore file.</p>
 </div>
 <div id="accessing-file-histories" class="section level3" number="14.5.8">
@@ -276,12 +276,12 @@ Figure 4.1: A diff example
 <span class="header-section-number">14.5.8</span> Accessing file histories<a class="anchor" aria-label="anchor" href="#accessing-file-histories"><i class="fas fa-link"></i></a>
 </h3>
 <p>Git will allow you to recover previous versions of any tracked file at the time it was committed. You can access the history of commits using:</p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb516-1"><a href="git.html#cb516-1" tabindex="-1"></a><span class="fu">git</span> log</span></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb518-1"><a href="git.html#cb518-1" tabindex="-1"></a><span class="fu">git</span> log</span></code></pre></div>
 <div class="inline-figure"><img src="images/git_history.png" width="80%" style="display: block; margin: auto auto auto 0;"></div>
 <p>The string of numbers and letters following the word ‘commit’ in the log is called the hash and it uniquely identifies each commit. If I wanted to revert to the version of the data manipulation lesson before I split it in two, I would use:</p>
-<div class="sourceCode" id="cb517"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb517-1"><a href="git.html#cb517-1" tabindex="-1"></a><span class="fu">git</span> checkout 91568057d886b9b2cf9966ccbd82c4fd51ba119f <span class="at">--</span> data_manipulation.Rmd</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb519-1"><a href="git.html#cb519-1" tabindex="-1"></a><span class="fu">git</span> checkout 91568057d886b9b2cf9966ccbd82c4fd51ba119f <span class="at">--</span> data_manipulation.Rmd</span></code></pre></div>
 <p>If my commit messages are not as helpful as I would like, or I want more detail, I can also ask for a line-by-line comparison of old and new versions of a file using <code>git diff</code>. Text I added will be preceded by a “+” and text I deleted with a “-”.</p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb518-1"><a href="git.html#cb518-1" tabindex="-1"></a><span class="fu">git</span> diff version-control-git-github.Rmd</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb520-1"><a href="git.html#cb520-1" tabindex="-1"></a><span class="fu">git</span> diff version-control-git-github.Rmd</span></code></pre></div>
 </div>
 </div>
 <div id="using-git-with-guis" class="section level2" number="14.6">
@@ -329,7 +329,7 @@ Figure 4.1: A diff example
 <div class="inline-figure"><img src="github_new_repository.png"></div>
 <p>Follow the steps to create a new repository, giving it the same name as the folder on your computer (this isn’t necessary, but is helpful). Make sure you do <em>not</em> add a README, .gitignore, or license file. This repository should be empty when created so that it does not conflict with any of the files in the local repository.</p>
 <p>To connect the local and remote repositories, you can copy the URL of the remote repository and run this command in the terminal (again, after navigating to the location of your local repository):</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb519-1"><a href="git.html#cb519-1" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/cteitel/myrepo.git</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb521-1"><a href="git.html#cb521-1" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/cteitel/myrepo.git</span></code></pre></div>
 <p>‘Origin’ is the conventional name given to a remote repository. You could use any other name, but since GitHub uses ‘origin’ as the default name when creating a repository from the website, using this convention will make it easier to follow help guides online. Some GUIs also allow you to do this through menus.</p>
 </div>
 <div id="pushing-to-a-remote-repository" class="section level3" number="14.7.2">
@@ -337,7 +337,7 @@ Figure 4.1: A diff example
 <span class="header-section-number">14.7.2</span> Pushing to a remote repository<a class="anchor" aria-label="anchor" href="#pushing-to-a-remote-repository"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now we have linked the local and remote repository, but if you look in the repository on your GitHub page, you won’t see any files in it. First, we need to “push” a cope of the local files to the remote repository. The first time you push, it’s a good idea to specify which branch Git should use as the default remote for the local main branch in the future. We do this by adding the flag ‘-u’ (for upstream), followed by the name of the remote and the name of the local branch that you want to link up:</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb520-1"><a href="git.html#cb520-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb522-1"><a href="git.html#cb522-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div>
 <p>You only have to set the upstream the first time you push a certain branch. After the upstream is set up, you will be able to just push changes to the remote repository by doing:</p>
 <p><code>git push</code></p>
 <p>You will be prompted to for your GitHub credentials. You may be asked to use a personal access token, in which case you need to follow <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic">these instructions</a>.</p>
@@ -404,7 +404,7 @@ Figure 4.1: A diff example
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-14.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

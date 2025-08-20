@@ -2,7 +2,7 @@
 
 <div class="figure" style="text-align: center">
 <img src="https://imgs.xkcd.com/comics/future_self.png" alt="Notes to your future self (https://xkcd.com/1421/)" width="30%" />
-<p class="caption">(\#fig:debugging)Notes to your future self (https://xkcd.com/1421/)</p>
+<p class="caption">(\#fig:unnamed-chunk-1)Notes to your future self (https://xkcd.com/1421/)</p>
 </div>
 
 ## Reading:

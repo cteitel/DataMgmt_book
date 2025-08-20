@@ -95,7 +95,7 @@
 <span class="header-section-number">13.3</span> Tables as outputs<a class="anchor" aria-label="anchor" href="#tables-as-outputs"><i class="fas fa-link"></i></a>
 </h2>
 <p>Data visualization in figures and other graphics is usually the most effective way of communicating information. Consider, for example, the same data displayed in a figure and in a table:</p>
-<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -107,7 +107,7 @@
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dat_summ</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -118,7 +118,7 @@
 <span>            body_mass_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by 'species'. You can override using the
 ## `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_summ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="va">body_mass_mean</span>, </span>
 <span>             ymin <span class="op">=</span> <span class="va">body_mass_mean</span> <span class="op">-</span> <span class="va">body_mass_sd</span>, </span>
@@ -132,7 +132,7 @@
 <span>                     values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkgreen"</span>, <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Species"</span>, y <span class="op">=</span> <span class="st">"Body mass (mean +/- SD)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="data-tables_files/figure-html/unnamed-chunk-1-1.png" width="672"></div>
-<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_summ</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ## # Groups:   species [3]
@@ -171,7 +171,7 @@ Figure 13.1: A common data table format
 <li>add borders and alignment.</li>
 </ol>
 <p>However, since one benefit of using a scripting language like R is that you can easily update your analyses, it is helpful to pre-format the table as much as possible before outputting. If we outputted <code>data_summ</code> as it is now, our fourth step would also require rounding or truncating numbers and renaming columns. Every time we updated the analysis we would need to update these as well, making this process more time-consuming and, to some degree, less reproducible; for example, there would be no record of the translation between column names in our data.frame and column names in the data presented. Ideally, you would do all of this rounding and renaming before writing your data to a CSV:</p>
-<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_summ_out</span> <span class="op">&lt;-</span> <span class="va">dat_summ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>`No. birds` <span class="op">=</span> <span class="va">n</span>, </span>
 <span>         `Mean body mass (g)` <span class="op">=</span> <span class="va">body_mass_mean</span>,</span>
@@ -188,7 +188,7 @@ Figure 13.1: A common data table format
 ## 
 ##   # Now:
 ##   data %&gt;% select(where(is.numeric))</code></pre>
-<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">dat_summ_out</span>, <span class="st">"outputs/penguin_summary.csv"</span><span class="op">)</span></span></code></pre></div>
 <p><em>What other formatting details might you want to consider before writing data to a file?</em></p>
 </div>
@@ -198,26 +198,26 @@ Figure 13.1: A common data table format
 </h2>
 <p>The method above is useful if you have a table or two to place in a report. What if you have a lot? The amount of extra time it takes to reformat each (and update every time something changes) might make it worth investing in a more automated solution. The <a href="https://gt.rstudio.com/articles/gt.html"><code>gt</code></a> package provides just that. It is very flexible, allowing you to create complex, nested tables. Although there is a bit of a learning curve to using the package, the time investment pays off if you produce a lot of tables.</p>
 <p>Here’s an example of our penguin data in <code>gt</code> format:</p>
-<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span></span></code></pre></div>
-<div id="vjgsdnwpnf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vjgsdnwpnf table {
+<div id="uvylyvrlds" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uvylyvrlds table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vjgsdnwpnf thead, #vjgsdnwpnf tbody, #vjgsdnwpnf tfoot, #vjgsdnwpnf tr, #vjgsdnwpnf td, #vjgsdnwpnf th {
+#uvylyvrlds thead, #uvylyvrlds tbody, #uvylyvrlds tfoot, #uvylyvrlds tr, #uvylyvrlds td, #uvylyvrlds th {
   border-style: none;
 }
 
-#vjgsdnwpnf p {
+#uvylyvrlds p {
   margin: 0;
   padding: 0;
 }
 
-#vjgsdnwpnf .gt_table {
+#uvylyvrlds .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -243,12 +243,12 @@ Figure 13.1: A common data table format
   border-left-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_caption {
+#uvylyvrlds .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vjgsdnwpnf .gt_title {
+#uvylyvrlds .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -260,7 +260,7 @@ Figure 13.1: A common data table format
   border-bottom-width: 0;
 }
 
-#vjgsdnwpnf .gt_subtitle {
+#uvylyvrlds .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -272,7 +272,7 @@ Figure 13.1: A common data table format
   border-top-width: 0;
 }
 
-#vjgsdnwpnf .gt_heading {
+#uvylyvrlds .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -284,13 +284,13 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_bottom_border {
+#uvylyvrlds .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_col_headings {
+#uvylyvrlds .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -305,7 +305,7 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_col_heading {
+#uvylyvrlds .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -325,7 +325,7 @@ Figure 13.1: A common data table format
   overflow-x: hidden;
 }
 
-#vjgsdnwpnf .gt_column_spanner_outer {
+#uvylyvrlds .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -337,15 +337,15 @@ Figure 13.1: A common data table format
   padding-right: 4px;
 }
 
-#vjgsdnwpnf .gt_column_spanner_outer:first-child {
+#uvylyvrlds .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vjgsdnwpnf .gt_column_spanner_outer:last-child {
+#uvylyvrlds .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vjgsdnwpnf .gt_column_spanner {
+#uvylyvrlds .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -357,11 +357,11 @@ Figure 13.1: A common data table format
   width: 100%;
 }
 
-#vjgsdnwpnf .gt_spanner_row {
+#uvylyvrlds .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vjgsdnwpnf .gt_group_heading {
+#uvylyvrlds .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -387,7 +387,7 @@ Figure 13.1: A common data table format
   text-align: left;
 }
 
-#vjgsdnwpnf .gt_empty_group_heading {
+#uvylyvrlds .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -402,15 +402,15 @@ Figure 13.1: A common data table format
   vertical-align: middle;
 }
 
-#vjgsdnwpnf .gt_from_md > :first-child {
+#uvylyvrlds .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vjgsdnwpnf .gt_from_md > :last-child {
+#uvylyvrlds .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vjgsdnwpnf .gt_row {
+#uvylyvrlds .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -429,7 +429,7 @@ Figure 13.1: A common data table format
   overflow-x: hidden;
 }
 
-#vjgsdnwpnf .gt_stub {
+#uvylyvrlds .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -442,7 +442,7 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#vjgsdnwpnf .gt_stub_row_group {
+#uvylyvrlds .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -456,15 +456,15 @@ Figure 13.1: A common data table format
   vertical-align: top;
 }
 
-#vjgsdnwpnf .gt_row_group_first td {
+#uvylyvrlds .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vjgsdnwpnf .gt_row_group_first th {
+#uvylyvrlds .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vjgsdnwpnf .gt_summary_row {
+#uvylyvrlds .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -474,16 +474,16 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#vjgsdnwpnf .gt_first_summary_row {
+#uvylyvrlds .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_first_summary_row.thick {
+#uvylyvrlds .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vjgsdnwpnf .gt_last_summary_row {
+#uvylyvrlds .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -493,7 +493,7 @@ Figure 13.1: A common data table format
   border-bottom-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_grand_summary_row {
+#uvylyvrlds .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -503,7 +503,7 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#vjgsdnwpnf .gt_first_grand_summary_row {
+#uvylyvrlds .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -513,7 +513,7 @@ Figure 13.1: A common data table format
   border-top-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_last_grand_summary_row_top {
+#uvylyvrlds .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -523,11 +523,11 @@ Figure 13.1: A common data table format
   border-bottom-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_striped {
+#uvylyvrlds .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vjgsdnwpnf .gt_table_body {
+#uvylyvrlds .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -536,7 +536,7 @@ Figure 13.1: A common data table format
   border-bottom-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_footnotes {
+#uvylyvrlds .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -550,7 +550,7 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_footnote {
+#uvylyvrlds .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -559,7 +559,7 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#vjgsdnwpnf .gt_sourcenotes {
+#uvylyvrlds .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -573,7 +573,7 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#vjgsdnwpnf .gt_sourcenote {
+#uvylyvrlds .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -581,72 +581,72 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#vjgsdnwpnf .gt_left {
+#uvylyvrlds .gt_left {
   text-align: left;
 }
 
-#vjgsdnwpnf .gt_center {
+#uvylyvrlds .gt_center {
   text-align: center;
 }
 
-#vjgsdnwpnf .gt_right {
+#uvylyvrlds .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vjgsdnwpnf .gt_font_normal {
+#uvylyvrlds .gt_font_normal {
   font-weight: normal;
 }
 
-#vjgsdnwpnf .gt_font_bold {
+#uvylyvrlds .gt_font_bold {
   font-weight: bold;
 }
 
-#vjgsdnwpnf .gt_font_italic {
+#uvylyvrlds .gt_font_italic {
   font-style: italic;
 }
 
-#vjgsdnwpnf .gt_super {
+#uvylyvrlds .gt_super {
   font-size: 65%;
 }
 
-#vjgsdnwpnf .gt_footnote_marks {
+#uvylyvrlds .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vjgsdnwpnf .gt_asterisk {
+#uvylyvrlds .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vjgsdnwpnf .gt_indent_1 {
+#uvylyvrlds .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vjgsdnwpnf .gt_indent_2 {
+#uvylyvrlds .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vjgsdnwpnf .gt_indent_3 {
+#uvylyvrlds .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vjgsdnwpnf .gt_indent_4 {
+#uvylyvrlds .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vjgsdnwpnf .gt_indent_5 {
+#uvylyvrlds .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vjgsdnwpnf .katex-display {
+#uvylyvrlds .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vjgsdnwpnf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uvylyvrlds div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -707,35 +707,35 @@ Figure 13.1: A common data table format
 </table></div>
 </div>
 <p>The formatting might be a little unexpected, because it’s different than what we saw before. Now, instead of repeating species across sex, the table is nested by species. <code>gt</code> knew to do this because our tibble/data frame was grouped by species:</p>
-<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "grouped_df" "tbl_df"     "tbl"        "data.frame"</code></pre>
-<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_data.html">groups</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [[1]]
 ## Species</code></pre>
 <p>By default <code>dplyr</code> maintains the groups in <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> even after the summary is done. We could ungroup the table, in which case, our output would change:</p>
-<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_summ_out</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="delzevjbrh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#delzevjbrh table {
+<div id="uzkgfclliu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uzkgfclliu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#delzevjbrh thead, #delzevjbrh tbody, #delzevjbrh tfoot, #delzevjbrh tr, #delzevjbrh td, #delzevjbrh th {
+#uzkgfclliu thead, #uzkgfclliu tbody, #uzkgfclliu tfoot, #uzkgfclliu tr, #uzkgfclliu td, #uzkgfclliu th {
   border-style: none;
 }
 
-#delzevjbrh p {
+#uzkgfclliu p {
   margin: 0;
   padding: 0;
 }
 
-#delzevjbrh .gt_table {
+#uzkgfclliu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -761,12 +761,12 @@ Figure 13.1: A common data table format
   border-left-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_caption {
+#uzkgfclliu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#delzevjbrh .gt_title {
+#uzkgfclliu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -778,7 +778,7 @@ Figure 13.1: A common data table format
   border-bottom-width: 0;
 }
 
-#delzevjbrh .gt_subtitle {
+#uzkgfclliu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -790,7 +790,7 @@ Figure 13.1: A common data table format
   border-top-width: 0;
 }
 
-#delzevjbrh .gt_heading {
+#uzkgfclliu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -802,13 +802,13 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_bottom_border {
+#uzkgfclliu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_col_headings {
+#uzkgfclliu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -823,7 +823,7 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_col_heading {
+#uzkgfclliu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -843,7 +843,7 @@ Figure 13.1: A common data table format
   overflow-x: hidden;
 }
 
-#delzevjbrh .gt_column_spanner_outer {
+#uzkgfclliu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -855,15 +855,15 @@ Figure 13.1: A common data table format
   padding-right: 4px;
 }
 
-#delzevjbrh .gt_column_spanner_outer:first-child {
+#uzkgfclliu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#delzevjbrh .gt_column_spanner_outer:last-child {
+#uzkgfclliu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#delzevjbrh .gt_column_spanner {
+#uzkgfclliu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -875,11 +875,11 @@ Figure 13.1: A common data table format
   width: 100%;
 }
 
-#delzevjbrh .gt_spanner_row {
+#uzkgfclliu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#delzevjbrh .gt_group_heading {
+#uzkgfclliu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -905,7 +905,7 @@ Figure 13.1: A common data table format
   text-align: left;
 }
 
-#delzevjbrh .gt_empty_group_heading {
+#uzkgfclliu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -920,15 +920,15 @@ Figure 13.1: A common data table format
   vertical-align: middle;
 }
 
-#delzevjbrh .gt_from_md > :first-child {
+#uzkgfclliu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#delzevjbrh .gt_from_md > :last-child {
+#uzkgfclliu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#delzevjbrh .gt_row {
+#uzkgfclliu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -947,7 +947,7 @@ Figure 13.1: A common data table format
   overflow-x: hidden;
 }
 
-#delzevjbrh .gt_stub {
+#uzkgfclliu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -960,7 +960,7 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#delzevjbrh .gt_stub_row_group {
+#uzkgfclliu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -974,15 +974,15 @@ Figure 13.1: A common data table format
   vertical-align: top;
 }
 
-#delzevjbrh .gt_row_group_first td {
+#uzkgfclliu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#delzevjbrh .gt_row_group_first th {
+#uzkgfclliu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#delzevjbrh .gt_summary_row {
+#uzkgfclliu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -992,16 +992,16 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#delzevjbrh .gt_first_summary_row {
+#uzkgfclliu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_first_summary_row.thick {
+#uzkgfclliu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#delzevjbrh .gt_last_summary_row {
+#uzkgfclliu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1011,7 +1011,7 @@ Figure 13.1: A common data table format
   border-bottom-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_grand_summary_row {
+#uzkgfclliu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1021,7 +1021,7 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#delzevjbrh .gt_first_grand_summary_row {
+#uzkgfclliu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1031,7 +1031,7 @@ Figure 13.1: A common data table format
   border-top-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_last_grand_summary_row_top {
+#uzkgfclliu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1041,11 +1041,11 @@ Figure 13.1: A common data table format
   border-bottom-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_striped {
+#uzkgfclliu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#delzevjbrh .gt_table_body {
+#uzkgfclliu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1054,7 +1054,7 @@ Figure 13.1: A common data table format
   border-bottom-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_footnotes {
+#uzkgfclliu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1068,7 +1068,7 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_footnote {
+#uzkgfclliu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1077,7 +1077,7 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#delzevjbrh .gt_sourcenotes {
+#uzkgfclliu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1091,7 +1091,7 @@ Figure 13.1: A common data table format
   border-right-color: #D3D3D3;
 }
 
-#delzevjbrh .gt_sourcenote {
+#uzkgfclliu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1099,72 +1099,72 @@ Figure 13.1: A common data table format
   padding-right: 5px;
 }
 
-#delzevjbrh .gt_left {
+#uzkgfclliu .gt_left {
   text-align: left;
 }
 
-#delzevjbrh .gt_center {
+#uzkgfclliu .gt_center {
   text-align: center;
 }
 
-#delzevjbrh .gt_right {
+#uzkgfclliu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#delzevjbrh .gt_font_normal {
+#uzkgfclliu .gt_font_normal {
   font-weight: normal;
 }
 
-#delzevjbrh .gt_font_bold {
+#uzkgfclliu .gt_font_bold {
   font-weight: bold;
 }
 
-#delzevjbrh .gt_font_italic {
+#uzkgfclliu .gt_font_italic {
   font-style: italic;
 }
 
-#delzevjbrh .gt_super {
+#uzkgfclliu .gt_super {
   font-size: 65%;
 }
 
-#delzevjbrh .gt_footnote_marks {
+#uzkgfclliu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#delzevjbrh .gt_asterisk {
+#uzkgfclliu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#delzevjbrh .gt_indent_1 {
+#uzkgfclliu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#delzevjbrh .gt_indent_2 {
+#uzkgfclliu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#delzevjbrh .gt_indent_3 {
+#uzkgfclliu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#delzevjbrh .gt_indent_4 {
+#uzkgfclliu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#delzevjbrh .gt_indent_5 {
+#uzkgfclliu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#delzevjbrh .katex-display {
+#uzkgfclliu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#delzevjbrh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uzkgfclliu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1223,40 +1223,40 @@ Figure 13.1: A common data table format
 </table></div>
 </div>
 <p>This output is an image. You could copy it into a document, but that it wouldn’t be embedded in the same way a table is. Instead, we can use the <code><a href="https://gt.rstudio.com/reference/gtsave.html">gtsave()</a></code> function with a given file ending to save our output in a format for a word processor.</p>
-<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_summ_out</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gtsave.html">gtsave</a></span><span class="op">(</span><span class="st">"outputs/penguin_bm_summary.docx"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-8"></span>
 <img src="images/gtable-out.png" alt="The default gtable format in Word" width="80%"><p class="caption">
-Figure 13.2: The default gtable format in Word
+Figure 4.3: The default gtable format in Word
 </p>
 </div>
 <p>Now this format is readable by Word; if you click in the table, the usual formatting options will appear. Next, let’s work on formatting the table to look exactly like the manually created one. To start off, we’ll create an object for our table so we can modify it:</p>
-<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>I usually write my documents in Times New Roman, so first I’ll change the font using the <code><a href="https://gt.rstudio.com/reference/opt_table_font.html">opt_table_font()</a></code> function, which defines fonts for the entire table:</p>
-<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/opt_table_font.html">opt_table_font</a></span><span class="op">(</span><span class="va">gt_penguins</span>, font <span class="op">=</span> <span class="st">"Times"</span><span class="op">)</span></span>
 <span><span class="va">gt_penguins</span></span></code></pre></div>
-<div id="ifsejybikb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ifsejybikb table {
+<div id="spulmrknub" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#spulmrknub table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ifsejybikb thead, #ifsejybikb tbody, #ifsejybikb tfoot, #ifsejybikb tr, #ifsejybikb td, #ifsejybikb th {
+#spulmrknub thead, #spulmrknub tbody, #spulmrknub tfoot, #spulmrknub tr, #spulmrknub td, #spulmrknub th {
   border-style: none;
 }
 
-#ifsejybikb p {
+#spulmrknub p {
   margin: 0;
   padding: 0;
 }
 
-#ifsejybikb .gt_table {
+#spulmrknub .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1282,12 +1282,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_caption {
+#spulmrknub .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ifsejybikb .gt_title {
+#spulmrknub .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1299,7 +1299,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#ifsejybikb .gt_subtitle {
+#spulmrknub .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1311,7 +1311,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#ifsejybikb .gt_heading {
+#spulmrknub .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1323,13 +1323,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_bottom_border {
+#spulmrknub .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_col_headings {
+#spulmrknub .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1344,7 +1344,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_col_heading {
+#spulmrknub .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1364,7 +1364,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#ifsejybikb .gt_column_spanner_outer {
+#spulmrknub .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1376,15 +1376,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#ifsejybikb .gt_column_spanner_outer:first-child {
+#spulmrknub .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ifsejybikb .gt_column_spanner_outer:last-child {
+#spulmrknub .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ifsejybikb .gt_column_spanner {
+#spulmrknub .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1396,11 +1396,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#ifsejybikb .gt_spanner_row {
+#spulmrknub .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ifsejybikb .gt_group_heading {
+#spulmrknub .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1426,7 +1426,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#ifsejybikb .gt_empty_group_heading {
+#spulmrknub .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1441,15 +1441,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#ifsejybikb .gt_from_md > :first-child {
+#spulmrknub .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ifsejybikb .gt_from_md > :last-child {
+#spulmrknub .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ifsejybikb .gt_row {
+#spulmrknub .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1468,7 +1468,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#ifsejybikb .gt_stub {
+#spulmrknub .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1481,7 +1481,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#ifsejybikb .gt_stub_row_group {
+#spulmrknub .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1495,15 +1495,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#ifsejybikb .gt_row_group_first td {
+#spulmrknub .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ifsejybikb .gt_row_group_first th {
+#spulmrknub .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ifsejybikb .gt_summary_row {
+#spulmrknub .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1513,16 +1513,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#ifsejybikb .gt_first_summary_row {
+#spulmrknub .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_first_summary_row.thick {
+#spulmrknub .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ifsejybikb .gt_last_summary_row {
+#spulmrknub .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1532,7 +1532,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_grand_summary_row {
+#spulmrknub .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1542,7 +1542,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#ifsejybikb .gt_first_grand_summary_row {
+#spulmrknub .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1552,7 +1552,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_last_grand_summary_row_top {
+#spulmrknub .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1562,11 +1562,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_striped {
+#spulmrknub .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ifsejybikb .gt_table_body {
+#spulmrknub .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1575,7 +1575,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_footnotes {
+#spulmrknub .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1589,7 +1589,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_footnote {
+#spulmrknub .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1598,7 +1598,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#ifsejybikb .gt_sourcenotes {
+#spulmrknub .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1612,7 +1612,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#ifsejybikb .gt_sourcenote {
+#spulmrknub .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1620,72 +1620,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#ifsejybikb .gt_left {
+#spulmrknub .gt_left {
   text-align: left;
 }
 
-#ifsejybikb .gt_center {
+#spulmrknub .gt_center {
   text-align: center;
 }
 
-#ifsejybikb .gt_right {
+#spulmrknub .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ifsejybikb .gt_font_normal {
+#spulmrknub .gt_font_normal {
   font-weight: normal;
 }
 
-#ifsejybikb .gt_font_bold {
+#spulmrknub .gt_font_bold {
   font-weight: bold;
 }
 
-#ifsejybikb .gt_font_italic {
+#spulmrknub .gt_font_italic {
   font-style: italic;
 }
 
-#ifsejybikb .gt_super {
+#spulmrknub .gt_super {
   font-size: 65%;
 }
 
-#ifsejybikb .gt_footnote_marks {
+#spulmrknub .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ifsejybikb .gt_asterisk {
+#spulmrknub .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ifsejybikb .gt_indent_1 {
+#spulmrknub .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ifsejybikb .gt_indent_2 {
+#spulmrknub .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ifsejybikb .gt_indent_3 {
+#spulmrknub .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ifsejybikb .gt_indent_4 {
+#spulmrknub .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ifsejybikb .gt_indent_5 {
+#spulmrknub .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ifsejybikb .katex-display {
+#spulmrknub .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ifsejybikb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#spulmrknub div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1744,28 +1744,28 @@ Figure 13.2: The default gtable format in Word
 </table></div>
 </div>
 <p>Now I will change the header row to bold font. This time I use the <code><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style()</a></code> function, since I only want to change properties for specific cells, not the entire table:</p>
-<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span><span class="va">gt_penguins</span>, </span>
 <span>                         style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>, </span>
 <span>                         location <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gt_penguins</span></span></code></pre></div>
-<div id="dyjqzmcdvc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dyjqzmcdvc table {
+<div id="wynbvvyrck" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wynbvvyrck table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dyjqzmcdvc thead, #dyjqzmcdvc tbody, #dyjqzmcdvc tfoot, #dyjqzmcdvc tr, #dyjqzmcdvc td, #dyjqzmcdvc th {
+#wynbvvyrck thead, #wynbvvyrck tbody, #wynbvvyrck tfoot, #wynbvvyrck tr, #wynbvvyrck td, #wynbvvyrck th {
   border-style: none;
 }
 
-#dyjqzmcdvc p {
+#wynbvvyrck p {
   margin: 0;
   padding: 0;
 }
 
-#dyjqzmcdvc .gt_table {
+#wynbvvyrck .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1791,12 +1791,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_caption {
+#wynbvvyrck .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dyjqzmcdvc .gt_title {
+#wynbvvyrck .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1808,7 +1808,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#dyjqzmcdvc .gt_subtitle {
+#wynbvvyrck .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1820,7 +1820,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#dyjqzmcdvc .gt_heading {
+#wynbvvyrck .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1832,13 +1832,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_bottom_border {
+#wynbvvyrck .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_col_headings {
+#wynbvvyrck .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1853,7 +1853,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_col_heading {
+#wynbvvyrck .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1873,7 +1873,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#dyjqzmcdvc .gt_column_spanner_outer {
+#wynbvvyrck .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1885,15 +1885,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#dyjqzmcdvc .gt_column_spanner_outer:first-child {
+#wynbvvyrck .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dyjqzmcdvc .gt_column_spanner_outer:last-child {
+#wynbvvyrck .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dyjqzmcdvc .gt_column_spanner {
+#wynbvvyrck .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1905,11 +1905,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#dyjqzmcdvc .gt_spanner_row {
+#wynbvvyrck .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dyjqzmcdvc .gt_group_heading {
+#wynbvvyrck .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1935,7 +1935,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#dyjqzmcdvc .gt_empty_group_heading {
+#wynbvvyrck .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1950,15 +1950,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#dyjqzmcdvc .gt_from_md > :first-child {
+#wynbvvyrck .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dyjqzmcdvc .gt_from_md > :last-child {
+#wynbvvyrck .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dyjqzmcdvc .gt_row {
+#wynbvvyrck .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1977,7 +1977,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#dyjqzmcdvc .gt_stub {
+#wynbvvyrck .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1990,7 +1990,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#dyjqzmcdvc .gt_stub_row_group {
+#wynbvvyrck .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2004,15 +2004,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#dyjqzmcdvc .gt_row_group_first td {
+#wynbvvyrck .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dyjqzmcdvc .gt_row_group_first th {
+#wynbvvyrck .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dyjqzmcdvc .gt_summary_row {
+#wynbvvyrck .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2022,16 +2022,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#dyjqzmcdvc .gt_first_summary_row {
+#wynbvvyrck .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_first_summary_row.thick {
+#wynbvvyrck .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dyjqzmcdvc .gt_last_summary_row {
+#wynbvvyrck .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2041,7 +2041,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_grand_summary_row {
+#wynbvvyrck .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2051,7 +2051,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#dyjqzmcdvc .gt_first_grand_summary_row {
+#wynbvvyrck .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2061,7 +2061,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_last_grand_summary_row_top {
+#wynbvvyrck .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2071,11 +2071,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_striped {
+#wynbvvyrck .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dyjqzmcdvc .gt_table_body {
+#wynbvvyrck .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2084,7 +2084,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_footnotes {
+#wynbvvyrck .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2098,7 +2098,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_footnote {
+#wynbvvyrck .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2107,7 +2107,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#dyjqzmcdvc .gt_sourcenotes {
+#wynbvvyrck .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2121,7 +2121,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#dyjqzmcdvc .gt_sourcenote {
+#wynbvvyrck .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2129,72 +2129,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#dyjqzmcdvc .gt_left {
+#wynbvvyrck .gt_left {
   text-align: left;
 }
 
-#dyjqzmcdvc .gt_center {
+#wynbvvyrck .gt_center {
   text-align: center;
 }
 
-#dyjqzmcdvc .gt_right {
+#wynbvvyrck .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dyjqzmcdvc .gt_font_normal {
+#wynbvvyrck .gt_font_normal {
   font-weight: normal;
 }
 
-#dyjqzmcdvc .gt_font_bold {
+#wynbvvyrck .gt_font_bold {
   font-weight: bold;
 }
 
-#dyjqzmcdvc .gt_font_italic {
+#wynbvvyrck .gt_font_italic {
   font-style: italic;
 }
 
-#dyjqzmcdvc .gt_super {
+#wynbvvyrck .gt_super {
   font-size: 65%;
 }
 
-#dyjqzmcdvc .gt_footnote_marks {
+#wynbvvyrck .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dyjqzmcdvc .gt_asterisk {
+#wynbvvyrck .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dyjqzmcdvc .gt_indent_1 {
+#wynbvvyrck .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dyjqzmcdvc .gt_indent_2 {
+#wynbvvyrck .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dyjqzmcdvc .gt_indent_3 {
+#wynbvvyrck .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dyjqzmcdvc .gt_indent_4 {
+#wynbvvyrck .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dyjqzmcdvc .gt_indent_5 {
+#wynbvvyrck .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dyjqzmcdvc .katex-display {
+#wynbvvyrck .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dyjqzmcdvc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wynbvvyrck div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2254,7 +2254,7 @@ Figure 13.2: The default gtable format in Word
 </div>
 <p>Looking in the help funciton for <code><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style()</a></code>, I learned that to the <code>style</code> argument I need to specify a function like <code><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text()</a></code> or <code><a href="https://gt.rstudio.com/reference/cell_fill.html">cell_fill()</a></code>, then the options within that function. The <code>location</code> argument indicates which cells to edit. Again, this should be a function starting with <code>cells_*</code>, which is essentially a selection argument. The help functions will be useful to you here to find the cells you are looking for.</p>
 <p>Now I will work on the borders. This workflow is similar to the one I used above. First, I remove all the borders using an <code>opt_*</code> function, then I add borders back where I want them using <code><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style()</a></code>:</p>
-<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="va">gt_penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/opt_table_lines.html">opt_table_lines</a></span><span class="op">(</span>extent <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_borders.html">cell_borders</a></span><span class="op">(</span>sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"bottom"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -2262,23 +2262,23 @@ Figure 13.2: The default gtable format in Word
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_borders.html">cell_borders</a></span><span class="op">(</span>sides <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>,</span>
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co">#add bottom border to the last row</span></span>
 <span><span class="va">gt_penguins</span></span></code></pre></div>
-<div id="lmvjqdhzki" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lmvjqdhzki table {
+<div id="pbxpnpmjlk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pbxpnpmjlk table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lmvjqdhzki thead, #lmvjqdhzki tbody, #lmvjqdhzki tfoot, #lmvjqdhzki tr, #lmvjqdhzki td, #lmvjqdhzki th {
+#pbxpnpmjlk thead, #pbxpnpmjlk tbody, #pbxpnpmjlk tfoot, #pbxpnpmjlk tr, #pbxpnpmjlk td, #pbxpnpmjlk th {
   border-style: none;
 }
 
-#lmvjqdhzki p {
+#pbxpnpmjlk p {
   margin: 0;
   padding: 0;
 }
 
-#lmvjqdhzki .gt_table {
+#pbxpnpmjlk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2304,12 +2304,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_caption {
+#pbxpnpmjlk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lmvjqdhzki .gt_title {
+#pbxpnpmjlk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2321,7 +2321,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#lmvjqdhzki .gt_subtitle {
+#pbxpnpmjlk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2333,7 +2333,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#lmvjqdhzki .gt_heading {
+#pbxpnpmjlk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2345,13 +2345,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_bottom_border {
+#pbxpnpmjlk .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_col_headings {
+#pbxpnpmjlk .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2366,7 +2366,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_col_heading {
+#pbxpnpmjlk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2386,7 +2386,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#lmvjqdhzki .gt_column_spanner_outer {
+#pbxpnpmjlk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2398,15 +2398,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#lmvjqdhzki .gt_column_spanner_outer:first-child {
+#pbxpnpmjlk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lmvjqdhzki .gt_column_spanner_outer:last-child {
+#pbxpnpmjlk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lmvjqdhzki .gt_column_spanner {
+#pbxpnpmjlk .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2418,11 +2418,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#lmvjqdhzki .gt_spanner_row {
+#pbxpnpmjlk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lmvjqdhzki .gt_group_heading {
+#pbxpnpmjlk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2448,7 +2448,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#lmvjqdhzki .gt_empty_group_heading {
+#pbxpnpmjlk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2463,15 +2463,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#lmvjqdhzki .gt_from_md > :first-child {
+#pbxpnpmjlk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lmvjqdhzki .gt_from_md > :last-child {
+#pbxpnpmjlk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lmvjqdhzki .gt_row {
+#pbxpnpmjlk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2490,7 +2490,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#lmvjqdhzki .gt_stub {
+#pbxpnpmjlk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2503,7 +2503,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#lmvjqdhzki .gt_stub_row_group {
+#pbxpnpmjlk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2517,15 +2517,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#lmvjqdhzki .gt_row_group_first td {
+#pbxpnpmjlk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lmvjqdhzki .gt_row_group_first th {
+#pbxpnpmjlk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lmvjqdhzki .gt_summary_row {
+#pbxpnpmjlk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2535,16 +2535,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#lmvjqdhzki .gt_first_summary_row {
+#pbxpnpmjlk .gt_first_summary_row {
   border-top-style: none;
   border-top-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_first_summary_row.thick {
+#pbxpnpmjlk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lmvjqdhzki .gt_last_summary_row {
+#pbxpnpmjlk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2554,7 +2554,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_grand_summary_row {
+#pbxpnpmjlk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2564,7 +2564,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#lmvjqdhzki .gt_first_grand_summary_row {
+#pbxpnpmjlk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2574,7 +2574,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_last_grand_summary_row_top {
+#pbxpnpmjlk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2584,11 +2584,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_striped {
+#pbxpnpmjlk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lmvjqdhzki .gt_table_body {
+#pbxpnpmjlk .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2597,7 +2597,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_footnotes {
+#pbxpnpmjlk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2611,7 +2611,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_footnote {
+#pbxpnpmjlk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2620,7 +2620,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#lmvjqdhzki .gt_sourcenotes {
+#pbxpnpmjlk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2634,7 +2634,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#lmvjqdhzki .gt_sourcenote {
+#pbxpnpmjlk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2642,72 +2642,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#lmvjqdhzki .gt_left {
+#pbxpnpmjlk .gt_left {
   text-align: left;
 }
 
-#lmvjqdhzki .gt_center {
+#pbxpnpmjlk .gt_center {
   text-align: center;
 }
 
-#lmvjqdhzki .gt_right {
+#pbxpnpmjlk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lmvjqdhzki .gt_font_normal {
+#pbxpnpmjlk .gt_font_normal {
   font-weight: normal;
 }
 
-#lmvjqdhzki .gt_font_bold {
+#pbxpnpmjlk .gt_font_bold {
   font-weight: bold;
 }
 
-#lmvjqdhzki .gt_font_italic {
+#pbxpnpmjlk .gt_font_italic {
   font-style: italic;
 }
 
-#lmvjqdhzki .gt_super {
+#pbxpnpmjlk .gt_super {
   font-size: 65%;
 }
 
-#lmvjqdhzki .gt_footnote_marks {
+#pbxpnpmjlk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lmvjqdhzki .gt_asterisk {
+#pbxpnpmjlk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lmvjqdhzki .gt_indent_1 {
+#pbxpnpmjlk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lmvjqdhzki .gt_indent_2 {
+#pbxpnpmjlk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lmvjqdhzki .gt_indent_3 {
+#pbxpnpmjlk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lmvjqdhzki .gt_indent_4 {
+#pbxpnpmjlk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lmvjqdhzki .gt_indent_5 {
+#pbxpnpmjlk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lmvjqdhzki .katex-display {
+#pbxpnpmjlk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lmvjqdhzki div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pbxpnpmjlk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2766,29 +2766,29 @@ Figure 13.2: The default gtable format in Word
 </table></div>
 </div>
 <p>All that’s left is the alignment. I want to left-align my character columns and right-align my numeric columns.</p>
-<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="va">gt_penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Species"</span>,<span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                            <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Species"</span>,<span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gt_penguins</span></span></code></pre></div>
-<div id="hppsgvhyyh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hppsgvhyyh table {
+<div id="sxmetdjofs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sxmetdjofs table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hppsgvhyyh thead, #hppsgvhyyh tbody, #hppsgvhyyh tfoot, #hppsgvhyyh tr, #hppsgvhyyh td, #hppsgvhyyh th {
+#sxmetdjofs thead, #sxmetdjofs tbody, #sxmetdjofs tfoot, #sxmetdjofs tr, #sxmetdjofs td, #sxmetdjofs th {
   border-style: none;
 }
 
-#hppsgvhyyh p {
+#sxmetdjofs p {
   margin: 0;
   padding: 0;
 }
 
-#hppsgvhyyh .gt_table {
+#sxmetdjofs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2814,12 +2814,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_caption {
+#sxmetdjofs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hppsgvhyyh .gt_title {
+#sxmetdjofs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2831,7 +2831,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#hppsgvhyyh .gt_subtitle {
+#sxmetdjofs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2843,7 +2843,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#hppsgvhyyh .gt_heading {
+#sxmetdjofs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2855,13 +2855,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_bottom_border {
+#sxmetdjofs .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_col_headings {
+#sxmetdjofs .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2876,7 +2876,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_col_heading {
+#sxmetdjofs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2896,7 +2896,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#hppsgvhyyh .gt_column_spanner_outer {
+#sxmetdjofs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2908,15 +2908,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#hppsgvhyyh .gt_column_spanner_outer:first-child {
+#sxmetdjofs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hppsgvhyyh .gt_column_spanner_outer:last-child {
+#sxmetdjofs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hppsgvhyyh .gt_column_spanner {
+#sxmetdjofs .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2928,11 +2928,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#hppsgvhyyh .gt_spanner_row {
+#sxmetdjofs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hppsgvhyyh .gt_group_heading {
+#sxmetdjofs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2958,7 +2958,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#hppsgvhyyh .gt_empty_group_heading {
+#sxmetdjofs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2973,15 +2973,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#hppsgvhyyh .gt_from_md > :first-child {
+#sxmetdjofs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hppsgvhyyh .gt_from_md > :last-child {
+#sxmetdjofs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hppsgvhyyh .gt_row {
+#sxmetdjofs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3000,7 +3000,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#hppsgvhyyh .gt_stub {
+#sxmetdjofs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3013,7 +3013,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hppsgvhyyh .gt_stub_row_group {
+#sxmetdjofs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3027,15 +3027,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#hppsgvhyyh .gt_row_group_first td {
+#sxmetdjofs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hppsgvhyyh .gt_row_group_first th {
+#sxmetdjofs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hppsgvhyyh .gt_summary_row {
+#sxmetdjofs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3045,16 +3045,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hppsgvhyyh .gt_first_summary_row {
+#sxmetdjofs .gt_first_summary_row {
   border-top-style: none;
   border-top-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_first_summary_row.thick {
+#sxmetdjofs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hppsgvhyyh .gt_last_summary_row {
+#sxmetdjofs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3064,7 +3064,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_grand_summary_row {
+#sxmetdjofs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3074,7 +3074,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hppsgvhyyh .gt_first_grand_summary_row {
+#sxmetdjofs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3084,7 +3084,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_last_grand_summary_row_top {
+#sxmetdjofs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3094,11 +3094,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_striped {
+#sxmetdjofs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hppsgvhyyh .gt_table_body {
+#sxmetdjofs .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3107,7 +3107,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_footnotes {
+#sxmetdjofs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3121,7 +3121,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_footnote {
+#sxmetdjofs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3130,7 +3130,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hppsgvhyyh .gt_sourcenotes {
+#sxmetdjofs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3144,7 +3144,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hppsgvhyyh .gt_sourcenote {
+#sxmetdjofs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3152,72 +3152,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hppsgvhyyh .gt_left {
+#sxmetdjofs .gt_left {
   text-align: left;
 }
 
-#hppsgvhyyh .gt_center {
+#sxmetdjofs .gt_center {
   text-align: center;
 }
 
-#hppsgvhyyh .gt_right {
+#sxmetdjofs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hppsgvhyyh .gt_font_normal {
+#sxmetdjofs .gt_font_normal {
   font-weight: normal;
 }
 
-#hppsgvhyyh .gt_font_bold {
+#sxmetdjofs .gt_font_bold {
   font-weight: bold;
 }
 
-#hppsgvhyyh .gt_font_italic {
+#sxmetdjofs .gt_font_italic {
   font-style: italic;
 }
 
-#hppsgvhyyh .gt_super {
+#sxmetdjofs .gt_super {
   font-size: 65%;
 }
 
-#hppsgvhyyh .gt_footnote_marks {
+#sxmetdjofs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hppsgvhyyh .gt_asterisk {
+#sxmetdjofs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hppsgvhyyh .gt_indent_1 {
+#sxmetdjofs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hppsgvhyyh .gt_indent_2 {
+#sxmetdjofs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hppsgvhyyh .gt_indent_3 {
+#sxmetdjofs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hppsgvhyyh .gt_indent_4 {
+#sxmetdjofs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hppsgvhyyh .gt_indent_5 {
+#sxmetdjofs .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hppsgvhyyh .katex-display {
+#sxmetdjofs .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hppsgvhyyh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#sxmetdjofs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3277,30 +3277,30 @@ Figure 13.2: The default gtable format in Word
 </div>
 <p>Notice that because I wanted to do this to both the body cells and the column labels, I had to specify both of those and combine them as a <code>list</code>.</p>
 <p>Finally, let’s do the same thing, but for the grouped data. Now, we need to deal with design choices related to the groups, but first I will change the font:</p>
-<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="va">dat_summ_out</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/opt_table_font.html">opt_table_font</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">"Times"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>, </span>
 <span>                         location <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">gt_penguins</span> </span></code></pre></div>
-<div id="uswnxbmrge" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uswnxbmrge table {
+<div id="cmvcmwxvst" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cmvcmwxvst table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uswnxbmrge thead, #uswnxbmrge tbody, #uswnxbmrge tfoot, #uswnxbmrge tr, #uswnxbmrge td, #uswnxbmrge th {
+#cmvcmwxvst thead, #cmvcmwxvst tbody, #cmvcmwxvst tfoot, #cmvcmwxvst tr, #cmvcmwxvst td, #cmvcmwxvst th {
   border-style: none;
 }
 
-#uswnxbmrge p {
+#cmvcmwxvst p {
   margin: 0;
   padding: 0;
 }
 
-#uswnxbmrge .gt_table {
+#cmvcmwxvst .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3326,12 +3326,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_caption {
+#cmvcmwxvst .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uswnxbmrge .gt_title {
+#cmvcmwxvst .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3343,7 +3343,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#uswnxbmrge .gt_subtitle {
+#cmvcmwxvst .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3355,7 +3355,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#uswnxbmrge .gt_heading {
+#cmvcmwxvst .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3367,13 +3367,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_bottom_border {
+#cmvcmwxvst .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_col_headings {
+#cmvcmwxvst .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3388,7 +3388,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_col_heading {
+#cmvcmwxvst .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3408,7 +3408,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#uswnxbmrge .gt_column_spanner_outer {
+#cmvcmwxvst .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3420,15 +3420,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#uswnxbmrge .gt_column_spanner_outer:first-child {
+#cmvcmwxvst .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uswnxbmrge .gt_column_spanner_outer:last-child {
+#cmvcmwxvst .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uswnxbmrge .gt_column_spanner {
+#cmvcmwxvst .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3440,11 +3440,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#uswnxbmrge .gt_spanner_row {
+#cmvcmwxvst .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uswnxbmrge .gt_group_heading {
+#cmvcmwxvst .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3470,7 +3470,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#uswnxbmrge .gt_empty_group_heading {
+#cmvcmwxvst .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3485,15 +3485,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#uswnxbmrge .gt_from_md > :first-child {
+#cmvcmwxvst .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uswnxbmrge .gt_from_md > :last-child {
+#cmvcmwxvst .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uswnxbmrge .gt_row {
+#cmvcmwxvst .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3512,7 +3512,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#uswnxbmrge .gt_stub {
+#cmvcmwxvst .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3525,7 +3525,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#uswnxbmrge .gt_stub_row_group {
+#cmvcmwxvst .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3539,15 +3539,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#uswnxbmrge .gt_row_group_first td {
+#cmvcmwxvst .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uswnxbmrge .gt_row_group_first th {
+#cmvcmwxvst .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uswnxbmrge .gt_summary_row {
+#cmvcmwxvst .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3557,16 +3557,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#uswnxbmrge .gt_first_summary_row {
+#cmvcmwxvst .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_first_summary_row.thick {
+#cmvcmwxvst .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uswnxbmrge .gt_last_summary_row {
+#cmvcmwxvst .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3576,7 +3576,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_grand_summary_row {
+#cmvcmwxvst .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3586,7 +3586,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#uswnxbmrge .gt_first_grand_summary_row {
+#cmvcmwxvst .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3596,7 +3596,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_last_grand_summary_row_top {
+#cmvcmwxvst .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3606,11 +3606,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_striped {
+#cmvcmwxvst .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uswnxbmrge .gt_table_body {
+#cmvcmwxvst .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3619,7 +3619,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_footnotes {
+#cmvcmwxvst .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3633,7 +3633,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_footnote {
+#cmvcmwxvst .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3642,7 +3642,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#uswnxbmrge .gt_sourcenotes {
+#cmvcmwxvst .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3656,7 +3656,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#uswnxbmrge .gt_sourcenote {
+#cmvcmwxvst .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3664,72 +3664,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#uswnxbmrge .gt_left {
+#cmvcmwxvst .gt_left {
   text-align: left;
 }
 
-#uswnxbmrge .gt_center {
+#cmvcmwxvst .gt_center {
   text-align: center;
 }
 
-#uswnxbmrge .gt_right {
+#cmvcmwxvst .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uswnxbmrge .gt_font_normal {
+#cmvcmwxvst .gt_font_normal {
   font-weight: normal;
 }
 
-#uswnxbmrge .gt_font_bold {
+#cmvcmwxvst .gt_font_bold {
   font-weight: bold;
 }
 
-#uswnxbmrge .gt_font_italic {
+#cmvcmwxvst .gt_font_italic {
   font-style: italic;
 }
 
-#uswnxbmrge .gt_super {
+#cmvcmwxvst .gt_super {
   font-size: 65%;
 }
 
-#uswnxbmrge .gt_footnote_marks {
+#cmvcmwxvst .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uswnxbmrge .gt_asterisk {
+#cmvcmwxvst .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uswnxbmrge .gt_indent_1 {
+#cmvcmwxvst .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uswnxbmrge .gt_indent_2 {
+#cmvcmwxvst .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uswnxbmrge .gt_indent_3 {
+#cmvcmwxvst .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uswnxbmrge .gt_indent_4 {
+#cmvcmwxvst .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uswnxbmrge .gt_indent_5 {
+#cmvcmwxvst .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uswnxbmrge .katex-display {
+#cmvcmwxvst .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uswnxbmrge div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cmvcmwxvst div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3790,27 +3790,27 @@ Figure 13.2: The default gtable format in Word
 </table></div>
 </div>
 <p>Now, notice that the species are on their own line. I typically would include them as another column, so I’ll do that using the strategy I found on <a href="https://stackoverflow.com/questions/76260847/how-can-i-put-the-groups-in-an-extra-column-in-a-gt-table">this Stack Overflow page</a>:</p>
-<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="va">gt_penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options</a></span><span class="op">(</span>row_group.as_column <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">gt_penguins</span> </span></code></pre></div>
-<div id="hwbhopkrte" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hwbhopkrte table {
+<div id="uhnywcfvpz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uhnywcfvpz table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hwbhopkrte thead, #hwbhopkrte tbody, #hwbhopkrte tfoot, #hwbhopkrte tr, #hwbhopkrte td, #hwbhopkrte th {
+#uhnywcfvpz thead, #uhnywcfvpz tbody, #uhnywcfvpz tfoot, #uhnywcfvpz tr, #uhnywcfvpz td, #uhnywcfvpz th {
   border-style: none;
 }
 
-#hwbhopkrte p {
+#uhnywcfvpz p {
   margin: 0;
   padding: 0;
 }
 
-#hwbhopkrte .gt_table {
+#uhnywcfvpz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3836,12 +3836,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_caption {
+#uhnywcfvpz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hwbhopkrte .gt_title {
+#uhnywcfvpz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3853,7 +3853,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#hwbhopkrte .gt_subtitle {
+#uhnywcfvpz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3865,7 +3865,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#hwbhopkrte .gt_heading {
+#uhnywcfvpz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3877,13 +3877,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_bottom_border {
+#uhnywcfvpz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_col_headings {
+#uhnywcfvpz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3898,7 +3898,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_col_heading {
+#uhnywcfvpz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3918,7 +3918,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#hwbhopkrte .gt_column_spanner_outer {
+#uhnywcfvpz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3930,15 +3930,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#hwbhopkrte .gt_column_spanner_outer:first-child {
+#uhnywcfvpz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hwbhopkrte .gt_column_spanner_outer:last-child {
+#uhnywcfvpz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hwbhopkrte .gt_column_spanner {
+#uhnywcfvpz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3950,11 +3950,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#hwbhopkrte .gt_spanner_row {
+#uhnywcfvpz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hwbhopkrte .gt_group_heading {
+#uhnywcfvpz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3980,7 +3980,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#hwbhopkrte .gt_empty_group_heading {
+#uhnywcfvpz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3995,15 +3995,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#hwbhopkrte .gt_from_md > :first-child {
+#uhnywcfvpz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hwbhopkrte .gt_from_md > :last-child {
+#uhnywcfvpz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hwbhopkrte .gt_row {
+#uhnywcfvpz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4022,7 +4022,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#hwbhopkrte .gt_stub {
+#uhnywcfvpz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4035,7 +4035,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hwbhopkrte .gt_stub_row_group {
+#uhnywcfvpz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4049,15 +4049,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#hwbhopkrte .gt_row_group_first td {
+#uhnywcfvpz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hwbhopkrte .gt_row_group_first th {
+#uhnywcfvpz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hwbhopkrte .gt_summary_row {
+#uhnywcfvpz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4067,16 +4067,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hwbhopkrte .gt_first_summary_row {
+#uhnywcfvpz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_first_summary_row.thick {
+#uhnywcfvpz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hwbhopkrte .gt_last_summary_row {
+#uhnywcfvpz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4086,7 +4086,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_grand_summary_row {
+#uhnywcfvpz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4096,7 +4096,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hwbhopkrte .gt_first_grand_summary_row {
+#uhnywcfvpz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4106,7 +4106,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_last_grand_summary_row_top {
+#uhnywcfvpz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4116,11 +4116,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_striped {
+#uhnywcfvpz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hwbhopkrte .gt_table_body {
+#uhnywcfvpz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4129,7 +4129,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_footnotes {
+#uhnywcfvpz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4143,7 +4143,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_footnote {
+#uhnywcfvpz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4152,7 +4152,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hwbhopkrte .gt_sourcenotes {
+#uhnywcfvpz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4166,7 +4166,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#hwbhopkrte .gt_sourcenote {
+#uhnywcfvpz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4174,72 +4174,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#hwbhopkrte .gt_left {
+#uhnywcfvpz .gt_left {
   text-align: left;
 }
 
-#hwbhopkrte .gt_center {
+#uhnywcfvpz .gt_center {
   text-align: center;
 }
 
-#hwbhopkrte .gt_right {
+#uhnywcfvpz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hwbhopkrte .gt_font_normal {
+#uhnywcfvpz .gt_font_normal {
   font-weight: normal;
 }
 
-#hwbhopkrte .gt_font_bold {
+#uhnywcfvpz .gt_font_bold {
   font-weight: bold;
 }
 
-#hwbhopkrte .gt_font_italic {
+#uhnywcfvpz .gt_font_italic {
   font-style: italic;
 }
 
-#hwbhopkrte .gt_super {
+#uhnywcfvpz .gt_super {
   font-size: 65%;
 }
 
-#hwbhopkrte .gt_footnote_marks {
+#uhnywcfvpz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hwbhopkrte .gt_asterisk {
+#uhnywcfvpz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hwbhopkrte .gt_indent_1 {
+#uhnywcfvpz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hwbhopkrte .gt_indent_2 {
+#uhnywcfvpz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hwbhopkrte .gt_indent_3 {
+#uhnywcfvpz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hwbhopkrte .gt_indent_4 {
+#uhnywcfvpz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hwbhopkrte .gt_indent_5 {
+#uhnywcfvpz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hwbhopkrte .katex-display {
+#uhnywcfvpz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hwbhopkrte div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uhnywcfvpz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4295,7 +4295,7 @@ Figure 13.2: The default gtable format in Word
 </table></div>
 </div>
 <p>Now I can use the same lines and alignment as I did before:</p>
-<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Sex"</span><span class="op">)</span>,</span>
@@ -4305,23 +4305,23 @@ Figure 13.2: The default gtable format in Word
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_borders.html">cell_borders</a></span><span class="op">(</span>sides <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>,</span>
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<div id="palikasmem" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#palikasmem table {
+<div id="nnccorrjmq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nnccorrjmq table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#palikasmem thead, #palikasmem tbody, #palikasmem tfoot, #palikasmem tr, #palikasmem td, #palikasmem th {
+#nnccorrjmq thead, #nnccorrjmq tbody, #nnccorrjmq tfoot, #nnccorrjmq tr, #nnccorrjmq td, #nnccorrjmq th {
   border-style: none;
 }
 
-#palikasmem p {
+#nnccorrjmq p {
   margin: 0;
   padding: 0;
 }
 
-#palikasmem .gt_table {
+#nnccorrjmq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4347,12 +4347,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#palikasmem .gt_caption {
+#nnccorrjmq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#palikasmem .gt_title {
+#nnccorrjmq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4364,7 +4364,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#palikasmem .gt_subtitle {
+#nnccorrjmq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4376,7 +4376,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#palikasmem .gt_heading {
+#nnccorrjmq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4388,13 +4388,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#palikasmem .gt_bottom_border {
+#nnccorrjmq .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#palikasmem .gt_col_headings {
+#nnccorrjmq .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4409,7 +4409,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#palikasmem .gt_col_heading {
+#nnccorrjmq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4429,7 +4429,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#palikasmem .gt_column_spanner_outer {
+#nnccorrjmq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4441,15 +4441,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#palikasmem .gt_column_spanner_outer:first-child {
+#nnccorrjmq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#palikasmem .gt_column_spanner_outer:last-child {
+#nnccorrjmq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#palikasmem .gt_column_spanner {
+#nnccorrjmq .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4461,11 +4461,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#palikasmem .gt_spanner_row {
+#nnccorrjmq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#palikasmem .gt_group_heading {
+#nnccorrjmq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4491,7 +4491,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#palikasmem .gt_empty_group_heading {
+#nnccorrjmq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4506,15 +4506,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#palikasmem .gt_from_md > :first-child {
+#nnccorrjmq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#palikasmem .gt_from_md > :last-child {
+#nnccorrjmq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#palikasmem .gt_row {
+#nnccorrjmq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4533,7 +4533,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#palikasmem .gt_stub {
+#nnccorrjmq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4546,7 +4546,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#palikasmem .gt_stub_row_group {
+#nnccorrjmq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4560,15 +4560,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#palikasmem .gt_row_group_first td {
+#nnccorrjmq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#palikasmem .gt_row_group_first th {
+#nnccorrjmq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#palikasmem .gt_summary_row {
+#nnccorrjmq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4578,16 +4578,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#palikasmem .gt_first_summary_row {
+#nnccorrjmq .gt_first_summary_row {
   border-top-style: none;
   border-top-color: #D3D3D3;
 }
 
-#palikasmem .gt_first_summary_row.thick {
+#nnccorrjmq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#palikasmem .gt_last_summary_row {
+#nnccorrjmq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4597,7 +4597,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#palikasmem .gt_grand_summary_row {
+#nnccorrjmq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4607,7 +4607,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#palikasmem .gt_first_grand_summary_row {
+#nnccorrjmq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4617,7 +4617,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#palikasmem .gt_last_grand_summary_row_top {
+#nnccorrjmq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4627,11 +4627,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#palikasmem .gt_striped {
+#nnccorrjmq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#palikasmem .gt_table_body {
+#nnccorrjmq .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4640,7 +4640,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#palikasmem .gt_footnotes {
+#nnccorrjmq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4654,7 +4654,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#palikasmem .gt_footnote {
+#nnccorrjmq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4663,7 +4663,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#palikasmem .gt_sourcenotes {
+#nnccorrjmq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4677,7 +4677,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#palikasmem .gt_sourcenote {
+#nnccorrjmq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4685,72 +4685,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#palikasmem .gt_left {
+#nnccorrjmq .gt_left {
   text-align: left;
 }
 
-#palikasmem .gt_center {
+#nnccorrjmq .gt_center {
   text-align: center;
 }
 
-#palikasmem .gt_right {
+#nnccorrjmq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#palikasmem .gt_font_normal {
+#nnccorrjmq .gt_font_normal {
   font-weight: normal;
 }
 
-#palikasmem .gt_font_bold {
+#nnccorrjmq .gt_font_bold {
   font-weight: bold;
 }
 
-#palikasmem .gt_font_italic {
+#nnccorrjmq .gt_font_italic {
   font-style: italic;
 }
 
-#palikasmem .gt_super {
+#nnccorrjmq .gt_super {
   font-size: 65%;
 }
 
-#palikasmem .gt_footnote_marks {
+#nnccorrjmq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#palikasmem .gt_asterisk {
+#nnccorrjmq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#palikasmem .gt_indent_1 {
+#nnccorrjmq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#palikasmem .gt_indent_2 {
+#nnccorrjmq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#palikasmem .gt_indent_3 {
+#nnccorrjmq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#palikasmem .gt_indent_4 {
+#nnccorrjmq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#palikasmem .gt_indent_5 {
+#nnccorrjmq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#palikasmem .katex-display {
+#nnccorrjmq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#palikasmem div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nnccorrjmq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4806,7 +4806,7 @@ Figure 13.2: The default gtable format in Word
 </table></div>
 </div>
 <p>Oops, that’s not what I wanted. I guess <code><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels()</a></code> only gives me named columns, whereas the species column no longer has a name. Trying again:</p>
-<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gt_penguins</span> <span class="op">&lt;-</span> <span class="va">gt_penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Sex"</span><span class="op">)</span>,</span>
@@ -4819,23 +4819,23 @@ Figure 13.2: The default gtable format in Word
 <span>            location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                            <span class="fu"><a href="https://gt.rstudio.com/reference/cells_row_groups.html">cells_row_groups</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">gt_penguins</span></span></code></pre></div>
-<div id="icoytgricu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#icoytgricu table {
+<div id="jgnyesmmvq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jgnyesmmvq table {
   font-family: Times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#icoytgricu thead, #icoytgricu tbody, #icoytgricu tfoot, #icoytgricu tr, #icoytgricu td, #icoytgricu th {
+#jgnyesmmvq thead, #jgnyesmmvq tbody, #jgnyesmmvq tfoot, #jgnyesmmvq tr, #jgnyesmmvq td, #jgnyesmmvq th {
   border-style: none;
 }
 
-#icoytgricu p {
+#jgnyesmmvq p {
   margin: 0;
   padding: 0;
 }
 
-#icoytgricu .gt_table {
+#jgnyesmmvq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4861,12 +4861,12 @@ Figure 13.2: The default gtable format in Word
   border-left-color: #D3D3D3;
 }
 
-#icoytgricu .gt_caption {
+#jgnyesmmvq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#icoytgricu .gt_title {
+#jgnyesmmvq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4878,7 +4878,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-width: 0;
 }
 
-#icoytgricu .gt_subtitle {
+#jgnyesmmvq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4890,7 +4890,7 @@ Figure 13.2: The default gtable format in Word
   border-top-width: 0;
 }
 
-#icoytgricu .gt_heading {
+#jgnyesmmvq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4902,13 +4902,13 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#icoytgricu .gt_bottom_border {
+#jgnyesmmvq .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#icoytgricu .gt_col_headings {
+#jgnyesmmvq .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4923,7 +4923,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#icoytgricu .gt_col_heading {
+#jgnyesmmvq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4943,7 +4943,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#icoytgricu .gt_column_spanner_outer {
+#jgnyesmmvq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4955,15 +4955,15 @@ Figure 13.2: The default gtable format in Word
   padding-right: 4px;
 }
 
-#icoytgricu .gt_column_spanner_outer:first-child {
+#jgnyesmmvq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#icoytgricu .gt_column_spanner_outer:last-child {
+#jgnyesmmvq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#icoytgricu .gt_column_spanner {
+#jgnyesmmvq .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4975,11 +4975,11 @@ Figure 13.2: The default gtable format in Word
   width: 100%;
 }
 
-#icoytgricu .gt_spanner_row {
+#jgnyesmmvq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#icoytgricu .gt_group_heading {
+#jgnyesmmvq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5005,7 +5005,7 @@ Figure 13.2: The default gtable format in Word
   text-align: left;
 }
 
-#icoytgricu .gt_empty_group_heading {
+#jgnyesmmvq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5020,15 +5020,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: middle;
 }
 
-#icoytgricu .gt_from_md > :first-child {
+#jgnyesmmvq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#icoytgricu .gt_from_md > :last-child {
+#jgnyesmmvq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#icoytgricu .gt_row {
+#jgnyesmmvq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5047,7 +5047,7 @@ Figure 13.2: The default gtable format in Word
   overflow-x: hidden;
 }
 
-#icoytgricu .gt_stub {
+#jgnyesmmvq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5060,7 +5060,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#icoytgricu .gt_stub_row_group {
+#jgnyesmmvq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5074,15 +5074,15 @@ Figure 13.2: The default gtable format in Word
   vertical-align: top;
 }
 
-#icoytgricu .gt_row_group_first td {
+#jgnyesmmvq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#icoytgricu .gt_row_group_first th {
+#jgnyesmmvq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#icoytgricu .gt_summary_row {
+#jgnyesmmvq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5092,16 +5092,16 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#icoytgricu .gt_first_summary_row {
+#jgnyesmmvq .gt_first_summary_row {
   border-top-style: none;
   border-top-color: #D3D3D3;
 }
 
-#icoytgricu .gt_first_summary_row.thick {
+#jgnyesmmvq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#icoytgricu .gt_last_summary_row {
+#jgnyesmmvq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5111,7 +5111,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#icoytgricu .gt_grand_summary_row {
+#jgnyesmmvq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5121,7 +5121,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#icoytgricu .gt_first_grand_summary_row {
+#jgnyesmmvq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5131,7 +5131,7 @@ Figure 13.2: The default gtable format in Word
   border-top-color: #D3D3D3;
 }
 
-#icoytgricu .gt_last_grand_summary_row_top {
+#jgnyesmmvq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5141,11 +5141,11 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#icoytgricu .gt_striped {
+#jgnyesmmvq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#icoytgricu .gt_table_body {
+#jgnyesmmvq .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5154,7 +5154,7 @@ Figure 13.2: The default gtable format in Word
   border-bottom-color: #D3D3D3;
 }
 
-#icoytgricu .gt_footnotes {
+#jgnyesmmvq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5168,7 +5168,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#icoytgricu .gt_footnote {
+#jgnyesmmvq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5177,7 +5177,7 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#icoytgricu .gt_sourcenotes {
+#jgnyesmmvq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5191,7 +5191,7 @@ Figure 13.2: The default gtable format in Word
   border-right-color: #D3D3D3;
 }
 
-#icoytgricu .gt_sourcenote {
+#jgnyesmmvq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5199,72 +5199,72 @@ Figure 13.2: The default gtable format in Word
   padding-right: 5px;
 }
 
-#icoytgricu .gt_left {
+#jgnyesmmvq .gt_left {
   text-align: left;
 }
 
-#icoytgricu .gt_center {
+#jgnyesmmvq .gt_center {
   text-align: center;
 }
 
-#icoytgricu .gt_right {
+#jgnyesmmvq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#icoytgricu .gt_font_normal {
+#jgnyesmmvq .gt_font_normal {
   font-weight: normal;
 }
 
-#icoytgricu .gt_font_bold {
+#jgnyesmmvq .gt_font_bold {
   font-weight: bold;
 }
 
-#icoytgricu .gt_font_italic {
+#jgnyesmmvq .gt_font_italic {
   font-style: italic;
 }
 
-#icoytgricu .gt_super {
+#jgnyesmmvq .gt_super {
   font-size: 65%;
 }
 
-#icoytgricu .gt_footnote_marks {
+#jgnyesmmvq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#icoytgricu .gt_asterisk {
+#jgnyesmmvq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#icoytgricu .gt_indent_1 {
+#jgnyesmmvq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#icoytgricu .gt_indent_2 {
+#jgnyesmmvq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#icoytgricu .gt_indent_3 {
+#jgnyesmmvq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#icoytgricu .gt_indent_4 {
+#jgnyesmmvq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#icoytgricu .gt_indent_5 {
+#jgnyesmmvq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#icoytgricu .katex-display {
+#jgnyesmmvq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#icoytgricu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jgnyesmmvq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -5360,7 +5360,7 @@ Figure 13.2: The default gtable format in Word
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-14.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

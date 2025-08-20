@@ -121,7 +121,7 @@
 </h3>
 <p>Spaces can help a reader identify functions and operators, many of which are small and easy to miss. It is therefore recommended that you put a space on both sides of mathematical and assignment operators (<code>+</code>, <code>-</code>, <code>&lt;-</code>, etc.). It is also nice to put spaces after commas, like you would in normal English writing. Avoid putting spaces before or after the parentheses that define functions; this makes it harder to tell where the function arguments start and end.</p>
 <p>R is already written in a monospaced font (meaning that every character is the same width), so you can also use spaces to help you align your code:</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>tigers       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">species</span>, <span class="st">"tiger"</span><span class="op">)</span>, <span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span>,</span>
 <span>         mammals      <span class="op">=</span> <span class="va">species</span> <span class="op">!=</span> <span class="st">"turtle"</span>,</span>
@@ -133,13 +133,13 @@
 <span class="header-section-number">10.3.4</span> Comments!<a class="anchor" aria-label="anchor" href="#comments"><i class="fas fa-link"></i></a>
 </h3>
 <p>You’ve probably already noticed that you can denote code as a comment using <code>#</code>. This means that R will not try to execute the code:</p>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># You can tell that this is a comment</span></span>
 <span><span class="co"># because it has spaces and R didn't get mad.</span></span>
 <span><span class="co"># Also, it's italicized and preceded by #</span></span></code></pre></div>
 <p>Good commenting takes practice. Like with variable names, it’s a balance between the convenience of coding without comments and the benefit of having each line of code explained - which then creates a lot of clutter.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load data</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/surveys.csv"</span><span class="op">)</span></span>
 <span><span class="co"># Remove the "species" column</span></span>
@@ -147,7 +147,7 @@
 <span><span class="co"># Multiply counts by 24</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">dat</span>, count <span class="op">=</span> <span class="va">count</span> <span class="op">*</span> <span class="fl">24</span><span class="op">)</span></span></code></pre></div>
 <p>These comments aren’t particularly useful: for example, the single line of code that loads data probably doesn’t need explanation. Instead, useful comments might be more like this:</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Raw survey data from 2015</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/surveys.csv"</span><span class="op">)</span></span>
 <span><span class="co"># Species column is redundant with taxon column</span></span>
@@ -156,7 +156,7 @@
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">dat</span>, count <span class="op">=</span> <span class="va">count</span> <span class="op">*</span> <span class="fl">24</span><span class="op">)</span></span></code></pre></div>
 <p>Now, we are explaining why each line exists instead of what it is doing; what it is doing is already contained in the code itself!</p>
 <p>RStudio will also recognize some comments as section breaks, which then appear on the bottom-left corner of your script and allow you to navigate across the document. These look like this:</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Header 1 -----------</span></span>
 <span><span class="co"># Header 2 -----------</span></span></code></pre></div>
 <p>Any line that starts with a <code>#</code> and ends with at least three dashes or <code>#</code>s will automatically become a header.</p>
@@ -202,7 +202,7 @@
 <p>All analyses were conducted in R version 4.1.1 (R Core Team 2024). The packages lme4 and vegan (Bates et al. 2015; Oksanen et al. 2025) were used for linear models and community composition analysis, respectively.</p>
 </blockquote>
 <p>You can get citation information for packages using the <code>citation("packagename")</code> function and your R version using <code><a href="https://rdrr.io/r/base/Version.html">R.Version()</a></code>:</p>
-<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## To cite package 'tidyverse' in publications use:
 ## 
@@ -225,7 +225,7 @@
 ##     pages = {1686},
 ##     doi = {10.21105/joss.01686},
 ##   }</code></pre>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Version.html">R.Version</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $platform
 ## [1] "aarch64-apple-darwin20"
@@ -271,7 +271,7 @@
 <p>It is also best practice to present information of <em>all</em> packages in appendices of a report or manuscript. Why? This is especially important for package versions of analysis software - sometimes under-the-hood methods change, which can change results. Proper documentation is therefore crucial!</p>
 <p>A note of caution: remember to include version numbers in all citations. Reference managers like Zotero will often leave these out of reference lists, so be sure to double check.</p>
 <p>Another helpful tool for citations is the <code>report</code> package, which will conveniently output a list of all the packages you have loaded in your script!</p>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/report/">report</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://easystats.github.io/report/reference/report.sessionInfo.html">cite_packages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   - Makowski D, Lüdecke D, Patil I, Thériault R, Ben-Shachar M, Wiernik B (2023). "Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption." _CRAN_. &lt;https://easystats.github.io/report/&gt;.
@@ -308,11 +308,11 @@
 <span class="header-section-number">10.6.3</span> 3. Other necessary information<a class="anchor" aria-label="anchor" href="#other-necessary-information"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes, different versions of R packages and R itself give different results because of updates that create or fix bugs, or changes to programs that alter data processing. It is therefore helpful to include information about package versions, your operating system, and the version of R you were using in your reproducible example. You can access all this information in one go using:</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## R version 4.4.1 (2024-06-14)
 ## Platform: aarch64-apple-darwin20
-## Running under: macOS 15.5
+## Running under: macOS 15.6
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
@@ -344,7 +344,7 @@
 <span class="header-section-number">10.6.4</span> An example<a class="anchor" aria-label="anchor" href="#an-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here is an example of a simple error and how you might go about creating a reproducible example for it:</p>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -356,7 +356,7 @@
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -373,7 +373,7 @@
 <li>Create a small subset (fewer rows)</li>
 <li>Simplify the code, if possible</li>
 </ul>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Minimal dataset and code for reproducible example</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
@@ -394,7 +394,7 @@
 ## Caused by error:
 ## ! object 'bodyweight_g' not found</code></pre>
 <p>Now that the code is simplifed, it is a little easier to spot the problem: we are using a different variable name for body mass in the summary (<code>bodyweight_g</code>) than is in the original data (<code>body_mass_g</code>). Now, we can fix the error:</p>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_mass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -415,7 +415,7 @@
 <span class="header-section-number">10.6.5</span> The <code>reprex</code> package<a class="anchor" aria-label="anchor" href="#the-reprex-package"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <a href="https://reprex.tidyverse.org/"><code>reprex</code> package</a> is designed to help you create reproducible examples. You can paste your code into the <code><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex()</a></code> function and it will output what your code looks like in a clean environment (i.e., without all your packages and data already loaded). This way, you can make sure that your minimal data and code will work for someone else.</p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://reprex.tidyverse.org">reprex</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -479,7 +479,7 @@ Figure 10.1: The output of reprex in your RStudio viewer pane
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-14.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

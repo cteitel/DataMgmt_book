@@ -109,7 +109,7 @@
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="https://imgs.xkcd.com/comics/bug.png" alt="Ask R when year 0 is, and it will tell you it is 1970. (https://xkcd.com/376/)" width="50%"><p class="caption">
-Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="https://xkcd.com/376/" class="uri">https://xkcd.com/376/</a>)
+Figure 2.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="https://xkcd.com/376/" class="uri">https://xkcd.com/376/</a>)
 </p>
 </div>
 </div>
@@ -118,61 +118,61 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span class="header-section-number">8.4</span> Dates and times in R<a class="anchor" aria-label="anchor" href="#dates-and-times-in-r"><i class="fas fa-link"></i></a>
 </h2>
 <p>The basic classes for dates and R are <code>POSIXct</code> and <code>POSIXlt</code> (other classes we’ve learned about are integers, characters, etc.). <code>POSIXct</code> includes a time, whereas <code>POSIXlt</code> is just a date. Although <code>POSIXt</code> dates are usually represented in a date format (e.g., “2025-08-13 09:35:00 EDT”), they are stored as numbers under the hood, based on the number of seconds since midnight on January 1, 1970 (negative numbers are also supported and represent days before this date). Let’s play with this:</p>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">date_chr</span> <span class="op">&lt;-</span> <span class="st">"2025-09-01"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "character"</code></pre>
 <p>This date is just a character, because that’s how it was specified. On the other hand:</p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">date_pox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span>
 <span><span class="va">date_pox</span></span></code></pre></div>
 <pre><code>## [1] "2025-09-01 EDT"</code></pre>
-<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">date_pox</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "POSIXlt" "POSIXt"</code></pre>
 <p>Besides <code>POSIXct</code> and <code>POSIXlt</code>, R also support a data type called <code>Date.</code> This is equivalent to Excel’s handling of dates, i.e., the number of days since 1/1/1970:</p>
-<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">date_Date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span>
 <span><span class="va">date_Date</span></span></code></pre></div>
 <pre><code>## [1] "2025-09-01"</code></pre>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">date_Date</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Date"</code></pre>
 <p>You can see that these perform differently when we ask R to convert them to numbers:</p>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_chr</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_pox</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1756699200</code></pre>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_Date</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 20332</code></pre>
 <p>You can also see that <code>date_pox</code> has an associated time zone (but <code>date_Date</code> does not). By default, that is the time zone of your computer (which R can find).</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "America/New_York"</code></pre>
 <p>Other useful date functions in R include finding the current date and time:</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "2025-08-14"</code></pre>
 <div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2025-08-20"</code></pre>
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#careful, this is not the same as system.time. We might get to that one later!</span></span></code></pre></div>
-<pre><code>## [1] "2025-08-14 11:16:39 EDT"</code></pre>
+<pre><code>## [1] "2025-08-20 09:35:50 EDT"</code></pre>
 <div id="formatting-dates" class="section level3" number="8.4.1">
 <h3>
 <span class="header-section-number">8.4.1</span> Formatting dates<a class="anchor" aria-label="anchor" href="#formatting-dates"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the U.S. we most commonly write dates as month/day/year, without leading zeroes, but “standard” international format is year-month-day with leading zeroes, so you will encounter problems in R if you assume it will understand U.S. dates:</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"4/15/2025"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in charToDate(x): character string is not in a standard unambiguous format</code></pre>
-<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1/11/2025"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "0001-11-20"</code></pre>
 <p>To fix this, we can use the <code>format</code> argument to tell R about the format of our input:</p>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"01/11/2025"</span>, format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span></span>
 <span><span class="va">d</span></span></code></pre></div>
 <pre><code>## [1] "2025-01-11"</code></pre>
@@ -185,14 +185,14 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span class="header-section-number">8.5</span> The <code>lubridate</code> package<a class="anchor" aria-label="anchor" href="#the-lubridate-package"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code>tidyverse</code> way of working with dates and times is in the <code>lubridate</code> package, but <code>lubridate</code> is not part of core <code>tidyverse</code>, so we need to install it. Working with dates and times using <code>lubridate</code> is slightly easier than doing so with base R because it streamlines some processes, including parsing dates and times from character strings and extracting information (e.g., the year) from dates.</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"lubridate"</span><span class="op">)</span></span></code></pre></div>
 <div id="parsing-dates-from-characters" class="section level3" number="8.5.1">
 <h3>
 <span class="header-section-number">8.5.1</span> Parsing dates from characters<a class="anchor" aria-label="anchor" href="#parsing-dates-from-characters"><i class="fas fa-link"></i></a>
 </h3>
 <p>Lubridate’s functions for parsing dates are:</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -205,34 +205,34 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hms.html">hm</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hms.html">ms</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The separator (/ or -) does not matter, and neither do leading zeroes (unless you don’t use a separator). For example, with the example above, I could use:</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Attaching package: 'lubridate'</code></pre>
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     date, intersect, setdiff, union</code></pre>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"01/11/2025"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2025-01-11"</code></pre>
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2021-01-09 00:01:23"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2021-01-09 00:01:23 UTC"</code></pre>
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"01112025"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2025-01-11"</code></pre>
 <p>Notice that the functions from <code>lubridate</code> assume a default time zone of Coordinated Universal Time (UTC), not the local time zone! UTC is the same time zone as Greenwich Mean Time (GMT), but without daylight savings. This is a more reproducible default, because the result will be exactly the same regardless of where the user is sitting.</p>
 <p>As you might expect, it’s important to make sure the format in the input matches the format of the function:</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"2028-01-01"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: All formats failed to parse. No formats found.</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>Note that this provides a <em>warning</em>, not an <em>error</em> and outputs <code>NA</code>. This feature can be useful, for example if you have a data column with missing information, but can also be dangerous (imagine a whole column of <code>NA</code>s or missing values where you had a typo in data entry).</p>
 <p>As we saw above with the base R function, these functions (<code><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy()</a></code>, etc.) tell <code>lubridate</code> how to read the format of the <strong>input</strong>; the format of the <strong>output</strong> is always the same:</p>
-<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"01/11/2025"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Date"</code></pre>
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2021-01-09 00:01:23"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "POSIXct" "POSIXt"</code></pre>
 </div>
@@ -241,7 +241,7 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span class="header-section-number">8.5.2</span> Extracting parts of dates<a class="anchor" aria-label="anchor" href="#extracting-parts-of-dates"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>lubridate</code> also provides functions to extract components of a date:</p>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">day</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -252,11 +252,11 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#day of the week</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">yday</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#day of the year</span></span></code></pre></div>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2021-01-09 00:01:23"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2021</code></pre>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 </div>
@@ -266,7 +266,7 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span class="header-section-number">8.6</span> Calculations with dates<a class="anchor" aria-label="anchor" href="#calculations-with-dates"><i class="fas fa-link"></i></a>
 </h2>
 <p>Often, we want to perform calculations with dates, like adding or subtracting time from them or figuring out the time between them. Often this is possible with simple mathematical symbols:</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2022-01-14"</span><span class="op">)</span></span>
 <span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2022-01-15 10:06:00"</span><span class="op">)</span></span>
 <span><span class="va">d3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2022-01-16"</span><span class="op">)</span></span>
@@ -274,27 +274,27 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span><span class="va">d3</span> <span class="op">-</span> <span class="va">d1</span></span></code></pre></div>
 <pre><code>## Time difference of 2 days</code></pre>
 <p>But we have to be careful; the object types must match:</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d1</span> <span class="op">-</span> <span class="va">d2</span></span></code></pre></div>
 <pre><code>## Warning: Incompatible methods ("-.Date", "-.POSIXt") for "-"</code></pre>
 <pre><code>## [1] "-4494282-06-17"</code></pre>
 <p>The function <code>difftime</code> is a better way of doing this, because it can accommodate these different object types. It also allows you to specify units for the output:</p>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">d2</span>, <span class="va">d1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Time difference of 1.420833 days</code></pre>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">d2</span>, <span class="va">d1</span>, units <span class="op">=</span> <span class="st">"hours"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Time difference of 34.1 hours</code></pre>
 <p><em>We did not specify a time for <code>d1</code>, just a date. Based on the results from <code>difftime</code>, what time did R use for this calculation?</em></p>
 <p>We can also add and subtract time from dates:</p>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d1</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <pre><code>## [1] "2022-01-15"</code></pre>
-<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d2</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <pre><code>## [1] "2022-01-15 10:06:01 UTC"</code></pre>
 <p>Notice that adding 1 did different things in these two cases: at added a day to <code>d1</code> and a second to <code>d2</code>! This is because the precision of the two objects was different, but it’s not intuitive! To be more careful, we can instead specify the units of a number with the following <code>lubridate</code> functions:</p>
-<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">seconds</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -303,21 +303,21 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>For example:</p>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d1</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2023-01-14"</code></pre>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d1</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2022-01-14 00:10:00 UTC"</code></pre>
 <p>Notice that these are changing the year and minute component of the dates, but aren’t accounting for any irregularities, like leap years or months of different lengths. Technically, a year (on average) is 365 days + 6 hours. We won’t go into that here, but <code>lubridate</code> also provides functions for these (e.g., using <code><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears()</a></code> instead of <code><a href="https://lubridate.tidyverse.org/reference/period.html">years()</a></code>).</p>
 <p>Finally, you might want to round dates. Here, we use similar functions as for numbers, <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>, and <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date()</a></code>, but instead of specifying number of digits, we specify time precision:</p>
-<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span><span class="op">(</span><span class="va">d1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2022-01-14 UTC"</code></pre>
-<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span><span class="op">(</span><span class="va">d1</span>, unit <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2022-01-01"</code></pre>
-<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span><span class="op">(</span><span class="va">d2</span>, unit <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2022-01-15 UTC"</code></pre>
 </div>
@@ -326,22 +326,22 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <span class="header-section-number">8.7</span> Time zones<a class="anchor" aria-label="anchor" href="#time-zones"><i class="fas fa-link"></i></a>
 </h2>
 <p>As noted above, a new time or date created with <code>lubridate</code> will by default be in UTC. To specify a time zone, you can use the <code>tz</code> argument:</p>
-<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2022-01-15 10:06:00"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span></code></pre></div>
 <p>You can get the list of time zones with:</p>
-<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tzs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tzs</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
 ## [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</code></pre>
 <p>You can also change the time zone of an existing object. This is often useful when you read in data that have a time zone already, but R doesn’t know that. For example:</p>
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2025-02-05 15:40:29"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/tz.html">tz</a></span><span class="op">(</span><span class="va">d4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"America/New_York"</span></span>
 <span><span class="va">d4</span></span></code></pre></div>
 <pre><code>## [1] "2025-02-05 15:40:29 EST"</code></pre>
 <p>Notice that the time is the same but the time zone is different, so the actual moment in time has changed. You can use <code><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz()</a></code> to convert across time zones while keeping the moment the same, for example to make plots in local time when data was measured in UTC:</p>
-<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2025-02-05 15:40:29"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">d4</span>, <span class="st">"America/New_York"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2025-02-05 10:40:29 EST"</code></pre>
@@ -439,7 +439,7 @@ Figure 3.1: Ask R when year 0 is, and it will tell you it is 1970. (<a href="htt
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-14.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
