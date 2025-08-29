@@ -97,7 +97,7 @@
 <span class="header-section-number">9.3</span> Grouping and summarizing data<a class="anchor" aria-label="anchor" href="#grouping-and-summarizing-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>One of the most common tasks in data exploration is summarizing data. For example, we might want to know the mean of a response variable across a treatment, or how many samples were taken on a given day, and so on. <code>dplyr</code> allows us to easily summarize data by combining the functions <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>. For example:</p>
-<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -109,7 +109,7 @@
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/raw/Murray-Sanchez_urban-wildlife.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 516 Columns: 42
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -119,7 +119,7 @@
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">host.class</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">r</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -137,7 +137,7 @@
 <code><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct()</a></code>, which gives the number of unique values in a group and takes a column name as its argument;</li>
 <li>quantitative summaries, like <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, and <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>;</li>
 </ul>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">host.class</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">r</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, n_studies <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">study</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -160,50 +160,50 @@
 <span class="header-section-number">9.4.1</span> Binding rows and columns<a class="anchor" aria-label="anchor" href="#binding-rows-and-columns"><i class="fas fa-link"></i></a>
 </h3>
 <p>Adding (“binding”) rows and columns is the easiest way to add data to a data frame. For example, if we have two separate data sets, we can add more rows with <code>bind_rows</code>:</p>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ds1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, observer <span class="op">=</span> <span class="st">"Me"</span>, n_obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>, date <span class="op">=</span> <span class="st">"2024-04-01"</span><span class="op">)</span></span>
 <span><span class="va">ds2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, observer <span class="op">=</span> <span class="st">"You"</span>, n_obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>, date <span class="op">=</span> <span class="st">"2025-01-01"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ds_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">ds1</span>, <span class="va">ds2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   plot observer n_obs       date
-## 1    1       Me    12 2024-04-01
-## 2    2       Me     2 2024-04-01
-## 3    3       Me    79 2024-04-01
-## 4    4       Me    98 2024-04-01
-## 5    5       Me    92 2024-04-01
-## 6    6       Me    49 2024-04-01</code></pre>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+## 1    1       Me    13 2024-04-01
+## 2    2       Me    80 2024-04-01
+## 3    3       Me    74 2024-04-01
+## 4    4       Me    81 2024-04-01
+## 5    5       Me    56 2024-04-01
+## 6    6       Me    84 2024-04-01</code></pre>
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    plot observer n_obs       date
-## 15    5      You    27 2025-01-01
-## 16    6      You    13 2025-01-01
-## 17    7      You    92 2025-01-01
-## 18    8      You    39 2025-01-01
-## 19    9      You    11 2025-01-01
-## 20   10      You    89 2025-01-01</code></pre>
+## 15    5      You    85 2025-01-01
+## 16    6      You    73 2025-01-01
+## 17    7      You    90 2025-01-01
+## 18    8      You    70 2025-01-01
+## 19    9      You    84 2025-01-01
+## 20   10      You    35 2025-01-01</code></pre>
 <p><code>bind_rows</code> looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:</p>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ds1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, observer <span class="op">=</span> <span class="st">"Me"</span>, n_obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ds2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, obs <span class="op">=</span> <span class="st">"You"</span>, N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ds_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">ds1</span>, <span class="va">ds2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   plot observer n_obs Plot  obs  N
-## 1    1       Me    55   NA &lt;NA&gt; NA
-## 2    2       Me    24   NA &lt;NA&gt; NA
-## 3    3       Me    98   NA &lt;NA&gt; NA
-## 4    4       Me    77   NA &lt;NA&gt; NA
-## 5    5       Me    14   NA &lt;NA&gt; NA
-## 6    6       Me    95   NA &lt;NA&gt; NA</code></pre>
+## 1    1       Me    99   NA &lt;NA&gt; NA
+## 2    2       Me    94   NA &lt;NA&gt; NA
+## 3    3       Me    96   NA &lt;NA&gt; NA
+## 4    4       Me    42   NA &lt;NA&gt; NA
+## 5    5       Me    44   NA &lt;NA&gt; NA
+## 6    6       Me    13   NA &lt;NA&gt; NA</code></pre>
 <p>We can also add more information with <code>bind_cols</code>, though joins (below) are usually a better way to add columns to a data set. <code>bind_cols</code> is also useful for creating new data frames from vectors:</p>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">observers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Me"</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -216,7 +216,7 @@
 </h3>
 <p>There are several types of join. The most common types are left join, inner join, or full join. To understand this terminology, consider this: whenever you are joining two tables, the first table you mention (the one to which you’re joining) is called the left table, whereas the second table (the one you’re joining to the first) is called the right table. With a left join, you keep all the records in the left table and add information from the right table whenever there’s a matching row. A full join means that you retain all rows from both tables, matching them whenever possible. An inner join means that you only retain the rows that match between the two tables.</p>
 <p>Let’s practice with the Murray et al. data. First, we need to download some extra data to add. The EltonTraits database provides foraging attributes and body mass for birds and mammals. These might be interesting, for example to see if species’ responses to urbanization vary depending on their body size or foraging traits.</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">elton</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/raw/EltonTraits/BirdFuncDat.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 10205 Columns: 40
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -226,10 +226,10 @@
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_birds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op">==</span> <span class="st">"birds"</span><span class="op">)</span></span></code></pre></div>
 <p>This can be a little tricky: EltonTraits and the Murray et al. database use different taxonomies, so there are a few birds in <code>urban_birds</code> that aren’t in EltonTraits. To really use these data we would need to correct those discrepancies, but for now this will help illustrate the different types of joins.</p>
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Which birds are missing?</span></span>
 <span><span class="va">urban_birds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">host.species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">elton</span><span class="op">$</span><span class="va">Scientific</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -247,28 +247,28 @@
 ## 8 Kieneria_aberti  
 ## 9 Kieneria_aberti</code></pre>
 <p>Left joins are probably the most common type you will use, because they help add new information to a reference data set.</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">urban_birds</span>, <span class="va">elton</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"host.species"</span> <span class="op">=</span> <span class="st">"Scientific"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">urban_birds</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 42</code></pre>
-<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">urban_traits</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 81</code></pre>
 <p>The <code>by</code> argument is the second-trickiest part of a join (the trickiest part is making sure it did what you expected). Here, we specify that we want to match up values in the column <code>host.species</code> from the first data frame with values in the column <code>Scientific</code> in the second data set. The <code>tidyverse</code> join functions will automatically use columns with the same names if you don’t specify <code>by</code>. If you specify a single character, it will look for columns with that name in both data sets. Finally, you can specify multiple columns (for example, if you had a study design with <code>block</code> nested within <code>plot</code> and you wanted to match both).</p>
 <p>An inner join would be similar, but would eliminate those species that are not in EltonTraits, because they are not present in both data sets:</p>
-<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">urban_birds</span>, <span class="va">elton</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"host.species"</span> <span class="op">=</span> <span class="st">"Scientific"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">urban_birds</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 159</code></pre>
-<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">urban_traits</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 150</code></pre>
 <p>An full join would be helpful if you want to include all the effect sizes and all the trait information in a single data set, regardless of whether you have the other information:</p>
-<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">urban_birds</span>, <span class="va">elton</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"host.species"</span> <span class="op">=</span> <span class="st">"Scientific"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">urban_traits</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 81</code></pre>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">urban_traits</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 10334</code></pre>
 </div>
@@ -283,7 +283,7 @@
 <span class="header-section-number">9.5.1</span> Long to wide<a class="anchor" aria-label="anchor" href="#long-to-wide"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s start with a data set in long form: one observation per row, one variable per column. The urban wildlife data set follows this structure. Let’s say we want to know how many studies we have per year and health metric:</p>
-<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -305,7 +305,7 @@
 ## 10 condition  2014     3
 ## # ℹ 44 more rows</code></pre>
 <p>To present this in a paper, we might consider transforming it to wide form:</p>
-<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -337,7 +337,7 @@
 ## 20  2007         0         0      1        10</code></pre>
 <p>Here we use the <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> function from the <code>tidyr</code> package (part of the <code>tidyverse</code>). Here <code>id_cols</code> tells the function which variable to use to define a row in the new table. <code>names_from</code> defines the column in the long-form data that will become the column names, and <code>values_from</code> defines the column in the long-form data that will be used to fill those columns. Finally, you don’t always need <code>values_fill</code>, but when an id-name combination is missing in the original data, this tells the funciton what to include in the new table (by default, it will be <code>NA</code>).</p>
 <p>Pivoting data frames takes some practice. One of the most common pitfalls in going from wide to long form is that each id-name combination needs to have a unique value. For example, let’s say we first summarized the data by both year and host habitat:</p>
-<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">YEAR</span>, <span class="va">aqterr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -376,7 +376,7 @@
 ## 19  2015 &lt;NULL&gt;    &lt;int [1]&gt; &lt;int [1]&gt; &lt;int [1]&gt;
 ## 20  2007 &lt;NULL&gt;    &lt;NULL&gt;    &lt;int [1]&gt; &lt;int [2]&gt;</code></pre>
 <p>You see this gave us a warning message and that the new columns are lists. This is because some of the cells in this wide data frame now have more than one element (i.e., years where both aquatic and terrestrial hosts had data for a given health metric). We can fix this by including <code>aqterr</code> as either and ID or a names column:</p>
-<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">YEAR</span>, <span class="va">aqterr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -394,7 +394,7 @@
 ## 4  2005 terrestrial         2         1      0         5
 ## 5  2008 terrestrial         5        13      4         0
 ## 6  2010 aquatic             8         0      0         6</code></pre>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">YEAR</span>, <span class="va">aqterr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -422,7 +422,7 @@
 <span class="header-section-number">9.5.2</span> Wide to long<a class="anchor" aria-label="anchor" href="#wide-to-long"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the other direction, we sometimes end up with data that is wide and needs to be long. For example, let’s say we have a data set with counts by site across years:</p>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">*</span><span class="fl">12</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">10</span>, ncol <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -431,55 +431,55 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">survey_data</span></span></code></pre></div>
 <pre><code>##    year site1 site2 site3 site4 site5 site6 site7 site8 site9 site10 site11
-## 1  2000    80    63    47    48    86    68    70    90    18      0     77
-## 2  2001    23    67     4    78    33    49    77    67    22     79      2
-## 3  2002    75    93    26    85    14    79    24    90    42     51     38
-## 4  2003    96    48    95    82    45    29    78     7    39     51     58
-## 5  2004     7     3    47    24    28    56    91    31    40     12     34
-## 6  2005    22    60    76    86    49    47    79    19    81     73      2
-## 7  2006    80    14     3    65    91    61     4    47    77     69     96
-## 8  2007    56    75    52     9    11    31    88    72    80     98     65
-## 9  2008    84    90    61    34    27    44    68    59    46     39     72
-## 10 2009     0    48    80    17    93    99    44    49    68     29     44
+## 1  2000    35    48    67    30    72     0    60    14    35     37      1
+## 2  2001    63     4    44    60    61    95    99    42     4     27     33
+## 3  2002    77     5     5     0     4     7    14    32    14     96     63
+## 4  2003    33    83     6     7    12     1     5     7    34     18     90
+## 5  2004    61    42    92    44    83    12    20    69    48     84      4
+## 6  2005    70    68    58    30    53    25     5     7    81     73     25
+## 7  2006    40    22     5    92    77    65    99    33    95     10      2
+## 8  2007    65    72    48    84    15    91    61    20    15     49     74
+## 9  2008    45    28    70    64    92    71    95    83    24     88     50
+## 10 2009    92    17    21    26    95    56     1    46    33     28     65
 ##    site12
-## 1      35
-## 2      77
-## 3      10
-## 4      35
-## 5      10
-## 6      21
-## 7      94
-## 8      28
-## 9      62
-## 10     35</code></pre>
+## 1      66
+## 2      87
+## 3      65
+## 4      50
+## 5      21
+## 6      12
+## 7      46
+## 8      78
+## 9      37
+## 10     85</code></pre>
 <p>(Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">year</span>, names_to <span class="op">=</span> <span class="st">"site"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 120 × 3
 ##     year site   count
 ##    &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
-##  1  2000 site1     80
-##  2  2000 site2     63
-##  3  2000 site3     47
-##  4  2000 site4     48
-##  5  2000 site5     86
-##  6  2000 site6     68
-##  7  2000 site7     70
-##  8  2000 site8     90
-##  9  2000 site9     18
-## 10  2000 site10     0
+##  1  2000 site1     35
+##  2  2000 site2     48
+##  3  2000 site3     67
+##  4  2000 site4     30
+##  5  2000 site5     72
+##  6  2000 site6      0
+##  7  2000 site7     60
+##  8  2000 site8     14
+##  9  2000 site9     35
+## 10  2000 site10    37
 ## # ℹ 110 more rows</code></pre>
 <p>Here, we use the <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> function, also from <code>tidyr</code> and identify the columns that we want to pivot with <code>cols</code>. Because we want to get values from all the columns <em>except</em> the <code>year</code> column, we use a minus sign (-) to indicate that. We could also list all the columns (<code>c(site1, site2, site3)</code>), but this would be unwieldy. We also specify the column names of the new columns we are creating: one for what were the column names in the old wide data frame (<code>names_to</code>) and one for what were the values.</p>
 <p>One common challenge with pivoting longer is when we have a data frame that has more columns than the ones we want to include in the long data. For example, let’s say our survey data also included information about the observer:</p>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">survey_data</span>, observer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">survey_data</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">year</span>, names_to <span class="op">=</span> <span class="st">"site"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in `pivot_longer()`:
 ## ! Can't combine `site1` &lt;integer&gt; and `observer` &lt;character&gt;.</code></pre>
 <p>Here, we get an error because <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> is trying to make a single column (“count”) that includes both numbers and a character. We can get around this by removing the observer from the data before pivoting or, if we want that information, including it in our column specification:</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">observer</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">year</span>, names_to <span class="op">=</span> <span class="st">"site"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -487,28 +487,28 @@
 <pre><code>## # A tibble: 6 × 3
 ##    year site  count
 ##   &lt;int&gt; &lt;chr&gt; &lt;int&gt;
-## 1  2000 site1    80
-## 2  2000 site2    63
-## 3  2000 site3    47
-## 4  2000 site4    48
-## 5  2000 site5    86
-## 6  2000 site6    68</code></pre>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+## 1  2000 site1    35
+## 2  2000 site2    48
+## 3  2000 site3    67
+## 4  2000 site4    30
+## 5  2000 site5    72
+## 6  2000 site6     0</code></pre>
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">observer</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"site"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## # A tibble: 120 × 4
 ##     year observer site   count
 ##    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt;
-##  1  2000 B        site1     80
-##  2  2000 B        site2     63
-##  3  2000 B        site3     47
-##  4  2000 B        site4     48
-##  5  2000 B        site5     86
-##  6  2000 B        site6     68
-##  7  2000 B        site7     70
-##  8  2000 B        site8     90
-##  9  2000 B        site9     18
-## 10  2000 B        site10     0
+##  1  2000 B        site1     35
+##  2  2000 B        site2     48
+##  3  2000 B        site3     67
+##  4  2000 B        site4     30
+##  5  2000 B        site5     72
+##  6  2000 B        site6      0
+##  7  2000 B        site7     60
+##  8  2000 B        site8     14
+##  9  2000 B        site9     35
+## 10  2000 B        site10    37
 ## # ℹ 110 more rows</code></pre>
 
 </div>
@@ -552,7 +552,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-14.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

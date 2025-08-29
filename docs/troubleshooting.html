@@ -124,18 +124,18 @@
 <span class="header-section-number">5.4.2</span> Isolating the error<a class="anchor" aria-label="anchor" href="#isolating-the-error"><i class="fas fa-link"></i></a>
 </h3>
 <p>In general, isolating the problem is the first step in troubleshooting, but even within the same line it’s useful to run each piece of code that can be run independently to check that it’s giving the expected output. For example, if I am running the following code:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>numbers <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
 <span>                 letters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span>,</span>
 <span>                 animals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"lion"</span>, <span class="st">"cheetah"</span>, <span class="st">"giraffe"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>I can run each piece to look at it and double check it:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "A" "B" "C" "D" "E"</code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"lion"</span>, <span class="st">"cheetah"</span>, <span class="st">"giraffe"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "cat"     "dog"     "lion"    "cheetah" "giraffe"</code></pre>
 </div>
@@ -144,13 +144,13 @@
 <span class="header-section-number">5.4.3</span> Deciphering error messages<a class="anchor" aria-label="anchor" href="#deciphering-error-messages"><i class="fas fa-link"></i></a>
 </h3>
 <p>If the input looks good, it’s time to start deciphering the error message. Here are some examples of common errors and what they usually mean:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">tets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error: object 'tets' not found</code></pre>
 <p>An object can be “not found” when you misspelled its name or when you didn’t run your code in the correct order and you haven’t created it yet.</p>
 <p>Here’s another common one:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>numbers <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
 <span>                 letters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -173,7 +173,7 @@ which point within it the error occurred.</p>
 <span class="header-section-number">5.4.4</span> Syntax errors<a class="anchor" aria-label="anchor" href="#syntax-errors"><i class="fas fa-link"></i></a>
 </h3>
 <p>Perhaps the most classic of error messages is this:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="troubleshooting.html#cb41-1" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)<span class="er">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="troubleshooting.html#cb43-1" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)<span class="er">)</span></span></code></pre></div>
 <pre><code>## Error in parse(text = input): &lt;text&gt;:1:24: unexpected ')'
 ## 1: vec &lt;- c(1, 4, 6, 7, 8))
 ##                            ^</code></pre>
@@ -182,14 +182,14 @@ closed all the parentheses you opened. If you move your blinking cursor to an op
 closing) parenthesis (or bracket), RStudio will highlight the closing (or
 opening) one.</p>
 <p>Another classic:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">numbers</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## Error in `[.data.frame`(df, df$numbers &gt; 4): undefined columns selected</code></pre>
 <p>This is most likely the symptom that we forgot a comma inside the brackets and
 therefore the indexing isn’t working correctly. Remember, square brackets give
 you the element of a vector, but for a data frame, R needs to know the row <em>and</em>
 column to look for. To fix this:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">numbers</span> <span class="op">&gt;</span> <span class="fl">4</span>,<span class="op">]</span></span></code></pre></div>
 <pre><code>##   numbers letters
 ## 5       5       E</code></pre>
@@ -237,7 +237,7 @@ the function from. This removes any ambiguity.</p>
 <p>The first thing to check when a function is not working like expected is to
 look up the documentation and double check that you provided all the necessary
 input in the right format:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">?</span><span class="va">mean</span></span></code></pre></div>
 </div>
 <div id="google" class="section level3" number="5.5.2">
@@ -270,7 +270,7 @@ to your search</li>
 <span class="header-section-number">5.5.3</span> StackOverflow et al.<a class="anchor" aria-label="anchor" href="#stackoverflow-et-al."><i class="fas fa-link"></i></a>
 </h3>
 <p>In most cases, somebody has probably already run into your problem and posted about on StackOverflow or similar websites. This gets less true if you are using a new or uncommon package, but usually the difficult part is to be able to apply the answers from these forums to your problem. The specifics of the dataset the other person is using may not be exactly identical to yours. This is where thinking outside the box and drawing parallels between your case and somebody else’s case becomes critical. For instance, say that I run the following code and get an error:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
 <span></span>
 <span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span></span>
@@ -289,7 +289,7 @@ problem must be that I have too many (or too few) values to fit in my column.</p
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:debugging"></span>
 <img src="images/debugging.jpg" alt="Artwork by Allison Horst, and thanks to Simona Picardi for including this in her course materials" width="80%"><p class="caption">
-Figure 2.1: Artwork by Allison Horst, and thanks to Simona Picardi for including this in her course materials
+Figure 5.1: Artwork by Allison Horst, and thanks to Simona Picardi for including this in her course materials
 </p>
 </div>
 <!-- ## How to troubleshoot a loop 
@@ -547,7 +547,7 @@ It consists of explaining code, line by line, to a rubber duck. While this debug
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-20"></span>
 <img src="https://imgs.xkcd.com/comics/error_code.png" alt="You can always try this. (https://xkcd.com/1024/)" width="80%"><p class="caption">
-Figure 5.1: You can always try this. (<a href="https://xkcd.com/1024/" class="uri">https://xkcd.com/1024/</a>)
+Figure 5.2: You can always try this. (<a href="https://xkcd.com/1024/" class="uri">https://xkcd.com/1024/</a>)
 </p>
 </div>
 
@@ -598,7 +598,7 @@ Figure 5.1: You can always try this. (<a href="https://xkcd.com/1024/" class="ur
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-14.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-08-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
