@@ -214,7 +214,7 @@ print(vect)
 ```
 
 ```
-## [1] 7.214229 7.214229
+## [1] 0.8087674 5.1314623 0.9667407 3.9985130
 ```
 
 ``` r
@@ -222,7 +222,7 @@ print(sum_vect)
 ```
 
 ```
-## [1] 14.42846
+## [1] 10.90548
 ```
 
 `while` loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! This is when the stop sign icon (top-right of your console) and the Session-->Interrupt R menu are useful!

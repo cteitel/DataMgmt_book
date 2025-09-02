@@ -255,7 +255,7 @@ sessionInfo()
 ```
 ## R version 4.4.1 (2024-06-14)
 ## Platform: aarch64-apple-darwin20
-## Running under: macOS 15.6
+## Running under: macOS 15.6.1
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
