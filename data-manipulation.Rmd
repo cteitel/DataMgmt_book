@@ -80,7 +80,7 @@ ds1 <- bind_cols(plot = plots, observer = observers, n_obs = N)
 
 There are several types of join. The most common types are left join, inner join, or full join. To understand this terminology, consider this: whenever you are joining two tables, the first table you mention (the one to which you’re joining) is called the left table, whereas the second table (the one you’re joining to the first) is called the right table. With a left join, you keep all the records in the left table and add information from the right table whenever there’s a matching row. A full join means that you retain all rows from both tables, matching them whenever possible. An inner join means that you only retain the rows that match between the two tables.
 
-Let's practice with the Murray et al. data. First, we need to download some extra data to add. The EltonTraits database provides foraging attributes and body mass for birds and mammals. These might be interesting, for example to see if species' responses to urbanization vary depending on their body size or foraging traits.
+Let's practice with the Murray et al. data. First, we need to download some extra data to add. The EltonTraits database provides foraging attributes and body mass for birds and mammals. These might be interesting, for example to see if species' responses to urbanization vary depending on their body size or foraging traits. These data can be downloaded from [Figshare](https://figshare.com/collections/EltonTraits_1_0_Species-level_foraging_attributes_of_the_world_s_birds_and_mammals/3306933).
 
 ```{r}
 elton <- read_csv("data/raw/EltonTraits/BirdFuncDat.csv")

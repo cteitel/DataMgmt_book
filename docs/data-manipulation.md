@@ -118,12 +118,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs       date
-## 1    1       Me    99 2024-04-01
-## 2    2       Me   100 2024-04-01
-## 3    3       Me    43 2024-04-01
-## 4    4       Me    23 2024-04-01
+## 1    1       Me    25 2024-04-01
+## 2    2       Me     7 2024-04-01
+## 3    3       Me    76 2024-04-01
+## 4    4       Me    46 2024-04-01
 ## 5    5       Me    29 2024-04-01
-## 6    6       Me    74 2024-04-01
+## 6    6       Me     1 2024-04-01
 ```
 
 ``` r
@@ -132,12 +132,12 @@ tail(ds_full)
 
 ```
 ##    plot observer n_obs       date
-## 15    5      You    95 2025-01-01
-## 16    6      You    17 2025-01-01
-## 17    7      You    25 2025-01-01
-## 18    8      You    78 2025-01-01
-## 19    9      You    57 2025-01-01
-## 20   10      You    48 2025-01-01
+## 15    5      You    89 2025-01-01
+## 16    6      You    10 2025-01-01
+## 17    7      You    82 2025-01-01
+## 18    8      You    68 2025-01-01
+## 19    9      You    54 2025-01-01
+## 20   10      You    63 2025-01-01
 ```
 
 `bind_rows` looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:
@@ -161,12 +161,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs Plot  obs  N
-## 1    1       Me    72   NA <NA> NA
-## 2    2       Me    47   NA <NA> NA
-## 3    3       Me    18   NA <NA> NA
-## 4    4       Me    58   NA <NA> NA
-## 5    5       Me    66   NA <NA> NA
-## 6    6       Me    94   NA <NA> NA
+## 1    1       Me    25   NA <NA> NA
+## 2    2       Me    87   NA <NA> NA
+## 3    3       Me    47   NA <NA> NA
+## 4    4       Me    56   NA <NA> NA
+## 5    5       Me    83   NA <NA> NA
+## 6    6       Me    78   NA <NA> NA
 ```
 
 We can also add more information with `bind_cols`, though joins (below) are usually a better way to add columns to a data set. `bind_cols` is also useful for creating new data frames from vectors:
@@ -184,7 +184,7 @@ ds1 <- bind_cols(plot = plots, observer = observers, n_obs = N)
 
 There are several types of join. The most common types are left join, inner join, or full join. To understand this terminology, consider this: whenever you are joining two tables, the first table you mention (the one to which you’re joining) is called the left table, whereas the second table (the one you’re joining to the first) is called the right table. With a left join, you keep all the records in the left table and add information from the right table whenever there’s a matching row. A full join means that you retain all rows from both tables, matching them whenever possible. An inner join means that you only retain the rows that match between the two tables.
 
-Let's practice with the Murray et al. data. First, we need to download some extra data to add. The EltonTraits database provides foraging attributes and body mass for birds and mammals. These might be interesting, for example to see if species' responses to urbanization vary depending on their body size or foraging traits.
+Let's practice with the Murray et al. data. First, we need to download some extra data to add. The EltonTraits database provides foraging attributes and body mass for birds and mammals. These might be interesting, for example to see if species' responses to urbanization vary depending on their body size or foraging traits. These data can be downloaded from [Figshare](https://figshare.com/collections/EltonTraits_1_0_Species-level_foraging_attributes_of_the_world_s_birds_and_mammals/3306933).
 
 
 ``` r
@@ -503,27 +503,27 @@ survey_data
 
 ```
 ##    year site1 site2 site3 site4 site5 site6 site7 site8 site9 site10 site11
-## 1  2000    48    13    42    48    78    82    50    73    13    100     47
-## 2  2001     7    19    71    50    16    92     0    71    21     45     32
-## 3  2002    96    18    74    28    91    66    27    42    40     70     31
-## 4  2003    91    88    47    30    15    92    54    96    59     20     18
-## 5  2004    57    19    86    63    96    29    18    44    78     29     22
-## 6  2005    97     8    52    88    12    80    84    99    17      3      7
-## 7  2006    89    47    89    48    55    86    96    99    21     81     57
-## 8  2007    40    58    23    45    90    63    52    88    53     72     11
-## 9  2008    33    13    23    38    50    66    85    29    72     26     78
-## 10 2009    15   100    33    33    38     0     6    68    97     46     87
+## 1  2000    80    77    35    91    79    28    88    74    71     39      4
+## 2  2001    28    81    66    73    63    33    25    45    23      7     40
+## 3  2002    45    48    69     5    37    82    20    83    66     55      2
+## 4  2003    49    11    74    92    36    70    65    45     1     73     19
+## 5  2004    54    82    47    24    53    23    14    61    32     93     42
+## 6  2005    40    84    75    78    39    96    95   100    66     90     92
+## 7  2006    27    97    48     2    63    67    42    82    14     94     40
+## 8  2007    37    30     7    30    81    36    93    52    52    100     77
+## 9  2008    61    94     7    15     7    23     6    87    88     13     78
+## 10 2009    93    77    27     8     9     8    11    98    51      5     69
 ##    site12
-## 1      58
-## 2       2
-## 3      34
-## 4      79
-## 5      12
-## 6      84
-## 7      79
-## 8      77
-## 9      96
-## 10     49
+## 1      50
+## 2      24
+## 3      35
+## 4      22
+## 5      44
+## 6      95
+## 7      62
+## 8      15
+## 9      39
+## 10     53
 ```
 
 (Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)
@@ -538,16 +538,16 @@ survey_data %>%
 ## # A tibble: 120 × 3
 ##     year site   count
 ##    <int> <chr>  <int>
-##  1  2000 site1     48
-##  2  2000 site2     13
-##  3  2000 site3     42
-##  4  2000 site4     48
-##  5  2000 site5     78
-##  6  2000 site6     82
-##  7  2000 site7     50
-##  8  2000 site8     73
-##  9  2000 site9     13
-## 10  2000 site10   100
+##  1  2000 site1     80
+##  2  2000 site2     77
+##  3  2000 site3     35
+##  4  2000 site4     91
+##  5  2000 site5     79
+##  6  2000 site6     28
+##  7  2000 site7     88
+##  8  2000 site8     74
+##  9  2000 site9     71
+## 10  2000 site10    39
 ## # ℹ 110 more rows
 ```
 
@@ -581,12 +581,12 @@ survey_data %>%
 ## # A tibble: 6 × 3
 ##    year site  count
 ##   <int> <chr> <int>
-## 1  2000 site1    48
-## 2  2000 site2    13
-## 3  2000 site3    42
-## 4  2000 site4    48
-## 5  2000 site5    78
-## 6  2000 site6    82
+## 1  2000 site1    80
+## 2  2000 site2    77
+## 3  2000 site3    35
+## 4  2000 site4    91
+## 5  2000 site5    79
+## 6  2000 site6    28
 ```
 
 ``` r
@@ -598,16 +598,16 @@ survey_data %>%
 ## # A tibble: 120 × 4
 ##     year observer site   count
 ##    <int> <chr>    <chr>  <int>
-##  1  2000 A        site1     48
-##  2  2000 A        site2     13
-##  3  2000 A        site3     42
-##  4  2000 A        site4     48
-##  5  2000 A        site5     78
-##  6  2000 A        site6     82
-##  7  2000 A        site7     50
-##  8  2000 A        site8     73
-##  9  2000 A        site9     13
-## 10  2000 A        site10   100
+##  1  2000 B        site1     80
+##  2  2000 B        site2     77
+##  3  2000 B        site3     35
+##  4  2000 B        site4     91
+##  5  2000 B        site5     79
+##  6  2000 B        site6     28
+##  7  2000 B        site7     88
+##  8  2000 B        site8     74
+##  9  2000 B        site9     71
+## 10  2000 B        site10    39
 ## # ℹ 110 more rows
 ```
 
