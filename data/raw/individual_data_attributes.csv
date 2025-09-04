@@ -1,0 +1,168 @@
+ID,models,species,sampling_date,active_infection,antibody_detection,sex
+17064_61152,space use,Aythya valisineria,12/2/2017,FALSE,TRUE,F
+17066_61271,"migration_pcr, migration_ab, space use",Aythya valisineria,12/10/2017,FALSE,TRUE,M
+17068_61165,space use,Aythya valisineria,12/3/2017,FALSE,FALSE,F
+17069_61131,space use,Aythya valisineria,12/2/2017,FALSE,FALSE,F
+17070_61201,space use,Aythya valisineria,12/4/2017,FALSE,TRUE,F
+17071_61168,space use,Aythya valisineria,12/3/2017,FALSE,TRUE,F
+17072_61228,space use,Aythya valisineria,12/6/2017,FALSE,TRUE,F
+171252_61274,space use,Aythya valisineria,12/10/2017,FALSE,TRUE,M
+171253_61203,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/4/2017,FALSE,TRUE,F
+171254_61269,space use,Aythya valisineria,12/10/2017,FALSE,TRUE,F
+171256_61265,space use,Aythya valisineria,12/10/2017,FALSE,FALSE,F
+171257_61230,space use,Aythya valisineria,12/6/2017,FALSE,TRUE,F
+171258_61194,space use,Aythya valisineria,12/4/2017,FALSE,TRUE,M
+171259_61112,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/1/2017,FALSE,TRUE,F
+171260_61115,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/1/2017,FALSE,TRUE,F
+171261_61193,"migration_pcr, migration_ab, space use",Aythya valisineria,12/4/2017,FALSE,TRUE,F
+171262_61126,space use,Aythya valisineria,12/2/2017,FALSE,NA,M
+171263_61234,space use,Aythya valisineria,12/6/2017,FALSE,TRUE,M
+171264_61270,space use,Aythya valisineria,12/10/2017,FALSE,FALSE,M
+171265_61122,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/2/2017,FALSE,TRUE,M
+171266_61176,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/3/2017,FALSE,TRUE,M
+171267_61162,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/3/2017,FALSE,TRUE,F
+171269_61161,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/3/2017,FALSE,TRUE,M
+171271_61277,space use,Aythya valisineria,12/10/2017,FALSE,TRUE,F
+177122_61428,"migration_pcr, stopover_pcr",Aythya valisineria,12/10/2018,FALSE,NA,F
+177123_61471,"migration_pcr, migration_ab, stopover_pcr, stopover_ab",Aythya valisineria,2/5/2019,FALSE,TRUE,F
+177124_41451,migration_ab,Aythya valisineria,2/5/2019,NA,TRUE,F
+177125_41462,"migration_pcr, migration_ab",Aythya valisineria,2/15/2019,FALSE,TRUE,F
+177126_61475,"migration_pcr, migration_ab",Aythya valisineria,2/5/2019,FALSE,TRUE,F
+177129_61432,"migration_pcr, migration_ab, stopover_pcr, stopover_ab",Aythya valisineria,12/10/2018,FALSE,TRUE,F
+180625.1,space use,Anas platyrhynchos,6/19/2018,FALSE,NA,F
+180627.2,space use,Anas platyrhynchos,7/29/2018,TRUE,NA,F
+180627.2,space use,Anas platyrhynchos,7/16/2018,TRUE,NA,F
+180628.1,space use,Anas platyrhynchos,6/27/2018,FALSE,NA,F
+180631.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,2/22/2019,FALSE,FALSE,F
+180632.1,space use,Anas acuta,10/11/2018,FALSE,FALSE,F
+180633.1,"migration_pcr, migration_ab",Anas acuta,2/7/2019,FALSE,TRUE,F
+180634.1,space use,Anas acuta,9/14/2018,FALSE,NA,F
+180635.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,10/11/2018,FALSE,FALSE,F
+180636.1,"migration_pcr, migration_ab, space use",Anas acuta,2/22/2019,FALSE,TRUE,F
+180637.1,"migration_pcr, space use",Anas acuta,9/18/2018,TRUE,NA,F
+180638.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/14/2018,FALSE,NA,F
+180640.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/14/2018,FALSE,NA,F
+180642.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/14/2018,FALSE,NA,F
+180645.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab",Anas acuta,2/7/2019,FALSE,FALSE,F
+180649.3,space use,Anas platyrhynchos,7/29/2018,TRUE,NA,F
+180661.2,space use,Anas platyrhynchos,6/7/2019,FALSE,NA,M
+180662.1,space use,Anas platyrhynchos,7/12/2018,FALSE,NA,F
+180663.1,space use,Anas platyrhynchos,7/11/2018,FALSE,NA,F
+180667.2,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,2/6/2019,FALSE,TRUE,M
+180668.1,space use,Anas acuta,10/11/2018,FALSE,TRUE,M
+180669.1,space use,Anas acuta,10/11/2018,FALSE,FALSE,M
+180670.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,10/11/2018,FALSE,FALSE,M
+180671.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,10/11/2018,FALSE,TRUE,M
+180673.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,10/11/2018,FALSE,FALSE,M
+180674.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,FALSE,NA,M
+180675.1,space use,Anas acuta,9/18/2018,FALSE,NA,M
+180675.2,"migration_pcr, migration_ab, stopover_pcr, stopover_ab",Anas acuta,2/6/2019,FALSE,FALSE,M
+180677.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,10/11/2018,FALSE,FALSE,M
+180679.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab",Anas acuta,2/6/2019,FALSE,TRUE,M
+180680.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,2/7/2019,FALSE,FALSE,M
+180681.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,TRUE,NA,M
+180929.1,"migration_ab, stopover_ab",Anser albifrons,9/27/2018,NA,TRUE,F
+180931.1,"migration_ab, stopover_ab",Anser albifrons,9/27/2018,NA,TRUE,F
+180932.1,"migration_ab, stopover_ab",Anser albifrons,10/10/2018,NA,TRUE,M
+180933.1,migration_ab,Anser albifrons,10/5/2018,NA,TRUE,M
+180934.1,"migration_ab, stopover_ab",Anser albifrons,9/27/2018,NA,TRUE,F
+180937.1,"migration_ab, stopover_ab",Anser albifrons,9/26/2018,NA,FALSE,M
+180939.1,"migration_ab, stopover_ab",Anser albifrons,9/27/2018,NA,FALSE,F
+180940.1,"migration_ab, stopover_ab",Anser albifrons,9/26/2018,NA,FALSE,M
+180952.1,"migration_ab, stopover_ab",Anser albifrons,10/5/2018,NA,TRUE,M
+180957.1,"migration_ab, stopover_ab",Anser albifrons,10/10/2018,NA,FALSE,M
+180958.1,"migration_ab, stopover_ab",Anser albifrons,10/10/2018,NA,TRUE,M
+182107.1,"migration_ab, stopover_ab",Anser albifrons,10/5/2018,NA,FALSE,M
+182131.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,2/6/2019,FALSE,TRUE,F
+182132.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/14/2018,FALSE,NA,F
+182136.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,FALSE,NA,F
+182137.1,space use,Anas acuta,9/18/2018,FALSE,NA,F
+182138.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,FALSE,NA,F
+182139.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,FALSE,NA,F
+182140.1,space use,Anas acuta,9/14/2018,FALSE,NA,F
+182140.2,"migration_pcr, stopover_pcr",Anas acuta,2/7/2019,FALSE,NA,F
+182141.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,TRUE,NA,F
+182142.1,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,2/22/2019,FALSE,FALSE,F
+182143.1,space use,Anas acuta,9/14/2018,FALSE,NA,F
+182144.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/18/2018,FALSE,NA,F
+182145.2,"migration_pcr, migration_ab, stopover_pcr, stopover_ab",Anas acuta,2/7/2019,FALSE,TRUE,F
+182146.1,space use,Anas acuta,9/14/2018,FALSE,NA,F
+182146.2,space use,Anas acuta,2/22/2019,FALSE,FALSE,F
+182147.1,space use,Anas acuta,9/18/2018,TRUE,NA,F
+182147.2,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Anas acuta,2/22/2019,FALSE,FALSE,F
+182147.3,space use,Anas platyrhynchos,6/17/2019,FALSE,NA,F
+182148.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/14/2018,FALSE,NA,F
+182148.2,space use,Anas platyrhynchos,6/17/2019,FALSE,NA,F
+182281_61416,space use,Aythya valisineria,11/30/2018,FALSE,NA,F
+182282_61387,space use,Aythya valisineria,11/26/2018,FALSE,TRUE,M
+182284_61403,space use,Aythya valisineria,11/28/2018,FALSE,FALSE,F
+182285_61441,"migration_pcr, space use",Aythya valisineria,12/10/2018,FALSE,NA,M
+182288_41467,"migration_pcr, stopover_pcr, space use",Aythya valisineria,2/15/2019,FALSE,NA,M
+182289_61442,"migration_pcr, stopover_pcr, space use",Aythya valisineria,12/10/2018,FALSE,NA,M
+182294_41452,"migration_ab, stopover_ab",Aythya valisineria,2/5/2019,NA,FALSE,F
+182295_61456,space use,Aythya valisineria,12/20/2018,FALSE,TRUE,M
+182296_61391,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,11/26/2018,TRUE,TRUE,M
+182298_61417,space use,Aythya valisineria,11/30/2018,FALSE,FALSE,F
+182300_61400,space use,Aythya valisineria,11/28/2018,FALSE,TRUE,F
+182301_61390,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,11/26/2018,FALSE,TRUE,F
+182302_61438,space use,Aythya valisineria,12/10/2018,TRUE,NA,M
+182303_61425,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/7/2018,FALSE,TRUE,M
+182306_61392,space use,Aythya valisineria,11/26/2018,TRUE,TRUE,F
+182307_61365,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,11/24/2018,FALSE,TRUE,F
+182308_61427,"migration_pcr, migration_ab, space use",Aythya valisineria,12/9/2018,FALSE,TRUE,M
+182309_61434,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/10/2018,FALSE,TRUE,F
+182310_61451,"migration_pcr, stopover_pcr, space use",Aythya valisineria,12/12/2018,FALSE,NA,M
+182311_61367,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,11/24/2018,TRUE,FALSE,F
+182312_61389,"migration_pcr, stopover_pcr, space use",Aythya valisineria,11/26/2018,FALSE,NA,M
+182314_61293,space use,Aythya valisineria,12/4/2018,FALSE,FALSE,F
+182314_61293,space use,Aythya valisineria,12/15/2017,FALSE,FALSE,F
+182315_61423,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/7/2018,FALSE,FALSE,F
+182317_61426,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,12/7/2018,FALSE,TRUE,M
+182318_61395,"migration_pcr, migration_ab, stopover_pcr, stopover_ab, space use",Aythya valisineria,11/27/2018,FALSE,TRUE,F
+182319_61457,space use,Aythya valisineria,12/20/2018,FALSE,TRUE,M
+191540.1,space use,Anas platyrhynchos,5/20/2019,FALSE,NA,F
+191545.1,space use,Anas platyrhynchos,5/17/2019,FALSE,NA,F
+BIRD 74.2,space use,Anas platyrhynchos,7/14/2017,FALSE,NA,F
+BIRD 77.1,space use,Anas acuta,9/13/2016,FALSE,NA,F
+BIRD 82.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/13/2016,FALSE,NA,M
+BIRD 83.1,space use,Anas acuta,9/13/2016,FALSE,NA,M
+BIRD 86.1,space use,Anas acuta,9/13/2016,FALSE,NA,M
+BIRD 87.1,space use,Anas acuta,9/13/2016,FALSE,NA,M
+BIRD 88.1,space use,Anas acuta,9/13/2016,FALSE,NA,F
+BIRD 89.1,"migration_pcr, space use",Anas acuta,9/13/2016,FALSE,NA,F
+BIRD 90.1,space use,Anas acuta,9/13/2016,FALSE,NA,F
+BIRD 93.1,space use,Anas acuta,9/13/2016,FALSE,NA,F
+DRIB 24.1,space use,Anas acuta,9/13/2016,FALSE,NA,F
+DRIB 71.1,space use,Anas platyrhynchos,5/23/2019,FALSE,NA,F
+REPL 14.2,space use,Anas platyrhynchos,6/28/2019,FALSE,NA,M
+SAKR 05.1,space use,Anas platyrhynchos,7/8/2017,FALSE,NA,F
+SAKR 09.1,space use,Anas platyrhynchos,7/13/2017,FALSE,NA,F
+SAKR 18.1,space use,Anas platyrhynchos,7/9/2017,FALSE,NA,F
+SIMP 08.1,space use,Anas platyrhynchos,6/28/2019,TRUE,NA,M
+SIMP 38.1,space use,Anas platyrhynchos,7/1/2019,FALSE,NA,M
+SIMP 40.1,space use,Anas platyrhynchos,6/28/2019,FALSE,NA,M
+TEAL 51.3,space use,Anas platyrhynchos,7/1/2019,FALSE,NA,M
+TEAL 79.1,space use,Anas platyrhynchos,6/29/2019,FALSE,NA,M
+WATE 15.1,space use,Anas platyrhynchos,7/23/2015,FALSE,NA,F
+WATE 34.1,space use,Anas platyrhynchos,7/23/2015,FALSE,NA,F
+WATE 46.1,space use,Anas platyrhynchos,8/7/2015,FALSE,NA,F
+WATE 47.1,space use,Anas platyrhynchos,8/7/2015,FALSE,NA,F
+WATE 48.1,space use,Anas platyrhynchos,8/9/2015,FALSE,NA,M
+WATE 49.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 50.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 51.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 52.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,F
+WATE 53.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 54.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 55.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,F
+WATE 56.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,F
+WATE 57.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,F
+WATE 58.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,F
+WATE 59.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 60.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 61.1,space use,Anas acuta,9/30/2015,FALSE,NA,F
+WATE 62.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,F
+WATE 65.1,space use,Anas acuta,9/30/2015,FALSE,NA,M
+WATE 66.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,M
+WATE 67.1,"migration_pcr, stopover_pcr, space use",Anas acuta,9/30/2015,FALSE,NA,M
+WATE 68.1,space use,Anas acuta,9/30/2015,FALSE,NA,M
