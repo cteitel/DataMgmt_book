@@ -18,9 +18,9 @@ sample_id,species,sex,weight,habitat_class1,habitat_class2,habitat_class3,year,s
 42,sp2,F,59,grassland,forested,suburban,2021,3/29/23,16:26:00
 43,sp2,F,66,grassland,forested,suburban,2020,4/1/23,09:01:00
 44,sp4,F,139,grassland,forested,suburban,2022,3/29/23,08:22:00
-45,sp3,M,125,forest,open,suburban,2021,3/29/23,09:12:00
-46,sp4,M,116,forest,open,suburban,2020,4/1/23,12:57:00
-47,sp4,U,121,forest,open,suburban,2020,4/2/23,09:01:00
+45,sp3,M,125,forest,forested,suburban,2021,3/29/23,09:12:00
+46,sp4,M,116,forest,forested,suburban,2020,4/1/23,12:57:00
+47,sp4,U,121,forest,forested,suburban,2020,4/2/23,09:01:00
 48,sp2,F,135,wetland,open,suburban,2022,3/29/23,16:02:00
 49,sp1,F,132,wetland,open,urban,2020,4/2/23,09:00:00
-50,sp2,M,198,forest,open,urban,2022,3/29/23,14:38:00
+50,sp2,M,198,forest,forested,urban,2022,3/29/23,14:38:00
