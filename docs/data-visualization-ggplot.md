@@ -309,7 +309,7 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
 
 Wait, what is that `stat_` thing? It's not a `geom_` but produces elements of a plot. Under the hood, `geom`s use `stat`s. In most cases, `stat="identity"`, so `ggplot` is just plotting the raw values. But, for example, in a bar plot, the stat is "count" by default:
 
-<img src="images/geom_bar.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/geom_bar.png" width="40%" style="display: block; margin: auto auto auto 0;" />
 
 This is just one example of customization options in `ggplot2`.
 
