@@ -233,6 +233,12 @@ while-loops
 functions
 objectives-16
 additional-reading-13
+why-write-your-own-functions
+how-do-functions-work
+documenting-functions
+error-handling
+adding-error-and-warning-messages
+errors-and-warnings
 lists
 objectives-17
 additional-reading-14

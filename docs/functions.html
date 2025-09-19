@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>19 Writing Your Own Functions | Data Management and Reproducible Science</title>
 <meta name="author" content="Claire S Teitelbaum">
-<meta name="description" content="19.1 Objectives   19.2 Additional reading">
+<meta name="description" content="19.1 Objectives Understand when custom functions are useful Build simple custom functions with multiple arguments Efficiently handle potential errors when writing functions and loops  19.2...">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
 <meta property="og:title" content="19 Writing Your Own Functions | Data Management and Reproducible Science">
 <meta property="og:type" content="book">
-<meta property="og:description" content="19.1 Objectives   19.2 Additional reading">
+<meta property="og:description" content="19.1 Objectives Understand when custom functions are useful Build simple custom functions with multiple arguments Efficiently handle potential errors when writing functions and loops  19.2...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="19 Writing Your Own Functions | Data Management and Reproducible Science">
-<meta name="twitter:description" content="19.1 Objectives   19.2 Additional reading">
+<meta name="twitter:description" content="19.1 Objectives Understand when custom functions are useful Build simple custom functions with multiple arguments Efficiently handle potential errors when writing functions and loops  19.2...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -78,12 +78,275 @@
 <h2>
 <span class="header-section-number">19.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-16"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Understand when custom functions are useful</li>
+<li>Build simple custom functions with multiple arguments</li>
+<li>Efficiently handle potential errors when writing functions and loops</li>
+</ul>
 </div>
 <div id="additional-reading-13" class="section level2" number="19.2">
 <h2>
 <span class="header-section-number">19.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-13"><i class="fas fa-link"></i></a>
 </h2>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 25: Functions. Available: <a href="https://r4ds.hadley.nz/functions.html" class="uri">https://r4ds.hadley.nz/functions.html</a></p>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 16: Function documentation. Available: <a href="https://r-pkgs.org/man.html" class="uri">https://r-pkgs.org/man.html</a></p>
+</div>
+<div id="why-write-your-own-functions" class="section level2" number="19.3">
+<h2>
+<span class="header-section-number">19.3</span> Why write your own functions?<a class="anchor" aria-label="anchor" href="#why-write-your-own-functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have used a lot of different functions in this class already. Some are built into R, like <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>,
+and some come with packages, like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in <code>tidyverse</code>. It might feel like there are already an
+almost-infinite number of functions out there. Why would you ever need to write your own? A few reasons:</p>
+<ul>
+<li>Much like loops, functions can help automate a repeating task. If you have a series of functions
+that you often use in order, combining them into a single function can be useful.</li>
+<li>Instead of copying and pasting sections of code, you can write and modify a single function,
+all at once, making it less likely that you will have an error in one of your many copy-paste
+replicates.</li>
+<li>Functions can exist in a separate file for you to load later. This is especially useful if they
+are long and complex; unlike a loop, you don’t have to take up space in your working code with a
+long series of data processing or modeling tasks. You can also use the same function in multiple
+projects.</li>
+<li>You can share code for just a function with a colleague, instead of having to send them your
+entire script to show how to get one task done.</li>
+</ul>
+</div>
+<div id="how-do-functions-work" class="section level2" number="19.4">
+<h2>
+<span class="header-section-number">19.4</span> How do functions work?<a class="anchor" aria-label="anchor" href="#how-do-functions-work"><i class="fas fa-link"></i></a>
+</h2>
+<p>You’ve been on the “user” end of functions many times, so you know that they have a <strong>name</strong>,
+they take a series of <strong>arguments</strong> as input, and they give you an <strong>output</strong>. Beyond that,
+there’s not much to know. This is the basic structure of a function:</p>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arugments</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">output</span> <span class="op">&lt;-</span> <span class="va">code</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>We would then use this function like this: <code>name(arguments)</code>.</p>
+<p>For example, for some reason there is no function built into R to calculate the mode (i.e.,
+the most common element in a vector/series). (<code><a href="https://rdrr.io/r/base/mode.html">mode()</a></code> tells you the internal storage mode of
+an object, not the value that occurs the most often.) I could write a function that does that:</p>
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mode_calc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">unique_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Get unique values in the vector</span></span>
+<span>  <span class="va">value_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tabulate.html">tabulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Count the number of occurrence of each value</span></span>
+<span>  <span class="va">max_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">value_counts</span><span class="op">)</span> <span class="co">#Identify the max number of occurrence</span></span>
+<span>  <span class="va">mode</span> <span class="op">&lt;-</span> <span class="va">unique_vals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">value_counts</span> <span class="op">==</span> <span class="va">max_count</span><span class="op">)</span><span class="op">]</span> <span class="co">#Identify the unique value(s) that have the max number of occurrences</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">mode</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>If we test this:</p>
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">modal_value</span> <span class="op">&lt;-</span> <span class="fu">mode_calc</span><span class="op">(</span><span class="va">test_values</span><span class="op">)</span></span>
+<span><span class="va">modal_value</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Functions can also take multiple arguments. For example, we might want to be able to remove <code>NA</code>s
+from the function with an <code>na.rm</code> argument like we have in <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> and <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, so that with
+the presence of any <code>NA</code> values, the function returns <code>NA</code>:</p>
+<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mode_calc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vect</span>, <span class="va">na.rm</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">na.rm</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="co">#Return NA if needed</span></span>
+<span>  <span class="va">unique_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Get unique values in the vector</span></span>
+<span>  <span class="va">value_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tabulate.html">tabulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Count the number of occurrence of each value</span></span>
+<span>  <span class="va">max_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">value_counts</span><span class="op">)</span> <span class="co">#Identify the max number of occurrence</span></span>
+<span>  <span class="va">mode</span> <span class="op">&lt;-</span> <span class="va">unique_vals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">value_counts</span> <span class="op">==</span> <span class="va">max_count</span><span class="op">)</span><span class="op">]</span> <span class="co">#Identify the unique value(s) that have the max number of occurrences</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">mode</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="va">modal_value</span> <span class="op">&lt;-</span> <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">test_values</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">modal_value</span></span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">modal_value</span> <span class="op">&lt;-</span> <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">test_values</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">modal_value</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Finally, you can also provide <strong>defaults</strong> to function arguments, which are specified just
+like you see them on the help pages of other functions. We did not specify a default for either
+<code>vect</code> or <code>na.rm</code> in our <code>mode_calc2</code> function. This means that the function will throw an
+error if we fail to specify either argument:</p>
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">modal_value</span> <span class="op">&lt;-</span> <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">test_values</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Error in mode_calc2(test_values): argument "na.rm" is missing, with no default</code></pre>
+<p>We can fix this but providing a default value:</p>
+<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mode_calc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vect</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">...</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Although functions can take multiple <em>arguments</em>, they can only produce a single <em>output</em>.
+If you want multiple pieces of information, you will have to combine them into a single argument,
+whether that’s a data frame, a vector, or a list. The output of a function is specified
+within <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>. This isn’t strictly required, but otherwise the function will output
+whatever it last ran, which is not always what you want (see the <code>na.rm</code> example above).</p>
+</div>
+<div id="documenting-functions" class="section level2" number="19.5">
+<h2>
+<span class="header-section-number">19.5</span> Documenting functions<a class="anchor" aria-label="anchor" href="#documenting-functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>It’s a good idea to define the arguments and outputs of functions for your future self
+and any other future users. You can do this with comments or with a special documentation
+called “roxygen”, which package developers use. Roxygen comment lines always start with #’ ,
+(the usual # for a comment, followed immediately by a single quote ’). They are nice because
+they create automatic highlighting and text colors, but also because you can use them to
+create actual help pages, if you want to! (See the “Additional reading” section above.)</p>
+<p>Whether you use roxygen or not, you want to define:</p>
+<ol style="list-style-type: decimal">
+<li>The purpose of the function (“Description” under the help pages)</li>
+<li>The function arguments</li>
+<li>The function’s outputs</li>
+<li>Any useful examples</li>
+</ol>
+<p>Again, with our <code>mode_calc</code> function:</p>
+<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#' Determine the mode of a vector</span></span>
+<span><span class="co">#' </span></span>
+<span><span class="co">#' @param vect A vector (numeric, integer, character, date, or factor)</span></span>
+<span><span class="co">#' @param na.rm Logical; remove NAs?</span></span>
+<span><span class="co">#' @returns A vector of the same type as vect</span></span>
+<span><span class="co">#' @examples</span></span>
+<span><span class="co">#' mode_calc2(c(1,1,2), na.rm = TRUE)</span></span>
+<span><span class="va">mode_calc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vect</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">na.rm</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="co">#Return NA if needed</span></span>
+<span>  <span class="va">unique_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Get unique values in the vector</span></span>
+<span>  <span class="va">value_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tabulate.html">tabulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Count the number of occurrence of each value</span></span>
+<span>  <span class="va">max_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">value_counts</span><span class="op">)</span> <span class="co">#Identify the max number of occurrence</span></span>
+<span>  <span class="va">mode</span> <span class="op">&lt;-</span> <span class="va">unique_vals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">value_counts</span> <span class="op">==</span> <span class="va">max_count</span><span class="op">)</span><span class="op">]</span> <span class="co">#Identify the unique value(s) that have the max number of occurrences</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">mode</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="error-handling" class="section level2" number="19.6">
+<h2>
+<span class="header-section-number">19.6</span> Error handling<a class="anchor" aria-label="anchor" href="#error-handling"><i class="fas fa-link"></i></a>
+</h2>
+<div id="adding-error-and-warning-messages" class="section level3" number="19.6.1">
+<h3>
+<span class="header-section-number">19.6.1</span> Adding error and warning messages<a class="anchor" aria-label="anchor" href="#adding-error-and-warning-messages"><i class="fas fa-link"></i></a>
+</h3>
+<p>In both loops and functions (and maybe even more so in loops), you will sometimes end up with
+arguments that just don’t work and need an error or warning. We are accustomed to using functions
+that show error and warning messages; for example, if we provide a character vector to <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>:</p>
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"this"</span>,<span class="st">"is"</span>,<span class="st">"a"</span>,<span class="st">"character"</span>,<span class="st">"vector"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning in mean.default(c("this", "is", "a", "character", "vector")): argument
+## is not numeric or logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>We can make this happen for our own functions, too. For example, the <code>tabulate</code> function,
+doesn’t work well on numeric vectors of length 1 because it assumes we want a sequence of numbers
+of that length. We can warn users about this using the <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code> function:</p>
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mode_calc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vect</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Vector has only 1 non-NA value; results may be unexpected"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">na.rm</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="co">#Return NA if needed</span></span>
+<span>  <span class="va">unique_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Get unique values in the vector</span></span>
+<span>  <span class="va">value_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tabulate.html">tabulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Count the number of occurrence of each value</span></span>
+<span>  <span class="va">max_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">value_counts</span><span class="op">)</span> <span class="co">#Identify the max number of occurrence</span></span>
+<span>  <span class="va">mode</span> <span class="op">&lt;-</span> <span class="va">unique_vals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">value_counts</span> <span class="op">==</span> <span class="va">max_count</span><span class="op">)</span><span class="op">]</span> <span class="co">#Identify the unique value(s) that have the max number of occurrences</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">mode</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">mode_calc2</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning in mode_calc2(10): Vector has only 1 non-NA value; results may be
+## unexpected</code></pre>
+<pre><code>## [1] 10</code></pre>
+<p>Alternatively, we could make this an error using the <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> function:</p>
+<div class="sourceCode" id="cb655"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mode_calc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vect</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Vector has only 1 non-NA value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">na.rm</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="co">#Return NA if needed</span></span>
+<span>  <span class="va">unique_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Get unique values in the vector</span></span>
+<span>  <span class="va">value_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tabulate.html">tabulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span><span class="op">)</span> <span class="co">#Count the number of occurrence of each value</span></span>
+<span>  <span class="va">max_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">value_counts</span><span class="op">)</span> <span class="co">#Identify the max number of occurrence</span></span>
+<span>  <span class="va">mode</span> <span class="op">&lt;-</span> <span class="va">unique_vals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">value_counts</span> <span class="op">==</span> <span class="va">max_count</span><span class="op">)</span><span class="op">]</span> <span class="co">#Identify the unique value(s) that have the max number of occurrences</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">mode</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">mode_calc2</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Error in mode_calc2(10): Vector has only 1 non-NA value</code></pre>
+<p>It’s also important to note that if you look at your environment, you will <em>not</em> see objects
+called <code>unique_vals</code>, <code>value_counts</code>, and so on. These are created only inside the function.</p>
+</div>
+<div id="errors-and-warnings" class="section level3" number="19.6.2">
+<h3>
+<span class="header-section-number">19.6.2</span> Errors and warnings<a class="anchor" aria-label="anchor" href="#errors-and-warnings"><i class="fas fa-link"></i></a>
+</h3>
+<p>On the other hand, sometimes an internal function will throw an error that we don’t
+care about, but it will stop our loop or function from working. This is especially frustrating
+in a loop because the loop will quit partway through, just when you walked away to let your
+code run for a while. Luckily, there is a single function that helps with this: <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>.
+The function takes a little getting used to, but with some practice (and copying and pasting)
+from other code) it can streamline your workflow significantly.</p>
+<p>Let’s say that, using my function above, I wrote a loop to take the mode of a series of numbers.
+First, I’m creating a list, which is just a single object containing multiple vectors. Notice that
+one of them (the third vector) has only one element, so we know already that <code>mode_calc2</code> will
+produce an error:</p>
+<div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">1</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb659"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Error in mode_calc2(vectors[[3]]): Vector has only 1 non-NA value</code></pre>
+<p>If I want the function return something instead of an error, I can enclose the function
+causing the problem within <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>:</p>
+<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span><span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>In our usual use, <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> takes two arguments: first, a function (or series of functions,
+which we will get to), and second, the <code>error</code> argument, which itself has to be a function.
+In most cases, you can write a function like the one I wrote above, that just returns a single value
+(in this case, <code>NA</code>).</p>
+<p>This becomes especially useful because if I loop through this list, my loop will quit at the third
+element, which you see because I have two outputs before my error message:</p>
+<div class="sourceCode" id="cb663"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vectors</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">vect</span> <span class="op">&lt;-</span> <span class="va">vectors</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">mode_val</span> <span class="op">&lt;-</span> <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mode_val</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 4
+## [1] 1</code></pre>
+<pre><code>## Error in mode_calc2(vect): Vector has only 1 non-NA value</code></pre>
+<p>I can once again enclose my function within <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>:</p>
+<div class="sourceCode" id="cb666"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vectors</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">vect</span> <span class="op">&lt;-</span> <span class="va">vectors</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">mode_val</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mode_val</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 4
+## [1] 1
+## [1] NA
+## [1] 7 9
+## [1] 10
+## [1] 2
+## [1] 5 6</code></pre>
+<p>This brings up another point about <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>: you want it to enclose the function, but not
+the assignment. This is because in this case the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> is <code>NA</code>, so we want to
+assign <code>mode_val</code> <em>to the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code></em>. Using curly brackets allows us to include as many lines
+of code as we want within the <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> function, which can be helpful if you are using a series of
+functions to create a single argument. This takes some practice, but try to remember two key
+elements:</p>
+<ol style="list-style-type: decimal">
+<li>The <code>error</code> argument to <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> needs to be a function.</li>
+<li>You want to assign the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> to an object in most cases.</li>
+</ol>
+<p>Happy functioning!</p>
 
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -95,6 +358,15 @@
 <li><a class="nav-link" href="#functions"><span class="header-section-number">19</span> Writing Your Own Functions</a></li>
 <li><a class="nav-link" href="#objectives-16"><span class="header-section-number">19.1</span> Objectives</a></li>
 <li><a class="nav-link" href="#additional-reading-13"><span class="header-section-number">19.2</span> Additional reading</a></li>
+<li><a class="nav-link" href="#why-write-your-own-functions"><span class="header-section-number">19.3</span> Why write your own functions?</a></li>
+<li><a class="nav-link" href="#how-do-functions-work"><span class="header-section-number">19.4</span> How do functions work?</a></li>
+<li><a class="nav-link" href="#documenting-functions"><span class="header-section-number">19.5</span> Documenting functions</a></li>
+<li>
+<a class="nav-link" href="#error-handling"><span class="header-section-number">19.6</span> Error handling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#adding-error-and-warning-messages"><span class="header-section-number">19.6.1</span> Adding error and warning messages</a></li>
+<li><a class="nav-link" href="#errors-and-warnings"><span class="header-section-number">19.6.2</span> Errors and warnings</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -111,7 +383,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-09-16.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
