@@ -7,11 +7,11 @@ fig:unnamed-chunk-20
 fig:unnamed-chunk-25
 fig:unnamed-chunk-13
 fig:unnamed-chunk-11
-fig:unnamed-chunk-2
 fig:unnamed-chunk-3
 fig:unnamed-chunk-4
 fig:github03
 fig:markdown
+fig:unnamed-chunk-2
 fig:unnamed-chunk-5
 course-overview
 how-to-use-this-book
@@ -163,9 +163,6 @@ exporting-and-saving-plots
 tables
 objectives-10
 additional-reading-10
-tables-as-outputs
-writing-tables-to-files
-an-r-package-for-table-design-gt
 git
 objectives-11
 the-what-and-why-of-version-control

@@ -71,158 +71,162 @@ dat_summ_out <- dat_summ %>%
          `Mean body mass (g)` = body_mass_mean,
          `SD body mass` = body_mass_sd) %>%
   rename_all(str_to_sentence) %>%
-  mutate(across(is.numeric, round)) #Let's talk about this one! What is this doing?
+  mutate(across(where(is.numeric), round))
 
 write_csv(dat_summ_out, "outputs/penguin_summary.csv")
 ```
 
 *What other formatting details might you want to consider before writing data to a file?*
 
-## An R package for table design: `gt`
+## An R package for exporting to Word: `flextable`
 
-The method above is useful if you have a table or two to place in a report. What if you have a lot? The amount of extra time it takes to reformat each (and update every time something changes) might make it worth investing in a more automated solution. The [`gt`](https://gt.rstudio.com/articles/gt.html) package provides just that. It is very flexible, allowing you to create complex, nested tables. Although there is a bit of a learning curve to using the package, the time investment pays off if you produce a lot of tables.
 
-Here's an example of our penguin data in `gt` format:
 
-```{r}
-library(gt)
-gt(dat_summ_out)
-```
+<!-- ## An R package for table design: `gt` -->
 
-The formatting might be a little unexpected, because it's different than what we saw before. Now, instead of repeating species across sex, the table is nested by species. `gt` knew to do this because our tibble/data frame was grouped by species:
+<!-- The method above is useful if you have a table or two to place in a report. What if you have a lot? The amount of extra time it takes to reformat each (and update every time something changes) might make it worth investing in a more automated solution. The [`gt`](https://gt.rstudio.com/articles/gt.html) package provides just that. It is very flexible, allowing you to create complex, nested tables. Although there is a bit of a learning curve to using the package, the time investment pays off if you produce a lot of tables. -->
 
-```{r}
-class(dat_summ_out)
-groups(dat_summ_out)
-```
+<!-- Here's an example of our penguin data in `gt` format: -->
 
-By default `dplyr` maintains the groups in `group_by()` even after the summary is done. We could ungroup the table, in which case, our output would change:
+<!-- ```{r} -->
+<!-- library(gt) -->
+<!-- gt(dat_summ_out) -->
+<!-- ``` -->
 
-```{r}
-dat_summ_out %>%
-  ungroup() %>%
-  gt()
-```
+<!-- The formatting might be a little unexpected, because it's different than what we saw before. Now, instead of repeating species across sex, the table is nested by species. `gt` knew to do this because our tibble/data frame was grouped by species: -->
 
-This output is an image. You could copy it into a document, but that it wouldn't be embedded in the same way a table is. Instead, we can use the `gtsave()` function with a given file ending to save our output in a format for a word processor.
+<!-- ```{r} -->
+<!-- class(dat_summ_out) -->
+<!-- groups(dat_summ_out) -->
+<!-- ``` -->
 
-```{r}
-dat_summ_out %>%
-  gt() %>%
-  gtsave("outputs/penguin_bm_summary.docx")
-```
+<!-- By default `dplyr` maintains the groups in `group_by()` even after the summary is done. We could ungroup the table, in which case, our output would change: -->
 
-```{r, fig.cap="The default gtable format in Word", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
-knitr::include_graphics("images/gtable-out.png")
-```
+<!-- ```{r} -->
+<!-- dat_summ_out %>% -->
+<!--   ungroup() %>% -->
+<!--   gt() -->
+<!-- ``` -->
 
-Now this format is readable by Word; if you click in the table, the usual formatting options will appear. Next, let's work on formatting the table to look exactly like the manually created one. To start off, we'll create an object for our table so we can modify it:
+<!-- This output is an image. You could copy it into a document, but that it wouldn't be embedded in the same way a table is. Instead, we can use the `gtsave()` function with a given file ending to save our output in a format for a word processor. -->
 
-```{r}
-gt_penguins <- gt(ungroup(dat_summ_out))
-```
+<!-- ```{r} -->
+<!-- dat_summ_out %>% -->
+<!--   gt() %>% -->
+<!--   gtsave("outputs/penguin_bm_summary.docx") -->
+<!-- ``` -->
 
-I usually write my documents in Times New Roman, so first I'll change the font using the `opt_table_font()` function, which defines fonts for the entire table:
+<!-- ```{r, fig.cap="The default gtable format in Word", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE} -->
+<!-- knitr::include_graphics("images/gtable-out.png") -->
+<!-- ``` -->
 
-```{r}
-gt_penguins <- opt_table_font(gt_penguins, font = "Times")
-gt_penguins
-```
+<!-- Now this format is readable by Word; if you click in the table, the usual formatting options will appear. Next, let's work on formatting the table to look exactly like the manually created one. To start off, we'll create an object for our table so we can modify it: -->
 
-Now I will change the header row to bold font. This time I use the `tab_style()` function, since I only want to change properties for specific cells, not the entire table:
+<!-- ```{r} -->
+<!-- gt_penguins <- gt(ungroup(dat_summ_out)) -->
+<!-- ``` -->
 
-```{r}
-gt_penguins <- tab_style(gt_penguins, 
-                         style = cell_text(weight = "bold"), 
-                         location = cells_column_labels())
-gt_penguins
-```
+<!-- I usually write my documents in Times New Roman, so first I'll change the font using the `opt_table_font()` function, which defines fonts for the entire table: -->
 
-Looking in the help funciton for `tab_style()`, I learned that to the `style` argument I need to specify a function like `cell_text()` or `cell_fill()`, then the options within that function. The `location` argument indicates which cells to edit. Again, this should be a function starting with `cells_*`, which is essentially a selection argument. The help functions will be useful to you here to find the cells you are looking for.
+<!-- ```{r} -->
+<!-- gt_penguins <- opt_table_font(gt_penguins, font = "Times") -->
+<!-- gt_penguins -->
+<!-- ``` -->
 
-Now I will work on the borders. This workflow is similar to the one I used above. First, I remove all the borders using an `opt_*` function, then I add borders back where I want them using `tab_style()`:
+<!-- Now I will change the header row to bold font. This time I use the `tab_style()` function, since I only want to change properties for specific cells, not the entire table: -->
 
-```{r}
-gt_penguins <- gt_penguins %>%
-  opt_table_lines(extent = "none") %>%
-  tab_style(style = cell_borders(sides = c("top", "bottom")),
-            location = cells_column_labels()) %>%
-  tab_style(style = cell_borders(sides = "bottom"),
-            location = cells_body(rows = nrow(dat_summ_out))) #add bottom border to the last row
-gt_penguins
-```
+<!-- ```{r} -->
+<!-- gt_penguins <- tab_style(gt_penguins,  -->
+<!--                          style = cell_text(weight = "bold"),  -->
+<!--                          location = cells_column_labels()) -->
+<!-- gt_penguins -->
+<!-- ``` -->
 
-All that's left is the alignment. I want to left-align my character columns and right-align my numeric columns.
+<!-- Looking in the help funciton for `tab_style()`, I learned that to the `style` argument I need to specify a function like `cell_text()` or `cell_fill()`, then the options within that function. The `location` argument indicates which cells to edit. Again, this should be a function starting with `cells_*`, which is essentially a selection argument. The help functions will be useful to you here to find the cells you are looking for. -->
 
-```{r}
-gt_penguins <- gt_penguins %>%
-  tab_style(style = cell_text(align = "left"),
-            location = list(cells_column_labels(columns = c("Species","Sex")),
-                            cells_body(columns = c("Species","Sex"))))
-gt_penguins
-```
+<!-- Now I will work on the borders. This workflow is similar to the one I used above. First, I remove all the borders using an `opt_*` function, then I add borders back where I want them using `tab_style()`: -->
 
-Notice that because I wanted to do this to both the body cells and the column labels, I had to specify both of those and combine them as a `list`.
+<!-- ```{r} -->
+<!-- gt_penguins <- gt_penguins %>% -->
+<!--   opt_table_lines(extent = "none") %>% -->
+<!--   tab_style(style = cell_borders(sides = c("top", "bottom")), -->
+<!--             location = cells_column_labels()) %>% -->
+<!--   tab_style(style = cell_borders(sides = "bottom"), -->
+<!--             location = cells_body(rows = nrow(dat_summ_out))) #add bottom border to the last row -->
+<!-- gt_penguins -->
+<!-- ``` -->
 
-Finally, let's do the same thing, but for the grouped data. Now, we need to deal with design choices related to the groups, but first I will change the font:
+<!-- All that's left is the alignment. I want to left-align my character columns and right-align my numeric columns. -->
 
-```{r}
-gt_penguins <- dat_summ_out %>%
-  gt() %>%
-  opt_table_font(font = "Times") %>%
-  tab_style(style = cell_text(weight = "bold"), 
-                         location = cells_column_labels()) 
-gt_penguins 
-```
+<!-- ```{r} -->
+<!-- gt_penguins <- gt_penguins %>% -->
+<!--   tab_style(style = cell_text(align = "left"), -->
+<!--             location = list(cells_column_labels(columns = c("Species","Sex")), -->
+<!--                             cells_body(columns = c("Species","Sex")))) -->
+<!-- gt_penguins -->
+<!-- ``` -->
 
-Now, notice that the species are on their own line. I typically would include them as another column, so I'll do that using the strategy I found on [this Stack Overflow page](https://stackoverflow.com/questions/76260847/how-can-i-put-the-groups-in-an-extra-column-in-a-gt-table):
+<!-- Notice that because I wanted to do this to both the body cells and the column labels, I had to specify both of those and combine them as a `list`. -->
 
-```{r}
-gt_penguins <- gt_penguins %>%
-  tab_options(row_group.as_column = TRUE)
-gt_penguins 
-```
+<!-- Finally, let's do the same thing, but for the grouped data. Now, we need to deal with design choices related to the groups, but first I will change the font: -->
 
-Now I can use the same lines and alignment as I did before:
+<!-- ```{r} -->
+<!-- gt_penguins <- dat_summ_out %>% -->
+<!--   gt() %>% -->
+<!--   opt_table_font(font = "Times") %>% -->
+<!--   tab_style(style = cell_text(weight = "bold"),  -->
+<!--                          location = cells_column_labels())  -->
+<!-- gt_penguins  -->
+<!-- ``` -->
 
-```{r}
-gt_penguins %>%
-  tab_style(style = cell_text(align = "left"),
-            location = list(cells_column_labels(columns = "Sex"),
-                            cells_body(columns = "Sex"))) %>%
-  opt_table_lines(extent = "none") %>%
-  tab_style(style = cell_borders(sides = c("top", "bottom")),
-            location = cells_column_labels()) %>%
-  tab_style(style = cell_borders(sides = "bottom"),
-            location = cells_body(rows = nrow(dat_summ_out))) 
-```
+<!-- Now, notice that the species are on their own line. I typically would include them as another column, so I'll do that using the strategy I found on [this Stack Overflow page](https://stackoverflow.com/questions/76260847/how-can-i-put-the-groups-in-an-extra-column-in-a-gt-table): -->
 
-Oops, that's not what I wanted. I guess `cells_column_labels()` only gives me named columns, whereas the species column no longer has a name. Trying again:
+<!-- ```{r} -->
+<!-- gt_penguins <- gt_penguins %>% -->
+<!--   tab_options(row_group.as_column = TRUE) -->
+<!-- gt_penguins  -->
+<!-- ``` -->
 
-```{r}
-gt_penguins <- gt_penguins %>%
-  tab_style(style = cell_text(align = "left"),
-            location = list(cells_column_labels(columns = "Sex"),
-                            cells_body(columns = "Sex"))) %>%
-  opt_table_lines(extent = "none") %>%
-  tab_style(style = cell_borders(sides = c("top", "bottom")),
-            location = list(cells_column_labels(), 
-                            cells_stubhead())) %>%
-  tab_style(style = cell_borders(sides = "bottom"),
-            location = list(cells_body(rows = nrow(dat_summ_out)),
-                            cells_row_groups(groups = n_distinct(dat_summ_out$Species)))) 
-gt_penguins
-```
+<!-- Now I can use the same lines and alignment as I did before: -->
 
-The **stub** is the area to the left in a table that contains row labels, row group labels, and/or summary labels; in this case it is the species group. The `cells_stubhead()` function finds the header of these cells, so in this case the top-leftmost cell of the table. Similarly, `cells_row_groups()` finds all the grouping rows; I just want the last one, so I use the number of species groups present (`n_distinct(dat_summ_out$Species`)).
+<!-- ```{r} -->
+<!-- gt_penguins %>% -->
+<!--   tab_style(style = cell_text(align = "left"), -->
+<!--             location = list(cells_column_labels(columns = "Sex"), -->
+<!--                             cells_body(columns = "Sex"))) %>% -->
+<!--   opt_table_lines(extent = "none") %>% -->
+<!--   tab_style(style = cell_borders(sides = c("top", "bottom")), -->
+<!--             location = cells_column_labels()) %>% -->
+<!--   tab_style(style = cell_borders(sides = "bottom"), -->
+<!--             location = cells_body(rows = nrow(dat_summ_out)))  -->
+<!-- ``` -->
 
-This last example highlights one of the challenges of `gt`: there are so many options that they can be hard to find. The [documentation](https://gt.rstudio.com/reference/index.html) is very helpful. Also, once you understand the basic structure of the functions, you can try using autofill to suggest other options. For example, if you know you want to select a cell type but don't know what it's called, try typing in `?cell_` and checking out your options.
+<!-- Oops, that's not what I wanted. I guess `cells_column_labels()` only gives me named columns, whereas the species column no longer has a name. Trying again: -->
 
-Additional features of `gt` include:
+<!-- ```{r} -->
+<!-- gt_penguins <- gt_penguins %>% -->
+<!--   tab_style(style = cell_text(align = "left"), -->
+<!--             location = list(cells_column_labels(columns = "Sex"), -->
+<!--                             cells_body(columns = "Sex"))) %>% -->
+<!--   opt_table_lines(extent = "none") %>% -->
+<!--   tab_style(style = cell_borders(sides = c("top", "bottom")), -->
+<!--             location = list(cells_column_labels(),  -->
+<!--                             cells_stubhead())) %>% -->
+<!--   tab_style(style = cell_borders(sides = "bottom"), -->
+<!--             location = list(cells_body(rows = nrow(dat_summ_out)), -->
+<!--                             cells_row_groups(groups = n_distinct(dat_summ_out$Species))))  -->
+<!-- gt_penguins -->
+<!-- ``` -->
 
-* Footnotes
-* Embedded title and subtitle
-* Grouped columns
-* ...
+<!-- The **stub** is the area to the left in a table that contains row labels, row group labels, and/or summary labels; in this case it is the species group. The `cells_stubhead()` function finds the header of these cells, so in this case the top-leftmost cell of the table. Similarly, `cells_row_groups()` finds all the grouping rows; I just want the last one, so I use the number of species groups present (`n_distinct(dat_summ_out$Species`)). -->
 
-A note: at the time of writing, formatting is not preserved perfectly across output formats in `gt` (e.g., what you see in the Viewer is not exactly what Word shows). [This fix is in progress](https://github.com/rstudio/gt/issues/1098).
+<!-- This last example highlights one of the challenges of `gt`: there are so many options that they can be hard to find. The [documentation](https://gt.rstudio.com/reference/index.html) is very helpful. Also, once you understand the basic structure of the functions, you can try using autofill to suggest other options. For example, if you know you want to select a cell type but don't know what it's called, try typing in `?cell_` and checking out your options. -->
+
+<!-- Additional features of `gt` include: -->
+
+<!-- * Footnotes -->
+<!-- * Embedded title and subtitle -->
+<!-- * Grouped columns -->
+<!-- * ... -->
+
+<!-- A note: at the time of writing, formatting is not preserved perfectly across output formats in `gt` (e.g., what you see in the Viewer is not exactly what Word shows). [This fix is in progress](https://github.com/rstudio/gt/issues/1098). -->

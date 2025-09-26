@@ -135,7 +135,7 @@ Sys.Date()
 ```
 
 ```
-## [1] "2025-09-23"
+## [1] "2025-09-26"
 ```
 
 ``` r
@@ -143,7 +143,7 @@ Sys.time() #careful, this is not the same as system.time. We might get to that o
 ```
 
 ```
-## [1] "2025-09-23 11:39:49 EDT"
+## [1] "2025-09-26 13:05:26 EDT"
 ```
 
 ### Formatting dates
