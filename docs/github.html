@@ -17,7 +17,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -101,7 +102,7 @@
 </h3>
 <p>The other way to get a local-remote repository pair set up is to create a GitHub repository first and clone it on your computer. In this case, it doesn’t matter whether the remote repository is empty or not. Cloning a repository is also useful if you are collaborating on a project with someone on their repository. You and your collaborator/s can all have a copy of the same repository on each of your computers by cloning a shared remote repository, which will then be synchronized with changes made by anyone on the team. The person who created the repository will need to add the others as collaborators so that they’re able to clone it.</p>
 <p>To clone a repository, open the terminal and navigate to the folder where you want to download it. Then use the following command:</p>
-<div class="sourceCode" id="cb497"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb497-1"><a href="github.html#cb497-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/cteitel/hello-world.git</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb532-1"><a href="github.html#cb532-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/cteitel/hello-world.git</span></code></pre></div>
 <p>The repository will be copied to your computer into the folder you specified.</p>
 </div>
 </div>
@@ -110,7 +111,7 @@
 <span class="header-section-number">15.3</span> Synchronizing changes among collaborators<a class="anchor" aria-label="anchor" href="#synchronizing-changes-among-collaborators"><i class="fas fa-link"></i></a>
 </h2>
 <p>The inverse of pushing is pulling, which transfers files and changes from the remote repository to the local one:</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb498-1"><a href="github.html#cb498-1" tabindex="-1"></a><span class="fu">git</span> pull </span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb533-1"><a href="github.html#cb533-1" tabindex="-1"></a><span class="fu">git</span> pull </span></code></pre></div>
 <p>When you are working with collaborators on a shared GitHub repository, you will periodically need to pull from it to make sure your local copy is synchronized with changes somebody else might have made. You always need to pull before you push your own changes, because Git won’t allow you to push if the remote repository has changes that you don’t have on your local copy. It is therefore good practice to pull changes before starting work. If the two repositories are already up-to-date and you try to pull, nothing will happen because there are no changes on the remote repository that aren’t already in the local.</p>
 <p>If a collaborator makes a change that is in conflict with what we committed to our own local repository, when we try to pull we are going to encounter a merge conflict. Merge conflicts occur when two collaborators work on the same file at the same time. GitHub does not know how to automatically reconcile changes to the same file (how would it?), and it will throw an error that we’ll need to resolve manually.</p>
 </div>
@@ -120,14 +121,14 @@
 </h2>
 <p>Having to deal with merge conflicts is eventually very likely when working on collaborative projects, but they can be handled and resolved without too much pain.</p>
 <p>If two collaborators edit the same file at the same time without pulling each other’s changes first, when one tries to push their changes to the remote they will get an error message that looks like this:</p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb499-1"><a href="github.html#cb499-1" tabindex="-1"></a><span class="ex">To</span> https://github.com/picardis/myrepo.git</span>
-<span id="cb499-2"><a href="github.html#cb499-2" tabindex="-1"></a> <span class="ot">! </span><span class="ex">[rejected]</span>        master <span class="at">-</span><span class="op">&gt;</span> master <span class="er">(</span><span class="ex">fetch</span> first<span class="kw">)</span></span>
-<span id="cb499-3"><a href="github.html#cb499-3" tabindex="-1"></a><span class="ex">error:</span> failed to push some refs to <span class="st">'https://github.com/picardis/myrepo.git'</span></span>
-<span id="cb499-4"><a href="github.html#cb499-4" tabindex="-1"></a><span class="ex">hint:</span> Updates were rejected because the remote contains work that you do</span>
-<span id="cb499-5"><a href="github.html#cb499-5" tabindex="-1"></a><span class="ex">hint:</span> not have locally. This is usually caused by another repository pushing</span>
-<span id="cb499-6"><a href="github.html#cb499-6" tabindex="-1"></a><span class="ex">hint:</span> to the same ref. You may want to first integrate the remote changes</span>
-<span id="cb499-7"><a href="github.html#cb499-7" tabindex="-1"></a><span class="ex">hint:</span> <span class="er">(</span><span class="ex">e.g.,</span> <span class="st">'git pull ...'</span><span class="kw">)</span> <span class="ex">before</span> pushing again.</span>
-<span id="cb499-8"><a href="github.html#cb499-8" tabindex="-1"></a><span class="ex">hint:</span> See the <span class="st">'Note about fast-forwards'</span> in <span class="st">'git push --help'</span> for details.</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb534-1"><a href="github.html#cb534-1" tabindex="-1"></a><span class="ex">To</span> https://github.com/picardis/myrepo.git</span>
+<span id="cb534-2"><a href="github.html#cb534-2" tabindex="-1"></a> <span class="ot">! </span><span class="ex">[rejected]</span>        master <span class="at">-</span><span class="op">&gt;</span> master <span class="er">(</span><span class="ex">fetch</span> first<span class="kw">)</span></span>
+<span id="cb534-3"><a href="github.html#cb534-3" tabindex="-1"></a><span class="ex">error:</span> failed to push some refs to <span class="st">'https://github.com/picardis/myrepo.git'</span></span>
+<span id="cb534-4"><a href="github.html#cb534-4" tabindex="-1"></a><span class="ex">hint:</span> Updates were rejected because the remote contains work that you do</span>
+<span id="cb534-5"><a href="github.html#cb534-5" tabindex="-1"></a><span class="ex">hint:</span> not have locally. This is usually caused by another repository pushing</span>
+<span id="cb534-6"><a href="github.html#cb534-6" tabindex="-1"></a><span class="ex">hint:</span> to the same ref. You may want to first integrate the remote changes</span>
+<span id="cb534-7"><a href="github.html#cb534-7" tabindex="-1"></a><span class="ex">hint:</span> <span class="er">(</span><span class="ex">e.g.,</span> <span class="st">'git pull ...'</span><span class="kw">)</span> <span class="ex">before</span> pushing again.</span>
+<span id="cb534-8"><a href="github.html#cb534-8" tabindex="-1"></a><span class="ex">hint:</span> See the <span class="st">'Note about fast-forwards'</span> in <span class="st">'git push --help'</span> for details.</span></code></pre></div>
 <p>Git is rejecting the push because it found some updates in the remote repository that have not been incorporated in the local copy. To solve this, the person who got the error will need to pull the most recent changes, merge them into their current copy, and then push the resulting file.</p>
 <p>After pulling, if we open the file where the conflict is, we’ll find that Git did not erase one person’s changes in favor of the other’s; instead, it marked the lines where conflicting changes occur. The beginning and end of the problematic chunk are highlighted, and the two versions are separated by ‘=’ signs.</p>
 <div class="figure" style="text-align: left">
@@ -157,17 +158,17 @@ Figure 14.2: Merge conflict in this R Markdown document
 </h2>
 <p>By default, a new repository contains a single branch: the main branch. However, we can create new branches within a repository. A branch is like a parallel universe where any changes we make on the files only exist on that branch and do not affect the main branch. Branches allow you to freely experiment with editing files and code without affecting the original project until you’re ready to merge them.</p>
 <p>The command to create a branch called “my-branch” is:</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb500-1"><a href="github.html#cb500-1" tabindex="-1"></a><span class="fu">git</span> branch my-branch</span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb535-1"><a href="github.html#cb535-1" tabindex="-1"></a><span class="fu">git</span> branch my-branch</span></code></pre></div>
 <p>You can also click the “New Branch” button in RStudio.</p>
 <p>To start working on the new branch, we switch to it with the following command:</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb501-1"><a href="github.html#cb501-1" tabindex="-1"></a><span class="fu">git</span> checkout my-branch</span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb536-1"><a href="github.html#cb536-1" tabindex="-1"></a><span class="fu">git</span> checkout my-branch</span></code></pre></div>
 <p>To verify which branch we’re on, we can use ‘git log’ (we’ve used this same command before to look at the commit history):</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb502-1"><a href="github.html#cb502-1" tabindex="-1"></a><span class="fu">git</span> log </span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb537-1"><a href="github.html#cb537-1" tabindex="-1"></a><span class="fu">git</span> log </span></code></pre></div>
 <p>The word ‘HEAD’ in the output of <code>git log</code> is called a pointer; it tells us which branch we’re currently working on. On creation, a new branch shares the commit history of the main branch up until the moment the branch was created. After that, the two commit histories are allowed to diverge. Any changes we commit to a branch will be only effective on the that branch and not affect the others. This takes off all the pressure of making changes to your code that could potentially break your workflow downstream. Once you’ve had a chance to verify that the changes work the way you want them to, you can merge the branches back into one.</p>
 <p>To merge changes made in a branch into the main branch we use:</p>
-<div class="sourceCode" id="cb503"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb503-1"><a href="github.html#cb503-1" tabindex="-1"></a><span class="fu">git</span> merge my-branch</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb538-1"><a href="github.html#cb538-1" tabindex="-1"></a><span class="fu">git</span> merge my-branch</span></code></pre></div>
 <p>And then we can delete the ‘my-branch’ branch which is no longer needed:</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb504-1"><a href="github.html#cb504-1" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> my-branch</span></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb539-1"><a href="github.html#cb539-1" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> my-branch</span></code></pre></div>
 <p>If there are conflicting changes on the two branches we are trying to merge, Git will halt the process and issue a merge conflict similar to what we have seen before.</p>
 </div>
 <div id="forking-a-repository" class="section level2" number="15.7">
@@ -184,9 +185,9 @@ Figure 15.1: Fork GitHub repository
 </p>
 </div>
 <p>The repository is now in your GitHub account. If you also want a local copy of this repository on your computer, you can clone your fork. For example, if I forked octocat’s Spoon-Knife repository onto my GitHub account, I could then clone it onto my computer like so:</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb505-1"><a href="github.html#cb505-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/picardis/Spoon-Knife</span></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb540-1"><a href="github.html#cb540-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/picardis/Spoon-Knife</span></code></pre></div>
 <p>To keep my fork up-to-date with the original repository, I can configure it as follows:</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb506-1"><a href="github.html#cb506-1" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/octocat/Spoon-Knife.git</span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb541-1"><a href="github.html#cb541-1" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/octocat/Spoon-Knife.git</span></code></pre></div>
 <p>Now I will be able to pull from the original repository and keep my local copy synchronized. I won’t be able to push because I do not have collaborator privileges on this repository.</p>
 </div>
 <div id="pull-requests" class="section level2" number="15.8">

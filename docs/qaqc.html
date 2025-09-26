@@ -17,7 +17,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -95,7 +96,7 @@
 <span class="header-section-number">17.3</span> Fixing issues with data entry and reading data<a class="anchor" aria-label="anchor" href="#fixing-issues-with-data-entry-and-reading-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>Some errors in data come in through inconsistencies in data entry, or incompatibility of data entry with the way R reads data. One issue that you can encounter before even getting data into R deals with special characters (i.e., symbols). Some of these have to be <a href="https://kunststube.net/encoding/">“encoded,”</a> meaning that they are replaced by a code rather than read in as the symbol itself. For the most part, this is for symbols that aren’t on your keyboard, like Greek letters and (in this case) the degree sign.</p>
-<div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -107,11 +108,11 @@
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/raw/messy_georgia_fish_data.csv"</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## Error in type.convert.default(data[[i]], as.is = as.is[i], dec = dec, : invalid multibyte string at '&lt;a1&gt;07'&lt;35&gt;9.2"N, 84&lt;a1&gt;37'27.8"W'</code></pre>
 <p>We can change the encoding that R expects with an additional argument:</p>
-<div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/raw/messy_georgia_fish_data.csv"</span>, fileEncoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span> </span></code></pre></div>
 <p>In this case, I usually find it easiest to play around with the encoding options until something works - it’s more work to figure out the encoding in the original file, and that information is sometimes unavailable.</p>
 <div id="column-names" class="section level3" number="17.3.1">
@@ -119,13 +120,13 @@
 <span class="header-section-number">17.3.1</span> Column names<a class="anchor" aria-label="anchor" href="#column-names"><i class="fas fa-link"></i></a>
 </h3>
 <p>R has a few rules for column names: they cannot contain spaces or symbols and cannot start with numbers. If you read in a data file with these characteristics, R will do its best to fix them - but not usually in the way you would like. In this case <code>read_csv</code> and <code>read.csv</code> act differently: <code>read_csv</code> creates a tibble, which can handle spaces, symbols, and numbers as long as they are referenced in tick marks (<code></code>), but <code>read.csv</code> will rename your columns.</p>
-<div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/raw/messy_georgia_fish_data.csv"</span>, fileEncoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fish_base</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] "Sample.ID"        "Common.Name"      "Scientific.Name"  "Fish.Length..mm."
 ##  [5] "Date.Collected"   "Sample.Location"  "Coordinates"      "X1st.Method.Used"
 ##  [9] "X2nd.Method.Used" "Notes"</code></pre>
-<div class="sourceCode" id="cb518"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/raw/messy_georgia_fish_data.csv"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 52 Columns: 10
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -135,26 +136,26 @@
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fish_in</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] "Sample ID"        "Common Name"      "Scientific Name"  "Fish Length (mm)"
 ##  [5] "Date Collected"   "Sample Location"  "Coordinates"      "1st Method Used" 
 ##  [9] "2nd Method Used"  "Notes"</code></pre>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="qaqc.html#cb522-1" tabindex="-1"></a><span class="fu">head</span>(fish_in<span class="sc">$</span><span class="dv">1</span>st Method Used) <span class="co">#returns an error</span></span></code></pre></div>
-<div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="qaqc.html#cb557-1" tabindex="-1"></a><span class="fu">head</span>(fish_in<span class="sc">$</span><span class="dv">1</span>st Method Used) <span class="co">#returns an error</span></span></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fish_in</span><span class="op">$</span><span class="va">`1st Method Used`</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] NA              "Seine"         "Trawl"         "Seine"        
 ## [5] NA              "Hook and line"</code></pre>
 <p><em>Side note: Notice that I did not need to include the encoding in <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. This is because it’s a little more likely than <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> to figure out the encoding by default.</em></p>
 <p>Although <code>read_csv</code> works a little better here, it’s still annoying to access columns with ticks, and they won’t work in all functions. The <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename()</a></code> function in <code>dplyr</code> becomes useful here. The <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with()</a></code> function allows us to rename multiple columns using a rule:</p>
-<div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">fish_in</span>, Method1 <span class="op">=</span> <span class="va">`1st Method Used`</span>,</span>
 <span>               Method2 <span class="op">=</span> <span class="va">`2nd Method Used`</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] "Sample ID"        "Common Name"      "Scientific Name"  "Fish Length (mm)"
 ##  [5] "Date Collected"   "Sample Location"  "Coordinates"      "Method1"         
 ##  [9] "Method2"          "Notes"</code></pre>
-<div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="va">fish</span>, <span class="op">~</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">" "</span>, <span class="st">"_"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="va">fish</span>, <span class="op">~</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"[)]|[(]"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span></span></code></pre></div>
@@ -164,14 +165,14 @@
 <p>The syntax of the <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with()</a></code> function introduces a couple of new ways of working with <code>tidyverse</code> functions. Often, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename()</a></code>, and so on expect a function as their second argument. The function is preceded by a tilde (~) and using <code>.x</code> as an argument tells R to use column names.</p>
 <p>Also note that I renamed my data from <code>fish_in</code> to <code>fish</code>. This can help you if you want to compare your clean and raw data later.</p>
 <p>We might also want to follow general best practices and get rid of capital letters:</p>
-<div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="va">fish</span>, <span class="va">str_to_lower</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] "sample_id"       "common_name"     "scientific_name" "fish_length_mm" 
 ##  [5] "date_collected"  "sample_location" "coordinates"     "method1"        
 ##  [9] "method2"         "notes"</code></pre>
 <p>This is another way of using these functions. If they don’t require any other arguments, we can just include the function name (without a ~). The code above is the same as:</p>
-<div class="sourceCode" id="cb531"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="va">fish</span>, <span class="op">~</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="multi-format-columns" class="section level3" number="17.3.2">
@@ -179,7 +180,7 @@
 <span class="header-section-number">17.3.2</span> Multi-format columns<a class="anchor" aria-label="anchor" href="#multi-format-columns"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes, data are entered in such a way that R cannot tell the appropriate format. In this case, you will most often end up with a character column because almost anything can be converted to a character without losing information. We can check the format of the columns using <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> or <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> from tidyverse.</p>
-<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 52
 ## Columns: 10
@@ -194,17 +195,17 @@
 ## $ method2         &lt;chr&gt; "Gill net", "Gill net", "Trawl", "Gill net", "Hook and…
 ## $ notes           &lt;chr&gt; "Unknown location", NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
 <p>It looks like we have problems with two columns: <strong>date_collected</strong> should be a date and <em>coordinates</em> should really be two columns (latitude and longitude). Just looking at the first few elements of date_collected, it looks like it’s all in a month/day/year format, so let’s try that:</p>
-<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">fish</span>, date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="va">date_collected</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
 ## ℹ In argument: `date = mdy(date_collected)`.
 ## Caused by warning:
 ## !  25 failed to parse.</code></pre>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
 <p>The warning tells us that 25 of the elements were not in month/day/year format. Let’s look at that in more detail:</p>
-<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">date_collected</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] "10/4/24"    "7/5/24"     "19-Jun-24"  "6/4/24"     "6/17/24"   
 ##  [6] "25-Jun-24"  "4/27/24"    NA           "5/21/24"    "29/06/2024"
@@ -215,7 +216,7 @@
 ## [31] "28/04/2024" "26-Jun-24"  "12/6/24"    "5/28/24"    "19/06/2024"
 ## [36] "13-Apr-24"</code></pre>
 <p>It looks like we have a few formats. Luckily, <code>lubridate</code> treats names of months as the same as their numbers, so we don’t have to worry about that. Here is where <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> comes in. Since <code><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy()</a></code> returns <code>NA</code> if it can’t parse a date, we can take advantage of that:</p>
-<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">fish</span>, date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="va">date_collected</span><span class="op">)</span>,</span>
 <span>               date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_collected</span><span class="op">)</span>, <span class="va">date</span><span class="op">)</span>,</span>
 <span>               date <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="va">date_collected</span><span class="op">)</span>, <span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -225,11 +226,11 @@
 ## Caused by warning:
 ## !  25 failed to parse.
 ## ℹ Run `dplyr::last_dplyr_warnings()` to see the 2 remaining warnings.</code></pre>
-<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>The logic here is that we first use one method to parse dates. If that doesn’t work, we use another - but we only apply this to dates where the first method returned <code>NA</code>, and we source the date to parse from the original date column. We still get a lot of warnings because we have to go through the <code>NA</code>s. We also still have five <code>NA</code>s, but looking at those more closely, they all had missing dates in the original data:</p>
-<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date_collected</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 × 1
@@ -246,7 +247,7 @@
 <span class="header-section-number">17.3.3</span> Strings and special characters<a class="anchor" aria-label="anchor" href="#strings-and-special-characters"><i class="fas fa-link"></i></a>
 </h3>
 <p>The coordinates column highlights another issue: while R read in the special character (degree symbol) eventually, it doesn’t look right and doesn’t provide us with information here; we don’t usually include units within our data.</p>
-<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">coordinates</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] NA                                    
 ## [2] NA                                    
@@ -255,7 +256,7 @@
 ## [5] "33\xa159'12.48\"N, 84\xa119'25.32\"W"
 ## [6] "34\xa1 7'59.16\"N, 84\xa137'27.84\"W"</code></pre>
 <p>The coordinates also appear to be in a combination of degrees-minutes-seconds format rather than in decimal degrees. Here, we need to split latitude and longitude, split apart the components, and then use them to calculate decimal degrees:</p>
-<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>latitude <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed</a></span><span class="op">(</span><span class="va">coordinates</span>, pattern <span class="op">=</span> <span class="st">","</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
 <span>         longitude <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed</a></span><span class="op">(</span><span class="va">coordinates</span>, <span class="st">","</span>, <span class="fl">2</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
@@ -269,7 +270,7 @@
 ## 4  &lt;NA&gt;               ""                  
 ## 5 "33\xa159'12.48\"N" " 84\xa119'25.32\"W"
 ## 6 "34\xa1 7'59.16\"N" " 84\xa137'27.84\"W"</code></pre>
-<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">latitudes</span> <span class="op">&lt;-</span> <span class="va">fish</span><span class="op">$</span><span class="va">latitude</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co">#split by degree symbol and minutes symbol</span></span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split_fixed</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\xa1|'|\""</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -282,7 +283,7 @@
 ## This warning is displayed once every 8 hours.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
-<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">latitudes</span> <span class="op">&lt;-</span> <span class="va">latitudes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co">#remove north designation and seconds symbol</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"N|\""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -323,7 +324,7 @@
 </h3>
 <p>A duplicate is just that: a piece of data that has been entered twice. <em>True duplicates</em> are data points that share all the same information. They make our lives easy because they are the same - we just need to identify them and remove one. Other duplicates are more ambiguous; for example, I sometimes come across GPS locations from a single animal that have the same timestamp with different coordinates. In this case, we can look at the values to see which is more likely (see “outliers” below) or randomly choose one.</p>
 <p>To check for duplicates, we can use <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>:</p>
-<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#use all columns as groups</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#count the number in each group</span></span>
@@ -343,7 +344,7 @@
 ## #   method2 &lt;chr&gt;, notes &lt;chr&gt;, date &lt;date&gt;, latitude &lt;chr&gt;, longitude &lt;chr&gt;,
 ## #   lat &lt;dbl&gt;, long &lt;dbl&gt;, n &lt;int&gt;</code></pre>
 <p>Here, we know that the data are identical, so we can just take the first of these rows:</p>
-<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#use all columns as groups</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co">#take the first item in each group</span></span>
@@ -351,7 +352,7 @@
 <pre><code>## [1] 1</code></pre>
 <p>I have removed one row.</p>
 <p>If there are any other columns that should be unique identifiers, I can use them here. For example, I think there should only be one row per sample ID.</p>
-<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sample_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#use only sample ID as group</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#count the number in each group</span></span>
@@ -361,7 +362,7 @@
 ##       &lt;dbl&gt; &lt;int&gt;
 ## 1        21     2</code></pre>
 <p>Let’s look at that sample:</p>
-<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="va">sample_id</span> <span class="op">==</span> <span class="fl">21</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 15
 ## # Groups:   sample_id, common_name, scientific_name, fish_length_mm,
@@ -375,7 +376,7 @@
 ## #   method2 &lt;chr&gt;, notes &lt;chr&gt;, date &lt;date&gt;, latitude &lt;chr&gt;, longitude &lt;chr&gt;,
 ## #   lat &lt;dbl&gt;, long &lt;dbl&gt;</code></pre>
 <p>We can look at which columns differ:</p>
-<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="va">sample_id</span> <span class="op">==</span> <span class="fl">21</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sample_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#group by sample ID</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">n_distinct</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#get the number of unique values in each column</span></span>
@@ -398,12 +399,12 @@
 ## 13        21 lat                 1
 ## 14        21 long                1</code></pre>
 <p>It looks like method1 is our problem:</p>
-<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="va">sample_id</span> <span class="op">==</span> <span class="fl">21</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">method1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Electrofishing" "electrofishing"</code></pre>
 <p>We have a capitalization problem! While we’re at it, why don’t we make sure that is fixed for all character columns:</p>
-<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>common_name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title</a></span><span class="op">(</span><span class="va">common_name</span><span class="op">)</span>,</span>
 <span>         scientific_name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_sentence</a></span><span class="op">(</span><span class="va">scientific_name</span><span class="op">)</span>,</span>
@@ -411,7 +412,7 @@
 <span>         method1 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower</a></span><span class="op">(</span><span class="va">method1</span><span class="op">)</span>,</span>
 <span>         method2 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower</a></span><span class="op">(</span><span class="va">method2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can remove that final duplicate:</p>
-<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sample_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#use all columns as groups</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#take the first item in each group</span></span>
@@ -424,38 +425,38 @@
 <span class="header-section-number">17.4.2</span> Outliers<a class="anchor" aria-label="anchor" href="#outliers"><i class="fas fa-link"></i></a>
 </h3>
 <p>For quantitative variables, outliers are values outside the expected range of the data. Some outliers are true data - for example, an organism that is very large or very small for its species - but some are due to errors in data entry, instrumentation, or sampling. For example, a juvenile might have been measured in a sample that was supposed to only be adults. To identify outliers, we can look at the range and distributions of our numeric variables. In the fish dataset, we only have one numeric variable: fish length.</p>
-<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">fish_length_mm</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1]    27 10000</code></pre>
-<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">fish_length_mm</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="data-cleaning_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
 <p>It looks like we have a bunch of lengths that are way too long to be reasonable. Let’s look at those values:</p>
-<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish_length_mm</span> <span class="op">&gt;</span> <span class="fl">6000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">fish_length_mm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1]  9999 10000</code></pre>
 <p>We see there are two outliers here: 9,999 and 10,000. 9999 is a common code for missing data, so we probably want to replace those with NAs. 10,000 is probably an error in data entry. Let’s convert those all to NAs:</p>
-<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fish_length_mm <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">fish_length_mm</span> <span class="op">&gt;</span> <span class="fl">6000</span>, <span class="cn">NA</span>, <span class="va">fish_length_mm</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">fish_length_mm</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="data-cleaning_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
 <p>That looks better.</p>
 <p>Sometimes these errors can be corrected. For example, if we were sure that the 10000 was supposed to be entered as 100.00, we could replace that value:</p>
-<div class="sourceCode" id="cb576"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb611"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fish_length_mm <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">fish_length_mm</span> <span class="op">==</span> <span class="fl">10000</span>, <span class="fl">100</span>, <span class="va">fish_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>In non-numeric data, the equivalent of an outlier is an unexpected value. The easiest way to look at this can be by listing the unique values of a vector/column:</p>
-<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">fish</span><span class="op">$</span><span class="va">sample_location</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "?"                   NA                    "Lake Allatoona"     
 ## [4] "Chattahoochee@Crnra" "Satilla River"       "Flint River"        
 ## [7] "Lake Lanier"         "Chattahoochee River" "Ocmulgee River"</code></pre>
 <p>Here, we probably want to replace “?” with <code>NA</code>.</p>
-<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sample_location <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">sample_location</span> <span class="op">==</span> <span class="st">"?"</span>, <span class="cn">NA</span>, <span class="va">sample_location</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -470,16 +471,16 @@
 <span class="header-section-number">17.5.1</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
 </h3>
 <p>The most obvious way to deal with missing data is to ignore data points that are missing. When doing so, a key question to ask yourself is which missing data matter. For example, if we are not using spatial data, missing coordinates will not matter. The <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> function combined with <code><a href="https://dplyr.tidyverse.org/reference/across.html">if_any()</a></code> or <code><a href="https://dplyr.tidyverse.org/reference/across.html">if_all()</a></code> is your friend here. For example, we might only want to filter data if length is missing:</p>
-<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish_len_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fish_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Or if all the location columns are complete:</p>
-<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish_loc_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">if_all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sample_location</span>, <span class="va">long</span>, <span class="va">lat</span><span class="op">)</span>, <span class="op">~</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Equivalent to:</span></span>
 <span><span class="va">fish_loc_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="op">!</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">if_any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sample_location</span>, <span class="va">long</span>, <span class="va">lat</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The code above can be a little confusing. In the first option, we are asking for the case in which <em>all</em> of the location columns are <em>not NA</em>. In the second option, we are asking for the case in which it is <em>not</em> true that <em>any</em> of hte location columns are NA. Take a close look and see if you can figure out the logic. Sometimes this kind of backwards thinking is necessary for filtering.</p>
 <p>An easier, but less streamlined alternative is:</p>
-<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish_loc_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sample_location</span><span class="op">)</span> <span class="op">&amp;</span></span>
 <span>                              <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">long</span><span class="op">)</span> <span class="op">&amp;</span></span>
 <span>                              <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">lat</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -489,7 +490,7 @@
 <span class="header-section-number">17.5.2</span> Imputing<a class="anchor" aria-label="anchor" href="#imputing"><i class="fas fa-link"></i></a>
 </h3>
 <p>Like in our example of <code>fish_length_mm == 10000</code> above, you might know the reason for some missing values, allowing you to impute them (i.e., artificially add them to the dataset). You might also be able to use other data in the dataset to figure it out. For example, here we have some missing coordinates where we have location names:</p>
-<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">fish</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">long</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sample_location</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sample_location</span>, <span class="va">coordinates</span>, <span class="va">lat</span>, <span class="va">long</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
@@ -498,14 +499,14 @@
 ## 1 Chattahoochee@Crnra &lt;NA&gt;           NA    NA
 ## 2 Chattahoochee@Crnra &lt;NA&gt;           NA    NA</code></pre>
 <p>But since we have coordinates for that location name elsewhere, we can impute it. First, we should make sure this location name has only one lat/long associated:</p>
-<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">crnra_coords</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_location</span> <span class="op">==</span> <span class="st">"Chattahoochee@Crnra"</span> <span class="op">&amp;</span></span>
 <span>           <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">long</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">long</span>, <span class="va">lat</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">crnra_coords</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fish</span> <span class="op">&lt;-</span> <span class="va">fish</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">sample_location</span> <span class="op">==</span> <span class="st">"Chattahoochee@Crnra"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">lat</span><span class="op">)</span>, <span class="va">crnra_coords</span><span class="op">$</span><span class="va">lat</span>, <span class="va">lat</span><span class="op">)</span>,</span>
 <span>         long <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">sample_location</span> <span class="op">==</span> <span class="st">"Chattahoochee@Crnra"</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">long</span><span class="op">)</span>, <span class="va">crnra_coords</span><span class="op">$</span><span class="va">long</span>, <span class="va">long</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -522,7 +523,7 @@
 <span class="header-section-number">17.6</span> Saving clean data<a class="anchor" aria-label="anchor" href="#saving-clean-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>Finally, after our data is clean, we save a new version of it in the “clean” data folder.</p>
-<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">fish</span>, <span class="st">"data/clean/georgia_fish_data_clean.csv"</span><span class="op">)</span></span></code></pre></div>
 
 </div>

@@ -17,7 +17,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -111,7 +112,7 @@
   do something
 }</code></pre>
 <p>For example:</p>
-<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">1000</span>, <span class="fl">10000</span>, <span class="fl">100000</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">vals</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
@@ -126,7 +127,7 @@
 <p>This is not a good application of a loop because the function <code><a href="https://rdrr.io/r/base/Log.html">log10()</a></code> can take a vector as its argument, so we would get the same result with <code>print(log10(vals))</code>.</p>
 <p>Loops become useful when (a) a function can’t operate on a vector, and (b) when we want to include conditional statements (more on that below).</p>
 <p>For example, to sample 100 values from from a normal distribution with a mean of 0 and a standard deviation of 2, we use <code>rnorm(n = 100, mean = 0, sd = 2)</code>. But what if we wanted to look at these distributions with staandard deviations ranging from 1 to 10? <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> can only take a single number for <code>sd</code>, so we would want to use a loop.</p>
-<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the vector of standard deviations</span></span>
 <span><span class="va">sd_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co"># Loop over SDs</span></span>
@@ -135,7 +136,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><strong>Wait, did that work? There’s no output!</strong> This is one finicky aspect of loops that takes some getting used to. Because the operation is happening inside the loop, it doesn’t print to the screen by default. It also takes some practice to assign new objects in loops, because if we did this:</p>
-<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the vector of standard deviations</span></span>
 <span><span class="va">sd_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> </span>
 <span><span class="co"># Loop over SDs</span></span>
@@ -144,7 +145,7 @@
 <span>  <span class="va">norm_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>We would end up with only the last iteration saved in <code>norm_dist</code>. To solve this problem, think about the type of object you would like to get out of the loop. Here’s let’s say we want a long-form data frame with two columns: one stating the standard deviation and one with the 100 values for each distribution. We can initiate this data frame before the loop starts, then add to it as it goes:</p>
-<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the vector of standard deviations</span></span>
 <span><span class="va">sd_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co"># Create an empty data frame in which to save data</span></span>
@@ -159,13 +160,13 @@
 <span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">norm_vals_tib</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now, we have all our results saved:</p>
-<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1000    2</code></pre>
-<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "sd"  "val"</code></pre>
-<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">results</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">val</span>, color <span class="op">=</span> <span class="va">sd</span>, group <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="for-if_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
@@ -195,7 +196,7 @@
 }</code></pre>
 <p>Here, we ask R to evaluate <code>condition1</code>. If that returns <code>FALSE</code>, it will move on to <code>condition2</code>. If <code>condition2</code> is <code>FALSE</code> it will do “yet another thing”. This differs from the first example, where if <code>condition</code> was <code>FALSE</code>, R would do <em>nothing</em>.</p>
 <p>Let’s try an example:</p>
-<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">animal</span> <span class="op">&lt;-</span> <span class="st">"squirrel"</span></span>
 <span><span class="co"># Evaluate the first condition</span></span>
 <span><span class="kw">if</span><span class="op">(</span><span class="va">animal</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mallard"</span>,<span class="st">"whimbrel"</span>,<span class="st">"trumpeter swan"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -205,7 +206,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## [1] "This is not a bird."</code></pre>
 <p>This is not a great use for an <code>if</code> statement because it is the same as:</p>
-<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">animal</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mallard"</span>,<span class="st">"whimbrel"</span>,<span class="st">"trumpeter swan"</span><span class="op">)</span>,</span>
 <span>        <span class="st">"This is a bird."</span>,</span>
 <span>        <span class="st">"This is not a bird."</span><span class="op">)</span></span></code></pre></div>
@@ -217,7 +218,7 @@
 <span class="header-section-number">18.7</span> <code>while</code> loops<a class="anchor" aria-label="anchor" href="#while-loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>Writing a <code>for</code> loop requires that we know what sequence to loop over. However, sometimes, we want to perform a calculation until a condition is met. Here, we can use a <code>while</code> loop. A <code>while</code> loop combines the syntax of a <code>for</code> loop with the condition of an <code>if</code> statement. For example, let’s say we wanted to draw numbers from a vector until the sum was greater than 10. We would do this:</p>
-<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a vector of values to sample from</span></span>
 <span><span class="va">all_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co"># Define empty objects to use within the loop</span></span>
@@ -233,10 +234,10 @@
 <span>  <span class="va">sum_vect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 4.124281 6.273417</code></pre>
-<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<pre><code>## [1]  3.546036 12.922254</code></pre>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sum_vect</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 10.3977</code></pre>
+<pre><code>## [1] 16.46829</code></pre>
 <p><code>while</code> loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! This is when the stop sign icon (top-right of your console) and the Session–&gt;Interrupt R menu are useful!</p>
 
 </div>

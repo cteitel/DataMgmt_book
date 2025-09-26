@@ -17,7 +17,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -89,57 +90,1034 @@
 <span class="header-section-number">13.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-10"><i class="fas fa-link"></i></a>
 </h2>
 <p>Remshard, M., &amp; Queenborough, S. A. (2023). Design of tables for the presentation and communication of data in ecological and evolutionary biology. <em>Ecology and Evolution, 13</em>(7), e10062. <a href="https://doi.org/10.1002/ece3.10062" class="uri">https://doi.org/10.1002/ece3.10062</a></p>
-<!-- ## Tables as outputs -->
-<!-- Data visualization in figures and other graphics is usually the most effective way of communicating information. Consider, for example, the same data displayed in a figure and in a table: -->
-<!-- ```{r} -->
-<!-- library(tidyverse) -->
-<!-- library(palmerpenguins) -->
-<!-- dat_summ <- penguins %>% -->
-<!--   filter(!is.na(sex)) %>% -->
-<!--   group_by(species, sex) %>% -->
-<!--   summarize(n = n(), -->
-<!--             body_mass_mean = mean(body_mass_g, na.rm = T), -->
-<!--             body_mass_sd = sd(body_mass_g, na.rm = T)) -->
-<!-- dat_summ %>% -->
-<!--   ggplot(aes(x = species, y = body_mass_mean,  -->
-<!--              ymin = body_mass_mean - body_mass_sd,  -->
-<!--              ymax = body_mass_mean + body_mass_sd, -->
-<!--              color = sex, size = n)) + -->
-<!--   geom_pointrange() + -->
-<!--   theme_bw() + theme(text = element_text(size = 14)) + -->
-<!--   scale_size("Number of pengins", range = c(0.5,2), -->
-<!--              breaks = c(35,55,73)) + -->
-<!--   scale_color_manual("Sex", breaks = c("male","female"),  -->
-<!--                      values = c("darkgreen", "orange")) + -->
-<!--   labs(x = "Species", y = "Body mass (mean +/- SD)") -->
-<!-- dat_summ -->
-<!-- ``` -->
-<!-- From the figure, I clearly see that Gentoo penguins are heavier than the other two species, that males are heavier than females in all species, and that fewer chinstrap penguins were sampled than the other two species. It would take me a minute to get all this information from the table. However, tables are better than figures when exact values are important, or when you have a lot of information to convey. For example, I can't quite tell from the figure whether the exact same number of males and females were sampled in each species. Overall, some key applications for tables are: -->
-<!-- * Providing exact values -->
-<!-- * Reporting statistical outputs -->
-<!-- * Reporting large data sets (often in an appendix) -->
-<!-- In scientific publications, tables are often formatted in a specific way - for example, with borders and margins in a particular format. In the publishing world, most of this formatting is usually completed by the journal editorial team at the time of publication. However, if you are creating reports or other documents that will be shared without professional editing, you will need to know how to format tables in and out of R. The most typical scientific format of a table looks like this: -->
-<!-- ```{r, fig.cap="A common data table format", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE} -->
-<!-- knitr::include_graphics("images/table-format.png") -->
-<!-- ``` -->
-<!-- Notice that the table includes border lines above and below the header row and a border line below the table, but no vertical borders or horizontal borders within the data area. The header row is in **bold** but nothing else is. This formatting is relatively straightforward to achieve in word processing programs but can also be achieved (with a little more of a learning curve) directly in R. -->
-<!-- ## Writing tables to files -->
-<!-- Although the final formatting of a table might be done in a word processor, we first need to get the data out of R. We covered some of this in our lesson on [reading and writing data](#importexport). Since a CSV file will open easily in a spreadsheet program like Excel, you can simply: -->
-<!-- 1. save your table as a CSV,  -->
-<!-- 2. open it in Excel, -->
-<!-- 3. copy that table to Word, and  -->
-<!-- 4. add borders and alignment.  -->
-<!-- However, since one benefit of using a scripting language like R is that you can easily update your analyses, it is helpful to pre-format the table as much as possible before outputting. If we outputted `data_summ` as it is now, our fourth step would also require rounding or truncating numbers and renaming columns. Every time we updated the analysis we would need to update these as well, making this process more time-consuming and, to some degree, less reproducible; for example, there would be no record of the translation between column names in our data.frame and column names in the data presented. Ideally, you would do all of this rounding and renaming before writing your data to a CSV: -->
-<!-- ```{r} -->
-<!-- dat_summ_out <- dat_summ %>% -->
-<!--   rename(`No. birds` = n,  -->
-<!--          `Mean body mass (g)` = body_mass_mean, -->
-<!--          `SD body mass` = body_mass_sd) %>% -->
-<!--   rename_all(str_to_sentence) %>% -->
-<!--   mutate(across(where(is.numeric), round)) -->
-<!-- write_csv(dat_summ_out, "outputs/penguin_summary.csv") -->
-<!-- ``` -->
-<!-- *What other formatting details might you want to consider before writing data to a file?* -->
+</div>
+<div id="tables-as-outputs" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Tables as outputs<a class="anchor" aria-label="anchor" href="#tables-as-outputs"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data visualization in figures and other graphics is usually the most effective way of communicating information. Consider, for example, the same data displayed in a figure and in a table:</p>
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat_summ</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>            body_mass_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            body_mass_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'species'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat_summ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="va">body_mass_mean</span>, </span>
+<span>             ymin <span class="op">=</span> <span class="va">body_mass_mean</span> <span class="op">-</span> <span class="va">body_mass_sd</span>, </span>
+<span>             ymax <span class="op">=</span> <span class="va">body_mass_mean</span> <span class="op">+</span> <span class="va">body_mass_sd</span>,</span>
+<span>             color <span class="op">=</span> <span class="va">sex</span>, size <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span><span class="st">"Number of pengins"</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>             breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">35</span>,<span class="fl">55</span>,<span class="fl">73</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span><span class="st">"Sex"</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"male"</span>,<span class="st">"female"</span><span class="op">)</span>, </span>
+<span>                     values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkgreen"</span>, <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Species"</span>, y <span class="op">=</span> <span class="st">"Body mass (mean +/- SD)"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-tables_files/figure-html/unnamed-chunk-1-1.png" width="672"></div>
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat_summ</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+## # Groups:   species [3]
+##   species   sex        n body_mass_mean body_mass_sd
+##   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Adelie    female    73          3369.         269.
+## 2 Adelie    male      73          4043.         347.
+## 3 Chinstrap female    34          3527.         285.
+## 4 Chinstrap male      34          3939.         362.
+## 5 Gentoo    female    58          4680.         282.
+## 6 Gentoo    male      61          5485.         313.</code></pre>
+<p>From the figure, I clearly see that Gentoo penguins are heavier than the other two species, that males are heavier than females in all species, and that fewer chinstrap penguins were sampled than the other two species. It would take me a minute to get all this information from the table. However, tables are better than figures when exact values are important, or when you have a lot of information to convey. For example, I can’t quite tell from the figure whether the exact same number of males and females were sampled in each species. Overall, some key applications for tables are:</p>
+<ul>
+<li>Providing exact values</li>
+<li>Reporting statistical outputs</li>
+<li>Reporting large data sets (often in an appendix)</li>
+</ul>
+<p>In scientific publications, tables are often formatted in a specific way - for example, with borders and margins in a particular format. In the publishing world, most of this formatting is usually completed by the journal editorial team at the time of publication. However, if you are creating reports or other documents that will be shared without professional editing, you will need to know how to format tables in and out of R. The most typical scientific format of a table looks like this:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="images/table-format.png" alt="A common data table format" width="80%"><p class="caption">
+Figure 13.1: A common data table format
+</p>
+</div>
+<p>Notice that the table includes border lines above and below the header row and a border line below the table, but no vertical borders or horizontal borders within the data area. The header row is in <strong>bold</strong> but nothing else is. This formatting is relatively straightforward to achieve in word processing programs but can also be achieved (with a little more of a learning curve) directly in R.</p>
+</div>
+<div id="writing-tables-to-files" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Writing tables to files<a class="anchor" aria-label="anchor" href="#writing-tables-to-files"><i class="fas fa-link"></i></a>
+</h2>
+<p>Although the final formatting of a table might be done in a word processor, we first need to get the data out of R. We covered some of this in our lesson on <a href="importexport.html#importexport">reading and writing data</a>. Since a CSV file will open easily in a spreadsheet program like Excel, you can simply:</p>
+<ol style="list-style-type: decimal">
+<li>save your table as a CSV,</li>
+<li>open it in Excel,</li>
+<li>copy that table to Word, and</li>
+<li>add borders and alignment.</li>
+</ol>
+<p>However, since one benefit of using a scripting language like R is that you can easily update your analyses, it is helpful to pre-format the table as much as possible before outputting. If we outputted <code>data_summ</code> as it is now, our fourth step would also require rounding or truncating numbers and renaming columns. Every time we updated the analysis we would need to update these as well, making this process more time-consuming and, to some degree, less reproducible; for example, there would be no record of the translation between column names in our data.frame and column names in the data presented. Ideally, you would do all of this rounding and renaming before writing your data to a CSV:</p>
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat_summ_out</span> <span class="op">&lt;-</span> <span class="va">dat_summ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>`No. birds` <span class="op">=</span> <span class="va">n</span>, </span>
+<span>         `Mean body mass (g)` <span class="op">=</span> <span class="va">body_mass_mean</span>,</span>
+<span>         `SD body mass` <span class="op">=</span> <span class="va">body_mass_sd</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">round</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat_summ_out</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+## # Groups:   species [3]
+##   species   sex    `No. birds` `Mean body mass (g)` `SD body mass`
+##   &lt;fct&gt;     &lt;fct&gt;        &lt;dbl&gt;                &lt;dbl&gt;          &lt;dbl&gt;
+## 1 Adelie    female          73                 3369            269
+## 2 Adelie    male            73                 4043            347
+## 3 Chinstrap female          34                 3527            285
+## 4 Chinstrap male            34                 3939            362
+## 5 Gentoo    female          58                 4680            282
+## 6 Gentoo    male            61                 5485            313</code></pre>
+<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">dat_summ_out</span>, <span class="st">"outputs/penguin_summary.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>You may have noticed in other exercises that column names with spaces can be specified inside tick marks (```).</p>
+<p><em>What other formatting details might you want to consider before writing data to a file?</em></p>
+</div>
+<div id="an-r-package-for-exporting-to-word-flextable" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> An R package for exporting to Word: <code>flextable</code><a class="anchor" aria-label="anchor" href="#an-r-package-for-exporting-to-word-flextable"><i class="fas fa-link"></i></a>
+</h2>
+<p>The method above is useful if you have a table or two to place in a report. What if you have a lot? The amount of extra time it takes to reformat each (and update every time something changes) might make it worth investing in a more automated solution. The <a href="https://ardata-fr.github.io/flextable-book/"><code>flextable</code></a> package provides just that. Although there is a bit of a learning curve to using the package, the time investment pays off if you produce a lot of tables and want to be able to export them pre-formatted to Word (or HTML, or PowerPoint, or PDF).</p>
+<p>To export to Word or PowerPoint, you will also need the <a href="https://davidgohel.github.io/officer/"><code>officer</code></a> package, which provides functions to interface R with Microsoft Office.</p>
+<p>There are plenty of other packages to help you with formatting tables; for example, the <a href="https://gt.rstudio.com/articles/gt.html"><code>gt</code></a> package supports creating beautiful, flexible, and complex tables (like those with nesting structures) and interfaces nicely with the tidyverse. It can’t yet export all your formatting to Word though, which is likely something you will need to do, so for now we will focus on <code>flextable</code>. Also note that <code>flextable</code> is a really flexible package with a lot of options, and this reading covers only what are likely to be your most-used options. Check out the <a href="https://ardata-fr.github.io/flextable-book/">excellent documentation</a> for more details.</p>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"flextable"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"officer"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/">flextable</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'flextable'</code></pre>
+<pre><code>## The following object is masked from 'package:purrr':
+## 
+##     compose</code></pre>
+<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">officer</a></span><span class="op">)</span></span></code></pre></div>
+<div id="the-structure-of-a-flextable" class="section level3" number="13.5.1">
+<h3>
+<span class="header-section-number">13.5.1</span> The structure of a flextable<a class="anchor" aria-label="anchor" href="#the-structure-of-a-flextable"><i class="fas fa-link"></i></a>
+</h3>
+<p>A flextable has three parts: a <em>header</em>, <em>body</em>, and a <em>footer</em>. It’s unusual to use a footer, but this is where you might put footnotes. The <em>header</em> is, by default, the column names, but could include multiple levels (for example, if column types are grouped and labeled - see below).</p>
+</div>
+<div id="formatting-a-flextable" class="section level3" number="13.5.2">
+<h3>
+<span class="header-section-number">13.5.2</span> Formatting a flextable<a class="anchor" aria-label="anchor" href="#formatting-a-flextable"><i class="fas fa-link"></i></a>
+</h3>
+<p>Most of the functions in <code>flextable</code> are used for formatting your table; saving it to Office is just the last step. Formatting functions can change:</p>
+<ul>
+<li>text (font, face, justification, etc.)</li>
+<li>cells (colors, borders)</li>
+<li>table organization (shared headers)</li>
+<li>size and layout (column widths, row heights, etc.)</li>
+</ul>
+<p>First, we have to convert our table into a <code>flextable</code> object:</p>
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## a flextable object.
+## col_keys: `species`, `sex`, `No. birds`, `Mean body mass (g)`, `SD body mass` 
+## header has 1 row(s) 
+## body has 6 row(s) 
+## original dataset sample: 
+## 'data.frame':    6 obs. of  5 variables:
+##  $ species           : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 2 2 3 3
+##  $ sex               : Factor w/ 2 levels "female","male": 1 2 1 2 1 2
+##  $ No. birds         : num  73 73 34 34 58 61
+##  $ Mean body mass (g): num  3369 4043 3527 3939 4680 ...
+##  $ SD body mass      : num  269 347 285 362 282 313</code></pre>
+<p>The table above shows you the default design of a flextable. Luckily, this pretty close to the format we want! It includes horizontal borders, left-aligns text columns, and right-aligns non-text columns. However, you can customize most of this. Like <code>ggplot2</code>, <code>flextable</code> comes with some built-in themes. For example <code><a href="https://davidgohel.github.io/flextable/reference/theme_zebra.html">theme_zebra()</a></code> removes cell borders and adds alternating shading:</p>
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/theme_zebra.html">theme_zebra</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed6eb986{}.cl-ed6bd7de{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed6bd7e8{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed6d1d2e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed6d1d38{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed6d28be{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed6d28c8{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed6d28c9{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed6d28ca{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed6d28d2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed6d28d3{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed6eb986">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed6d28be"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7de">species</span></p></th>
+<th class="cl-ed6d28be"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7de">sex</span></p></th>
+<th class="cl-ed6d28c8"><p class="cl-ed6d1d38"><span class="cl-ed6bd7de">No. birds</span></p></th>
+<th class="cl-ed6d28c8"><p class="cl-ed6d1d38"><span class="cl-ed6bd7de">Mean body mass (g)</span></p></th>
+<th class="cl-ed6d28c8"><p class="cl-ed6d1d38"><span class="cl-ed6bd7de">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed6d28c9"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">Adelie</span></p></td>
+<td class="cl-ed6d28c9"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">female</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">73</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">3,369</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed6d28d2"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">Adelie</span></p></td>
+<td class="cl-ed6d28d2"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">male</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">73</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">4,043</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed6d28c9"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">Chinstrap</span></p></td>
+<td class="cl-ed6d28c9"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">female</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">34</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">3,527</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed6d28d2"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">Chinstrap</span></p></td>
+<td class="cl-ed6d28d2"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">male</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">34</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">3,939</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed6d28c9"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">Gentoo</span></p></td>
+<td class="cl-ed6d28c9"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">female</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">58</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">4,680</span></p></td>
+<td class="cl-ed6d28ca"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed6d28d2"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">Gentoo</span></p></td>
+<td class="cl-ed6d28d2"><p class="cl-ed6d1d2e"><span class="cl-ed6bd7e8">male</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">61</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">5,485</span></p></td>
+<td class="cl-ed6d28d3"><p class="cl-ed6d1d38"><span class="cl-ed6bd7e8">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>You can see examples of available themes <a href="https://ardata-fr.github.io/flextable-book/define-visual-properties.html#available-themes">on the <code>flextable</code> webpage</a>.</p>
+<p>To format tables beyond these default themes, you will need to use the <code><a href="https://davidgohel.github.io/flextable/reference/style.html">style()</a></code> function. Within <code><a href="https://davidgohel.github.io/flextable/reference/style.html">style()</a></code>, you specify:</p>
+<ul>
+<li>the rows (argument <code>i</code>) and columns (argument <code>j</code>) you want to format</li>
+<li>the part of the table you want to format (argument <code>part</code>): “header”, “body”, “footer”, or “all”</li>
+<li>information about what formatting to apply (argument <code>pr_t</code> for text, <code>pr_p</code> for paragraph formatting, and <code>pr_c</code> for cells).</li>
+</ul>
+<p>Since <code><a href="https://davidgohel.github.io/flextable/reference/style.html">style()</a></code> is mainly used to specify the selection (where, what, and how do you want to modify your table?), it also needs the actual formatting to be enclosed in a function. This can feel unwieldy, but just takes a little practice.</p>
+<p>These are easier to understand in an example:</p>
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat_summ_out</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## a flextable object.
+## col_keys: `species`, `sex`, `No. birds`, `Mean body mass (g)`, `SD body mass` 
+## header has 1 row(s) 
+## body has 6 row(s) 
+## original dataset sample: 
+## 'data.frame':    6 obs. of  5 variables:
+##  $ species           : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 2 2 3 3
+##  $ sex               : Factor w/ 2 levels "female","male": 1 2 1 2 1 2
+##  $ No. birds         : num  73 73 34 34 58 61
+##  $ Mean body mass (g): num  3369 4043 3527 3939 4680 ...
+##  $ SD body mass      : num  269 347 285 362 282 313</code></pre>
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Change header text to bold</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/style.html">style</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span>, pr_t <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_text.html">fp_text</a></span><span class="op">(</span>bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed7d0bda{}.cl-ed75d6f8{font-family:'Arial';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed75d702{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed76d076{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed76d080{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed76db52{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed76db5c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed76db5d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed76db5e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed76db5f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed76db66{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed7d0bda">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed76db52"><p class="cl-ed76d076"><span class="cl-ed75d6f8">species</span></p></th>
+<th class="cl-ed76db52"><p class="cl-ed76d076"><span class="cl-ed75d6f8">sex</span></p></th>
+<th class="cl-ed76db5c"><p class="cl-ed76d080"><span class="cl-ed75d6f8">No. birds</span></p></th>
+<th class="cl-ed76db5c"><p class="cl-ed76d080"><span class="cl-ed75d6f8">Mean body mass (g)</span></p></th>
+<th class="cl-ed76db5c"><p class="cl-ed76d080"><span class="cl-ed75d6f8">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">Adelie</span></p></td>
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">female</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">73</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">3,369</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">Adelie</span></p></td>
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">male</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">73</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">4,043</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">Chinstrap</span></p></td>
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">female</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">34</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">3,527</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">Chinstrap</span></p></td>
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">male</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">34</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">3,939</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">Gentoo</span></p></td>
+<td class="cl-ed76db5d"><p class="cl-ed76d076"><span class="cl-ed75d702">female</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">58</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">4,680</span></p></td>
+<td class="cl-ed76db5e"><p class="cl-ed76d080"><span class="cl-ed75d702">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed76db5f"><p class="cl-ed76d076"><span class="cl-ed75d702">Gentoo</span></p></td>
+<td class="cl-ed76db5f"><p class="cl-ed76d076"><span class="cl-ed75d702">male</span></p></td>
+<td class="cl-ed76db66"><p class="cl-ed76d080"><span class="cl-ed75d702">61</span></p></td>
+<td class="cl-ed76db66"><p class="cl-ed76d080"><span class="cl-ed75d702">5,485</span></p></td>
+<td class="cl-ed76db66"><p class="cl-ed76d080"><span class="cl-ed75d702">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Center all text</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/style.html">style</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"all"</span>, pr_p <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_par.html">fp_par</a></span><span class="op">(</span>text.align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed810b04{}.cl-ed7eb854{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed7fad4a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:0;padding-top:0;padding-left:0;padding-right:0;line-height: 1;background-color:transparent;}.cl-ed7fb79a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed7fb79b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed7fb79c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed810b04">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed7fb79a"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">species</span></p></th>
+<th class="cl-ed7fb79a"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">sex</span></p></th>
+<th class="cl-ed7fb79a"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">No. birds</span></p></th>
+<th class="cl-ed7fb79a"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Mean body mass (g)</span></p></th>
+<th class="cl-ed7fb79a"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Adelie</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">female</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">73</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">3,369</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Adelie</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">male</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">73</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">4,043</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Chinstrap</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">female</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">34</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">3,527</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Chinstrap</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">male</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">34</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">3,939</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Gentoo</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">female</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">58</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">4,680</span></p></td>
+<td class="cl-ed7fb79b"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed7fb79c"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">Gentoo</span></p></td>
+<td class="cl-ed7fb79c"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">male</span></p></td>
+<td class="cl-ed7fb79c"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">61</span></p></td>
+<td class="cl-ed7fb79c"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">5,485</span></p></td>
+<td class="cl-ed7fb79c"><p class="cl-ed7fad4a"><span class="cl-ed7eb854">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Shade alternating cells in orange</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/style.html">style</a></span><span class="op">(</span>i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">6</span>,<span class="fl">2</span><span class="op">)</span>, part <span class="op">=</span> <span class="st">"body"</span>,</span>
+<span>        pr_c <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_cell.html">fp_cell</a></span><span class="op">(</span>background.color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed854a84{}.cl-ed82f9e6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed83e888{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed83e892{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed83f2ce{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2d8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2d9{width:0.75in;background-color:rgba(255, 165, 0, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2da{width:0.75in;background-color:rgba(255, 165, 0, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2db{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2e2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2e3{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed83f2ec{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed854a84">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed83f2ce"><p class="cl-ed83e888"><span class="cl-ed82f9e6">species</span></p></th>
+<th class="cl-ed83f2ce"><p class="cl-ed83e888"><span class="cl-ed82f9e6">sex</span></p></th>
+<th class="cl-ed83f2d8"><p class="cl-ed83e892"><span class="cl-ed82f9e6">No. birds</span></p></th>
+<th class="cl-ed83f2d8"><p class="cl-ed83e892"><span class="cl-ed82f9e6">Mean body mass (g)</span></p></th>
+<th class="cl-ed83f2d8"><p class="cl-ed83e892"><span class="cl-ed82f9e6">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed83f2d9"><p class="cl-ed83e888"><span class="cl-ed82f9e6">Adelie</span></p></td>
+<td class="cl-ed83f2d9"><p class="cl-ed83e888"><span class="cl-ed82f9e6">female</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">73</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">3,369</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed83f2db"><p class="cl-ed83e888"><span class="cl-ed82f9e6">Adelie</span></p></td>
+<td class="cl-ed83f2db"><p class="cl-ed83e888"><span class="cl-ed82f9e6">male</span></p></td>
+<td class="cl-ed83f2e2"><p class="cl-ed83e892"><span class="cl-ed82f9e6">73</span></p></td>
+<td class="cl-ed83f2e2"><p class="cl-ed83e892"><span class="cl-ed82f9e6">4,043</span></p></td>
+<td class="cl-ed83f2e2"><p class="cl-ed83e892"><span class="cl-ed82f9e6">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed83f2d9"><p class="cl-ed83e888"><span class="cl-ed82f9e6">Chinstrap</span></p></td>
+<td class="cl-ed83f2d9"><p class="cl-ed83e888"><span class="cl-ed82f9e6">female</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">34</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">3,527</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed83f2db"><p class="cl-ed83e888"><span class="cl-ed82f9e6">Chinstrap</span></p></td>
+<td class="cl-ed83f2db"><p class="cl-ed83e888"><span class="cl-ed82f9e6">male</span></p></td>
+<td class="cl-ed83f2e2"><p class="cl-ed83e892"><span class="cl-ed82f9e6">34</span></p></td>
+<td class="cl-ed83f2e2"><p class="cl-ed83e892"><span class="cl-ed82f9e6">3,939</span></p></td>
+<td class="cl-ed83f2e2"><p class="cl-ed83e892"><span class="cl-ed82f9e6">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed83f2d9"><p class="cl-ed83e888"><span class="cl-ed82f9e6">Gentoo</span></p></td>
+<td class="cl-ed83f2d9"><p class="cl-ed83e888"><span class="cl-ed82f9e6">female</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">58</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">4,680</span></p></td>
+<td class="cl-ed83f2da"><p class="cl-ed83e892"><span class="cl-ed82f9e6">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed83f2e3"><p class="cl-ed83e888"><span class="cl-ed82f9e6">Gentoo</span></p></td>
+<td class="cl-ed83f2e3"><p class="cl-ed83e888"><span class="cl-ed82f9e6">male</span></p></td>
+<td class="cl-ed83f2ec"><p class="cl-ed83e892"><span class="cl-ed82f9e6">61</span></p></td>
+<td class="cl-ed83f2ec"><p class="cl-ed83e892"><span class="cl-ed82f9e6">5,485</span></p></td>
+<td class="cl-ed83f2ec"><p class="cl-ed83e892"><span class="cl-ed82f9e6">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The help pages for <code>fp_text</code>, <code>fp_par</code>, and <code>fp_cell</code> will show you all the various options and what they are called.</p>
+<p>It is also possible to specify rows with selection functions:</p>
+<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Shade cells for Adelie penguins</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/style.html">style</a></span><span class="op">(</span>i <span class="op">=</span> <span class="op">~</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span> , part <span class="op">=</span> <span class="st">"body"</span>,</span>
+<span>        pr_c <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_cell.html">fp_cell</a></span><span class="op">(</span>background.color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed89ca82{}.cl-ed8764cc{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed885b16{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed885b2a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed88661a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed88661b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed88661c{width:0.75in;background-color:rgba(255, 165, 0, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed88661d{width:0.75in;background-color:rgba(255, 165, 0, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed886624{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed886625{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed886626{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed88662e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed89ca82">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed88661a"><p class="cl-ed885b16"><span class="cl-ed8764cc">species</span></p></th>
+<th class="cl-ed88661a"><p class="cl-ed885b16"><span class="cl-ed8764cc">sex</span></p></th>
+<th class="cl-ed88661b"><p class="cl-ed885b2a"><span class="cl-ed8764cc">No. birds</span></p></th>
+<th class="cl-ed88661b"><p class="cl-ed885b2a"><span class="cl-ed8764cc">Mean body mass (g)</span></p></th>
+<th class="cl-ed88661b"><p class="cl-ed885b2a"><span class="cl-ed8764cc">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed88661c"><p class="cl-ed885b16"><span class="cl-ed8764cc">Adelie</span></p></td>
+<td class="cl-ed88661c"><p class="cl-ed885b16"><span class="cl-ed8764cc">female</span></p></td>
+<td class="cl-ed88661d"><p class="cl-ed885b2a"><span class="cl-ed8764cc">73</span></p></td>
+<td class="cl-ed88661d"><p class="cl-ed885b2a"><span class="cl-ed8764cc">3,369</span></p></td>
+<td class="cl-ed88661d"><p class="cl-ed885b2a"><span class="cl-ed8764cc">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed88661c"><p class="cl-ed885b16"><span class="cl-ed8764cc">Adelie</span></p></td>
+<td class="cl-ed88661c"><p class="cl-ed885b16"><span class="cl-ed8764cc">male</span></p></td>
+<td class="cl-ed88661d"><p class="cl-ed885b2a"><span class="cl-ed8764cc">73</span></p></td>
+<td class="cl-ed88661d"><p class="cl-ed885b2a"><span class="cl-ed8764cc">4,043</span></p></td>
+<td class="cl-ed88661d"><p class="cl-ed885b2a"><span class="cl-ed8764cc">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed886624"><p class="cl-ed885b16"><span class="cl-ed8764cc">Chinstrap</span></p></td>
+<td class="cl-ed886624"><p class="cl-ed885b16"><span class="cl-ed8764cc">female</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">34</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">3,527</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed886624"><p class="cl-ed885b16"><span class="cl-ed8764cc">Chinstrap</span></p></td>
+<td class="cl-ed886624"><p class="cl-ed885b16"><span class="cl-ed8764cc">male</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">34</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">3,939</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed886624"><p class="cl-ed885b16"><span class="cl-ed8764cc">Gentoo</span></p></td>
+<td class="cl-ed886624"><p class="cl-ed885b16"><span class="cl-ed8764cc">female</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">58</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">4,680</span></p></td>
+<td class="cl-ed886625"><p class="cl-ed885b2a"><span class="cl-ed8764cc">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed886626"><p class="cl-ed885b16"><span class="cl-ed8764cc">Gentoo</span></p></td>
+<td class="cl-ed886626"><p class="cl-ed885b16"><span class="cl-ed8764cc">male</span></p></td>
+<td class="cl-ed88662e"><p class="cl-ed885b2a"><span class="cl-ed8764cc">61</span></p></td>
+<td class="cl-ed88662e"><p class="cl-ed885b2a"><span class="cl-ed8764cc">5,485</span></p></td>
+<td class="cl-ed88662e"><p class="cl-ed885b2a"><span class="cl-ed8764cc">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>There are also built-in functions that don’t require you to use <code><a href="https://davidgohel.github.io/flextable/reference/style.html">style()</a></code>, including <code><a href="https://davidgohel.github.io/flextable/reference/font.html">font()</a></code>, <code><a href="https://davidgohel.github.io/flextable/reference/bold.html">bold()</a></code>, <code><a href="https://davidgohel.github.io/flextable/reference/align.html">align()</a></code>, and so on - but you can always do these within <code><a href="https://davidgohel.github.io/flextable/reference/style.html">style()</a></code>, too.</p>
+<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co">#make header row bold</span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/bold.html">bold</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span>, bold <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co">#italicize species names</span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/italic.html">italic</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"body"</span>, j <span class="op">=</span> <span class="fl">1</span>, italic <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed8e87d4{}.cl-ed8c2110{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed8c211a{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed8c211b{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed8d137c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed8d1386{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed8d1e1c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed8d1e1d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed8d1e26{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed8d1e30{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed8d1e31{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed8d1e32{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed8e87d4">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed8d1e1c"><p class="cl-ed8d137c"><span class="cl-ed8c2110">species</span></p></th>
+<th class="cl-ed8d1e1c"><p class="cl-ed8d137c"><span class="cl-ed8c2110">sex</span></p></th>
+<th class="cl-ed8d1e1d"><p class="cl-ed8d1386"><span class="cl-ed8c2110">No. birds</span></p></th>
+<th class="cl-ed8d1e1d"><p class="cl-ed8d1386"><span class="cl-ed8c2110">Mean body mass (g)</span></p></th>
+<th class="cl-ed8d1e1d"><p class="cl-ed8d1386"><span class="cl-ed8c2110">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211a">Adelie</span></p></td>
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211b">female</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">73</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">3,369</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211a">Adelie</span></p></td>
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211b">male</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">73</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">4,043</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211a">Chinstrap</span></p></td>
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211b">female</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">34</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">3,527</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211a">Chinstrap</span></p></td>
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211b">male</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">34</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">3,939</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211a">Gentoo</span></p></td>
+<td class="cl-ed8d1e26"><p class="cl-ed8d137c"><span class="cl-ed8c211b">female</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">58</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">4,680</span></p></td>
+<td class="cl-ed8d1e30"><p class="cl-ed8d1386"><span class="cl-ed8c211b">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed8d1e31"><p class="cl-ed8d137c"><span class="cl-ed8c211a">Gentoo</span></p></td>
+<td class="cl-ed8d1e31"><p class="cl-ed8d137c"><span class="cl-ed8c211b">male</span></p></td>
+<td class="cl-ed8d1e32"><p class="cl-ed8d1386"><span class="cl-ed8c211b">61</span></p></td>
+<td class="cl-ed8d1e32"><p class="cl-ed8d1386"><span class="cl-ed8c211b">5,485</span></p></td>
+<td class="cl-ed8d1e32"><p class="cl-ed8d1386"><span class="cl-ed8c211b">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Borders are specified in a similar way as in Word (inner and outer, horizontal and vertical) and can also be specified for each cell, row, or column.</p>
+<div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Remove all borders</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/border_remove.html">border_remove</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed92c6d2{}.cl-ed906ee6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed91695e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed916968{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed91739a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9173a4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed92c6d2">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">species</span></p></th>
+<th class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">sex</span></p></th>
+<th class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">No. birds</span></p></th>
+<th class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">Mean body mass (g)</span></p></th>
+<th class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">Adelie</span></p></td>
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">female</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">73</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">3,369</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">Adelie</span></p></td>
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">male</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">73</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">4,043</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">Chinstrap</span></p></td>
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">female</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">34</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">3,527</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">Chinstrap</span></p></td>
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">male</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">34</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">3,939</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">Gentoo</span></p></td>
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">female</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">58</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">4,680</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">Gentoo</span></p></td>
+<td class="cl-ed91739a"><p class="cl-ed91695e"><span class="cl-ed906ee6">male</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">61</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">5,485</span></p></td>
+<td class="cl-ed9173a4"><p class="cl-ed916968"><span class="cl-ed906ee6">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add a box around the whole table</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/border_outer.html">border_outer</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed96df7e{}.cl-ed948eea{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed957bac{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed957bb6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed95869c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed95869d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed95869e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586a6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586a7{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586a8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586a9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586aa{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586b0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586b1{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586b2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9586b3{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed96df7e">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed95869c"><p class="cl-ed957bac"><span class="cl-ed948eea">species</span></p></th>
+<th class="cl-ed95869d"><p class="cl-ed957bac"><span class="cl-ed948eea">sex</span></p></th>
+<th class="cl-ed95869e"><p class="cl-ed957bb6"><span class="cl-ed948eea">No. birds</span></p></th>
+<th class="cl-ed95869e"><p class="cl-ed957bb6"><span class="cl-ed948eea">Mean body mass (g)</span></p></th>
+<th class="cl-ed9586a6"><p class="cl-ed957bb6"><span class="cl-ed948eea">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9586a7"><p class="cl-ed957bac"><span class="cl-ed948eea">Adelie</span></p></td>
+<td class="cl-ed9586a8"><p class="cl-ed957bac"><span class="cl-ed948eea">female</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">73</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">3,369</span></p></td>
+<td class="cl-ed9586aa"><p class="cl-ed957bb6"><span class="cl-ed948eea">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9586a7"><p class="cl-ed957bac"><span class="cl-ed948eea">Adelie</span></p></td>
+<td class="cl-ed9586a8"><p class="cl-ed957bac"><span class="cl-ed948eea">male</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">73</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">4,043</span></p></td>
+<td class="cl-ed9586aa"><p class="cl-ed957bb6"><span class="cl-ed948eea">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9586a7"><p class="cl-ed957bac"><span class="cl-ed948eea">Chinstrap</span></p></td>
+<td class="cl-ed9586a8"><p class="cl-ed957bac"><span class="cl-ed948eea">female</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">34</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">3,527</span></p></td>
+<td class="cl-ed9586aa"><p class="cl-ed957bb6"><span class="cl-ed948eea">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9586a7"><p class="cl-ed957bac"><span class="cl-ed948eea">Chinstrap</span></p></td>
+<td class="cl-ed9586a8"><p class="cl-ed957bac"><span class="cl-ed948eea">male</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">34</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">3,939</span></p></td>
+<td class="cl-ed9586aa"><p class="cl-ed957bb6"><span class="cl-ed948eea">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9586a7"><p class="cl-ed957bac"><span class="cl-ed948eea">Gentoo</span></p></td>
+<td class="cl-ed9586a8"><p class="cl-ed957bac"><span class="cl-ed948eea">female</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">58</span></p></td>
+<td class="cl-ed9586a9"><p class="cl-ed957bb6"><span class="cl-ed948eea">4,680</span></p></td>
+<td class="cl-ed9586aa"><p class="cl-ed957bb6"><span class="cl-ed948eea">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9586b0"><p class="cl-ed957bac"><span class="cl-ed948eea">Gentoo</span></p></td>
+<td class="cl-ed9586b1"><p class="cl-ed957bac"><span class="cl-ed948eea">male</span></p></td>
+<td class="cl-ed9586b2"><p class="cl-ed957bb6"><span class="cl-ed948eea">61</span></p></td>
+<td class="cl-ed9586b2"><p class="cl-ed957bb6"><span class="cl-ed948eea">5,485</span></p></td>
+<td class="cl-ed9586b3"><p class="cl-ed957bb6"><span class="cl-ed948eea">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add a box around the body</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/border_outer.html">border_outer</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed9a8692{}.cl-ed983860{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed992554{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed99255e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed992ff4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed992ff5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed992ffe{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed992fff{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed993000{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed993001{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed993008{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed993009{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed99300a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed993012{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed9a8692">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed992ff4"><p class="cl-ed992554"><span class="cl-ed983860">species</span></p></th>
+<th class="cl-ed992ff4"><p class="cl-ed992554"><span class="cl-ed983860">sex</span></p></th>
+<th class="cl-ed992ff5"><p class="cl-ed99255e"><span class="cl-ed983860">No. birds</span></p></th>
+<th class="cl-ed992ff5"><p class="cl-ed99255e"><span class="cl-ed983860">Mean body mass (g)</span></p></th>
+<th class="cl-ed992ff5"><p class="cl-ed99255e"><span class="cl-ed983860">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed992ffe"><p class="cl-ed992554"><span class="cl-ed983860">Adelie</span></p></td>
+<td class="cl-ed992fff"><p class="cl-ed992554"><span class="cl-ed983860">female</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">73</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">3,369</span></p></td>
+<td class="cl-ed993001"><p class="cl-ed99255e"><span class="cl-ed983860">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed992ffe"><p class="cl-ed992554"><span class="cl-ed983860">Adelie</span></p></td>
+<td class="cl-ed992fff"><p class="cl-ed992554"><span class="cl-ed983860">male</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">73</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">4,043</span></p></td>
+<td class="cl-ed993001"><p class="cl-ed99255e"><span class="cl-ed983860">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed992ffe"><p class="cl-ed992554"><span class="cl-ed983860">Chinstrap</span></p></td>
+<td class="cl-ed992fff"><p class="cl-ed992554"><span class="cl-ed983860">female</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">34</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">3,527</span></p></td>
+<td class="cl-ed993001"><p class="cl-ed99255e"><span class="cl-ed983860">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed992ffe"><p class="cl-ed992554"><span class="cl-ed983860">Chinstrap</span></p></td>
+<td class="cl-ed992fff"><p class="cl-ed992554"><span class="cl-ed983860">male</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">34</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">3,939</span></p></td>
+<td class="cl-ed993001"><p class="cl-ed99255e"><span class="cl-ed983860">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed992ffe"><p class="cl-ed992554"><span class="cl-ed983860">Gentoo</span></p></td>
+<td class="cl-ed992fff"><p class="cl-ed992554"><span class="cl-ed983860">female</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">58</span></p></td>
+<td class="cl-ed993000"><p class="cl-ed99255e"><span class="cl-ed983860">4,680</span></p></td>
+<td class="cl-ed993001"><p class="cl-ed99255e"><span class="cl-ed983860">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed993008"><p class="cl-ed992554"><span class="cl-ed983860">Gentoo</span></p></td>
+<td class="cl-ed993009"><p class="cl-ed992554"><span class="cl-ed983860">male</span></p></td>
+<td class="cl-ed99300a"><p class="cl-ed99255e"><span class="cl-ed983860">61</span></p></td>
+<td class="cl-ed99300a"><p class="cl-ed99255e"><span class="cl-ed983860">5,485</span></p></td>
+<td class="cl-ed993012"><p class="cl-ed99255e"><span class="cl-ed983860">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add all horizontal borders</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/border_inner_h.html">border_inner_h</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-ed9e6d48{}.cl-ed9c388e{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ed9d1b1e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed9d1b1f{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ed9d2532{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d2533{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d253c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d253d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d253e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d253f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d2546{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ed9d2547{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-ed9e6d48">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-ed9d2532"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">species</span></p></th>
+<th class="cl-ed9d2532"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">sex</span></p></th>
+<th class="cl-ed9d2533"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">No. birds</span></p></th>
+<th class="cl-ed9d2533"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">Mean body mass (g)</span></p></th>
+<th class="cl-ed9d2533"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9d253c"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">Adelie</span></p></td>
+<td class="cl-ed9d253c"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">female</span></p></td>
+<td class="cl-ed9d253d"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">73</span></p></td>
+<td class="cl-ed9d253d"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">3,369</span></p></td>
+<td class="cl-ed9d253d"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">Adelie</span></p></td>
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">male</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">73</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">4,043</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">Chinstrap</span></p></td>
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">female</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">34</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">3,527</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">Chinstrap</span></p></td>
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">male</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">34</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">3,939</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">Gentoo</span></p></td>
+<td class="cl-ed9d253e"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">female</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">58</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">4,680</span></p></td>
+<td class="cl-ed9d253f"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-ed9d2546"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">Gentoo</span></p></td>
+<td class="cl-ed9d2546"><p class="cl-ed9d1b1e"><span class="cl-ed9c388e">male</span></p></td>
+<td class="cl-ed9d2547"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">61</span></p></td>
+<td class="cl-ed9d2547"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">5,485</span></p></td>
+<td class="cl-ed9d2547"><p class="cl-ed9d1b1f"><span class="cl-ed9c388e">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>You can set some of these parameters as defaults with <code><a href="https://davidgohel.github.io/flextable/reference/set_flextable_defaults.html">set_flextable_defaults()</a></code>, so you don’t have to define them every time for a series of tables.</p>
+<div class="sourceCode" id="cb503"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span></span>
+<span>  font.color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  font.family <span class="op">=</span> <span class="st">"Times"</span>,</span>
+<span>  border.color <span class="op">=</span> <span class="st">"darkgrey"</span>,</span>
+<span>  theme_fun <span class="op">=</span> <span class="st">"theme_vanilla"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html">flextable</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">50</span>,<span class="fl">100</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-eda44286{}.cl-eda1c1aa{font-family:'Times';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-eda1c1b4{font-family:'Times';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-eda300e2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-eda300e3{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-eda30a74{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a75{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a76{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a7e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a7f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a80{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a81{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eda30a82{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-eda44286">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-eda30a74"><p class="cl-eda300e2"><span class="cl-eda1c1aa">species</span></p></th>
+<th class="cl-eda30a74"><p class="cl-eda300e2"><span class="cl-eda1c1aa">island</span></p></th>
+<th class="cl-eda30a75"><p class="cl-eda300e3"><span class="cl-eda1c1aa">bill_length_mm</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-eda30a76"><p class="cl-eda300e2"><span class="cl-eda1c1b4">Adelie</span></p></td>
+<td class="cl-eda30a76"><p class="cl-eda300e2"><span class="cl-eda1c1b4">Torgersen</span></p></td>
+<td class="cl-eda30a7e"><p class="cl-eda300e3"><span class="cl-eda1c1b4">39.1</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-eda30a7f"><p class="cl-eda300e2"><span class="cl-eda1c1b4">Adelie</span></p></td>
+<td class="cl-eda30a7f"><p class="cl-eda300e2"><span class="cl-eda1c1b4">Dream</span></p></td>
+<td class="cl-eda30a80"><p class="cl-eda300e3"><span class="cl-eda1c1b4">42.3</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-eda30a81"><p class="cl-eda300e2"><span class="cl-eda1c1b4">Adelie</span></p></td>
+<td class="cl-eda30a81"><p class="cl-eda300e2"><span class="cl-eda1c1b4">Dream</span></p></td>
+<td class="cl-eda30a82"><p class="cl-eda300e3"><span class="cl-eda1c1b4">43.2</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="flextable-layout" class="section level3" number="13.5.3">
+<h3>
+<span class="header-section-number">13.5.3</span> Flextable layout<a class="anchor" aria-label="anchor" href="#flextable-layout"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the example above, I renamed our summary table within <code>mutate</code> and rounded numbers to make things easier when exporting to a csv, so there would be less to change manually. But <code>flextable</code> provides options for changing header labels and editing cell content so you don’t have to deal with using tick marks (or if you want to use your summary table elsewhere, later, and want column names without spaces).</p>
+<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="va">dat_summ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html">flextable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/set_header_labels.html">set_header_labels</a></span><span class="op">(</span>n <span class="op">=</span> <span class="st">"No. birds"</span>, </span>
+<span>                    body_mass_mean <span class="op">=</span> <span class="st">"Mean body mass (g)"</span>,</span>
+<span>                    body_mass_sd <span class="op">=</span>  <span class="st">"SD body mass"</span><span class="op">)</span></span>
+<span><span class="va">ft</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-edab77b8{}.cl-eda8cb12{font-family:'Times';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-eda8cb1c{font-family:'Times';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edaa17ba{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-edaa17bb{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-edaa21c4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21c5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21c6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21ce{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21cf{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21d0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21d1{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edaa21d2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-edab77b8">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-edaa21c4"><p class="cl-edaa17ba"><span class="cl-eda8cb12">species</span></p></th>
+<th class="cl-edaa21c4"><p class="cl-edaa17ba"><span class="cl-eda8cb12">sex</span></p></th>
+<th class="cl-edaa21c5"><p class="cl-edaa17bb"><span class="cl-eda8cb12">No. birds</span></p></th>
+<th class="cl-edaa21c5"><p class="cl-edaa17bb"><span class="cl-eda8cb12">Mean body mass (g)</span></p></th>
+<th class="cl-edaa21c5"><p class="cl-edaa17bb"><span class="cl-eda8cb12">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edaa21c6"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">Adelie</span></p></td>
+<td class="cl-edaa21c6"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">female</span></p></td>
+<td class="cl-edaa21ce"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">73</span></p></td>
+<td class="cl-edaa21ce"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">3,368.836</span></p></td>
+<td class="cl-edaa21ce"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">269.3801</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">Adelie</span></p></td>
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">male</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">73</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">4,043.493</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">346.8116</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">Chinstrap</span></p></td>
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">female</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">34</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">3,527.206</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">285.3339</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">Chinstrap</span></p></td>
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">male</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">34</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">3,938.971</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">362.1376</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">Gentoo</span></p></td>
+<td class="cl-edaa21cf"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">female</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">58</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">4,679.741</span></p></td>
+<td class="cl-edaa21d0"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">281.5783</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edaa21d1"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">Gentoo</span></p></td>
+<td class="cl-edaa21d1"><p class="cl-edaa17ba"><span class="cl-eda8cb1c">male</span></p></td>
+<td class="cl-edaa21d2"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">61</span></p></td>
+<td class="cl-edaa21d2"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">5,484.836</span></p></td>
+<td class="cl-edaa21d2"><p class="cl-edaa17bb"><span class="cl-eda8cb1c">313.1586</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Round all numeric columns to zero decimal places</span></span>
+<span><span class="co"># And remove commas</span></span>
+<span><span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/colformat_double.html">colformat_double</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                   big.mark <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-edaf78b8{}.cl-edad344a{font-family:'Times';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edad344b{font-family:'Times';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edae1d4c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-edae1d4d{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-edae2756{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae2757{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae2758{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae2760{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae2761{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae2762{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae2763{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edae276a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-edaf78b8">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-edae2756"><p class="cl-edae1d4c"><span class="cl-edad344a">species</span></p></th>
+<th class="cl-edae2756"><p class="cl-edae1d4c"><span class="cl-edad344a">sex</span></p></th>
+<th class="cl-edae2757"><p class="cl-edae1d4d"><span class="cl-edad344a">No. birds</span></p></th>
+<th class="cl-edae2757"><p class="cl-edae1d4d"><span class="cl-edad344a">Mean body mass (g)</span></p></th>
+<th class="cl-edae2757"><p class="cl-edae1d4d"><span class="cl-edad344a">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edae2758"><p class="cl-edae1d4c"><span class="cl-edad344b">Adelie</span></p></td>
+<td class="cl-edae2758"><p class="cl-edae1d4c"><span class="cl-edad344b">female</span></p></td>
+<td class="cl-edae2760"><p class="cl-edae1d4d"><span class="cl-edad344b">73</span></p></td>
+<td class="cl-edae2760"><p class="cl-edae1d4d"><span class="cl-edad344b">3369</span></p></td>
+<td class="cl-edae2760"><p class="cl-edae1d4d"><span class="cl-edad344b">269</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">Adelie</span></p></td>
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">male</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">73</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">4043</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">347</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">Chinstrap</span></p></td>
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">female</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">34</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">3527</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">285</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">Chinstrap</span></p></td>
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">male</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">34</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">3939</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">362</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">Gentoo</span></p></td>
+<td class="cl-edae2761"><p class="cl-edae1d4c"><span class="cl-edad344b">female</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">58</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">4680</span></p></td>
+<td class="cl-edae2762"><p class="cl-edae1d4d"><span class="cl-edad344b">282</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edae2763"><p class="cl-edae1d4c"><span class="cl-edad344b">Gentoo</span></p></td>
+<td class="cl-edae2763"><p class="cl-edae1d4c"><span class="cl-edad344b">male</span></p></td>
+<td class="cl-edae276a"><p class="cl-edae1d4d"><span class="cl-edad344b">61</span></p></td>
+<td class="cl-edae276a"><p class="cl-edae1d4d"><span class="cl-edad344b">5485</span></p></td>
+<td class="cl-edae276a"><p class="cl-edae1d4d"><span class="cl-edad344b">313</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>You can also merge adjacent rows or columns with the same values. This is especially useful for grouped tables like ours:</p>
+<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/merge_v.html">merge_v</a></span><span class="op">(</span>j <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
+<p>To edit column sizes, use the <code><a href="https://davidgohel.github.io/flextable/reference/width.html">width()</a></code> option:</p>
+<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="va">ft</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://davidgohel.github.io/flextable/reference/width.html">width</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">ft</span></span></code></pre></div>
+<div class="tabwid">
+<style>.cl-edb45da6{}.cl-edb2211c{font-family:'Times';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edb2211d{font-family:'Times';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edb3078a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-edb3078b{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-edb31158{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb31159{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 1.5pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb31162{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb31163{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb31164{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb31165{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb3116c{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edb3116d{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(169, 169, 169, 1.00);border-top: 0.75pt solid rgba(169, 169, 169, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-edb45da6">
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-edb31158"><p class="cl-edb3078a"><span class="cl-edb2211c">species</span></p></th>
+<th class="cl-edb31158"><p class="cl-edb3078a"><span class="cl-edb2211c">sex</span></p></th>
+<th class="cl-edb31159"><p class="cl-edb3078b"><span class="cl-edb2211c">No. birds</span></p></th>
+<th class="cl-edb31159"><p class="cl-edb3078b"><span class="cl-edb2211c">Mean body mass (g)</span></p></th>
+<th class="cl-edb31159"><p class="cl-edb3078b"><span class="cl-edb2211c">SD body mass</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td rowspan="2" class="cl-edb31162"><p class="cl-edb3078a"><span class="cl-edb2211d">Adelie</span></p></td>
+<td class="cl-edb31162"><p class="cl-edb3078a"><span class="cl-edb2211d">female</span></p></td>
+<td class="cl-edb31163"><p class="cl-edb3078b"><span class="cl-edb2211d">73</span></p></td>
+<td class="cl-edb31163"><p class="cl-edb3078b"><span class="cl-edb2211d">3,368.836</span></p></td>
+<td class="cl-edb31163"><p class="cl-edb3078b"><span class="cl-edb2211d">269.3801</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edb31164"><p class="cl-edb3078a"><span class="cl-edb2211d">male</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">73</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">4,043.493</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">346.8116</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td rowspan="2" class="cl-edb31164"><p class="cl-edb3078a"><span class="cl-edb2211d">Chinstrap</span></p></td>
+<td class="cl-edb31164"><p class="cl-edb3078a"><span class="cl-edb2211d">female</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">34</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">3,527.206</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">285.3339</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edb31164"><p class="cl-edb3078a"><span class="cl-edb2211d">male</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">34</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">3,938.971</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">362.1376</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td rowspan="2" class="cl-edb3116c"><p class="cl-edb3078a"><span class="cl-edb2211d">Gentoo</span></p></td>
+<td class="cl-edb31164"><p class="cl-edb3078a"><span class="cl-edb2211d">female</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">58</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">4,679.741</span></p></td>
+<td class="cl-edb31165"><p class="cl-edb3078b"><span class="cl-edb2211d">281.5783</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-edb3116c"><p class="cl-edb3078a"><span class="cl-edb2211d">male</span></p></td>
+<td class="cl-edb3116d"><p class="cl-edb3078b"><span class="cl-edb2211d">61</span></p></td>
+<td class="cl-edb3116d"><p class="cl-edb3078b"><span class="cl-edb2211d">5,484.836</span></p></td>
+<td class="cl-edb3116d"><p class="cl-edb3078b"><span class="cl-edb2211d">313.1586</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="exporting-a-flextable" class="section level3" number="13.5.4">
+<h3>
+<span class="header-section-number">13.5.4</span> Exporting a flextable<a class="anchor" aria-label="anchor" href="#exporting-a-flextable"><i class="fas fa-link"></i></a>
+</h3>
+<p>You have five format options for exporting a <code>flextable</code>: html, docx, image, rtf, and pptx. Just use save_as_* for each of these, followed by a file name <em>with the proper extension</em>:</p>
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/save_as_docx.html">save_as_docx</a></span><span class="op">(</span><span class="va">ft</span>, path <span class="op">=</span> <span class="st">"outputs/flextable_penguins.docx"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<img src="images/penguins_table_word.png" alt="Just like the Viewer version!" width="50%"><p class="caption">
+Figure 13.2: Just like the Viewer version!
+</p>
+</div>
 <!-- ## An R package for table design: `gt` -->
 <!-- The method above is useful if you have a table or two to place in a report. What if you have a lot? The amount of extra time it takes to reformat each (and update every time something changes) might make it worth investing in a more automated solution. The [`gt`](https://gt.rstudio.com/articles/gt.html) package provides just that. It is very flexible, allowing you to create complex, nested tables. Although there is a bit of a learning curve to using the package, the time investment pays off if you produce a lot of tables. -->
 <!-- Here's an example of our penguin data in `gt` format: -->
@@ -256,6 +1234,7 @@
 
 </div>
 </div>
+</div>
   <div class="chapter-nav">
 <div class="prev"><a href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></div>
 <div class="next"><a href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></div>
@@ -265,6 +1244,16 @@
 <li><a class="nav-link" href="#tables"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
 <li><a class="nav-link" href="#objectives-10"><span class="header-section-number">13.1</span> Objectives</a></li>
 <li><a class="nav-link" href="#additional-reading-10"><span class="header-section-number">13.2</span> Additional reading</a></li>
+<li><a class="nav-link" href="#tables-as-outputs"><span class="header-section-number">13.3</span> Tables as outputs</a></li>
+<li><a class="nav-link" href="#writing-tables-to-files"><span class="header-section-number">13.4</span> Writing tables to files</a></li>
+<li>
+<a class="nav-link" href="#an-r-package-for-exporting-to-word-flextable"><span class="header-section-number">13.5</span> An R package for exporting to Word: flextable</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-structure-of-a-flextable"><span class="header-section-number">13.5.1</span> The structure of a flextable</a></li>
+<li><a class="nav-link" href="#formatting-a-flextable"><span class="header-section-number">13.5.2</span> Formatting a flextable</a></li>
+<li><a class="nav-link" href="#flextable-layout"><span class="header-section-number">13.5.3</span> Flextable layout</a></li>
+<li><a class="nav-link" href="#exporting-a-flextable"><span class="header-section-number">13.5.4</span> Exporting a flextable</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
