@@ -143,7 +143,7 @@ Sys.time() #careful, this is not the same as system.time. We might get to that o
 ```
 
 ```
-## [1] "2025-09-30 09:52:58 EDT"
+## [1] "2025-09-30 10:07:57 EDT"
 ```
 
 ### Formatting dates
