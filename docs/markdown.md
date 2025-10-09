@@ -46,8 +46,8 @@ To create a Quarto document in RStudio, use the File menu:
 </div>
 
 <div class="figure" style="text-align: center">
-<img src="images/quarto-create2.png" alt="All of these parameters can be changed later. Click "Create"" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-2)All of these parameters can be changed later. Click "Create"</p>
+<img src="images/quarto-create2.png" alt="All of these parameters can be changed later. Click on Create to make a new document." width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-2)All of these parameters can be changed later. Click on Create to make a new document.</p>
 </div>
 
 Once your Quarto document is open, you can toggle between two views: Source and Visual. Source is more "code-like", while the visual editor includes more point-and-click formatting tools and a preview of your formatting. If you toggle between the two, you can see how formatting is translated into Markdown language.

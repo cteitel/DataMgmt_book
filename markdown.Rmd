@@ -43,7 +43,7 @@ To create a Quarto document in RStudio, use the File menu:
 knitr::include_graphics("images/quarto-create.png")
 ```
 
-```{r, fig.cap='All of these parameters can be changed later. Click "Create"', fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+```{r, fig.cap='All of these parameters can be changed later. Click on Create to make a new document.', fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
 knitr::include_graphics("images/quarto-create2.png")
 ```
 
