@@ -8,7 +8,7 @@
 
 ## Principles of data cleaning
 
-Many of the tools we will use to clean data in R are functions and approaches we have already covered. Learning how to use these approaches to identify, fix, and document errors in data is a key part of a reproducible workflow. Although you *could* fix many of these issues manually in Excel, doing so programatically provides a record of your methods and changes. It also allows you to use the same approaches over and over again, with less effort each time.
+Many of the tools we will use to clean data in R are functions and approaches we have already covered. Learning how to use these approaches to identify, fix, and document errors in data is a key part of a reproducible workflow. Although you *could* fix many of these issues manually in Excel, doing so programatically provides a record of your methods and changes. It also allows you to use the same approaches over and over again, with less effort each time. I use these approaches a lot because I often use data collected by other people, so it's important that I have a clear record of what changes I have made, so that I can check back with the data collectors to see if these make sense.
 
 ## Fixing issues with data entry and reading data
 
