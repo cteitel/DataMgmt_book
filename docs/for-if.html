@@ -126,7 +126,7 @@
 <p>Here, I have <em>looped over</em> the values in the object called <code>vals</code>. Each time R goes through the loop, it assigns the next value in <code>vals</code> to <code>x</code>. I have then asked it to take the logarithm of <code>x</code> and print that to the screen.</p>
 <p>This is not a good application of a loop because the function <code><a href="https://rdrr.io/r/base/Log.html">log10()</a></code> can take a vector as its argument, so we would get the same result with <code>print(log10(vals))</code>.</p>
 <p>Loops become useful when (a) a function can’t operate on a vector, and (b) when we want to include conditional statements (more on that below).</p>
-<p>For example, to sample 100 values from from a normal distribution with a mean of 0 and a standard deviation of 2, we use <code>rnorm(n = 100, mean = 0, sd = 2)</code>. But what if we wanted to look at these distributions with staandard deviations ranging from 1 to 10? <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> can only take a single number for <code>sd</code>, so we would want to use a loop.</p>
+<p>For example, to sample 100 values from from a normal distribution with a mean of 0 and a standard deviation of 2, we use <code>rnorm(n = 100, mean = 0, sd = 2)</code>. But what if we wanted to look at these distributions with standard deviations ranging from 1 to 10? <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> can only take a single number for <code>sd</code>, so we would want to use a loop.</p>
 <div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the vector of standard deviations</span></span>
 <span><span class="va">sd_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
@@ -135,8 +135,15 @@
 <span>  <span class="co"># For each SD (x), get 100 values from a normal distribution with mean=0 and sd=x</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><strong>Wait, did that work? There’s no output!</strong> This is one finicky aspect of loops that takes some getting used to. Because the operation is happening inside the loop, it doesn’t print to the screen by default. It also takes some practice to assign new objects in loops, because if we did this:</p>
+<p><strong>Wait, did that work? There’s no output!</strong> This is one finicky aspect of loops that takes some getting used to. Because the operation is happening inside the loop, it doesn’t print to the screen by default. We can fix that by explicitly including <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> (but I won’t show the output here because it would be 10 sets of 100 values):</p>
 <div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Loop over SDs</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">sd_vals</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># For each SD (x), get 100 values from a normal distribution with mean=0 and sd=x</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>It also takes some practice to assign new objects in loops, because if we did this:</p>
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the vector of standard deviations</span></span>
 <span><span class="va">sd_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> </span>
 <span><span class="co"># Loop over SDs</span></span>
@@ -145,7 +152,7 @@
 <span>  <span class="va">norm_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>We would end up with only the last iteration saved in <code>norm_dist</code>. To solve this problem, think about the type of object you would like to get out of the loop. Here’s let’s say we want a long-form data frame with two columns: one stating the standard deviation and one with the 100 values for each distribution. We can initiate this data frame before the loop starts, then add to it as it goes:</p>
-<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the vector of standard deviations</span></span>
 <span><span class="va">sd_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co"># Create an empty data frame in which to save data</span></span>
@@ -160,16 +167,55 @@
 <span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">norm_vals_tib</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now, we have all our results saved:</p>
-<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb631"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1000    2</code></pre>
-<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb633"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "sd"  "val"</code></pre>
-<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">results</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">val</span>, color <span class="op">=</span> <span class="va">sd</span>, group <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="for-if_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="for-if_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p><code>for</code> loops are more aligned with a “base R” way of programming than with <code>tidyverse</code>, but you will encounter them often if using other code. They also form the conceptual base of some <code>tidyverse</code> functions, so understanding them can help you later. Because <code>for</code> loops are associated with base R, it is often necessary - or at least helpful - to remember to use square brackets for indexing, because you will often be dealing with <em>vectors</em> rather than <em>data frames</em> or <em>tibbles</em>. For example, a common way to write a loop is:</p>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">1000</span>, <span class="fl">10000</span>, <span class="fl">100000</span><span class="op">)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">vals</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">vals</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 0
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5</code></pre>
+<p>Here, instead of assigning <code>i</code> to the values in <code>vals</code>, we assign it to an <em>index</em>, which tells us here in the <code>vals</code> vector we are (here, <code>i</code> counts up from 1 to 6 as we go through the loop). <code>seq_along(vals)</code> is the equivalent of <code>1:length(vals)</code>, but is safer because if a vector is of length 0, <code><a href="https://rdrr.io/r/base/seq.html">seq_along()</a></code> returns a zero-length vector, whereas <code>1:length()</code> counts backwards (i.e, it returns 1, 0).</p>
+<p>This practice is useful when we are looping through multiple vectors together. For example, if we have a vector of standard deviations and a vector of corresponding means, we might do something like:</p>
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
+<span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="co">#10 random values for the mean</span></span>
+<span><span class="va">sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="co">#10 random ravlues for the SD</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#Blank data frame for output</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co">#Simulate five values with the mean and SD of the current index</span></span>
+<span>  <span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, mean <span class="op">=</span> <span class="va">means</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, sd <span class="op">=</span> <span class="va">sds</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="co">#Combine these values with their corresponding mean and SD</span></span>
+<span>  <span class="va">df_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">means</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, sd <span class="op">=</span> <span class="va">sds</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, val <span class="op">=</span> <span class="va">values</span><span class="op">)</span></span>
+<span>  <span class="co">#Combine values from all simulations</span></span>
+<span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">df_temp</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">8</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 8 × 3
+##    mean    sd    val
+##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+## 1     4     7 -1.91 
+## 2     4     7 -0.512
+## 3     4     7 -3.45 
+## 4     4     7  4.80 
+## 5     4     7 -4.44 
+## 6     1     5 -3.64 
+## 7     1     5  7.56 
+## 8     1     5  8.40</code></pre>
 <p>Loops do take some practice, but with these basics you should be able to practice and perfect. Remember:</p>
 <ol style="list-style-type: decimal">
 <li>Create an object <em>outside</em> the loop where you will save your results</li>
@@ -196,18 +242,18 @@
 }</code></pre>
 <p>Here, we ask R to evaluate <code>condition1</code>. If that returns <code>FALSE</code>, it will move on to <code>condition2</code>. If <code>condition2</code> is <code>FALSE</code> it will do “yet another thing”. This differs from the first example, where if <code>condition</code> was <code>FALSE</code>, R would do <em>nothing</em>.</p>
 <p>Let’s try an example:</p>
-<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">animal</span> <span class="op">&lt;-</span> <span class="st">"squirrel"</span></span>
 <span><span class="co"># Evaluate the first condition</span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="va">animal</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mallard"</span>,<span class="st">"whimbrel"</span>,<span class="st">"trumpeter swan"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="va">animal</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mallard"</span>, <span class="st">"whimbrel"</span>, <span class="st">"trumpeter swan"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"This is a bird."</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="kw">else</span><span class="op">{</span> <span class="co">#If not met, do this other thing</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"This is not a bird."</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## [1] "This is not a bird."</code></pre>
 <p>This is not a great use for an <code>if</code> statement because it is the same as:</p>
-<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">animal</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mallard"</span>,<span class="st">"whimbrel"</span>,<span class="st">"trumpeter swan"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">animal</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mallard"</span>, <span class="st">"whimbrel"</span>, <span class="st">"trumpeter swan"</span><span class="op">)</span>,</span>
 <span>        <span class="st">"This is a bird."</span>,</span>
 <span>        <span class="st">"This is not a bird."</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "This is not a bird."</code></pre>
@@ -218,7 +264,7 @@
 <span class="header-section-number">18.7</span> <code>while</code> loops<a class="anchor" aria-label="anchor" href="#while-loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>Writing a <code>for</code> loop requires that we know what sequence to loop over. However, sometimes, we want to perform a calculation until a condition is met. Here, we can use a <code>while</code> loop. A <code>while</code> loop combines the syntax of a <code>for</code> loop with the condition of an <code>if</code> statement. For example, let’s say we wanted to draw numbers from a vector until the sum was greater than 10. We would do this:</p>
-<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a vector of values to sample from</span></span>
 <span><span class="va">all_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co"># Define empty objects to use within the loop</span></span>
@@ -234,11 +280,11 @@
 <span>  <span class="va">sum_vect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] -1.1395919  3.1059058  4.1204888  0.5277166  0.8718911 11.9650214</code></pre>
-<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<pre><code>## [1] 8.666539 5.743882</code></pre>
+<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sum_vect</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 19.45143</code></pre>
-<p><code>while</code> loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! This is when the stop sign icon (top-right of your console) and the Session–&gt;Interrupt R menu are useful!</p>
+<pre><code>## [1] 14.41042</code></pre>
+<p><code>while</code> loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! If you encounter this, the stop sign icon (top-right of your console) or the Session–&gt;“Interrupt R” menu are useful.</p>
 
 </div>
 </div>
@@ -272,7 +318,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-10-17.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-10-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

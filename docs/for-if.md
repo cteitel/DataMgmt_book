@@ -56,7 +56,7 @@ This is not a good application of a loop because the function `log10()` can take
 
 Loops become useful when (a) a function can't operate on a vector, and (b) when we want to include conditional statements (more on that below).
 
-For example, to sample 100 values from from a normal distribution with a mean of 0 and a standard deviation of 2, we use `rnorm(n = 100, mean = 0, sd = 2)`. But what if we wanted to look at these distributions with staandard deviations ranging from 1 to 10? `rnorm()` can only take a single number for `sd`, so we would want to use a loop.
+For example, to sample 100 values from from a normal distribution with a mean of 0 and a standard deviation of 2, we use `rnorm(n = 100, mean = 0, sd = 2)`. But what if we wanted to look at these distributions with standard deviations ranging from 1 to 10? `rnorm()` can only take a single number for `sd`, so we would want to use a loop.
 
 
 ``` r
@@ -69,7 +69,18 @@ for(x in sd_vals){
 }
 ```
 
-**Wait, did that work? There's no output!** This is one finicky aspect of loops that takes some getting used to. Because the operation is happening inside the loop, it doesn't print to the screen by default. It also takes some practice to assign new objects in loops, because if we did this:
+**Wait, did that work? There's no output!** This is one finicky aspect of loops that takes some getting used to. Because the operation is happening inside the loop, it doesn't print to the screen by default. We can fix that by explicitly including `print()` (but I won't show the output here because it would be 10 sets of 100 values):
+
+
+``` r
+# Loop over SDs
+for(x in sd_vals){
+  # For each SD (x), get 100 values from a normal distribution with mean=0 and sd=x
+  print(rnorm(n = 100, mean = 0, sd = x))
+}
+```
+
+It also takes some practice to assign new objects in loops, because if we did this:
 
 
 ``` r
@@ -125,7 +136,61 @@ ggplot(results, aes(x = val, color = sd, group = sd)) +
   geom_density() 
 ```
 
-<img src="for-if_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="for-if_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
+`for` loops are more aligned with a "base R" way of programming than with `tidyverse`, but you will encounter them often if using other code. They also form the conceptual base of some `tidyverse` functions, so understanding them can help you later. Because `for` loops are associated with base R, it is often necessary - or at least helpful - to remember to use square brackets for indexing, because you will often be dealing with *vectors* rather than *data frames* or *tibbles*. For example, a common way to write a loop is:
+
+
+``` r
+vals <- c(1, 10, 100, 1000, 10000, 100000)
+for(i in seq_along(vals)){
+  print(log10(vals[i]))
+}
+```
+
+```
+## [1] 0
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+```
+
+Here, instead of assigning `i` to the values in `vals`, we assign it to an *index*, which tells us here in the `vals` vector we are (here, `i` counts up from 1 to 6 as we go through the loop). `seq_along(vals)` is the equivalent of `1:length(vals)`, but is safer because if a vector is of length 0, `seq_along()` returns a zero-length vector, whereas `1:length()` counts backwards (i.e, it returns 1, 0).
+
+This practice is useful when we are looping through multiple vectors together. For example, if we have a vector of standard deviations and a vector of corresponding means, we might do something like:
+
+
+``` r
+set.seed(2025)
+means <- sample(10) #10 random values for the mean
+sds <- sample(10) #10 random ravlues for the SD
+results <- tibble() #Blank data frame for output
+for(i in 1:length(means)){
+  #Simulate five values with the mean and SD of the current index
+  values <- rnorm(n = 5, mean = means[i], sd = sds[i])
+  #Combine these values with their corresponding mean and SD
+  df_temp <- bind_cols(mean = means[i], sd = sds[i], val = values)
+  #Combine values from all simulations
+  results <- bind_rows(results, df_temp)
+}
+head(results, 8)
+```
+
+```
+## # A tibble: 8 × 3
+##    mean    sd    val
+##   <int> <int>  <dbl>
+## 1     4     7 -1.91 
+## 2     4     7 -0.512
+## 3     4     7 -3.45 
+## 4     4     7  4.80 
+## 5     4     7 -4.44 
+## 6     1     5 -3.64 
+## 7     1     5  7.56 
+## 8     1     5  8.40
+```
 
 Loops do take some practice, but with these basics you should be able to practice and perfect. Remember:
 
@@ -164,7 +229,7 @@ Let's try an example:
 ``` r
 animal <- "squirrel"
 # Evaluate the first condition
-if(animal %in% c("mallard","whimbrel","trumpeter swan")){
+if(animal %in% c("mallard", "whimbrel", "trumpeter swan")){
   print("This is a bird.")
 } else{ #If not met, do this other thing
   print("This is not a bird.")
@@ -179,7 +244,7 @@ This is not a great use for an `if` statement because it is the same as:
 
 
 ``` r
-if_else(animal %in% c("mallard","whimbrel","trumpeter swan"),
+if_else(animal %in% c("mallard", "whimbrel", "trumpeter swan"),
         "This is a bird.",
         "This is not a bird.")
 ```
@@ -214,7 +279,7 @@ print(vect)
 ```
 
 ```
-## [1] -1.1395919  3.1059058  4.1204888  0.5277166  0.8718911 11.9650214
+## [1] 8.666539 5.743882
 ```
 
 ``` r
@@ -222,7 +287,7 @@ print(sum_vect)
 ```
 
 ```
-## [1] 19.45143
+## [1] 14.41042
 ```
 
-`while` loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! This is when the stop sign icon (top-right of your console) and the Session-->Interrupt R menu are useful!
+`while` loops can be dangerous - there is always a chance that your condition will never be met and the loop will run forever! If you encounter this, the stop sign icon (top-right of your console) or the Session-->"Interrupt R" menu are useful.
