@@ -247,6 +247,11 @@ errors-and-warnings
 lists
 objectives-17
 additional-reading-14
+what-is-non-tabular-data
+lists-1
+nested-data-frames-list-columns
+applying-functions-across-lists-map
+saving-lists-and-nested-data-frames
 spatial
 objectives-18
 additional-reading-15

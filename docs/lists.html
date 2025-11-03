@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>20 Complex Data Structures in R | Data Management and Reproducible Science</title>
 <meta name="author" content="Claire S Teitelbaum">
-<meta name="description" content="20.1 Objectives   20.2 Additional reading">
+<meta name="description" content="20.1 Objectives Become familiar with non-tabular data structures (lists) in R Understand the uses of lists and nested data frames Be able to create and manipulate lists and nested data frames ...">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
 <meta property="og:title" content="20 Complex Data Structures in R | Data Management and Reproducible Science">
 <meta property="og:type" content="book">
-<meta property="og:description" content="20.1 Objectives   20.2 Additional reading">
+<meta property="og:description" content="20.1 Objectives Become familiar with non-tabular data structures (lists) in R Understand the uses of lists and nested data frames Be able to create and manipulate lists and nested data frames ...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20 Complex Data Structures in R | Data Management and Reproducible Science">
-<meta name="twitter:description" content="20.1 Objectives   20.2 Additional reading">
+<meta name="twitter:description" content="20.1 Objectives Become familiar with non-tabular data structures (lists) in R Understand the uses of lists and nested data frames Be able to create and manipulate lists and nested data frames ...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -79,11 +79,331 @@
 <h2>
 <span class="header-section-number">20.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-17"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Become familiar with non-tabular data structures (lists) in R</li>
+<li>Understand the uses of lists and nested data frames</li>
+<li>Be able to create and manipulate lists and nested data frames</li>
+</ul>
 </div>
 <div id="additional-reading-14" class="section level2" number="20.2">
 <h2>
 <span class="header-section-number">20.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-14"><i class="fas fa-link"></i></a>
 </h2>
+<p>Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2e). Chapter 23: Hierarchical data. Available: <a href="https://r4ds.hadley.nz/rectangling.html" class="uri">https://r4ds.hadley.nz/rectangling.html</a></p>
+</div>
+<div id="what-is-non-tabular-data" class="section level2" number="20.3">
+<h2>
+<span class="header-section-number">20.3</span> What is non-tabular data?<a class="anchor" aria-label="anchor" href="#what-is-non-tabular-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far, we have worked with tabular data only - that is, we have a table where
+each column has the same number of rows (and vice versa), and the data in each
+column has the same structure (all numeric, all character, etc.). In R, these columns
+also have limited types of data they can accommodate (again: numeric, character,
+factor, etc.). Not all data meets these requirements, which means there are many
+more data structures out there. For example, spatial data (which we will cover
+soon) contains embedded metadata about the coordinate reference system, and each
+data point might be a polygon rather than simply a point with X and Y coordinates.
+You can also imagine a case where you might want to have multiple datasets relating
+to one another, without duplicating all the information (e.g., associating individual
+traits to hourly monitoring data without repeating the individual traits over
+and over in your data frame), or where you might want to store multiple models
+in a certain order.</p>
+<p>So far, we could only do any of this by creating a lot of separate objects in
+the environment - for example, a different named object for each of 10 models.</p>
+</div>
+<div id="lists-1" class="section level2" number="20.4">
+<h2>
+<span class="header-section-number">20.4</span> Lists<a class="anchor" aria-label="anchor" href="#lists-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>A list is a hierarchical data structure that can contain any number of data types.
+Here’s an example:</p>
+<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"element1"</span>, <span class="fl">1</span>, <span class="cn">TRUE</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"this"</span>,<span class="st">"is"</span>,<span class="st">"a"</span>,<span class="st">"vector"</span><span class="op">)</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, lett <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"b"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">l1</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] "element1"
+## 
+## [[2]]
+## [1] 1
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] "this"   "is"     "a"      "vector"
+## 
+## [[5]]
+##   num lett
+## 1   1    a
+## 2   2    b</code></pre>
+<p>Here, our list has four elements, each of which is a different data type or length
+(character, numeric, logical, a character vector, and a data frame). Because printing the list
+can take up space very quickly, we can summarize the contents of a list with the
+<code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function:</p>
+<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## List of 5
+##  $ : chr "element1"
+##  $ : num 1
+##  $ : logi TRUE
+##  $ : chr [1:4] "this" "is" "a" "vector"
+##  $ :'data.frame':    2 obs. of  2 variables:
+##   ..$ num : num [1:2] 1 2
+##   ..$ lett: chr [1:2] "a" "b"</code></pre>
+<p>Lists can also be named:</p>
+<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>chr <span class="op">=</span> <span class="st">"element1"</span>, int <span class="op">=</span> <span class="fl">1</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, chr_v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"this"</span>,<span class="st">"is"</span>,<span class="st">"a"</span>,<span class="st">"vector"</span><span class="op">)</span>,</span>
+<span>           df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, lett <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"b"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## List of 5
+##  $ chr  : chr "element1"
+##  $ int  : num 1
+##  $ log  : logi TRUE
+##  $ chr_v: chr [1:4] "this" "is" "a" "vector"
+##  $ df   :'data.frame':   2 obs. of  2 variables:
+##   ..$ num : num [1:2] 1 2
+##   ..$ lett: chr [1:2] "a" "b"</code></pre>
+<p>To extract elements from a list, we can use square brackets or names. If using square
+brackets, a single bracket will return a <em>list</em> and double brackets will return
+the element in its own structure:</p>
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## $chr
+## [1] "element1"</code></pre>
+<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] "element1"</code></pre>
+<p>The behavior might seem inconvenient, but means that we can subset a list using
+single brackets, but extract its elements using double brackets:</p>
+<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">]</span> <span class="co"># Returns a list with the first two elements</span></span></code></pre></div>
+<pre><code>## $chr
+## [1] "element1"
+## 
+## $int
+## [1] 1</code></pre>
+<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="co"># Does not work</span></span></code></pre></div>
+<pre><code>## Error in l1[[c(1, 2)]]: subscript out of bounds</code></pre>
+<p>Using a name works just like using double brackets.</p>
+<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l1</span><span class="op">$</span><span class="va">chr</span></span></code></pre></div>
+<pre><code>## [1] "element1"</code></pre>
+<p>Finally, lists are designed to be hierarchical - in other words, each element of
+a list can also be a list (and so on and so forth).</p>
+<div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  l1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>v1 <span class="op">=</span> <span class="fl">1</span>, v2 <span class="op">=</span> <span class="fl">2</span>, v2 <span class="op">=</span> <span class="st">"yes"</span><span class="op">)</span>,</span>
+<span>  l2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>v1 <span class="op">=</span> <span class="fl">3</span>, v2 <span class="op">=</span> <span class="st">"element2"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## List of 2
+##  $ l1:List of 3
+##   ..$ v1: num 1
+##   ..$ v2: num 2
+##   ..$ v2: chr "yes"
+##  $ l2:List of 2
+##   ..$ v1: num 3
+##   ..$ v2: chr "element2"</code></pre>
+<p>This property makes lists useful for containing data that is inherently hierarchical,
+for example a taxonomy (here, of hominids):</p>
+<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hominid_taxonomy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  Ponginae <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    Pongo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pygmaeus"</span>,<span class="st">"abelii"</span>,<span class="st">"tapanuliensis"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  Homininae <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    Gorilla <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gorilla"</span>, <span class="st">"beringei"</span><span class="op">)</span>,</span>
+<span>    Pan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"paniscus"</span>, <span class="st">"troglodytes"</span><span class="op">)</span>,</span>
+<span>    Homo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sapiens"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">hominid_taxonomy</span></span></code></pre></div>
+<pre><code>## $Ponginae
+## $Ponginae$Pongo
+## [1] "pygmaeus"      "abelii"        "tapanuliensis"
+## 
+## 
+## $Homininae
+## $Homininae$Gorilla
+## [1] "gorilla"  "beringei"
+## 
+## $Homininae$Pan
+## [1] "paniscus"    "troglodytes"
+## 
+## $Homininae$Homo
+## [1] "sapiens"</code></pre>
+<p>Here, if I wanted to extract the species names within the genus <em>Homo</em>, I would use
+one of the following:</p>
+<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hominid_taxonomy</span><span class="op">$</span><span class="va">Homininae</span><span class="op">$</span><span class="va">Homo</span></span></code></pre></div>
+<pre><code>## [1] "sapiens"</code></pre>
+<div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hominid_taxonomy</span><span class="op">[[</span><span class="st">"Homininae"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"Homo"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] "sapiens"</code></pre>
+</div>
+<div id="nested-data-frames-list-columns" class="section level2" number="20.5">
+<h2>
+<span class="header-section-number">20.5</span> Nested data frames (list-columns)<a class="anchor" aria-label="anchor" href="#nested-data-frames-list-columns"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can combine lists and data frames in <code>tidyverse</code> by making a list into a column.
+To do so, the list must have the same number of elements as there are rows in the
+data frame, so that each row corresponds to one element of the list. Here’s an example:</p>
+<div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span>
+<span>  ID_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  list_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"note"</span>, <span class="st">"note"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"note"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"note"</span>, <span class="st">"note"</span>, <span class="st">"note"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">dat</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   ID    ID_num list_info 
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;list&gt;    
+## 1 A          1 &lt;list [2]&gt;
+## 2 B          2 &lt;list [1]&gt;
+## 3 C          3 &lt;list [3]&gt;</code></pre>
+<p>You can see that we now have a tibble with three columns, one of which is a list.</p>
+<p>This data structure is very useful under two scenarios: (1) the data itself is nested
+and you want to perform operations separately on the nested and non-nested portions,
+and (2) you want to store models for subsets of data. For example, if I have information
+for 100 different species but want to analyze them separately, I could group my
+data by species such that I have a list-column with all the data for that species,
+then loop across that list to run my analysis. This is much easier than having 100
+data objects and 100 model objects (one for each species).</p>
+<p>If the list-column contains a data frame, we can also easily nest and unnest the data.
+For example, for the urban wildlife data, I might want to nest my data by the type of
+health metric measured. To do so, I use the <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code> function in <code>tidyr</code> (part
+of <code>tidyverse</code>):</p>
+<div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/raw/Murray-Sanchez_urban-wildlife.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 516</code></pre>
+<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data_bymetric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span><span class="va">urban_data</span>, data <span class="op">=</span> <span class="op">-</span><span class="va">health</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb712"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data_bymetric</span></span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   health    data               
+##   &lt;chr&gt;     &lt;list&gt;             
+## 1 parasites &lt;tibble [194 × 41]&gt;
+## 2 condition &lt;tibble [60 × 41]&gt; 
+## 3 toxicants &lt;tibble [189 × 41]&gt;
+## 4 stress    &lt;tibble [73 × 41]&gt;</code></pre>
+<p>Now, I have created a data frame with four rows, one for each health metric, and a
+column called <code>data</code> that contains a list of tibbles, each of which contains all
+the other columns corresponding to that health metric. The first argument in <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code>
+indicates the data frame to work with, while the second indicates which columns
+to nest; in this case, we want to nest all columns <em>except</em> <code>health</code>. This is
+conceptually similar to using <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>.</p>
+<p>To remove the list-column, we can use <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code>:</p>
+<div class="sourceCode" id="cb714"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span>, <span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<p>The first argument in <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code>indicates the data frame to work with, while the
+second indicates which columns to unnest (in theory, you could have multiple list-
+columns in your data set).</p>
+<p>There are two related functions, <code><a href="https://tidyr.tidyverse.org/reference/unnest_wider.html">unnest_wider()</a></code> and <code><a href="https://tidyr.tidyverse.org/reference/unnest_longer.html">unnest_longer()</a></code>, that
+you can also explore, which allow you to unnest lists (above, our list-column
+was a data frame, which made it more obvious how to unnest it).</p>
+</div>
+<div id="applying-functions-across-lists-map" class="section level2" number="20.6">
+<h2>
+<span class="header-section-number">20.6</span> Applying functions across lists (<code>map</code>)<a class="anchor" aria-label="anchor" href="#applying-functions-across-lists-map"><i class="fas fa-link"></i></a>
+</h2>
+<p>Storing data as a list makes sense in many cases, but it is much more powerful
+when we can apply functions (actions) across the list.</p>
+<p>The <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> function in <code>tidyverse</code> (equivalent to <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> for the base R users
+among you) works similarly to <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>, but instead of applying to columns in
+a data frame, it applies to elements in a list. The functions enclosed in <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>
+often become more complex that those you might use in <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> because they
+can apply to data frames or lists, not just vectors.</p>
+<p>For example, let’s say we wanted to know the number of data points in each of our
+health metric groups. We could acheive this by using <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> on the list-column:</p>
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span><span class="op">$</span><span class="va">data</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 194
+## 
+## [[2]]
+## [1] 60
+## 
+## [[3]]
+## [1] 189
+## 
+## [[4]]
+## [1] 73</code></pre>
+<p>Notice that <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> always returns a list. However, there are other forms of <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>
+that create a vector, which you can use if your function will return something
+that makes sense as a vector. These functions include <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> for numeric,
+<code><a href="https://purrr.tidyverse.org/reference/map.html">map_int()</a></code> for integers, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> for characters, and <code><a href="https://purrr.tidyverse.org/reference/map.html">map_lgl()</a></code> for logical:</p>
+<div class="sourceCode" id="cb717"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span><span class="op">$</span><span class="va">data</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 194  60 189  73</code></pre>
+<p>To make this even more powerful, we can integrate it with <code>mutate</code> to add a new column
+to our data set:</p>
+<div class="sourceCode" id="cb719"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data_bymetric</span> <span class="op">&lt;-</span> <span class="va">urban_data_bymetric</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n_obs <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">urban_data_bymetric</span></span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   health    data                n_obs
+##   &lt;chr&gt;     &lt;list&gt;              &lt;int&gt;
+## 1 parasites &lt;tibble [194 × 41]&gt;   194
+## 2 condition &lt;tibble [60 × 41]&gt;     60
+## 3 toxicants &lt;tibble [189 × 41]&gt;   189
+## 4 stress    &lt;tibble [73 × 41]&gt;     73</code></pre>
+<p>Here, we created a new column, <code>n_obs</code>, by mapping across the <code>data</code> list-column and
+pulling out the number of rows. Of course, this would have easily been doable with
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, but we would have “lost” the rest of the data,
+at least temporarily, in doing so.</p>
+</div>
+<div id="saving-lists-and-nested-data-frames" class="section level2" number="20.7">
+<h2>
+<span class="header-section-number">20.7</span> Saving lists and nested data frames<a class="anchor" aria-label="anchor" href="#saving-lists-and-nested-data-frames"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far, we have been able to save all our data as a .csv. CSVs are tabular, and
+so was our data. But opening a list outside of R is harder, so how can we save and
+communicate these types of data?</p>
+<p>One way to save data is as an RDS object. This is a compressed data format that
+will preserve all the features of your data; when you read it back in, everyting
+will remain the same (for example, if you manually set factor levels). It can also
+accomodate pretty much any data structure, including lists and nested data frames.
+To create an RDS object, use the <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> function and include the .rds file
+extension:</p>
+<div class="sourceCode" id="cb721"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span>, <span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/clean/urban_data_nested.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>While RDS objects are great for your own uses (for example, to save intermediate
+data products), they’re not great for sharing because they can’t easily be opened
+by anything other than R. For these cases, you are usually best off saving separate
+.csv files (for example, one for each health metric) in a new folder that contains
+them all.</p>
+<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/clean/nested_urban_data/"</span><span class="op">)</span><span class="op">)</span> <span class="co"># make a new directory for the files</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">urban_data_bymetric</span><span class="op">$</span><span class="va">health</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">".csv"</span><span class="op">)</span> <span class="co">#create a new name for the file</span></span>
+<span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">urban_data_bymetric</span><span class="op">$</span><span class="va">data</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="co"># extract the data to save</span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/clean/nested_urban_data/"</span>, <span class="va">file_name</span><span class="op">)</span><span class="op">)</span> <span class="co"># save!</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/clean/nested_urban_data/"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Check that files have been created</span></span></code></pre></div>
+<p>Then, when you want to read them back in, you can use <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> to re-create a list
+or tibble:</p>
+<div class="sourceCode" id="cb723"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/clean/nested_urban_data/"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Get all file names</span></span>
+<span><span class="va">health</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">files</span>, <span class="st">".csv"</span><span class="op">)</span> <span class="co"># Extract metric names from file names</span></span>
+<span><span class="va">urban_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  <span class="va">health</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">files</span>, <span class="op">~</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"data/clean/nested_urban_data/"</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">urban_data2</span> </span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   health    data                 
+##   &lt;chr&gt;     &lt;list&gt;               
+## 1 condition &lt;spc_tbl_ [60 × 41]&gt; 
+## 2 parasites &lt;spc_tbl_ [194 × 41]&gt;
+## 3 stress    &lt;spc_tbl_ [73 × 41]&gt; 
+## 4 toxicants &lt;spc_tbl_ [189 × 41]&gt;</code></pre>
 
 </div>
 </div>
@@ -96,6 +416,11 @@
 <li><a class="nav-link" href="#lists"><span class="header-section-number">20</span> Complex Data Structures in R</a></li>
 <li><a class="nav-link" href="#objectives-17"><span class="header-section-number">20.1</span> Objectives</a></li>
 <li><a class="nav-link" href="#additional-reading-14"><span class="header-section-number">20.2</span> Additional reading</a></li>
+<li><a class="nav-link" href="#what-is-non-tabular-data"><span class="header-section-number">20.3</span> What is non-tabular data?</a></li>
+<li><a class="nav-link" href="#lists-1"><span class="header-section-number">20.4</span> Lists</a></li>
+<li><a class="nav-link" href="#nested-data-frames-list-columns"><span class="header-section-number">20.5</span> Nested data frames (list-columns)</a></li>
+<li><a class="nav-link" href="#applying-functions-across-lists-map"><span class="header-section-number">20.6</span> Applying functions across lists (map)</a></li>
+<li><a class="nav-link" href="#saving-lists-and-nested-data-frames"><span class="header-section-number">20.7</span> Saving lists and nested data frames</a></li>
 </ul>
 
       <div class="book-extra">
@@ -112,7 +437,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-10-31.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

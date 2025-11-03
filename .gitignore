@@ -8,3 +8,4 @@ datamgmt-book.rds
 .Rbuildignore
 .DS_Store
 outputs/
+Data/clean/nested_urban_data/
