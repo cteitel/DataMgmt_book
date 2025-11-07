@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>21 An Introduction to Spatial Data in R | Data Management and Reproducible Science</title>
 <meta name="author" content="Claire S Teitelbaum">
-<meta name="description" content="21.1 Objectives   21.2 Additional reading">
+<meta name="description" content="21.1 Objectives Understand the structures of spatial data in R, including both vector (points, lines, polygons) and raster (gridded) data Be familiar with the core R packages for spatial data (sf,...">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
 <meta property="og:title" content="21 An Introduction to Spatial Data in R | Data Management and Reproducible Science">
 <meta property="og:type" content="book">
-<meta property="og:description" content="21.1 Objectives   21.2 Additional reading">
+<meta property="og:description" content="21.1 Objectives Understand the structures of spatial data in R, including both vector (points, lines, polygons) and raster (gridded) data Be familiar with the core R packages for spatial data (sf,...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="21 An Introduction to Spatial Data in R | Data Management and Reproducible Science">
-<meta name="twitter:description" content="21.1 Objectives   21.2 Additional reading">
+<meta name="twitter:description" content="21.1 Objectives Understand the structures of spatial data in R, including both vector (points, lines, polygons) and raster (gridded) data Be familiar with the core R packages for spatial data (sf,...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -79,12 +79,337 @@
 <h2>
 <span class="header-section-number">21.1</span> Objectives<a class="anchor" aria-label="anchor" href="#objectives-18"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Understand the structures of spatial data in R, including both vector (points,
+lines, polygons) and raster (gridded) data</li>
+<li>Be familiar with the core R packages for spatial data (<code>sf</code>, <code>terra</code>)</li>
+<li>Plot spatial data using <code>ggplot2</code>
+</li>
+<li>Work with both geographic and projected coordinates in R</li>
+</ul>
 </div>
 <div id="additional-reading-15" class="section level2" number="21.2">
 <h2>
 <span class="header-section-number">21.2</span> Additional reading<a class="anchor" aria-label="anchor" href="#additional-reading-15"><i class="fas fa-link"></i></a>
 </h2>
-
+<p>Edzer Pebsma, and Roger Bivand. Spatial Data Science With Applications in R. Chapter 7.1: Package sf. Available: <a href="https://r-spatial.org/book/07-Introsf.html#sec-sfintro" class="uri">https://r-spatial.org/book/07-Introsf.html#sec-sfintro</a></p>
+<p>Claudia Engel. Using Spatial Data with R. <a href="https://cengel.github.io/R-spatial/" class="uri">https://cengel.github.io/R-spatial/</a></p>
+</div>
+<div id="characteristics-of-spatial-data" class="section level2" number="21.3">
+<h2>
+<span class="header-section-number">21.3</span> Characteristics of spatial data<a class="anchor" aria-label="anchor" href="#characteristics-of-spatial-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>For this lesson, I assume you have some working knowledge or experience working with
+spatial information. You might have collected waypoints while working in the field,
+plugged coordinates into Google Maps, or worked extensively with spatial data in
+a GIS. This lesson will not cover spatial <em>analysis</em> – that is a whole course
+in itself. Instead, the goal of this lesson is for you to be able to read, manipulate,
+and plot data that has a spatial component, focusing on points.</p>
+<p>Data with a spatial component is simply data that has coordinates associated with
+it. These data can be points (e.g., an organism’s location), lines (e.g., an
+animal’s movement trajectory), polygons (e.g., the boundaries of a study site).
+These three types of data are called <strong>vector data</strong> (also called feeatures).
+Here, <em>vector</em> means something different than it usually does in R; rather than
+a series of elements of the same type, it means that the data is defined by coordinate
+pairs: the pairs of coordinates that define points or vertices. Spatial data can
+also come in a <strong>raster</strong>, or gridded, format, in which case a region is divided
+into rectangles of the same size, each of which is associated with a value. We will
+mainly focus on vector data in this lesson.</p>
+</div>
+<div id="the-sf-package" class="section level2" number="21.4">
+<h2>
+<span class="header-section-number">21.4</span> The <code>sf</code> package<a class="anchor" aria-label="anchor" href="#the-sf-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <code>sf</code> package is the primary R package for manipulating spatial data. “sf” stands
+for “simple features,” which is the structure for storing and accessing vector
+data through the package. The <code>sf</code> package superceded the <code>sp</code> package, so if you
+find functions on StackOverflow or other sources that use functions starting with
+<code>sp</code>, know that these are currently not recommended for use.</p>
+<p>At its core, you can think of an <code>sf</code> object as an extension of a data frame
+or tibble. It contains a column (similar to a list-column) with information about
+the features (or <em>geometries</em>). Here’s an example of a shapefile with points representing
+centroids (center points) of Georgia counties:</p>
+<div class="sourceCode" id="cb725"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "sf"         "data.frame"</code></pre>
+<p>This is an <code>sf</code> object and also a data frame. Looking at the first few rows of data:</p>
+<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.49417 ymin: 31.03786 xmax: -81.44214 ymax: 34.88169
+## Geodetic CRS:  WGS 84
+##     NAME10  ShapeSTAre                   geometry
+## 1   Lanier  5570179459 POINT (-83.06265 31.03786)
+## 2    Bryan 12687699691 POINT (-81.44214 32.01314)
+## 3  Appling 14289311301 POINT (-82.28893 31.74921)
+## 4    Rabun 10506079754 POINT (-83.40222 34.88169)
+## 5 Bleckley  6108732241 POINT (-83.32789 32.43442)
+## 6  Fayette  5555769752  POINT (-84.49417 33.4139)</code></pre>
+<p>You can see that there are columns giving us the name and area of each county, but
+also a <code>geometry</code> column that contains a series of features called <code>POINT</code>,
+each of which has an associated latitude and longitude. Similarly, a different object
+that contains <em>polygons</em> representing county boundaries looks like this:</p>
+<div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.62722 ymin: 30.84471 xmax: -81.13833 ymax: 35.00067
+## Geodetic CRS:  WGS 84
+##     NAME10  ShapeSTAre                       geometry
+## 1   Lanier  5570179459 MULTIPOLYGON (((-83.0428 30...
+## 2    Bryan 12687699691 MULTIPOLYGON (((-81.40496 3...
+## 3  Appling 14289311301 MULTIPOLYGON (((-82.46585 3...
+## 4    Rabun 10506079754 MULTIPOLYGON (((-83.61831 3...
+## 5 Bleckley  6108732241 MULTIPOLYGON (((-83.30089 3...
+## 6  Fayette  5555769752 MULTIPOLYGON (((-84.55744 3...</code></pre>
+<p>Here, each feature contains many coordinates, each of which is a vertex of the polygon.
+In addition, printing the object to the screen tells us about some characteristics
+of the data, including its projection (see below), the types of geometries it
+contains (point, polygon, etc.), and its bounding box (the minimum and maximum
+X and Y coordinates).</p>
+</div>
+<div id="map-projections-and-coordinate-reference-systems" class="section level2" number="21.5">
+<h2>
+<span class="header-section-number">21.5</span> Map projections and coordinate reference systems<a class="anchor" aria-label="anchor" href="#map-projections-and-coordinate-reference-systems"><i class="fas fa-link"></i></a>
+</h2>
+<p>The globe is round but we make plots and measurements in two-dimensional space.
+Doing so inevitably creates some distortion in distance, area, and/or shape. For
+example, consider common some global map projections:</p>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<p>Each of these has different features, whether creating straight lines for
+navigation (Mercator), distances between points (Azimuthal), or areas of polygons
+(Mollweide). Except for the geographic coordinates, whose units are degrees of
+latitude and longitude, all of these projections measure X and Y in meters. Another
+common projection system is the Universal Transverse Mercator (UTM), where you
+will usually see coordinates labeled “northing” and “easting”. UTMs are useful
+because the system divides the Earth into zones, which results is less distortion
+within each zone. However, this property means that UTMs are less useful for
+continental or global-scale maps, since distortion is enhanced outside the zone.
+When using UTMs, you need to know not only the northing and easting, but also
+which zone was used to create the coordinates.</p>
+<p><a href="https://doi.org/10.3133/70047422">This report from the U.S. Geological Survey</a>
+provides an overview of some common projections.</p>
+<p>Projections are identified using their coordinate reference system (CRS), which is a
+set of information defining how to locate coordinates on a map relative to their
+actual location on the three-dimensional globe. We can look at these properties of
+an <code>sf</code> object using the <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> function.</p>
+<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: epsg:4326 
+##   wkt:
+## GEOGCRS["WGS 84",
+##     ENSEMBLE["World Geodetic System 1984 ensemble",
+##         MEMBER["World Geodetic System 1984 (Transit)"],
+##         MEMBER["World Geodetic System 1984 (G730)"],
+##         MEMBER["World Geodetic System 1984 (G873)"],
+##         MEMBER["World Geodetic System 1984 (G1150)"],
+##         MEMBER["World Geodetic System 1984 (G1674)"],
+##         MEMBER["World Geodetic System 1984 (G1762)"],
+##         MEMBER["World Geodetic System 1984 (G2139)"],
+##         MEMBER["World Geodetic System 1984 (G2296)"],
+##         ELLIPSOID["WGS 84",6378137,298.257223563,
+##             LENGTHUNIT["metre",1]],
+##         ENSEMBLEACCURACY[2.0]],
+##     PRIMEM["Greenwich",0,
+##         ANGLEUNIT["degree",0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS["geodetic latitude (Lat)",north,
+##             ORDER[1],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##         AXIS["geodetic longitude (Lon)",east,
+##             ORDER[2],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##     USAGE[
+##         SCOPE["Horizontal component of 3D system."],
+##         AREA["World."],
+##         BBOX[-90,-180,90,180]],
+##     ID["EPSG",4326]]</code></pre>
+<p>This contains a lot of information, and you don’t need to parse all of it. The last
+bit of information (<code>ID["EPSG",4326]]</code>) tells you that the code for this CRS
+is EPSG:4326. The first bit of information tells us that we are using geographic
+coordinates (“GEOGCRS”) under the WGS 84 system, which is the most common form of
+geographic coordinates (lat/long). If available, it can be helpful to pull out a
+subset of this information using the proj4string:</p>
+<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre></div>
+<pre><code>## [1] "+proj=longlat +datum=WGS84 +no_defs"</code></pre>
+<p>Using <code>sf</code>, we can easily reproject data from one coordinate system to another
+using the <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> function. If you know what coordinate system you want
+to use, you can usually Google its name and “crs” to find the code. For example,
+the code for the Web Mercator projection is EPSG:3857:</p>
+<div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ga_counties_point_merc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">ga_counties_point</span>, crs <span class="op">=</span> <span class="st">"EPSG:3857"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">ga_counties_point_merc</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre></div>
+<pre><code>## [1] "+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs"</code></pre>
+<p>Now, you see we are using a new coordinate system. If we look at the data itself,
+you can see that the coordinates have changed from decimal degrees to meters:</p>
+<div class="sourceCode" id="cb738"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_point_merc</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -9405848 ymin: 3637666 xmax: -9066098 ymax: 4147815
+## Projected CRS: WGS 84 / Pseudo-Mercator
+##     NAME10  ShapeSTAre                 geometry
+## 1   Lanier  5570179459 POINT (-9246492 3637666)
+## 2    Bryan 12687699691 POINT (-9066098 3765036)
+## 3  Appling 14289311301 POINT (-9160362 3730435)
+## 4    Rabun 10506079754 POINT (-9284292 4147815)
+## 5 Bleckley  6108732241 POINT (-9276018 3820472)
+## 6  Fayette  5555769752 POINT (-9405848 3950373)</code></pre>
+<p>Converting between projectionsis important for spatial analysis (e.g., overlaying
+two datasets in different projections) and plotting (see examples above and methods
+below).</p>
+<p><a href="https://xkcd.com/977/">XKCD has also covered map projections.</a></p>
+</div>
+<div id="raster-data-and-the-terra-package" class="section level2" number="21.6">
+<h2>
+<span class="header-section-number">21.6</span> Raster data and the <code>terra</code> package<a class="anchor" aria-label="anchor" href="#raster-data-and-the-terra-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>Raster data are much more compact than vector data. Instead of storing each rectangle
+as a series of vertices with associated information, rasters can store information
+about the grid (its starting point, cell size, dimensions, and a projection) and
+couple that with a matrix that contains data. This avoids needing to store the
+actual location of each individual cell; in doing so, you can have a raster that
+contains thousands or millions of cells but takes up much less space than an
+equivalent feature set. A raster can have one or multiple “bands”, which are
+the data layers associated with each grid cell.</p>
+<p>The modern package for dealing with raster data is <code>terra</code>. Like <code>sf</code>, <code>terra</code>
+superceded an older package (<code>raster</code>), so be careful with StackOverflow pages
+from before 2023.</p>
+<p>Here is an example of a raster object that contains information on mean temperature
+across the globe from the <a href="https://www.worldclim.org/data/worldclim21.html">WorldClim database</a>:</p>
+<div class="sourceCode" id="cb740"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_temp</span></span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 1080, 2160, 1  (nrow, ncol, nlyr)
+## resolution  : 0.1666667, 0.1666667  (x, y)
+## extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : wc2.1_10m_tavg_01.tif 
+## name        : wc2.1_10m_tavg_01 
+## min value   :          -45.8840 
+## max value   :           34.0095</code></pre>
+<p>Just this summary gives us a lot of information: the raster is a 1,080 by 2,160
+grid across the globe (its extent is the full range of latitude and lontitude).
+It is in the WGS84 geographic coordinate system and has a range of values between
+-46 and 34 degrees. It doesn’t tell us information about the units of the values,
+how the data was collected, etc.; we would need to use the metadata to learn this.</p>
+<p>A simple call to <code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code> will display the data:</p>
+<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mean_temp</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<p>Here’s what this looks like across Georgia:</p>
+<div class="sourceCode" id="cb745"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ga_ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">)</span> <span class="co">#Get the bounding box (extent) of the GA data</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mean_temp</span>, ext <span class="op">=</span> <span class="va">ga_ext</span><span class="op">)</span> <span class="co">#Plot mean temperature in this box</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co">#Add the counties to this map</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>And across Clarke county:</p>
+<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clarke_poly</span> <span class="op">&lt;-</span> <span class="va">ga_counties_poly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">NAME10</span> <span class="op">==</span> <span class="st">"Clarke"</span><span class="op">)</span></span>
+<span><span class="va">clarke_ext</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">clarke_poly</span><span class="op">)</span> <span class="co">#Get the bounding box (extent) of Clarke cty</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mean_temp</span>, ext <span class="op">=</span> <span class="va">clarke_ext</span><span class="op">)</span> <span class="co">#Plot mean temperature in this box</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">clarke_poly</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co">#Add the counties to this map</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<p>This is where you start to see the grid size - Clarke county is so small that
+it only contains two grid cells of this raster (at 0.17 degree resolution,
+roughly 15 km). If we wanted to do an analysis or make a plot at this scale,
+we would probably want to use higher-resolution raster data.</p>
+<p>Just like with feature data, it is possible to reproject a raster, using the
+<code><a href="https://rspatial.github.io/terra/reference/project.html">project()</a></code> function in <code>terra</code>:</p>
+<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_temp_merc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html">project</a></span><span class="op">(</span><span class="va">mean_temp</span>, <span class="st">"EPSG:3857"</span><span class="op">)</span></span>
+<span><span class="va">mean_temp_merc</span></span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 2407, 199, 1  (nrow, ncol, nlyr)
+## resolution  : 200527.4, 201540.1  (x, y)
+## extent      : -20037508, 19867438, -242578415, 242528681  (xmin, xmax, ymin, ymax)
+## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857) 
+## source(s)   : memory
+## name        : wc2.1_10m_tavg_01 
+## min value   :         -43.92729 
+## max value   :          33.00763</code></pre>
+<p>However, reprojecting rasters is a little more complicated than reprojecting
+features/vectors, because we need to make assumptions about how to re-draw the grid
+and how to assign new values to the new grid cells. This is why the minimum and
+maximum values of <code>mean_temp_merc</code> differ from those in <code>mean_temp</code>; the function
+made some assumptions about how to combine values when cells in the new grid contained
+multiple cells from the old grid.</p>
+</div>
+<div id="reading-and-writing-spatial-data-outside-of-r" class="section level2" number="21.7">
+<h2>
+<span class="header-section-number">21.7</span> Reading and writing: spatial data outside of R<a class="anchor" aria-label="anchor" href="#reading-and-writing-spatial-data-outside-of-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Vector data outside of R is usually stored as a shapefile with the extension
+<code>.shp</code>. <code>sf</code> can load spatial data with other file extensions (e.g., <code>.gpx</code>,
+<code>kml</code>, <code>.gpkg</code>). Load the data with the function <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code>, which will then
+provide information about the object you just read:</p>
+<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Read in polygon data of GA counties</span></span>
+<span><span class="va">ga_counties_poly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/raw/Georgia_Counties/Georgia_Counties.shp"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Reading layer `Georgia_Counties' from data source 
+##   `/Users/cst80488/Library/CloudStorage/OneDrive-UniversityofGeorgia/Teaching/DataMgmt/DataMgmt_book/data/raw/Georgia_Counties/Georgia_Counties.shp' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 159 features and 22 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -373971.6 ymin: 129391.4 xmax: 1094729 ymax: 1831135
+## Projected CRS: NAD83 / Georgia East (ftUS)</code></pre>
+<p>You can also create an <code>sf</code> object from data with coordinates as columns using
+<code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf()</a></code>:</p>
+<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Our coordinate information about the `penguins` islands:</span></span>
+<span><span class="va">island_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>island_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Torgersen"</span>, <span class="st">"Biscoe"</span>, <span class="st">"Dream"</span><span class="op">)</span>,</span>
+<span>                          area_sqkm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.126</span>, <span class="fl">478.38</span>, <span class="fl">1.678</span><span class="op">)</span>,</span>
+<span>                          long <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">64.0833</span>, <span class="op">-</span><span class="fl">65.9164</span>, <span class="op">-</span><span class="fl">64.2333</span><span class="op">)</span>,</span>
+<span>                          lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">64.7667</span>, <span class="op">-</span><span class="fl">65.7474</span>, <span class="op">-</span><span class="fl">64.7333</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">island_info_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">island_info</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>,<span class="st">"lat"</span><span class="op">)</span>,</span>
+<span>                           crs <span class="op">=</span> <span class="st">"espg:4326"</span><span class="op">)</span></span>
+<span><span class="va">island_info_sf</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 3 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -65.9164 ymin: -65.7474 xmax: -64.0833 ymax: -64.7333
+## CRS:           NA
+##   island_name area_sqkm                  geometry
+## 1   Torgersen     0.126 POINT (-64.0833 -64.7667)
+## 2      Biscoe   478.380 POINT (-65.9164 -65.7474)
+## 3       Dream     1.678 POINT (-64.2333 -64.7333)</code></pre>
+<p>I specified the X and Y coordinates as a vector to the <code>coords</code> argument and
+told the function what CRS to use, and I have an <code>sf</code> object with a <code>geometry</code>
+column that replaced the columns <code>long</code> and <code>lat</code>.</p>
+<p><strong>COMING SOON: RASTER DATA AND WRITING SPATIAL DATA</strong></p>
+</div>
+<div id="plotting-spatial-data-using-ggplot2" class="section level2" number="21.8">
+<h2>
+<span class="header-section-number">21.8</span> Plotting spatial data using <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#plotting-spatial-data-using-ggplot2"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>COMING SOON</strong></p>
+</div>
+<div id="other-topics" class="section level2" number="21.9">
+<h2>
+<span class="header-section-number">21.9</span> Other topics<a class="anchor" aria-label="anchor" href="#other-topics"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have barely touched the surface of what you can do with spatial data in R. This
+lesson ends here, but if you are a GIS whiz…know that you can do almost everything
+you already know how to do in R (though it may not always be as efficient). Here
+are some topics we didn’t cover but might interest you:</p>
+<ul>
+<li>creating rasters and features from scratch (instead of reading them in)</li>
+<li>different object types in the <code>sf</code> world ()</li>
+</ul>
 </div>
 </div>
   <div class="chapter-nav">
@@ -96,6 +421,13 @@
 <li><a class="nav-link" href="#spatial"><span class="header-section-number">21</span> An Introduction to Spatial Data in R</a></li>
 <li><a class="nav-link" href="#objectives-18"><span class="header-section-number">21.1</span> Objectives</a></li>
 <li><a class="nav-link" href="#additional-reading-15"><span class="header-section-number">21.2</span> Additional reading</a></li>
+<li><a class="nav-link" href="#characteristics-of-spatial-data"><span class="header-section-number">21.3</span> Characteristics of spatial data</a></li>
+<li><a class="nav-link" href="#the-sf-package"><span class="header-section-number">21.4</span> The sf package</a></li>
+<li><a class="nav-link" href="#map-projections-and-coordinate-reference-systems"><span class="header-section-number">21.5</span> Map projections and coordinate reference systems</a></li>
+<li><a class="nav-link" href="#raster-data-and-the-terra-package"><span class="header-section-number">21.6</span> Raster data and the terra package</a></li>
+<li><a class="nav-link" href="#reading-and-writing-spatial-data-outside-of-r"><span class="header-section-number">21.7</span> Reading and writing: spatial data outside of R</a></li>
+<li><a class="nav-link" href="#plotting-spatial-data-using-ggplot2"><span class="header-section-number">21.8</span> Plotting spatial data using ggplot2</a></li>
+<li><a class="nav-link" href="#other-topics"><span class="header-section-number">21.9</span> Other topics</a></li>
 </ul>
 
       <div class="book-extra">
@@ -112,7 +444,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-03.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -255,3 +255,10 @@ saving-lists-and-nested-data-frames
 spatial
 objectives-18
 additional-reading-15
+characteristics-of-spatial-data
+the-sf-package
+map-projections-and-coordinate-reference-systems
+raster-data-and-the-terra-package
+reading-and-writing-spatial-data-outside-of-r
+plotting-spatial-data-using-ggplot2
+other-topics

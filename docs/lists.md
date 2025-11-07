@@ -239,6 +239,9 @@ hominid_taxonomy[["Homininae"]][["Homo"]]
 ## [1] "sapiens"
 ```
 
+Also remember that lists can include various types of objects, including models 
+or `ggplot` objects.
+
 ## Nested data frames (list-columns)
 
 We can combine lists and data frames in `tidyverse` by making a list into a column.
@@ -413,9 +416,9 @@ so was our data. But opening a list outside of R is harder, so how can we save a
 communicate these types of data?
 
 One way to save data is as an RDS object. This is a compressed data format that 
-will preserve all the features of your data; when you read it back in, everyting
+will preserve all the features of your data; when you read it back in, everything
 will remain the same (for example, if you manually set factor levels). It can also
-accomodate pretty much any data structure, including lists and nested data frames.
+accommodate pretty much any data structure, including lists and nested data frames.
 To create an RDS object, use the `saveRDS()` function and include the .rds file
 extension:
 

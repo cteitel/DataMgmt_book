@@ -242,6 +242,8 @@ one of the following:</p>
 <div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hominid_taxonomy</span><span class="op">[[</span><span class="st">"Homininae"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"Homo"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "sapiens"</code></pre>
+<p>Also remember that lists can include various types of objects, including models
+or <code>ggplot</code> objects.</p>
 </div>
 <div id="nested-data-frames-list-columns" class="section level2" number="20.5">
 <h2>
@@ -367,9 +369,9 @@ at least temporarily, in doing so.</p>
 so was our data. But opening a list outside of R is harder, so how can we save and
 communicate these types of data?</p>
 <p>One way to save data is as an RDS object. This is a compressed data format that
-will preserve all the features of your data; when you read it back in, everyting
+will preserve all the features of your data; when you read it back in, everything
 will remain the same (for example, if you manually set factor levels). It can also
-accomodate pretty much any data structure, including lists and nested data frames.
+accommodate pretty much any data structure, including lists and nested data frames.
 To create an RDS object, use the <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> function and include the .rds file
 extension:</p>
 <div class="sourceCode" id="cb721"><pre class="downlit sourceCode r">
@@ -437,7 +439,7 @@ or tibble:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-03.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
