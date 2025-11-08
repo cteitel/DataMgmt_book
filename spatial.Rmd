@@ -56,7 +56,7 @@ library(sf)
 # Read in polygon data of GA counties
 ga_counties_poly <- st_read("data/raw/Georgia_Counties/Georgia_Counties.shp")
 # Select only a few columns for easier visualization
-ga_counties_poly <- select(ga_counties_poly, NAME10, ShapeSTAre, geometry)
+ga_counties_poly <- select(ga_counties_poly, NAME10, Reg_Comm, Sq_Miles, geometry)
 # Convert to geographic coordinates
 ga_counties_poly <- st_transform(ga_counties_poly, "epsg:4326")
 # Fix vertex issue
@@ -75,10 +75,11 @@ This is an `sf` object and also a data frame. Looking at the first few rows of d
 head(ga_counties_point)
 ```
 
-You can see that there are columns giving us the name and area of each county, but
-also a `geometry` column that contains a series of features called `POINT`,
-each of which has an associated latitude and longitude. Similarly, a different object
-that contains *polygons* representing county boundaries looks like this:
+You can see that there are columns giving us the name area, and associated regional
+commission for each county, but also a `geometry` column that contains a series 
+of features called `POINT`, each of which has an associated latitude and longitude. 
+Similarly, a different object that contains *polygons* representing county boundaries 
+looks like this:
 
 ```{r}
 head(ga_counties_poly)
@@ -89,6 +90,45 @@ In addition, printing the object to the screen tells us about some characteristi
 of the data, including its projection (see below), the types of geometries it
 contains (point, polygon, etc.), and its bounding box (the minimum and maximum
 X and Y coordinates).
+
+The `geometry` column acts differently from other columns in tibbles or data frames
+because it is "locked"; you cannot un-select it:
+
+```{r}
+# This does not work
+select(ga_counties_point, -geometry) %>% head()
+```
+
+However, otherwise `sf` objects can be used with filtering, selecting, and joining
+operations just like you would with any other data frame:
+
+```{r}
+# Some examples
+filter(ga_counties_point, NAME10 %in% c("Clarke", "Oconee")) 
+arrange(ga_counties_point, NAME10) %>% head()
+```
+
+Because the `geometry` column is locked, it can act unexpectedly during grouping
+operations:
+
+```{r}
+ga_counties_point %>%
+  group_by(Reg_Comm) %>%
+  summarize(n = n()) %>%
+  head()
+```
+
+Here, by grouping by regional commission name, we have compressed all the county
+centroids into a single MULTIPOINT geometry.
+
+To remove the `geometry` column and convert the `sf` object back to a non-spatial
+object, use `st_drop_geometry()`:
+
+```{r}
+ga_counties_df <- st_drop_geometry(ga_counties_point)
+head(ga_counties_df)
+class(ga_counties_df)
+```
 
 ## Map projections and coordinate reference systems
 
@@ -212,7 +252,7 @@ across the globe from the [WorldClim database](https://www.worldclim.org/data/wo
 library(terra)
 ```
 
-```{r}
+```{r, echo = F}
 mean_temp <- rast("data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif")
 ```
 
@@ -271,14 +311,16 @@ multiple cells from the old grid.
 
 ## Reading and writing: spatial data outside of R
 
-Vector data outside of R is usually stored as a shapefile with the extension 
+### Reading and creating vectors/features
+
+Vector data outside of R is most often stored as a shapefile with the extension 
 `.shp`. `sf` can load spatial data with other file extensions (e.g., `.gpx`, 
 `kml`, `.gpkg`). Load the data with the function `st_read()`, which will then
 provide information about the object you just read:
 
 ```{r}
 # Read in polygon data of GA counties
-ga_counties_poly <- st_read("data/raw/Georgia_Counties/Georgia_Counties.shp")
+ga_counties_raw <- st_read("data/raw/Georgia_Counties/Georgia_Counties.shp")
 ```
 
 You can also create an `sf` object from data with coordinates as columns using
@@ -291,19 +333,129 @@ island_info <- data.frame(island_name = c("Torgersen", "Biscoe", "Dream"),
                           long = c(-64.0833, -65.9164, -64.2333),
                           lat = c(-64.7667, -65.7474, -64.7333))
 island_info_sf <- st_as_sf(island_info, coords = c("long","lat"),
-                           crs = "espg:4326")
+                           crs = "epsg:4326")
 island_info_sf
 ```
 
 I specified the X and Y coordinates as a vector to the `coords` argument and
 told the function what CRS to use, and I have an `sf` object with a `geometry`
-column that replaced the columns `long` and `lat`.
+column that replaced the columns `long` and `lat`. When reading a shapefile into
+R, it is not necessary to specify the coordinate reference sysetm because that 
+information is embedded in the file.
 
-**COMING SOON: RASTER DATA AND WRITING SPATIAL DATA**
+### Reading and creating rasters
+
+Raster data is often stored as an TIFF image (`.tif`), and larger rasters often
+come in more compressed formats (e.g., NetCDF, `.nc`). Reading in a TIFF using
+`terra` is as simple as including the file path within the `rast()` function:
+
+```{r}
+mean_temp <- rast("data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif")
+```
+
+If a raster contains multiple layers, you can specify which to read using the 
+`layers` argument.
+
+It is also possible to create a raster from scratch by specifying the dimensions,
+extent, resoultion, and values. For example, if I wanted to create a 0.1-degree 
+resoultion raster that covers the extent of the `penguins` data, I might do this:
+
+```{r}
+# Create an empty raster
+penguins_gridded <- rast(xmin = min(island_info$long)-1, xmax = max(island_info$long)+1,
+                         ymin = min(island_info$lat)-1, ymax = max(island_info$lat)+1,
+                         resolution = 0.1,
+                         crs = crs(island_info_sf))
+# Assign random values to the raster (in this case we don't have data to fill)
+values(penguins_gridded) <- rnorm(ncell(penguins_gridded))
+
+# Look at the raster
+plot(penguins_gridded)
+plot(island_info_sf$geometry, add = T, col = "red", pch = 19)
+```
+
+### Writing spatial data to files
+
+To write vector graphics, use `sf::st_write()`. The function will use the file 
+extension you supply to infer what type of file to write.
+
+```{r, eval = F, echo = T}
+st_write(island_info_sf, "data/clean/penguin_island_points.shp") # Creates a shapefile
+st_write(island_info_sf, "data/clean/penguin_island_points.kml") # Creates a KML
+```
+
+Note that if you write to a shapefile, R will also create files with the extensions
+`.prj.`, `.shx`, and `.dbf`. These are part of ESRI's shapefile format and provide
+additional data (for example, the projection or associated names/data). 
+
+To write a raster, use `terra::writeRaster()` or `terra::writeCDF()`:
+
+```{r, eval = F, echo = T}
+writeRaster(penguins_gridded, "data/clean/penguin_random_raster.tif")
+```
+
+Both `st_write()` and `writeRaster()` have safeguards in place to ensure you don't
+accidentally overwrite your files. `st_write()` gives you the option to append
+information (i.e., add it to the existing file, `append = TRUE`) or overwrite it
+(`append = FALSE`). In `writeRaster()`, use `overwrite = TRUE` to overwrite an
+exsiting file. 
 
 ## Plotting spatial data using `ggplot2`
 
-**COMING SOON**
+`ggplot2` interfaces cleanly with the `sf` package by providing a geometry type
+for `sf` objects. For example, to plot Georgia county centroids, we can use:
+
+```{r}
+ggplot(ga_counties_point) +
+  geom_sf()
+```
+
+Although this map could also be achieved using just latitude and longitude, the 
+plot now automatically labels axes with degrees, and uses a 1:1 axis ratio instead
+of fitting the plot to the window size. This function also works with polygons:
+
+```{r}
+ggplot(ga_counties_poly) +
+  geom_sf()
+```
+
+In most other ways, this acts like a regular ggplot. For example, we can color
+our features by a column:
+
+```{r}
+ggplot(ga_counties_poly) +
+  geom_sf(aes(fill = Reg_Comm))
+```
+
+Rasters are less easily supported using `ggplot2`; it is easiest to first convert
+them to a long-form data frame.
+
+```{r}
+# Crop January temperature raster to the extent to Georgia
+mean_temp_ga <- crop(mean_temp, ga_counties_poly)
+# Convert to a data frame
+mean_temp_ga_df <- as.data.frame(mean_temp_ga, xy = T)
+head(mean_temp_ga_df)
+```
+
+Now, we have the X and Y coordinates of each raster cell along with its value. 
+For convenience, I will rename this column before plotting the raster.
+
+```{r}
+mean_temp_ga_df <- rename(mean_temp_ga_df, jan_temp = wc2.1_10m_tavg_01)
+ggplot() +
+  geom_tile(data = mean_temp_ga_df, aes(x = x, y = y, fill = jan_temp))
+```
+
+We can also combine the data types to overlay the data:
+
+```{r}
+ggplot() +
+  geom_tile(data = mean_temp_ga_df, aes(x = x, y = y, fill = jan_temp)) +
+  geom_sf(data = ga_counties_poly, fill = NA, color = "black") +
+  scale_fill_viridis_c("Mean temperature\nin January (°C)", option = "magma") +
+  theme_void()
+```
 
 ## Other topics
 

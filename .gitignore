@@ -9,3 +9,5 @@ datamgmt-book.rds
 .DS_Store
 outputs/
 Data/clean/nested_urban_data/
+data/raw/wc2.1_10m_tavg
+Data/raw/Georgia_Counties

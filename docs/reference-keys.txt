@@ -260,5 +260,8 @@ the-sf-package
 map-projections-and-coordinate-reference-systems
 raster-data-and-the-terra-package
 reading-and-writing-spatial-data-outside-of-r
+reading-and-creating-vectorsfeatures
+reading-and-creating-rasters
+writing-spatial-data-to-files
 plotting-spatial-data-using-ggplot2
 other-topics

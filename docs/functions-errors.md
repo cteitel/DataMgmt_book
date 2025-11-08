@@ -283,7 +283,7 @@ vectors[[3]]
 ```
 
 ```
-## [1] 6
+## [1] 2
 ```
 
 ``` r
@@ -324,8 +324,8 @@ for(i in 1:length(vectors)){
 ```
 
 ```
-## [1] 6
-## [1] 10
+## [1] 2 9
+## [1] 1
 ```
 
 ```
@@ -346,13 +346,13 @@ for(i in 1:length(vectors)){
 ```
 
 ```
-## [1] 6
-## [1] 10
+## [1] 2 9
+## [1] 1
 ## [1] NA
-## [1] 3
-## [1]  7  9 10
-## [1] 1 2 4 6 7
 ## [1] 4
+## [1] 3
+## [1] 6
+## [1] 3
 ```
 
 This brings up another point about `tryCatch()`: you want it to enclose the function, but not 

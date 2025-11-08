@@ -72,24 +72,25 @@ head(ga_counties_point)
 ```
 
 ```
-## Simple feature collection with 6 features and 2 fields
+## Simple feature collection with 6 features and 3 fields
 ## Geometry type: POINT
 ## Dimension:     XY
 ## Bounding box:  xmin: -84.49417 ymin: 31.03786 xmax: -81.44214 ymax: 34.88169
 ## Geodetic CRS:  WGS 84
-##     NAME10  ShapeSTAre                   geometry
-## 1   Lanier  5570179459 POINT (-83.06265 31.03786)
-## 2    Bryan 12687699691 POINT (-81.44214 32.01314)
-## 3  Appling 14289311301 POINT (-82.28893 31.74921)
-## 4    Rabun 10506079754 POINT (-83.40222 34.88169)
-## 5 Bleckley  6108732241 POINT (-83.32789 32.43442)
-## 6  Fayette  5555769752  POINT (-84.49417 33.4139)
+##     NAME10                    Reg_Comm Sq_Miles                   geometry
+## 1   Lanier            Southern Georgia  199.803 POINT (-83.06265 31.03786)
+## 2    Bryan Coastal Regional Commission  455.108 POINT (-81.44214 32.01314)
+## 3  Appling   Heart of Georgia Altamaha  512.558 POINT (-82.28893 31.74921)
+## 4    Rabun           Georgia Mountains  376.854 POINT (-83.40222 34.88169)
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 POINT (-83.32789 32.43442)
+## 6  Fayette Atlanta Regional Commission  199.286  POINT (-84.49417 33.4139)
 ```
 
-You can see that there are columns giving us the name and area of each county, but
-also a `geometry` column that contains a series of features called `POINT`,
-each of which has an associated latitude and longitude. Similarly, a different object
-that contains *polygons* representing county boundaries looks like this:
+You can see that there are columns giving us the name area, and associated regional
+commission for each county, but also a `geometry` column that contains a series 
+of features called `POINT`, each of which has an associated latitude and longitude. 
+Similarly, a different object that contains *polygons* representing county boundaries 
+looks like this:
 
 
 ``` r
@@ -97,18 +98,18 @@ head(ga_counties_poly)
 ```
 
 ```
-## Simple feature collection with 6 features and 2 fields
+## Simple feature collection with 6 features and 3 fields
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
 ## Bounding box:  xmin: -84.62722 ymin: 30.84471 xmax: -81.13833 ymax: 35.00067
 ## Geodetic CRS:  WGS 84
-##     NAME10  ShapeSTAre                       geometry
-## 1   Lanier  5570179459 MULTIPOLYGON (((-83.0428 30...
-## 2    Bryan 12687699691 MULTIPOLYGON (((-81.40496 3...
-## 3  Appling 14289311301 MULTIPOLYGON (((-82.46585 3...
-## 4    Rabun 10506079754 MULTIPOLYGON (((-83.61831 3...
-## 5 Bleckley  6108732241 MULTIPOLYGON (((-83.30089 3...
-## 6  Fayette  5555769752 MULTIPOLYGON (((-84.55744 3...
+##     NAME10                    Reg_Comm Sq_Miles                       geometry
+## 1   Lanier            Southern Georgia  199.803 MULTIPOLYGON (((-83.0428 30...
+## 2    Bryan Coastal Regional Commission  455.108 MULTIPOLYGON (((-81.40496 3...
+## 3  Appling   Heart of Georgia Altamaha  512.558 MULTIPOLYGON (((-82.46585 3...
+## 4    Rabun           Georgia Mountains  376.854 MULTIPOLYGON (((-83.61831 3...
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 MULTIPOLYGON (((-83.30089 3...
+## 6  Fayette Atlanta Regional Commission  199.286 MULTIPOLYGON (((-84.55744 3...
 ```
 
 Here, each feature contains many coordinates, each of which is a vertex of the polygon.
@@ -117,13 +118,134 @@ of the data, including its projection (see below), the types of geometries it
 contains (point, polygon, etc.), and its bounding box (the minimum and maximum
 X and Y coordinates).
 
+The `geometry` column acts differently from other columns in tibbles or data frames
+because it is "locked"; you cannot un-select it:
+
+
+``` r
+# This does not work
+select(ga_counties_point, -geometry) %>% head()
+```
+
+```
+## Simple feature collection with 6 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.49417 ymin: 31.03786 xmax: -81.44214 ymax: 34.88169
+## Geodetic CRS:  WGS 84
+##     NAME10                    Reg_Comm Sq_Miles                   geometry
+## 1   Lanier            Southern Georgia  199.803 POINT (-83.06265 31.03786)
+## 2    Bryan Coastal Regional Commission  455.108 POINT (-81.44214 32.01314)
+## 3  Appling   Heart of Georgia Altamaha  512.558 POINT (-82.28893 31.74921)
+## 4    Rabun           Georgia Mountains  376.854 POINT (-83.40222 34.88169)
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 POINT (-83.32789 32.43442)
+## 6  Fayette Atlanta Regional Commission  199.286  POINT (-84.49417 33.4139)
+```
+
+However, otherwise `sf` objects can be used with filtering, selecting, and joining
+operations just like you would with any other data frame:
+
+
+``` r
+# Some examples
+filter(ga_counties_point, NAME10 %in% c("Clarke", "Oconee")) 
+```
+
+```
+## Simple feature collection with 2 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -83.43698 ymin: 33.83493 xmax: -83.36731 ymax: 33.95117
+## Geodetic CRS:  WGS 84
+##   NAME10          Reg_Comm Sq_Miles                   geometry
+## 1 Clarke Northeast Georgia  121.027 POINT (-83.36731 33.95117)
+## 2 Oconee Northeast Georgia  186.355 POINT (-83.43698 33.83493)
+```
+
+``` r
+arrange(ga_counties_point, NAME10) %>% head()
+```
+
+```
+## Simple feature collection with 6 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.44473 ymin: 31.29713 xmax: -82.28893 ymax: 34.35411
+## Geodetic CRS:  WGS 84
+##     NAME10                  Reg_Comm Sq_Miles                   geometry
+## 1  Appling Heart of Georgia Altamaha  512.558 POINT (-82.28893 31.74921)
+## 2 Atkinson          Southern Georgia  344.592 POINT (-82.87996 31.29713)
+## 3    Bacon          Southern Georgia  285.951 POINT (-82.45265 31.55367)
+## 4    Baker         Southwest Georgia  349.074 POINT (-84.44473 31.32617)
+## 5  Baldwin            Middle Georgia  267.405 POINT (-83.24982 33.06895)
+## 6    Banks         Georgia Mountains  233.861 POINT (-83.49734 34.35411)
+```
+
+Because the `geometry` column is locked, it can act unexpectedly during grouping
+operations:
+
+
+``` r
+ga_counties_point %>%
+  group_by(Reg_Comm) %>%
+  summarize(n = n()) %>%
+  head()
+```
+
+```
+## Simple feature collection with 6 features and 2 fields
+## Geometry type: MULTIPOINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.76798 ymin: 30.92246 xmax: -81.0923 ymax: 34.91666
+## Geodetic CRS:  WGS 84
+## # A tibble: 6 × 3
+##   Reg_Comm                        n                                     geometry
+##   <chr>                       <int>                             <MULTIPOINT [°]>
+## 1 Atlanta Regional Commission    10 ((-84.15418 33.45298), (-84.49417 33.4139),…
+## 2 Central Savannah River Area    13 ((-83.00106 33.2702), (-82.87877 33.56608),…
+## 3 Coastal Regional Commission    10 ((-81.49362 31.21324), (-81.63629 30.92246)…
+## 4 Georgia Mountains              13 ((-82.96425 34.35087), (-83.22921 34.37541)…
+## 5 Heart of Georgia Altamaha      17 ((-82.28893 31.74921), (-82.63703 31.80558)…
+## 6 Middle Georgia                 11 ((-83.17122 32.80236), (-83.42707 32.66713)…
+```
+
+Here, by grouping by regional commission name, we have compressed all the county
+centroids into a single MULTIPOINT geometry.
+
+To remove the `geometry` column and convert the `sf` object back to a non-spatial
+object, use `st_drop_geometry()`:
+
+
+``` r
+ga_counties_df <- st_drop_geometry(ga_counties_point)
+head(ga_counties_df)
+```
+
+```
+##     NAME10                    Reg_Comm Sq_Miles
+## 1   Lanier            Southern Georgia  199.803
+## 2    Bryan Coastal Regional Commission  455.108
+## 3  Appling   Heart of Georgia Altamaha  512.558
+## 4    Rabun           Georgia Mountains  376.854
+## 5 Bleckley   Heart of Georgia Altamaha  219.121
+## 6  Fayette Atlanta Regional Commission  199.286
+```
+
+``` r
+class(ga_counties_df)
+```
+
+```
+## [1] "data.frame"
+```
+
 ## Map projections and coordinate reference systems
 
 The globe is round but we make plots and measurements in two-dimensional space. 
 Doing so inevitably creates some distortion in distance, area, and/or shape. For 
 example, consider common some global map projections: 
 
-<img src="spatial_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 Each of these has different features, whether creating straight lines for 
 navigation (Mercator), distances between points (Azimuthal), or areas of polygons
@@ -223,18 +345,18 @@ head(ga_counties_point_merc)
 ```
 
 ```
-## Simple feature collection with 6 features and 2 fields
+## Simple feature collection with 6 features and 3 fields
 ## Geometry type: POINT
 ## Dimension:     XY
 ## Bounding box:  xmin: -9405848 ymin: 3637666 xmax: -9066098 ymax: 4147815
 ## Projected CRS: WGS 84 / Pseudo-Mercator
-##     NAME10  ShapeSTAre                 geometry
-## 1   Lanier  5570179459 POINT (-9246492 3637666)
-## 2    Bryan 12687699691 POINT (-9066098 3765036)
-## 3  Appling 14289311301 POINT (-9160362 3730435)
-## 4    Rabun 10506079754 POINT (-9284292 4147815)
-## 5 Bleckley  6108732241 POINT (-9276018 3820472)
-## 6  Fayette  5555769752 POINT (-9405848 3950373)
+##     NAME10                    Reg_Comm Sq_Miles                 geometry
+## 1   Lanier            Southern Georgia  199.803 POINT (-9246492 3637666)
+## 2    Bryan Coastal Regional Commission  455.108 POINT (-9066098 3765036)
+## 3  Appling   Heart of Georgia Altamaha  512.558 POINT (-9160362 3730435)
+## 4    Rabun           Georgia Mountains  376.854 POINT (-9284292 4147815)
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 POINT (-9276018 3820472)
+## 6  Fayette Atlanta Regional Commission  199.286 POINT (-9405848 3950373)
 ```
 
 Converting between projectionsis important for spatial analysis (e.g., overlaying 
@@ -267,9 +389,6 @@ library(terra)
 ```
 
 
-``` r
-mean_temp <- rast("data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif")
-```
 
 
 ``` r
@@ -301,7 +420,7 @@ A simple call to `plot()` will display the data:
 plot(mean_temp)
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 Here's what this looks like across Georgia:
 
@@ -312,7 +431,7 @@ plot(mean_temp, ext = ga_ext) #Plot mean temperature in this box
 plot(ga_counties_poly$geometry, add = T) #Add the counties to this map
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 And across Clarke county:
 
@@ -324,7 +443,7 @@ plot(mean_temp, ext = clarke_ext) #Plot mean temperature in this box
 plot(clarke_poly$geometry, add = T) #Add the counties to this map
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 This is where you start to see the grid size - Clarke county is so small that
 it only contains two grid cells of this raster (at 0.17 degree resolution,
@@ -361,7 +480,9 @@ multiple cells from the old grid.
 
 ## Reading and writing: spatial data outside of R
 
-Vector data outside of R is usually stored as a shapefile with the extension 
+### Reading and creating vectors/features
+
+Vector data outside of R is most often stored as a shapefile with the extension 
 `.shp`. `sf` can load spatial data with other file extensions (e.g., `.gpx`, 
 `kml`, `.gpkg`). Load the data with the function `st_read()`, which will then
 provide information about the object you just read:
@@ -369,7 +490,7 @@ provide information about the object you just read:
 
 ``` r
 # Read in polygon data of GA counties
-ga_counties_poly <- st_read("data/raw/Georgia_Counties/Georgia_Counties.shp")
+ga_counties_raw <- st_read("data/raw/Georgia_Counties/Georgia_Counties.shp")
 ```
 
 ```
@@ -394,7 +515,7 @@ island_info <- data.frame(island_name = c("Torgersen", "Biscoe", "Dream"),
                           long = c(-64.0833, -65.9164, -64.2333),
                           lat = c(-64.7667, -65.7474, -64.7333))
 island_info_sf <- st_as_sf(island_info, coords = c("long","lat"),
-                           crs = "espg:4326")
+                           crs = "epsg:4326")
 island_info_sf
 ```
 
@@ -403,7 +524,7 @@ island_info_sf
 ## Geometry type: POINT
 ## Dimension:     XY
 ## Bounding box:  xmin: -65.9164 ymin: -65.7474 xmax: -64.0833 ymax: -64.7333
-## CRS:           NA
+## Geodetic CRS:  WGS 84
 ##   island_name area_sqkm                  geometry
 ## 1   Torgersen     0.126 POINT (-64.0833 -64.7667)
 ## 2      Biscoe   478.380 POINT (-65.9164 -65.7474)
@@ -412,13 +533,155 @@ island_info_sf
 
 I specified the X and Y coordinates as a vector to the `coords` argument and
 told the function what CRS to use, and I have an `sf` object with a `geometry`
-column that replaced the columns `long` and `lat`.
+column that replaced the columns `long` and `lat`. When reading a shapefile into
+R, it is not necessary to specify the coordinate reference sysetm because that 
+information is embedded in the file.
 
-**COMING SOON: RASTER DATA AND WRITING SPATIAL DATA**
+### Reading and creating rasters
+
+Raster data is often stored as an TIFF image (`.tif`), and larger rasters often
+come in more compressed formats (e.g., NetCDF, `.nc`). Reading in a TIFF using
+`terra` is as simple as including the file path within the `rast()` function:
+
+
+``` r
+mean_temp <- rast("data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif")
+```
+
+If a raster contains multiple layers, you can specify which to read using the 
+`layers` argument.
+
+It is also possible to create a raster from scratch by specifying the dimensions,
+extent, resoultion, and values. For example, if I wanted to create a 0.1-degree 
+resoultion raster that covers the extent of the `penguins` data, I might do this:
+
+
+``` r
+# Create an empty raster
+penguins_gridded <- rast(xmin = min(island_info$long)-1, xmax = max(island_info$long)+1,
+                         ymin = min(island_info$lat)-1, ymax = max(island_info$lat)+1,
+                         resolution = 0.1,
+                         crs = crs(island_info_sf))
+# Assign random values to the raster (in this case we don't have data to fill)
+values(penguins_gridded) <- rnorm(ncell(penguins_gridded))
+
+# Look at the raster
+plot(penguins_gridded)
+plot(island_info_sf$geometry, add = T, col = "red", pch = 19)
+```
+
+<img src="spatial_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+
+### Writing spatial data to files
+
+To write vector graphics, use `sf::st_write()`. The function will use the file 
+extension you supply to infer what type of file to write.
+
+
+``` r
+st_write(island_info_sf, "data/clean/penguin_island_points.shp") # Creates a shapefile
+st_write(island_info_sf, "data/clean/penguin_island_points.kml") # Creates a KML
+```
+
+Note that if you write to a shapefile, R will also create files with the extensions
+`.prj.`, `.shx`, and `.dbf`. These are part of ESRI's shapefile format and provide
+additional data (for example, the projection or associated names/data). 
+
+To write a raster, use `terra::writeRaster()` or `terra::writeCDF()`:
+
+
+``` r
+writeRaster(penguins_gridded, "data/clean/penguin_random_raster.tif")
+```
+
+Both `st_write()` and `writeRaster()` have safeguards in place to ensure you don't
+accidentally overwrite your files. `st_write()` gives you the option to append
+information (i.e., add it to the existing file, `append = TRUE`) or overwrite it
+(`append = FALSE`). In `writeRaster()`, use `overwrite = TRUE` to overwrite an
+exsiting file. 
 
 ## Plotting spatial data using `ggplot2`
 
-**COMING SOON**
+`ggplot2` interfaces cleanly with the `sf` package by providing a geometry type
+for `sf` objects. For example, to plot Georgia county centroids, we can use:
+
+
+``` r
+ggplot(ga_counties_point) +
+  geom_sf()
+```
+
+<img src="spatial_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+
+Although this map could also be achieved using just latitude and longitude, the 
+plot now automatically labels axes with degrees, and uses a 1:1 axis ratio instead
+of fitting the plot to the window size. This function also works with polygons:
+
+
+``` r
+ggplot(ga_counties_poly) +
+  geom_sf()
+```
+
+<img src="spatial_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+
+In most other ways, this acts like a regular ggplot. For example, we can color
+our features by a column:
+
+
+``` r
+ggplot(ga_counties_poly) +
+  geom_sf(aes(fill = Reg_Comm))
+```
+
+<img src="spatial_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+
+Rasters are less easily supported using `ggplot2`; it is easiest to first convert
+them to a long-form data frame.
+
+
+``` r
+# Crop January temperature raster to the extent to Georgia
+mean_temp_ga <- crop(mean_temp, ga_counties_poly)
+# Convert to a data frame
+mean_temp_ga_df <- as.data.frame(mean_temp_ga, xy = T)
+head(mean_temp_ga_df)
+```
+
+```
+##           x        y wc2.1_10m_tavg_01
+## 1 -85.58333 34.91667           2.96000
+## 2 -85.41667 34.91667           3.10475
+## 3 -85.25000 34.91667           3.58500
+## 4 -85.08333 34.91667           3.43375
+## 5 -84.91667 34.91667           3.49200
+## 6 -84.75000 34.91667           3.47875
+```
+
+Now, we have the X and Y coordinates of each raster cell along with its value. 
+For convenience, I will rename this column before plotting the raster.
+
+
+``` r
+mean_temp_ga_df <- rename(mean_temp_ga_df, jan_temp = wc2.1_10m_tavg_01)
+ggplot() +
+  geom_tile(data = mean_temp_ga_df, aes(x = x, y = y, fill = jan_temp))
+```
+
+<img src="spatial_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+
+We can also combine the data types to overlay the data:
+
+
+``` r
+ggplot() +
+  geom_tile(data = mean_temp_ga_df, aes(x = x, y = y, fill = jan_temp)) +
+  geom_sf(data = ga_counties_poly, fill = NA, color = "black") +
+  scale_fill_viridis_c("Mean temperature\nin January (°C)", option = "magma") +
+  theme_void()
+```
+
+<img src="spatial_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
 ## Other topics
 

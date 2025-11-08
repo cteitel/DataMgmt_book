@@ -138,41 +138,124 @@ centroids (center points) of Georgia counties:</p>
 <p>This is an <code>sf</code> object and also a data frame. Looking at the first few rows of data:</p>
 <div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Simple feature collection with 6 features and 2 fields
+<pre><code>## Simple feature collection with 6 features and 3 fields
 ## Geometry type: POINT
 ## Dimension:     XY
 ## Bounding box:  xmin: -84.49417 ymin: 31.03786 xmax: -81.44214 ymax: 34.88169
 ## Geodetic CRS:  WGS 84
-##     NAME10  ShapeSTAre                   geometry
-## 1   Lanier  5570179459 POINT (-83.06265 31.03786)
-## 2    Bryan 12687699691 POINT (-81.44214 32.01314)
-## 3  Appling 14289311301 POINT (-82.28893 31.74921)
-## 4    Rabun 10506079754 POINT (-83.40222 34.88169)
-## 5 Bleckley  6108732241 POINT (-83.32789 32.43442)
-## 6  Fayette  5555769752  POINT (-84.49417 33.4139)</code></pre>
-<p>You can see that there are columns giving us the name and area of each county, but
-also a <code>geometry</code> column that contains a series of features called <code>POINT</code>,
-each of which has an associated latitude and longitude. Similarly, a different object
-that contains <em>polygons</em> representing county boundaries looks like this:</p>
+##     NAME10                    Reg_Comm Sq_Miles                   geometry
+## 1   Lanier            Southern Georgia  199.803 POINT (-83.06265 31.03786)
+## 2    Bryan Coastal Regional Commission  455.108 POINT (-81.44214 32.01314)
+## 3  Appling   Heart of Georgia Altamaha  512.558 POINT (-82.28893 31.74921)
+## 4    Rabun           Georgia Mountains  376.854 POINT (-83.40222 34.88169)
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 POINT (-83.32789 32.43442)
+## 6  Fayette Atlanta Regional Commission  199.286  POINT (-84.49417 33.4139)</code></pre>
+<p>You can see that there are columns giving us the name area, and associated regional
+commission for each county, but also a <code>geometry</code> column that contains a series
+of features called <code>POINT</code>, each of which has an associated latitude and longitude.
+Similarly, a different object that contains <em>polygons</em> representing county boundaries
+looks like this:</p>
 <div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Simple feature collection with 6 features and 2 fields
+<pre><code>## Simple feature collection with 6 features and 3 fields
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
 ## Bounding box:  xmin: -84.62722 ymin: 30.84471 xmax: -81.13833 ymax: 35.00067
 ## Geodetic CRS:  WGS 84
-##     NAME10  ShapeSTAre                       geometry
-## 1   Lanier  5570179459 MULTIPOLYGON (((-83.0428 30...
-## 2    Bryan 12687699691 MULTIPOLYGON (((-81.40496 3...
-## 3  Appling 14289311301 MULTIPOLYGON (((-82.46585 3...
-## 4    Rabun 10506079754 MULTIPOLYGON (((-83.61831 3...
-## 5 Bleckley  6108732241 MULTIPOLYGON (((-83.30089 3...
-## 6  Fayette  5555769752 MULTIPOLYGON (((-84.55744 3...</code></pre>
+##     NAME10                    Reg_Comm Sq_Miles                       geometry
+## 1   Lanier            Southern Georgia  199.803 MULTIPOLYGON (((-83.0428 30...
+## 2    Bryan Coastal Regional Commission  455.108 MULTIPOLYGON (((-81.40496 3...
+## 3  Appling   Heart of Georgia Altamaha  512.558 MULTIPOLYGON (((-82.46585 3...
+## 4    Rabun           Georgia Mountains  376.854 MULTIPOLYGON (((-83.61831 3...
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 MULTIPOLYGON (((-83.30089 3...
+## 6  Fayette Atlanta Regional Commission  199.286 MULTIPOLYGON (((-84.55744 3...</code></pre>
 <p>Here, each feature contains many coordinates, each of which is a vertex of the polygon.
 In addition, printing the object to the screen tells us about some characteristics
 of the data, including its projection (see below), the types of geometries it
 contains (point, polygon, etc.), and its bounding box (the minimum and maximum
 X and Y coordinates).</p>
+<p>The <code>geometry</code> column acts differently from other columns in tibbles or data frames
+because it is “locked”; you cannot un-select it:</p>
+<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># This does not work</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">ga_counties_point</span>, <span class="op">-</span><span class="va">geometry</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.49417 ymin: 31.03786 xmax: -81.44214 ymax: 34.88169
+## Geodetic CRS:  WGS 84
+##     NAME10                    Reg_Comm Sq_Miles                   geometry
+## 1   Lanier            Southern Georgia  199.803 POINT (-83.06265 31.03786)
+## 2    Bryan Coastal Regional Commission  455.108 POINT (-81.44214 32.01314)
+## 3  Appling   Heart of Georgia Altamaha  512.558 POINT (-82.28893 31.74921)
+## 4    Rabun           Georgia Mountains  376.854 POINT (-83.40222 34.88169)
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 POINT (-83.32789 32.43442)
+## 6  Fayette Atlanta Regional Commission  199.286  POINT (-84.49417 33.4139)</code></pre>
+<p>However, otherwise <code>sf</code> objects can be used with filtering, selecting, and joining
+operations just like you would with any other data frame:</p>
+<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Some examples</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ga_counties_point</span>, <span class="va">NAME10</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Clarke"</span>, <span class="st">"Oconee"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## Simple feature collection with 2 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -83.43698 ymin: 33.83493 xmax: -83.36731 ymax: 33.95117
+## Geodetic CRS:  WGS 84
+##   NAME10          Reg_Comm Sq_Miles                   geometry
+## 1 Clarke Northeast Georgia  121.027 POINT (-83.36731 33.95117)
+## 2 Oconee Northeast Georgia  186.355 POINT (-83.43698 33.83493)</code></pre>
+<div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">ga_counties_point</span>, <span class="va">NAME10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.44473 ymin: 31.29713 xmax: -82.28893 ymax: 34.35411
+## Geodetic CRS:  WGS 84
+##     NAME10                  Reg_Comm Sq_Miles                   geometry
+## 1  Appling Heart of Georgia Altamaha  512.558 POINT (-82.28893 31.74921)
+## 2 Atkinson          Southern Georgia  344.592 POINT (-82.87996 31.29713)
+## 3    Bacon          Southern Georgia  285.951 POINT (-82.45265 31.55367)
+## 4    Baker         Southwest Georgia  349.074 POINT (-84.44473 31.32617)
+## 5  Baldwin            Middle Georgia  267.405 POINT (-83.24982 33.06895)
+## 6    Banks         Georgia Mountains  233.861 POINT (-83.49734 34.35411)</code></pre>
+<p>Because the <code>geometry</code> column is locked, it can act unexpectedly during grouping
+operations:</p>
+<div class="sourceCode" id="cb738"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ga_counties_point</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Reg_Comm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: MULTIPOINT
+## Dimension:     XY
+## Bounding box:  xmin: -84.76798 ymin: 30.92246 xmax: -81.0923 ymax: 34.91666
+## Geodetic CRS:  WGS 84
+## # A tibble: 6 × 3
+##   Reg_Comm                        n                                     geometry
+##   &lt;chr&gt;                       &lt;int&gt;                             &lt;MULTIPOINT [°]&gt;
+## 1 Atlanta Regional Commission    10 ((-84.15418 33.45298), (-84.49417 33.4139),…
+## 2 Central Savannah River Area    13 ((-83.00106 33.2702), (-82.87877 33.56608),…
+## 3 Coastal Regional Commission    10 ((-81.49362 31.21324), (-81.63629 30.92246)…
+## 4 Georgia Mountains              13 ((-82.96425 34.35087), (-83.22921 34.37541)…
+## 5 Heart of Georgia Altamaha      17 ((-82.28893 31.74921), (-82.63703 31.80558)…
+## 6 Middle Georgia                 11 ((-83.17122 32.80236), (-83.42707 32.66713)…</code></pre>
+<p>Here, by grouping by regional commission name, we have compressed all the county
+centroids into a single MULTIPOINT geometry.</p>
+<p>To remove the <code>geometry</code> column and convert the <code>sf</code> object back to a non-spatial
+object, use <code><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry()</a></code>:</p>
+<div class="sourceCode" id="cb740"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ga_counties_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##     NAME10                    Reg_Comm Sq_Miles
+## 1   Lanier            Southern Georgia  199.803
+## 2    Bryan Coastal Regional Commission  455.108
+## 3  Appling   Heart of Georgia Altamaha  512.558
+## 4    Rabun           Georgia Mountains  376.854
+## 5 Bleckley   Heart of Georgia Altamaha  219.121
+## 6  Fayette Atlanta Regional Commission  199.286</code></pre>
+<div class="sourceCode" id="cb742"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ga_counties_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "data.frame"</code></pre>
 </div>
 <div id="map-projections-and-coordinate-reference-systems" class="section level2" number="21.5">
 <h2>
@@ -181,7 +264,7 @@ X and Y coordinates).</p>
 <p>The globe is round but we make plots and measurements in two-dimensional space.
 Doing so inevitably creates some distortion in distance, area, and/or shape. For
 example, consider common some global map projections:</p>
-<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <p>Each of these has different features, whether creating straight lines for
 navigation (Mercator), distances between points (Azimuthal), or areas of polygons
 (Mollweide). Except for the geographic coordinates, whose units are degrees of
@@ -199,7 +282,7 @@ provides an overview of some common projections.</p>
 set of information defining how to locate coordinates on a map relative to their
 actual location on the three-dimensional globe. We can look at these properties of
 an <code>sf</code> object using the <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> function.</p>
-<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Coordinate Reference System:
 ##   User input: epsg:4326 
@@ -237,33 +320,33 @@ is EPSG:4326. The first bit of information tells us that we are using geographic
 coordinates (“GEOGCRS”) under the WGS 84 system, which is the most common form of
 geographic coordinates (lat/long). If available, it can be helpful to pull out a
 subset of this information using the proj4string:</p>
-<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre></div>
 <pre><code>## [1] "+proj=longlat +datum=WGS84 +no_defs"</code></pre>
 <p>Using <code>sf</code>, we can easily reproject data from one coordinate system to another
 using the <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> function. If you know what coordinate system you want
 to use, you can usually Google its name and “crs” to find the code. For example,
 the code for the Web Mercator projection is EPSG:3857:</p>
-<div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ga_counties_point_merc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">ga_counties_point</span>, crs <span class="op">=</span> <span class="st">"EPSG:3857"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">ga_counties_point_merc</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre></div>
 <pre><code>## [1] "+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs"</code></pre>
 <p>Now, you see we are using a new coordinate system. If we look at the data itself,
 you can see that the coordinates have changed from decimal degrees to meters:</p>
-<div class="sourceCode" id="cb738"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_counties_point_merc</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Simple feature collection with 6 features and 2 fields
+<pre><code>## Simple feature collection with 6 features and 3 fields
 ## Geometry type: POINT
 ## Dimension:     XY
 ## Bounding box:  xmin: -9405848 ymin: 3637666 xmax: -9066098 ymax: 4147815
 ## Projected CRS: WGS 84 / Pseudo-Mercator
-##     NAME10  ShapeSTAre                 geometry
-## 1   Lanier  5570179459 POINT (-9246492 3637666)
-## 2    Bryan 12687699691 POINT (-9066098 3765036)
-## 3  Appling 14289311301 POINT (-9160362 3730435)
-## 4    Rabun 10506079754 POINT (-9284292 4147815)
-## 5 Bleckley  6108732241 POINT (-9276018 3820472)
-## 6  Fayette  5555769752 POINT (-9405848 3950373)</code></pre>
+##     NAME10                    Reg_Comm Sq_Miles                 geometry
+## 1   Lanier            Southern Georgia  199.803 POINT (-9246492 3637666)
+## 2    Bryan Coastal Regional Commission  455.108 POINT (-9066098 3765036)
+## 3  Appling   Heart of Georgia Altamaha  512.558 POINT (-9160362 3730435)
+## 4    Rabun           Georgia Mountains  376.854 POINT (-9284292 4147815)
+## 5 Bleckley   Heart of Georgia Altamaha  219.121 POINT (-9276018 3820472)
+## 6  Fayette Atlanta Regional Commission  199.286 POINT (-9405848 3950373)</code></pre>
 <p>Converting between projectionsis important for spatial analysis (e.g., overlaying
 two datasets in different projections) and plotting (see examples above and methods
 below).</p>
@@ -286,11 +369,9 @@ superceded an older package (<code>raster</code>), so be careful with StackOverf
 from before 2023.</p>
 <p>Here is an example of a raster object that contains information on mean temperature
 across the globe from the <a href="https://www.worldclim.org/data/worldclim21.html">WorldClim database</a>:</p>
-<div class="sourceCode" id="cb740"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb752"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mean_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb742"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mean_temp</span></span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 1080, 2160, 1  (nrow, ncol, nlyr)
@@ -307,29 +388,29 @@ It is in the WGS84 geographic coordinate system and has a range of values betwee
 -46 and 34 degrees. It doesn’t tell us information about the units of the values,
 how the data was collected, etc.; we would need to use the metadata to learn this.</p>
 <p>A simple call to <code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code> will display the data:</p>
-<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mean_temp</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
 <p>Here’s what this looks like across Georgia:</p>
-<div class="sourceCode" id="cb745"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb756"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ga_ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">)</span> <span class="co">#Get the bounding box (extent) of the GA data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mean_temp</span>, ext <span class="op">=</span> <span class="va">ga_ext</span><span class="op">)</span> <span class="co">#Plot mean temperature in this box</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co">#Add the counties to this map</span></span></code></pre></div>
-<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 <p>And across Clarke county:</p>
-<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clarke_poly</span> <span class="op">&lt;-</span> <span class="va">ga_counties_poly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">NAME10</span> <span class="op">==</span> <span class="st">"Clarke"</span><span class="op">)</span></span>
 <span><span class="va">clarke_ext</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html">ext</a></span><span class="op">(</span><span class="va">clarke_poly</span><span class="op">)</span> <span class="co">#Get the bounding box (extent) of Clarke cty</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mean_temp</span>, ext <span class="op">=</span> <span class="va">clarke_ext</span><span class="op">)</span> <span class="co">#Plot mean temperature in this box</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">clarke_poly</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co">#Add the counties to this map</span></span></code></pre></div>
-<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>This is where you start to see the grid size - Clarke county is so small that
 it only contains two grid cells of this raster (at 0.17 degree resolution,
 roughly 15 km). If we wanted to do an analysis or make a plot at this scale,
 we would probably want to use higher-resolution raster data.</p>
 <p>Just like with feature data, it is possible to reproject a raster, using the
 <code><a href="https://rspatial.github.io/terra/reference/project.html">project()</a></code> function in <code>terra</code>:</p>
-<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb758"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mean_temp_merc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html">project</a></span><span class="op">(</span><span class="va">mean_temp</span>, <span class="st">"EPSG:3857"</span><span class="op">)</span></span>
 <span><span class="va">mean_temp_merc</span></span></code></pre></div>
 <pre><code>## class       : SpatRaster 
@@ -352,13 +433,17 @@ multiple cells from the old grid.</p>
 <h2>
 <span class="header-section-number">21.7</span> Reading and writing: spatial data outside of R<a class="anchor" aria-label="anchor" href="#reading-and-writing-spatial-data-outside-of-r"><i class="fas fa-link"></i></a>
 </h2>
-<p>Vector data outside of R is usually stored as a shapefile with the extension
+<div id="reading-and-creating-vectorsfeatures" class="section level3" number="21.7.1">
+<h3>
+<span class="header-section-number">21.7.1</span> Reading and creating vectors/features<a class="anchor" aria-label="anchor" href="#reading-and-creating-vectorsfeatures"><i class="fas fa-link"></i></a>
+</h3>
+<p>Vector data outside of R is most often stored as a shapefile with the extension
 <code>.shp</code>. <code>sf</code> can load spatial data with other file extensions (e.g., <code>.gpx</code>,
 <code>kml</code>, <code>.gpkg</code>). Load the data with the function <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code>, which will then
 provide information about the object you just read:</p>
-<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb760"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in polygon data of GA counties</span></span>
-<span><span class="va">ga_counties_poly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/raw/Georgia_Counties/Georgia_Counties.shp"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ga_counties_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/raw/Georgia_Counties/Georgia_Counties.shp"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Reading layer `Georgia_Counties' from data source 
 ##   `/Users/cst80488/Library/CloudStorage/OneDrive-UniversityofGeorgia/Teaching/DataMgmt/DataMgmt_book/data/raw/Georgia_Counties/Georgia_Counties.shp' 
 ##   using driver `ESRI Shapefile'
@@ -369,34 +454,133 @@ provide information about the object you just read:</p>
 ## Projected CRS: NAD83 / Georgia East (ftUS)</code></pre>
 <p>You can also create an <code>sf</code> object from data with coordinates as columns using
 <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf()</a></code>:</p>
-<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb762"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Our coordinate information about the `penguins` islands:</span></span>
 <span><span class="va">island_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>island_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Torgersen"</span>, <span class="st">"Biscoe"</span>, <span class="st">"Dream"</span><span class="op">)</span>,</span>
 <span>                          area_sqkm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.126</span>, <span class="fl">478.38</span>, <span class="fl">1.678</span><span class="op">)</span>,</span>
 <span>                          long <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">64.0833</span>, <span class="op">-</span><span class="fl">65.9164</span>, <span class="op">-</span><span class="fl">64.2333</span><span class="op">)</span>,</span>
 <span>                          lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">64.7667</span>, <span class="op">-</span><span class="fl">65.7474</span>, <span class="op">-</span><span class="fl">64.7333</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">island_info_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">island_info</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>,<span class="st">"lat"</span><span class="op">)</span>,</span>
-<span>                           crs <span class="op">=</span> <span class="st">"espg:4326"</span><span class="op">)</span></span>
+<span>                           crs <span class="op">=</span> <span class="st">"epsg:4326"</span><span class="op">)</span></span>
 <span><span class="va">island_info_sf</span></span></code></pre></div>
 <pre><code>## Simple feature collection with 3 features and 2 fields
 ## Geometry type: POINT
 ## Dimension:     XY
 ## Bounding box:  xmin: -65.9164 ymin: -65.7474 xmax: -64.0833 ymax: -64.7333
-## CRS:           NA
+## Geodetic CRS:  WGS 84
 ##   island_name area_sqkm                  geometry
 ## 1   Torgersen     0.126 POINT (-64.0833 -64.7667)
 ## 2      Biscoe   478.380 POINT (-65.9164 -65.7474)
 ## 3       Dream     1.678 POINT (-64.2333 -64.7333)</code></pre>
 <p>I specified the X and Y coordinates as a vector to the <code>coords</code> argument and
 told the function what CRS to use, and I have an <code>sf</code> object with a <code>geometry</code>
-column that replaced the columns <code>long</code> and <code>lat</code>.</p>
-<p><strong>COMING SOON: RASTER DATA AND WRITING SPATIAL DATA</strong></p>
+column that replaced the columns <code>long</code> and <code>lat</code>. When reading a shapefile into
+R, it is not necessary to specify the coordinate reference sysetm because that
+information is embedded in the file.</p>
+</div>
+<div id="reading-and-creating-rasters" class="section level3" number="21.7.2">
+<h3>
+<span class="header-section-number">21.7.2</span> Reading and creating rasters<a class="anchor" aria-label="anchor" href="#reading-and-creating-rasters"><i class="fas fa-link"></i></a>
+</h3>
+<p>Raster data is often stored as an TIFF image (<code>.tif</code>), and larger rasters often
+come in more compressed formats (e.g., NetCDF, <code>.nc</code>). Reading in a TIFF using
+<code>terra</code> is as simple as including the file path within the <code><a href="https://rspatial.github.io/terra/reference/rast.html">rast()</a></code> function:</p>
+<div class="sourceCode" id="cb764"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"data/raw/wc2.1_10m_tavg/wc2.1_10m_tavg_01.tif"</span><span class="op">)</span></span></code></pre></div>
+<p>If a raster contains multiple layers, you can specify which to read using the
+<code>layers</code> argument.</p>
+<p>It is also possible to create a raster from scratch by specifying the dimensions,
+extent, resoultion, and values. For example, if I wanted to create a 0.1-degree
+resoultion raster that covers the extent of the <code>penguins</code> data, I might do this:</p>
+<div class="sourceCode" id="cb765"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create an empty raster</span></span>
+<span><span class="va">penguins_gridded</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">island_info</span><span class="op">$</span><span class="va">long</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">island_info</span><span class="op">$</span><span class="va">long</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>,</span>
+<span>                         ymin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">island_info</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>, ymax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">island_info</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>,</span>
+<span>                         resolution <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                         crs <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">island_info_sf</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Assign random values to the raster (in this case we don't have data to fill)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/values.html">values</a></span><span class="op">(</span><span class="va">penguins_gridded</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">ncell</a></span><span class="op">(</span><span class="va">penguins_gridded</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Look at the raster</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">penguins_gridded</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">island_info_sf</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">T</span>, col <span class="op">=</span> <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+</div>
+<div id="writing-spatial-data-to-files" class="section level3" number="21.7.3">
+<h3>
+<span class="header-section-number">21.7.3</span> Writing spatial data to files<a class="anchor" aria-label="anchor" href="#writing-spatial-data-to-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>To write vector graphics, use <code><a href="https://r-spatial.github.io/sf/reference/st_write.html">sf::st_write()</a></code>. The function will use the file
+extension you supply to infer what type of file to write.</p>
+<div class="sourceCode" id="cb766"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="va">island_info_sf</span>, <span class="st">"data/clean/penguin_island_points.shp"</span><span class="op">)</span> <span class="co"># Creates a shapefile</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="va">island_info_sf</span>, <span class="st">"data/clean/penguin_island_points.kml"</span><span class="op">)</span> <span class="co"># Creates a KML</span></span></code></pre></div>
+<p>Note that if you write to a shapefile, R will also create files with the extensions
+<code>.prj.</code>, <code>.shx</code>, and <code>.dbf</code>. These are part of ESRI’s shapefile format and provide
+additional data (for example, the projection or associated names/data).</p>
+<p>To write a raster, use <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">terra::writeRaster()</a></code> or <code><a href="https://rspatial.github.io/terra/reference/writeCDF.html">terra::writeCDF()</a></code>:</p>
+<div class="sourceCode" id="cb767"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">penguins_gridded</span>, <span class="st">"data/clean/penguin_random_raster.tif"</span><span class="op">)</span></span></code></pre></div>
+<p>Both <code><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write()</a></code> and <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code> have safeguards in place to ensure you don’t
+accidentally overwrite your files. <code><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write()</a></code> gives you the option to append
+information (i.e., add it to the existing file, <code>append = TRUE</code>) or overwrite it
+(<code>append = FALSE</code>). In <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code>, use <code>overwrite = TRUE</code> to overwrite an
+exsiting file.</p>
+</div>
 </div>
 <div id="plotting-spatial-data-using-ggplot2" class="section level2" number="21.8">
 <h2>
 <span class="header-section-number">21.8</span> Plotting spatial data using <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#plotting-spatial-data-using-ggplot2"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>COMING SOON</strong></p>
+<p><code>ggplot2</code> interfaces cleanly with the <code>sf</code> package by providing a geometry type
+for <code>sf</code> objects. For example, to plot Georgia county centroids, we can use:</p>
+<div class="sourceCode" id="cb768"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ga_counties_point</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
+<p>Although this map could also be achieved using just latitude and longitude, the
+plot now automatically labels axes with degrees, and uses a 1:1 axis ratio instead
+of fitting the plot to the window size. This function also works with polygons:</p>
+<div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
+<p>In most other ways, this acts like a regular ggplot. For example, we can color
+our features by a column:</p>
+<div class="sourceCode" id="cb770"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ga_counties_poly</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Reg_Comm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
+<p>Rasters are less easily supported using <code>ggplot2</code>; it is easiest to first convert
+them to a long-form data frame.</p>
+<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Crop January temperature raster to the extent to Georgia</span></span>
+<span><span class="va">mean_temp_ga</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">mean_temp</span>, <span class="va">ga_counties_poly</span><span class="op">)</span></span>
+<span><span class="co"># Convert to a data frame</span></span>
+<span><span class="va">mean_temp_ga_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">mean_temp_ga</span>, xy <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span><span class="va">mean_temp_ga_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##           x        y wc2.1_10m_tavg_01
+## 1 -85.58333 34.91667           2.96000
+## 2 -85.41667 34.91667           3.10475
+## 3 -85.25000 34.91667           3.58500
+## 4 -85.08333 34.91667           3.43375
+## 5 -84.91667 34.91667           3.49200
+## 6 -84.75000 34.91667           3.47875</code></pre>
+<p>Now, we have the X and Y coordinates of each raster cell along with its value.
+For convenience, I will rename this column before plotting the raster.</p>
+<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_temp_ga_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">mean_temp_ga_df</span>, jan_temp <span class="op">=</span> <span class="va">wc2.1_10m_tavg_01</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mean_temp_ga_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">jan_temp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<p>We can also combine the data types to overlay the data:</p>
+<div class="sourceCode" id="cb774"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mean_temp_ga_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">jan_temp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ga_counties_poly</span>, fill <span class="op">=</span> <span class="cn">NA</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="st">"Mean temperature\nin January (°C)"</span>, option <span class="op">=</span> <span class="st">"magma"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="spatial_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
 </div>
 <div id="other-topics" class="section level2" number="21.9">
 <h2>
@@ -425,7 +609,13 @@ are some topics we didn’t cover but might interest you:</p>
 <li><a class="nav-link" href="#the-sf-package"><span class="header-section-number">21.4</span> The sf package</a></li>
 <li><a class="nav-link" href="#map-projections-and-coordinate-reference-systems"><span class="header-section-number">21.5</span> Map projections and coordinate reference systems</a></li>
 <li><a class="nav-link" href="#raster-data-and-the-terra-package"><span class="header-section-number">21.6</span> Raster data and the terra package</a></li>
-<li><a class="nav-link" href="#reading-and-writing-spatial-data-outside-of-r"><span class="header-section-number">21.7</span> Reading and writing: spatial data outside of R</a></li>
+<li>
+<a class="nav-link" href="#reading-and-writing-spatial-data-outside-of-r"><span class="header-section-number">21.7</span> Reading and writing: spatial data outside of R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reading-and-creating-vectorsfeatures"><span class="header-section-number">21.7.1</span> Reading and creating vectors/features</a></li>
+<li><a class="nav-link" href="#reading-and-creating-rasters"><span class="header-section-number">21.7.2</span> Reading and creating rasters</a></li>
+<li><a class="nav-link" href="#writing-spatial-data-to-files"><span class="header-section-number">21.7.3</span> Writing spatial data to files</a></li>
+</ul>
+</li>
 <li><a class="nav-link" href="#plotting-spatial-data-using-ggplot2"><span class="header-section-number">21.8</span> Plotting spatial data using ggplot2</a></li>
 <li><a class="nav-link" href="#other-topics"><span class="header-section-number">21.9</span> Other topics</a></li>
 </ul>
@@ -444,7 +634,7 @@ are some topics we didn’t cover but might interest you:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-07.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
