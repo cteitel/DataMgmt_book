@@ -295,7 +295,7 @@ produce an error:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 8</code></pre>
 <div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in mode_calc2(vectors[[3]]): Vector has only 1 non-NA value</code></pre>
@@ -316,8 +316,8 @@ element, which you see because I have two outputs before my error message:</p>
 <span>  <span class="va">mode_val</span> <span class="op">&lt;-</span> <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mode_val</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code>## [1] 2 9
-## [1] 1</code></pre>
+<pre><code>## [1] 1 4
+## [1] 10</code></pre>
 <pre><code>## Error in mode_calc2(vect): Vector has only 1 non-NA value</code></pre>
 <p>I can once again enclose my function within <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>:</p>
 <div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
@@ -328,13 +328,13 @@ element, which you see because I have two outputs before my error message:</p>
 <span>  <span class="op">}</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mode_val</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code>## [1] 2 9
-## [1] 1
+<pre><code>## [1] 1 4
+## [1] 10
 ## [1] NA
+## [1]  1  3 10
 ## [1] 4
-## [1] 3
-## [1] 6
-## [1] 3</code></pre>
+## [1] 5
+## [1] 2</code></pre>
 <p>This brings up another point about <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>: you want it to enclose the function, but not
 the assignment. This is because in this case the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> is <code>NA</code>, so we want to
 assign <code>mode_val</code> <em>to the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code></em>. Using curly brackets allows us to include as many lines
@@ -384,7 +384,7 @@ elements:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-08.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

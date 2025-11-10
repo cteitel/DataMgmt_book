@@ -690,8 +690,11 @@ lesson ends here, but if you are a GIS whiz...know that you can do almost everyt
 you already know how to do in R (though it may not always be as efficient). Here
 are some topics we didn't cover but might interest you:
 
-* creating rasters and features from scratch (instead of reading them in)
-* different object types in the `sf` world ()
+* creating line and polygon vectors/features from coordinates
+* different object types in the `sf` world (`sfc`, etc.) that behave differently from data frames
+* spatial manipulation (intersections, extractions, cropping, etc.)
+* spatial analysis (autocorrelation, trends) - often relying on additional packages
+* creating interactive maps with the `leaflet` package
 
 
 
