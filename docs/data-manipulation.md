@@ -25,11 +25,11 @@ library(tidyverse)
 
 ```
 ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -118,12 +118,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs       date
-## 1    1       Me    25 2024-04-01
-## 2    2       Me    82 2024-04-01
-## 3    3       Me     9 2024-04-01
-## 4    4       Me    40 2024-04-01
-## 5    5       Me    42 2024-04-01
-## 6    6       Me     2 2024-04-01
+## 1    1       Me    13 2024-04-01
+## 2    2       Me    16 2024-04-01
+## 3    3       Me    64 2024-04-01
+## 4    4       Me     6 2024-04-01
+## 5    5       Me    62 2024-04-01
+## 6    6       Me    75 2024-04-01
 ```
 
 ``` r
@@ -132,12 +132,12 @@ tail(ds_full)
 
 ```
 ##    plot observer n_obs       date
-## 15    5      You    10 2025-01-01
-## 16    6      You    68 2025-01-01
-## 17    7      You    67 2025-01-01
-## 18    8      You     2 2025-01-01
+## 15    5      You    61 2025-01-01
+## 16    6      You    47 2025-01-01
+## 17    7      You    53 2025-01-01
+## 18    8      You    28 2025-01-01
 ## 19    9      You    60 2025-01-01
-## 20   10      You    26 2025-01-01
+## 20   10      You    80 2025-01-01
 ```
 
 `bind_rows` looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:
@@ -161,12 +161,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs Plot  obs  N
-## 1    1       Me    66   NA <NA> NA
-## 2    2       Me    29   NA <NA> NA
-## 3    3       Me    34   NA <NA> NA
-## 4    4       Me    25   NA <NA> NA
-## 5    5       Me    39   NA <NA> NA
-## 6    6       Me    91   NA <NA> NA
+## 1    1       Me    34   NA <NA> NA
+## 2    2       Me    96   NA <NA> NA
+## 3    3       Me     8   NA <NA> NA
+## 4    4       Me    95   NA <NA> NA
+## 5    5       Me    30   NA <NA> NA
+## 6    6       Me    58   NA <NA> NA
 ```
 
 We can also add more information with `bind_cols`, though joins (below) are usually a better way to add columns to a data set. `bind_cols` is also useful for creating new data frames from vectors:
@@ -503,27 +503,27 @@ survey_data
 
 ```
 ##    year site1 site2 site3 site4 site5 site6 site7 site8 site9 site10 site11
-## 1  2000    20    42    60    86    29    90     6    79    93     20     26
-## 2  2001    87    10    80    25     8    20    66    23    74     29     40
-## 3  2002    44    95    34    93    90    62    68    86    17    100     96
-## 4  2003    35    96    78    57    36    74    73    78    18      9     25
-## 5  2004    34    80    77    40    52    55    56   100    59      0      3
-## 6  2005    38    85    64    91    43    27    40    83     8      6     72
-## 7  2006    83    39    52     7    21    58    43    75    95     71     26
-## 8  2007    31    48    46    92   100    79    42    59    32     45     78
-## 9  2008    63    50    97    46    72     5    53    72    97     51     69
-## 10 2009    41     1     4    43    70    27    44    86    28     88      5
+## 1  2000    33    73    99    54    54    46    25    55    61     74     50
+## 2  2001    37    74    68    87    90    61     1    29     6     95     80
+## 3  2002     8    17    95    60    10    20    53    44    76     34     24
+## 4  2003    28    83    49    64    97   100    23    47    60     54     31
+## 5  2004    75    58    55     5    66    15    75    96     1     87     67
+## 6  2005    91    27    90    20    21    53    35    60    94     97     86
+## 7  2006    76    62    49    79    38    31    11    42    43     70     82
+## 8  2007    20    25    93    33    40    28    89    30    71     49     14
+## 9  2008    88    23    50     7    37    97    32    11    91     71      2
+## 10 2009    94    48     1     1    14    86    45     1    15     51     55
 ##    site12
-## 1      41
-## 2      24
-## 3      48
-## 4      40
-## 5      43
-## 6      20
-## 7      69
-## 8      59
-## 9      96
-## 10     60
+## 1      15
+## 2       0
+## 3      68
+## 4      92
+## 5      10
+## 6      27
+## 7      30
+## 8      77
+## 9      91
+## 10     43
 ```
 
 (Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)
@@ -538,16 +538,16 @@ survey_data %>%
 ## # A tibble: 120 × 3
 ##     year site   count
 ##    <int> <chr>  <int>
-##  1  2000 site1     20
-##  2  2000 site2     42
-##  3  2000 site3     60
-##  4  2000 site4     86
-##  5  2000 site5     29
-##  6  2000 site6     90
-##  7  2000 site7      6
-##  8  2000 site8     79
-##  9  2000 site9     93
-## 10  2000 site10    20
+##  1  2000 site1     33
+##  2  2000 site2     73
+##  3  2000 site3     99
+##  4  2000 site4     54
+##  5  2000 site5     54
+##  6  2000 site6     46
+##  7  2000 site7     25
+##  8  2000 site8     55
+##  9  2000 site9     61
+## 10  2000 site10    74
 ## # ℹ 110 more rows
 ```
 
@@ -581,12 +581,12 @@ survey_data %>%
 ## # A tibble: 6 × 3
 ##    year site  count
 ##   <int> <chr> <int>
-## 1  2000 site1    20
-## 2  2000 site2    42
-## 3  2000 site3    60
-## 4  2000 site4    86
-## 5  2000 site5    29
-## 6  2000 site6    90
+## 1  2000 site1    33
+## 2  2000 site2    73
+## 3  2000 site3    99
+## 4  2000 site4    54
+## 5  2000 site5    54
+## 6  2000 site6    46
 ```
 
 ``` r
@@ -598,16 +598,16 @@ survey_data %>%
 ## # A tibble: 120 × 4
 ##     year observer site   count
 ##    <int> <chr>    <chr>  <int>
-##  1  2000 A        site1     20
-##  2  2000 A        site2     42
-##  3  2000 A        site3     60
-##  4  2000 A        site4     86
-##  5  2000 A        site5     29
-##  6  2000 A        site6     90
-##  7  2000 A        site7      6
-##  8  2000 A        site8     79
-##  9  2000 A        site9     93
-## 10  2000 A        site10    20
+##  1  2000 A        site1     33
+##  2  2000 A        site2     73
+##  3  2000 A        site3     99
+##  4  2000 A        site4     54
+##  5  2000 A        site5     54
+##  6  2000 A        site6     46
+##  7  2000 A        site7     25
+##  8  2000 A        site8     55
+##  9  2000 A        site9     61
+## 10  2000 A        site10    74
 ## # ℹ 110 more rows
 ```
 

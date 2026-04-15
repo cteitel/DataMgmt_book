@@ -7,7 +7,7 @@
 <title>10 Coding Best Practices | Data Management and Reproducible Science</title>
 <meta name="author" content="Claire S Teitelbaum">
 <meta name="description" content="10.1 Objectives Write code in a consistent, readable style Understand best practices for citing R and R packages in scientific products Create README files for data/code Create reproducible...">
-<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
 <meta property="og:title" content="10 Coding Best Practices | Data Management and Reproducible Science">
 <meta property="og:type" content="book">
 <meta property="og:description" content="10.1 Objectives Write code in a consistent, readable style Understand best practices for citing R and R packages in scientific products Create README files for data/code Create reproducible...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="10.1 Objectives Write code in a consistent, readable style Understand best practices for citing R and R packages in scientific products Create README files for data/code Create reproducible...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
 <script src="libs/tabwid-1.1.3/tabwid.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -247,36 +247,36 @@
 ## [1] "4"
 ## 
 ## $minor
-## [1] "4.1"
+## [1] "5.2"
 ## 
 ## $year
-## [1] "2024"
+## [1] "2025"
 ## 
 ## $month
-## [1] "06"
+## [1] "10"
 ## 
 ## $day
-## [1] "14"
+## [1] "31"
 ## 
 ## $`svn rev`
-## [1] "86737"
+## [1] "88974"
 ## 
 ## $language
 ## [1] "R"
 ## 
 ## $version.string
-## [1] "R version 4.4.1 (2024-06-14)"
+## [1] "R version 4.5.2 (2025-10-31)"
 ## 
 ## $nickname
-## [1] "Race for Your Life"</code></pre>
+## [1] "[Not] Part in a Rumble"</code></pre>
 <p>It is also best practice to present information of <em>all</em> packages in appendices of a report or manuscript. Why? This is especially important for package versions of analysis software - sometimes under-the-hood methods change, which can change results. Proper documentation is therefore crucial!</p>
 <p>A note of caution: remember to include version numbers in all citations. Reference managers like Zotero will often leave these out of reference lists, so be sure to double check.</p>
 <p>Another helpful tool for citations is the <code>report</code> package, which will conveniently output a list of all the packages you have loaded in your script!</p>
 <div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/report/">report</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://easystats.github.io/report/reference/report.sessionInfo.html">cite_packages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>##   - Makowski D, Lüdecke D, Patil I, Thériault R, Ben-Shachar M, Wiernik B (2023). "Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption." _CRAN_. &lt;https://easystats.github.io/report/&gt;.
-##   - R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. &lt;https://www.R-project.org/&gt;.</code></pre>
+<pre><code>##   - Makowski D, Lüdecke D, Patil I, Thériault R, Ben-Shachar M, Wiernik B (2023). "Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption." _CRAN_. doi:10.32614/CRAN.package.report &lt;https://doi.org/10.32614/CRAN.package.report&gt;, &lt;https://easystats.github.io/report/&gt;.
+##   - R Core Team (2025). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. &lt;https://www.R-project.org/&gt;.</code></pre>
 </div>
 <div id="reproducible-examples" class="section level2" number="10.6">
 <h2>
@@ -311,13 +311,13 @@
 <p>Sometimes, different versions of R packages and R itself give different results because of updates that create or fix bugs, or changes to programs that alter data processing. It is therefore helpful to include information about package versions, your operating system, and the version of R you were using in your reproducible example. You can access all this information in one go using:</p>
 <div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## R version 4.4.1 (2024-06-14)
+<pre><code>## R version 4.5.2 (2025-10-31)
 ## Platform: aarch64-apple-darwin20
-## Running under: macOS 15.6.1
+## Running under: macOS Sequoia 15.7.4
 ## 
 ## Matrix products: default
-## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
-## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 ## 
 ## locale:
 ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -329,16 +329,16 @@
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] report_0.6.1
+## [1] report_0.6.3
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] digest_0.6.37     R6_2.5.1          bookdown_0.43     fastmap_1.2.0    
-##  [5] xfun_0.52         cachem_1.1.0      knitr_1.50        memoise_2.0.1    
-##  [9] htmltools_0.5.8.1 rmarkdown_2.29    lifecycle_1.0.4   xml2_1.3.6       
-## [13] cli_3.6.3         downlit_0.4.4     sass_0.4.9        withr_3.0.2      
-## [17] jquerylib_0.1.4   compiler_4.4.1    rstudioapi_0.17.1 tools_4.4.1      
-## [21] evaluate_1.0.1    bslib_0.8.0       yaml_2.3.10       fs_1.6.4         
-## [25] jsonlite_1.8.9    rlang_1.1.4       insight_1.3.0</code></pre>
+##  [1] cli_3.6.5         knitr_1.51        rlang_1.1.7       xfun_0.56        
+##  [5] otel_0.2.0        jsonlite_2.0.0    htmltools_0.5.9   sass_0.4.10      
+##  [9] rmarkdown_2.30    evaluate_1.0.5    jquerylib_0.1.4   fastmap_1.2.0    
+## [13] yaml_2.3.12       lifecycle_1.0.5   memoise_2.0.1     bookdown_0.46    
+## [17] insight_1.4.5     compiler_4.5.2    fs_1.6.6          downlit_0.4.5    
+## [21] rstudioapi_0.18.0 digest_0.6.39     R6_2.6.1          bslib_0.10.0     
+## [25] tools_4.5.2       withr_3.0.2       xml2_1.5.2        cachem_1.1.0</code></pre>
 </div>
 <div id="an-example" class="section level3" number="10.6.4">
 <h3>
@@ -348,24 +348,30 @@
 <div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'palmerpenguins'
+## 
+## The following objects are masked from 'package:datasets':
+## 
+##     penguins, penguins_raw</code></pre>
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_mass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">bodyweight_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in `summarize()`:
 ## ℹ In argument: `avg_mass = mean(bodyweight_g, na.rm = TRUE)`.
-## ℹ In group 1: `species = Adelie` and `island = Biscoe`.
+## ℹ In group 1: `species = Adelie` `island = Biscoe`.
 ## Caused by error:
 ## ! object 'bodyweight_g' not found</code></pre>
 <p>Let’s say we can’t figure out why this error was produced (can you?). We first want to isolate the problem and make it reproducible. To do so, we:</p>
@@ -374,7 +380,7 @@
 <li>Create a small subset (fewer rows)</li>
 <li>Simplify the code, if possible</li>
 </ul>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Minimal dataset and code for reproducible example</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
@@ -391,11 +397,11 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_mass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">bodyweight_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in `summarize()`:
 ## ℹ In argument: `avg_mass = mean(bodyweight_g, na.rm = TRUE)`.
-## ℹ In group 1: `species = "Adelie"` and `island = "Torgersen"`.
+## ℹ In group 1: `species = "Adelie"` `island = "Torgersen"`.
 ## Caused by error:
 ## ! object 'bodyweight_g' not found</code></pre>
 <p>Now that the code is simplifed, it is a little easier to spot the problem: we are using a different variable name for body mass in the summary (<code>bodyweight_g</code>) than is in the original data (<code>body_mass_g</code>). Now, we can fix the error:</p>
-<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_mass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -416,7 +422,7 @@
 <span class="header-section-number">10.6.5</span> The <code>reprex</code> package<a class="anchor" aria-label="anchor" href="#the-reprex-package"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <a href="https://reprex.tidyverse.org/"><code>reprex</code> package</a> is designed to help you create reproducible examples. You can paste your code into the <code><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex()</a></code> function and it will output what your code looks like in a clean environment (i.e., without all your packages and data already loaded). This way, you can make sure that your minimal data and code will work for someone else.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://reprex.tidyverse.org">reprex</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -480,7 +486,7 @@ Figure 10.1: The output of reprex in your RStudio viewer pane
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2025-11-12.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-04-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

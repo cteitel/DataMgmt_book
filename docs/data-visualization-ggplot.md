@@ -34,11 +34,11 @@ library(tidyverse)
 
 ```
 ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -65,7 +65,7 @@ boxplot(r ~ host.class, data = urban_data)
 abline(h = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" />
 
 Here, we say that we want a *boxplot* that shows the effect size (r) on the y-axis, as a function of host class on the x-axis (with `~` standard in function notation in R). We tell R to draw these variables from the `urban_data` data frame. We then add a horizontal line at 0 (`h=0`). 
 
@@ -78,7 +78,7 @@ ggplot(data = urban_data, aes(x = host.class, y = r)) +
   geom_hline(yintercept = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" />
 
 This produces the same plot, albeit with some differences in default formatting. However, the way we get there is really different! First, we initiate a plot with `ggplot()` and give it the data frame to use. We then give it the variables and their assignments within `aes()`, which stands for "aesthetics". We then use `+` to add plot elements: in this case, a boxplot (which draws `x` and `y` from the first line) and a horizontal line ("hline"). Although the base R code is initially more intuitive (and simpler, for simple plots like this one), the benefit of `ggplot2` is that is provides a structured approach that allows you to add elements to a single object.
 
@@ -99,7 +99,7 @@ First, define the data:
 ggplot(data = urban_data) 
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" />
 
 This just produces a blank plot with no axes or data on it - because we haven't defined those yet. We can do that next:
 
@@ -108,7 +108,7 @@ This just produces a blank plot with no axes or data on it - because we haven't 
 ggplot(data = urban_data, aes(x = host.class, y = r)) 
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" />
 
 This results in a blank plot with axes, because we haven't added any geometries yet. Then, we add geometries:
 
@@ -119,7 +119,7 @@ ggplot(data = urban_data, aes(x = host.class, y = r)) +
   geom_hline(yintercept = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" />
 
 If you look at the help file for `geom_boxplot`, you’ll see that the first two arguments are `mapping` and `data`. These are the same as the ones we specified in `ggplot`. We didn't need to specify them again in `geom_boxplot` because the ones provided in the first line (`ggplot()`) are global plot settings that will be implicitly assumed for every layer downstream.  
 
@@ -136,7 +136,7 @@ ggplot(data = urban_data, aes(x = health, y = r)) +
   geom_hline(yintercept = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" />
 
 Can you think of a way we might display both of these together? Think about using other types of aesthetics, the number of plots, etc.
 
@@ -151,7 +151,7 @@ urban_data %>%
   geom_hline(yintercept = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" />
 
 This doesn't really work, but it does highlight one way of combining ggplots with data manipulation. Here, I added a new column `health_class`, which combines the health and host.class variables. I then piped the data into the ggplot (notice that the `data=` argument is missing, because by default the piped data goes into the first argument of the receiving function).
 
@@ -164,7 +164,7 @@ ggplot(urban_data, aes(x = host.class, y = r, color = health)) +
   geom_hline(yintercept = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" />
 
 
 ``` r
@@ -174,7 +174,7 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
   geom_hline(yintercept = 0)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" />
 
 It looks to me like there might be a stronger negative effect of toxicants across groups, and intertebrates might have more toxicant studies, which is why their average is lower.
 
@@ -197,7 +197,7 @@ ggplot(urban_data, aes(x = udiff_1000, y = r)) +
 ## (`geom_point()`).
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" />
 
 We can also include error bars using `geom_pointrange()`:
 
@@ -212,7 +212,7 @@ ggplot(urban_data, aes(x = udiff_1000, y = r)) +
 ## (`geom_pointrange()`).
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" />
 
 ### Histograms
 
@@ -225,10 +225,10 @@ ggplot(urban_data, aes(x = r)) +
 ```
 
 ```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" />
 
 We can also specify the number of bins or bin width:
 
@@ -238,7 +238,7 @@ ggplot(urban_data, aes(x = r)) +
   geom_histogram(binwidth = 0.2)
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" />
 
 ### Bar and column plots
 
@@ -252,7 +252,7 @@ ggplot(urban_data, aes(x = host.class)) +
   geom_bar()
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" />
 
 ``` r
 urban_data %>%
@@ -262,7 +262,7 @@ urban_data %>%
   geom_col()
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-15-2.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-15-2.png" alt="" width="672" />
 
 If you are displaying non-count data (for example, a mean effect size across groups), you are usually better off with a scatterplot or boxplot. For example, `ggplot2` will make this bar chart for you:
 
@@ -272,7 +272,7 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
   geom_col()
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" />
 
 What you are essentially getting is the sum of all positive and negative effect sizes for each host class, which might look nice but doesn't mean much.
 
@@ -293,7 +293,7 @@ ggplot(urban_data, aes(x = YEAR, y = r)) +
 ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-17-1.png" alt="" width="672" />
 
 
 ``` r
@@ -305,11 +305,11 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
 ## No summary function supplied, defaulting to `mean_se()`
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" />
 
 Wait, what is that `stat_` thing? It's not a `geom_` but produces elements of a plot. Under the hood, `geom`s use `stat`s. In most cases, `stat="identity"`, so `ggplot` is just plotting the raw values. But, for example, in a bar plot, the stat is "count" by default:
 
-<img src="images/geom_bar.png" width="40%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/geom_bar.png" alt="" width="40%" style="display: block; margin: auto auto auto 0;" />
 
 This is just one example of customization options in `ggplot2`.
 
@@ -323,7 +323,7 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
   geom_boxplot(color = "red")
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" />
 
 ### Color
 
@@ -337,7 +337,7 @@ urban_data %>%
   geom_point() 
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" />
 
 For barplots, boxplots, and other plot types with polygons, `ggplot` distinguishes between the `fill` and the `color`:
 
@@ -347,14 +347,14 @@ ggplot(urban_data, aes(x = host.class, y = r)) +
   geom_boxplot(aes(fill = aqterr))
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-22-1.png" alt="" width="672" />
 
 ``` r
 ggplot(urban_data, aes(x = host.class, y = r)) +
   geom_boxplot(aes(color = aqterr))
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-22-2.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-22-2.png" alt="" width="672" />
 
 ### Shape
 
@@ -368,7 +368,7 @@ urban_data %>%
   geom_point() 
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" />
 
 
 
@@ -385,7 +385,7 @@ urban_data %>%
 ## `.groups` argument.
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" />
 
 ### Size
 
@@ -397,7 +397,7 @@ ggplot(urban_data, aes(x = YEAR, y = r, size = log10(SAMPLE_SIZE))) +
   geom_point() 
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" />
 
 ### Transparency
 
@@ -409,7 +409,7 @@ ggplot(urban_data, aes(x = YEAR, y = r, alpha = log10(SAMPLE_SIZE))) +
   geom_point() 
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" />
 
 But it can also be convenient to use transparency to show densities of overlapping data, or to plot models over data.
 
@@ -433,7 +433,7 @@ urban_data %>%
 ## `.groups` argument.
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" />
 
 And with groups:
 
@@ -451,7 +451,7 @@ urban_data %>%
 ## `.groups` argument.
 ```
 
-<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="data-visualization-ggplot_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" />
 
 
 ## Additional reference

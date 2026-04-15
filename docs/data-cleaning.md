@@ -21,11 +21,11 @@ library(tidyverse)
 
 ```
 ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -37,7 +37,8 @@ fish <- read.csv("data/raw/messy_georgia_fish_data.csv")
 ```
 
 ```
-## Error in type.convert.default(data[[i]], as.is = as.is[i], dec = dec, : invalid multibyte string at '<a1>07'<35>9.2"N, 84<a1>37'27.8"W'
+## Error in `type.convert.default()`:
+## ! invalid multibyte string at '<a1>07'<35>9.2"N, 84<a1>37'27.8"W'
 ```
 
 We can change the encoding that R expects with an additional argument:
@@ -322,7 +323,7 @@ latitudes <- fish$latitude %>%
 ## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if
 ## `.name_repair` is omitted as of tibble 2.0.0.
 ## ℹ Using compatibility `.name_repair`.
-## This warning is displayed once every 8 hours.
+## This warning is displayed once per session.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.
 ```
@@ -539,7 +540,7 @@ range(fish$fish_length_mm, na.rm=T)
 hist(fish$fish_length_mm)
 ```
 
-<img src="data-cleaning_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="data-cleaning_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" />
 
 It looks like we have a bunch of lengths that are way too long to be reasonable. Let's look at those values:
 
@@ -564,7 +565,7 @@ fish <- fish %>%
 hist(fish$fish_length_mm)
 ```
 
-<img src="data-cleaning_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="data-cleaning_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" />
 
 That looks better.
 

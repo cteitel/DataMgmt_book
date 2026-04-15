@@ -245,7 +245,7 @@ The globe is round but we make plots and measurements in two-dimensional space.
 Doing so inevitably creates some distortion in distance, area, and/or shape. For 
 example, consider common some global map projections: 
 
-<img src="spatial_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" />
 
 Each of these has different features, whether creating straight lines for 
 navigation (Mercator), distances between points (Azimuthal), or areas of polygons
@@ -397,7 +397,7 @@ mean_temp
 
 ```
 ## class       : SpatRaster 
-## dimensions  : 1080, 2160, 1  (nrow, ncol, nlyr)
+## size        : 1080, 2160, 1  (nrow, ncol, nlyr)
 ## resolution  : 0.1666667, 0.1666667  (x, y)
 ## extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
 ## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
@@ -420,7 +420,7 @@ A simple call to `plot()` will display the data:
 plot(mean_temp)
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" />
 
 Here's what this looks like across Georgia:
 
@@ -431,7 +431,7 @@ plot(mean_temp, ext = ga_ext) #Plot mean temperature in this box
 plot(ga_counties_poly$geometry, add = T) #Add the counties to this map
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-19-1.png" alt="" width="672" />
 
 And across Clarke county:
 
@@ -443,7 +443,7 @@ plot(mean_temp, ext = clarke_ext) #Plot mean temperature in this box
 plot(clarke_poly$geometry, add = T) #Add the counties to this map
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" />
 
 This is where you start to see the grid size - Clarke county is so small that
 it only contains two grid cells of this raster (at 0.17 degree resolution,
@@ -461,14 +461,14 @@ mean_temp_merc
 
 ```
 ## class       : SpatRaster 
-## dimensions  : 2407, 199, 1  (nrow, ncol, nlyr)
-## resolution  : 200527.4, 201540.1  (x, y)
-## extent      : -20037508, 19867438, -242578415, 242528681  (xmin, xmax, ymin, ymax)
+## size        : 2406, 203, 1  (nrow, ncol, nlyr)
+## resolution  : 197411.3, 197508.6  (x, y)
+## extent      : -20037508, 20036995, -232677114, 242528681  (xmin, xmax, ymin, ymax)
 ## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857) 
 ## source(s)   : memory
 ## name        : wc2.1_10m_tavg_01 
-## min value   :         -43.92729 
-## max value   :          33.00763
+## min value   :         -44.15975 
+## max value   :          33.12519
 ```
 
 However, reprojecting rasters is a little more complicated than reprojecting
@@ -570,7 +570,7 @@ plot(penguins_gridded)
 plot(island_info_sf$geometry, add = T, col = "red", pch = 19)
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" />
 
 ### Writing spatial data to files
 
@@ -611,7 +611,7 @@ ggplot(ga_counties_point) +
   geom_sf()
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" />
 
 Although this map could also be achieved using just latitude and longitude, the 
 plot now automatically labels axes with degrees, and uses a 1:1 axis ratio instead
@@ -623,7 +623,7 @@ ggplot(ga_counties_poly) +
   geom_sf()
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-29-1.png" alt="" width="672" />
 
 In most other ways, this acts like a regular ggplot. For example, we can color
 our features by a column:
@@ -634,7 +634,7 @@ ggplot(ga_counties_poly) +
   geom_sf(aes(fill = Reg_Comm))
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-30-1.png" alt="" width="672" />
 
 Rasters are less easily supported using `ggplot2`; it is easiest to first convert
 them to a long-form data frame.
@@ -668,7 +668,7 @@ ggplot() +
   geom_tile(data = mean_temp_ga_df, aes(x = x, y = y, fill = jan_temp))
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" />
 
 We can also combine the data types to overlay the data:
 
@@ -681,7 +681,7 @@ ggplot() +
   theme_void()
 ```
 
-<img src="spatial_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+<img src="spatial_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" />
 
 ## Other topics
 

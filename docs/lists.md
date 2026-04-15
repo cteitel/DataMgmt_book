@@ -147,7 +147,8 @@ l1[[c(1,2)]] # Does not work
 ```
 
 ```
-## Error in l1[[c(1, 2)]]: subscript out of bounds
+## Error in `l1[[c(1, 2)]]`:
+## ! subscript out of bounds
 ```
 
 Using a name works just like using double brackets.

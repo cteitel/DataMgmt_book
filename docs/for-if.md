@@ -136,7 +136,7 @@ ggplot(results, aes(x = val, color = sd, group = sd)) +
   geom_density() 
 ```
 
-<img src="for-if_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="for-if_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" />
 
 `for` loops are more aligned with a "base R" way of programming than with `tidyverse`, but you will encounter them often if using other code. They also form the conceptual base of some `tidyverse` functions, so understanding them can help you later. Because `for` loops are associated with base R, it is often necessary - or at least helpful - to remember to use square brackets for indexing, because you will often be dealing with *vectors* rather than *data frames* or *tibbles*. For example, a common way to write a loop is:
 

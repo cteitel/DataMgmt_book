@@ -12,7 +12,7 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-description: "This book contains lessons and exercises for FANR 5950/8950, Data Management and Reproducible Science, Fall 2025."
+description: "This book contains lessons and exercises for FANR 5950/8950, Data Management and Reproducible Science, Fall 2026."
 ---
 
 # Course overview

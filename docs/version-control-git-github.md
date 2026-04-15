@@ -17,7 +17,7 @@ This lesson draws from materials for [WILD 6900: Tools for Reproducible Science]
 
 Git is a version control system. It tracks all the changes you make to your files and allows you to go back to previous versions as far back in time as you need. Git is useful for keeping yourself organized and can be combined with collaboration software (GitHub) to make sharing code and other files easy. You might have a folder that looks something like this:
 
-<img src="images/files_with_dates.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/files_with_dates.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 My past self obviously could have been better about using consistent formatting for dates (some of these include year and some do not), but even if I had done so there are a few drawbacks to this approach:
 
@@ -68,7 +68,7 @@ In addition to the RStudio GUI, another good option is GitHub Desktop. Its funct
 
 ## Basic Git structure and commands
 
-<img src="images/git_schematic.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/git_schematic.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 The central commands for using Git are:
 
@@ -256,7 +256,7 @@ Git will allow you to recover previous versions of any tracked file at the time 
 git log
 ```
 
-<img src="images/git_history.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/git_history.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 The string of numbers and letters following the word ‘commit’ in the log is called the hash and it uniquely identifies each commit. If I wanted to revert to the version of the data manipulation lesson before I split it in two, I would use:
 
@@ -281,17 +281,17 @@ We just learned how to use Git the hard way. Two common GUIs can make this proce
 
 RStudio integrates Git with R projects. This does not work if your scripts are not part of a project but luckily, we already created a project for this class. If you followed the instructions above, when you open that project, you will probably already see a "Git" tab in your "Environment" panel in RStudio. If you don't (or want to go another route for your next project), you can initiate version control in the project options: 
 
-<img src="images/rstudio_git_setup.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/rstudio_git_setup.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
-<img src="images/rstudio_git_setup2.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/rstudio_git_setup2.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 Once version control is set up, you should see the "Git" menu above the Source panel and a Git tab in the Environment panel.
 
 Using the "Commit" menu, you can easily stage changes, write commit messages, and see changes to be committed:
 
-<img src="images/rstudio_git_commit.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/rstudio_git_commit.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
-<img src="images/rstudio_git_commit2.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="images/rstudio_git_commit2.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 You also see the "Pull" and "Push" buttons available in the top-left corner of this menu. These will be grayed out if you haven't get set up your repository with a remote repository (e.g., on GitHub). We will set this up later.
 

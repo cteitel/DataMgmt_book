@@ -135,7 +135,7 @@ Sys.Date()
 ```
 
 ```
-## [1] "2025-11-12"
+## [1] "2026-04-15"
 ```
 
 ``` r
@@ -143,7 +143,7 @@ Sys.time() #careful, this is not the same as system.time. We might get to that o
 ```
 
 ```
-## [1] "2025-11-12 09:12:34 EST"
+## [1] "2026-04-15 11:24:19 EDT"
 ```
 
 ### Formatting dates
@@ -156,7 +156,8 @@ as.Date("4/15/2025")
 ```
 
 ```
-## Error in charToDate(x): character string is not in a standard unambiguous format
+## Error in `charToDate()`:
+## ! character string is not in a standard unambiguous format
 ```
 
 ``` r

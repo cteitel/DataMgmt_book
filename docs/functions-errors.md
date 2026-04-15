@@ -123,7 +123,8 @@ modal_value <- mode_calc2(test_values)
 ```
 
 ```
-## Error in mode_calc2(test_values): argument "na.rm" is missing, with no default
+## Error in `mode_calc2()`:
+## ! argument "na.rm" is missing, with no default
 ```
 
 We can fix this but providing a default value:
@@ -248,7 +249,8 @@ mode_calc2(10)
 ```
 
 ```
-## Error in mode_calc2(10): Vector has only 1 non-NA value
+## Error in `mode_calc2()`:
+## ! Vector has only 1 non-NA value
 ```
 
 It's also important to note that if you look at your environment, you will *not* see objects
@@ -283,7 +285,7 @@ vectors[[3]]
 ```
 
 ```
-## [1] 1
+## [1] 5
 ```
 
 ``` r
@@ -291,7 +293,8 @@ mode_calc2(vectors[[3]])
 ```
 
 ```
-## Error in mode_calc2(vectors[[3]]): Vector has only 1 non-NA value
+## Error in `mode_calc2()`:
+## ! Vector has only 1 non-NA value
 ```
 
 If I want the function return something instead of an error, I can enclose the function 
@@ -324,12 +327,13 @@ for(i in 1:length(vectors)){
 ```
 
 ```
-## [1] 4 8 9
+## [1] 1 7
 ## [1] 10
 ```
 
 ```
-## Error in mode_calc2(vect): Vector has only 1 non-NA value
+## Error in `mode_calc2()`:
+## ! Vector has only 1 non-NA value
 ```
 
 I can once again enclose my function within `tryCatch()`:
@@ -346,13 +350,13 @@ for(i in 1:length(vectors)){
 ```
 
 ```
-## [1] 4 8 9
+## [1] 1 7
 ## [1] 10
 ## [1] NA
-## [1] 3
-## [1] 2 4 8
-## [1] 9
-## [1]  2  5 10
+## [1] 6 8
+## [1] 2 5 9
+## [1] 8
+## [1] 7
 ```
 
 This brings up another point about `tryCatch()`: you want it to enclose the function, but not 

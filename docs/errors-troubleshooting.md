@@ -85,7 +85,8 @@ sum(tets)
 ```
 
 ```
-## Error: object 'tets' not found
+## Error:
+## ! object 'tets' not found
 ```
 
 An object can be "not found" when you misspelled its name or when you didn't run your code in the correct order and you haven't created it yet. 
@@ -101,7 +102,8 @@ df$animals <- c("cat", "dog", "lion", "giraffe")
 ```
 
 ```
-## Error in `$<-.data.frame`(`*tmp*`, animals, value = c("cat", "dog", "lion", : replacement has 4 rows, data has 5
+## Error in `$<-.data.frame`:
+## ! replacement has 4 rows, data has 5
 ```
 
 Whenever you see an error of the form `replacement has... data has...` you know
@@ -145,7 +147,8 @@ df[df$numbers > 4]
 ```
 
 ```
-## Error in `[.data.frame`(df, df$numbers > 4): undefined columns selected
+## Error in `[.data.frame`:
+## ! undefined columns selected
 ```
 
 This is most likely the symptom that we forgot a comma inside the brackets and 
@@ -241,7 +244,8 @@ mat[1, ] <- vec
 ```
 
 ```
-## Error in mat[1, ] <- vec: number of items to replace is not a multiple of replacement length
+## Error in `mat[1, ] <- vec`:
+## ! number of items to replace is not a multiple of replacement length
 ```
 
 If I go and Google the error, [this](https://stackoverflow.com/questions/38738347/why-do-i-get-number-of-items-to-replace-is-not-a-multiple-of-replacement-length) is the first post I find on StackOverflow about it. This person is trying to do a different thing than me:
@@ -276,7 +280,8 @@ for (i in 1:length(my_list)) {
 ```
 
 ```
-## Error in item + 10: non-numeric argument to binary operator
+## Error in `item + 10`:
+## ! non-numeric argument to binary operator
 ```
 
 Something is wrong with this loop because I am getting an error. But how do I 
@@ -311,7 +316,8 @@ res <- item + 10 # this is the culprit!
 ```
 
 ```
-## Error in item + 10: non-numeric argument to binary operator
+## Error in `item + 10`:
+## ! non-numeric argument to binary operator
 ```
 
 In this case, the problem was that item 6 of my list is a character string and
@@ -400,7 +406,8 @@ lapply(my_list, fun_test)
 ```
 
 ```
-## Error in x * 2: non-numeric argument to binary operator
+## Error in `x * 2`:
+## ! non-numeric argument to binary operator
 ```
 
 Here's the error again. This time, we don't get the luxury of looking at the
@@ -438,7 +445,8 @@ x <- my_list[[6]]
 ```
 
 ```
-## Error in x * 2: non-numeric argument to binary operator
+## Error in `x * 2`:
+## ! non-numeric argument to binary operator
 ```
 
 ``` r

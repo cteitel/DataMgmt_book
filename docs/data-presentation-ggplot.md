@@ -32,11 +32,11 @@ library(tidyverse)
 
 ```
 ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -65,7 +65,7 @@ ggplot(data = urban_data, aes(x = host.class, y = r)) +
   labs(x = "Host taxon", y = "Effect size (r)")
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" />
 
 You can achieve the same result with:
 
@@ -77,7 +77,7 @@ ggplot(data = urban_data, aes(x = host.class, y = r)) +
   xlab("Host taxon") + ylab("Effect size (r)")
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" />
 
 ### Axis labels
 
@@ -94,7 +94,7 @@ ggplot(data = urban_data, aes(x = host.class, y = r)) +
   ylab("Effect size (r)")
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" />
 
 Here, `breaks` and `labels` must be vectors of the same length, and in the same order. `breaks` indicates the values in the data where the labels should appear, and `labels` indicates the corresponding label for each break.
 
@@ -112,7 +112,7 @@ ggplot(data = urban_data, aes(x = host.class, y = r)) +
                      breaks = seq(from = -1, to = 1, by = 0.2))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" />
 
 ## Editing legends
 
@@ -130,7 +130,7 @@ ggplot(urban_data, aes(x = host.class, y = r, color = health)) +
                      breaks = seq(from = -1, to = 1, by = 0.2))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" />
 
 We might want to change the title of the legend, capitalize the labels, and arrange them in alphabetical order:
 
@@ -149,7 +149,7 @@ ggplot(urban_data, aes(x = host.class, y = r, fill = health)) +
                       labels = str_to_sentence(sort(unique(urban_data$health))))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" />
 
 As for our x-axis, we use `scale_fill_discrete()` because the color maps to a discrete variable. 
 
@@ -172,7 +172,7 @@ ggplot(urban_data, aes(x = host.class, y = r, fill = health)) +
                       labels = str_to_sentence(unique(urban_data$health)))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" />
 
 By default, `ggplot2` places boxplots next to one another, but this isn't the default for all geometries. For example, if we instead plot the mean and standard error in each group:
 
@@ -195,7 +195,7 @@ ggplot(urban_data, aes(x = host.class, y = r, color = health)) +
 ## No summary function supplied, defaulting to `mean_se()`
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" />
 
 Here, we can use the `position` argument to offset the points and error bars.
 
@@ -218,7 +218,7 @@ ggplot(urban_data, aes(x = host.class, y = r, color = health)) +
 ## No summary function supplied, defaulting to `mean_se()`
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" />
 
 Not all `position` options are available for all geometries, but some others are: 
 
@@ -250,7 +250,7 @@ urban_data %>%
   geom_text(aes(label = AUTHORS)) 
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" />
 
 This is okay, but the text is plotted on top of the points. Some arguments within `geom_text()` can help here. 
 
@@ -266,7 +266,7 @@ urban_data %>%
   geom_text(aes(label = AUTHORS), hjust = 0, vjust = 1) 
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" />
 
 You can also specify these using characters ("left", "middle", "right"/"top", "bottom", "center"). There are two special alignments: "inward" and "outward". Inward always aligns text towards the center of the plot, and outward aligns it away from the center.
 
@@ -280,7 +280,7 @@ urban_data %>%
   geom_text(aes(label = AUTHORS), hjust = "inward", vjust = 1) 
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" />
 
 We can also move the text using `nudge_x` and `nudge_y` (in the same units as the axes):
 
@@ -294,7 +294,7 @@ urban_data %>%
   geom_text(aes(label = AUTHORS), hjust = 0, vjust = 1, nudge_x = 1) 
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" />
 
 We can use the same position arguments as we did above :
 
@@ -308,7 +308,7 @@ urban_data %>%
   geom_text(aes(label = AUTHORS), position = position_jitter(width = 1, height = .1))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" />
 
 And `ggplot` provides the `check_overlap` argument, which will plot only one text in cases where labels overlap:
 
@@ -322,7 +322,7 @@ urban_data %>%
   geom_text(aes(label = AUTHORS), hjust = "inward", nudge_y = -0.01, check_overlap = T)
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-17-1.png" alt="" width="672" />
 
 ### Annotation
 
@@ -345,7 +345,7 @@ ggplot(urban_data, aes(x = host.class, y = r, fill = health)) +
            hjust = 0, vjust = 0.5) 
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" />
 
 You can see that this works pretty similarly to `geom_text()`, although we first have to specify that we want text. You could also add a point, polygon, and so on by specifying that in the first argument to the `annotate()` function. Note that nudges do not work for annotations.
 
@@ -365,7 +365,7 @@ ggplot(urban_data, aes(x = YEAR, y = r)) +
   scale_color_discrete("Host group")
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-19-1.png" alt="" width="672" />
 
 It's really hard to find any patterns on this plot. Maybe the blue points (invertebrates) start showing up more in 2012? Maybe There's a positive trend in pink points (mammals)? There were tons of toxicant studies in 2015 - what's up with that? We might get more clarity by using multiple panels.
 
@@ -377,7 +377,7 @@ ggplot(urban_data, aes(x = YEAR, y = r)) +
   facet_wrap(~health)
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" />
 
 Here, `facet_wrap(~health)` means that we want panels to be created as a function of the `health` variable. The other common faceting function is `facet_grid()`, which explicitly uses x and y axes, which can allow us to display even more data:
 
@@ -390,7 +390,7 @@ ggplot(urban_data, aes(x = YEAR, y = r)) +
   facet_grid(aqterr~health)
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" />
 
 Of course, adding more data isn't always a good thing: eight panels is a lot!
 
@@ -432,7 +432,7 @@ cowplot::plot_grid(p_year, p_host,
                    nrow = 1, ncol = 2)
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-22-1.png" alt="" width="672" />
 
 `cowplot` allows much more than this functionality. Take a look at the many options in the `plot_grid()` function: we can align plot axes, change the relative widths of each plot, and so on.
 
@@ -450,7 +450,7 @@ cowplot::plot_grid(p_year + labs(title = "Gray"),
                    p_year + theme_dark() + labs(title = "Dark"))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" />
 
 Notice here that I also added themes and titles to the object `p_year` I created in the code chunk above. This is one nice aspect of ggplots: you can add new layers even after creating the object. 
 
@@ -473,7 +473,7 @@ ggplot(urban_data, aes(x = YEAR, y = r)) +
         strip.text = element_text(size = 14))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" />
 
 Any many more options...
 
@@ -496,7 +496,7 @@ ggplot(urban_data, aes(x = udiff_1000, y = r, color = YEAR)) +
 ## (`geom_point()`).
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" />
 
 The warning message here tells us that 61 of our data points are not showing on this plot. Can you tell why?
 
@@ -517,7 +517,7 @@ ggplot(urban_data, aes(x = udiff_1000, y = r, color = YEAR)) +
 ## (`geom_point()`).
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" />
 
 To change the color, I used `scale_color_viridis_c()` instead of `scale_color_continuous()`. `viridis` also provides other color schemes, and you can change the range of the color (for example, I often find the lightest colors hard to see on a white background):
 
@@ -549,7 +549,7 @@ cowplot::plot_grid(
 ## (`geom_point()`).
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" />
 
 You can also specify your own color gradients with the functions `scale_color_gradient()`, `scale_color_gradient2()`, and `scale_color_gradientn()`:
 
@@ -568,7 +568,7 @@ ggplot(urban_data, aes(x = udiff_1000, y = r, color = YEAR)) +
 ## (`geom_point()`).
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" />
 
 For discrete variables, the `viridis` package is also useful:
 
@@ -587,7 +587,7 @@ ggplot(urban_data, aes(x = host.class, y = r, fill = health)) +
                        labels = str_to_sentence(unique(urban_data$health)))
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-29-1.png" alt="" width="672" />
 
 The `RColorBrewer` also provides a number of useful discrete color palettes, including ones that are specified to be color blind friendly:
 
@@ -596,7 +596,7 @@ The `RColorBrewer` also provides a number of useful discrete color palettes, inc
 RColorBrewer::display.brewer.all(colorblindFriendly = T)
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-30-1.png" alt="" width="672" />
 
 ``` r
 ggplot(urban_data, aes(x = host.class, y = r, fill = health)) +
@@ -613,7 +613,7 @@ ggplot(urban_data, aes(x = host.class, y = r, fill = health)) +
                     palette = "Set2")
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-30-2.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-30-2.png" alt="" width="672" />
 
 ## Exporting and saving plots
 
@@ -638,7 +638,7 @@ ggplot(urban_data, aes(x = health, y = r)) +
 ## No summary function supplied, defaulting to `mean_se()`
 ```
 
-<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-31-1.png" alt="" width="672" />
 
 It outputs in the Plots panel of RStudio, but what if we want to export it elsewhere. The Export button above the plot might be tempting, but it doesn't work very well - resolution is limited and it's not all that reproducible. Instead, use `ggsave()`:
 

@@ -183,28 +183,28 @@ R.Version()
 ## [1] "4"
 ## 
 ## $minor
-## [1] "4.1"
+## [1] "5.2"
 ## 
 ## $year
-## [1] "2024"
+## [1] "2025"
 ## 
 ## $month
-## [1] "06"
+## [1] "10"
 ## 
 ## $day
-## [1] "14"
+## [1] "31"
 ## 
 ## $`svn rev`
-## [1] "86737"
+## [1] "88974"
 ## 
 ## $language
 ## [1] "R"
 ## 
 ## $version.string
-## [1] "R version 4.4.1 (2024-06-14)"
+## [1] "R version 4.5.2 (2025-10-31)"
 ## 
 ## $nickname
-## [1] "Race for Your Life"
+## [1] "[Not] Part in a Rumble"
 ```
 
 It is also best practice to present information of *all* packages in appendices of a report or manuscript. Why? This is especially important for package versions of analysis software - sometimes under-the-hood methods change, which can change results. Proper documentation is therefore crucial!
@@ -220,8 +220,8 @@ cite_packages()
 ```
 
 ```
-##   - Makowski D, Lüdecke D, Patil I, Thériault R, Ben-Shachar M, Wiernik B (2023). "Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption." _CRAN_. <https://easystats.github.io/report/>.
-##   - R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
+##   - Makowski D, Lüdecke D, Patil I, Thériault R, Ben-Shachar M, Wiernik B (2023). "Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption." _CRAN_. doi:10.32614/CRAN.package.report <https://doi.org/10.32614/CRAN.package.report>, <https://easystats.github.io/report/>.
+##   - R Core Team (2025). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
 ```
 
 ## Reproducible examples
@@ -253,13 +253,13 @@ sessionInfo()
 ```
 
 ```
-## R version 4.4.1 (2024-06-14)
+## R version 4.5.2 (2025-10-31)
 ## Platform: aarch64-apple-darwin20
-## Running under: macOS 15.6.1
+## Running under: macOS Sequoia 15.7.4
 ## 
 ## Matrix products: default
-## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
-## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 ## 
 ## locale:
 ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -271,16 +271,16 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] report_0.6.1
+## [1] report_0.6.3
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] digest_0.6.37     R6_2.5.1          bookdown_0.43     fastmap_1.2.0    
-##  [5] xfun_0.52         cachem_1.1.0      knitr_1.50        memoise_2.0.1    
-##  [9] htmltools_0.5.8.1 rmarkdown_2.29    lifecycle_1.0.4   xml2_1.3.6       
-## [13] cli_3.6.3         downlit_0.4.4     sass_0.4.9        withr_3.0.2      
-## [17] jquerylib_0.1.4   compiler_4.4.1    rstudioapi_0.17.1 tools_4.4.1      
-## [21] evaluate_1.0.1    bslib_0.8.0       yaml_2.3.10       fs_1.6.4         
-## [25] jsonlite_1.8.9    rlang_1.1.4       insight_1.3.0
+##  [1] cli_3.6.5         knitr_1.51        rlang_1.1.7       xfun_0.56        
+##  [5] otel_0.2.0        jsonlite_2.0.0    htmltools_0.5.9   sass_0.4.10      
+##  [9] rmarkdown_2.30    evaluate_1.0.5    jquerylib_0.1.4   fastmap_1.2.0    
+## [13] yaml_2.3.12       lifecycle_1.0.5   memoise_2.0.1     bookdown_0.46    
+## [17] insight_1.4.5     compiler_4.5.2    fs_1.6.6          downlit_0.4.5    
+## [21] rstudioapi_0.18.0 digest_0.6.39     R6_2.6.1          bslib_0.10.0     
+## [25] tools_4.5.2       withr_3.0.2       xml2_1.5.2        cachem_1.1.0
 ```
 
 ### An example
@@ -294,11 +294,11 @@ library(tidyverse)
 
 ```
 ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -307,7 +307,18 @@ library(tidyverse)
 
 ``` r
 library(palmerpenguins)
+```
 
+```
+## 
+## Attaching package: 'palmerpenguins'
+## 
+## The following objects are masked from 'package:datasets':
+## 
+##     penguins, penguins_raw
+```
+
+``` r
 penguins %>%
   group_by(species, island) %>%
   summarize(avg_mass = mean(bodyweight_g, na.rm = TRUE))
@@ -316,7 +327,7 @@ penguins %>%
 ```
 ## Error in `summarize()`:
 ## ℹ In argument: `avg_mass = mean(bodyweight_g, na.rm = TRUE)`.
-## ℹ In group 1: `species = Adelie` and `island = Biscoe`.
+## ℹ In group 1: `species = Adelie` `island = Biscoe`.
 ## Caused by error:
 ## ! object 'bodyweight_g' not found
 ```
@@ -348,7 +359,7 @@ mini_data %>%
 ```
 ## Error in `summarize()`:
 ## ℹ In argument: `avg_mass = mean(bodyweight_g, na.rm = TRUE)`.
-## ℹ In group 1: `species = "Adelie"` and `island = "Torgersen"`.
+## ℹ In group 1: `species = "Adelie"` `island = "Torgersen"`.
 ## Caused by error:
 ## ! object 'bodyweight_g' not found
 ```
