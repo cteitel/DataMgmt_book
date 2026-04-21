@@ -56,8 +56,8 @@
 <li><a class="" href="ggplot.html"><span class="header-section-number">11</span> Data Visualization with ggplot2</a></li>
 <li><a class="" href="data-presentation.html"><span class="header-section-number">12</span> Customizing Graphics with ggplot2</a></li>
 <li><a class="" href="tables.html"><span class="header-section-number">13</span> Creating and Designing Data Tables</a></li>
-<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git and GitHub</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">15</span> Collaboration with GitHub (or friends)</a></li>
+<li><a class="" href="git.html"><span class="header-section-number">14</span> Version Control with Git</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">15</span> Syncing and collaborating using GitHub</a></li>
 <li><a class="" href="markdown.html"><span class="header-section-number">16</span> Reproducible Reports with R Markdown and Quarto</a></li>
 <li><a class="" href="qaqc.html"><span class="header-section-number">17</span> Data Cleaning in R</a></li>
 <li><a class="" href="for-if.html"><span class="header-section-number">18</span> Iterating and Conditioning: for Loops and if Statements</a></li>
@@ -171,21 +171,21 @@
 <div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   plot observer n_obs       date
-## 1    1       Me    13 2024-04-01
-## 2    2       Me    16 2024-04-01
-## 3    3       Me    64 2024-04-01
-## 4    4       Me     6 2024-04-01
-## 5    5       Me    62 2024-04-01
-## 6    6       Me    75 2024-04-01</code></pre>
+## 1    1       Me    55 2024-04-01
+## 2    2       Me    81 2024-04-01
+## 3    3       Me    80 2024-04-01
+## 4    4       Me    69 2024-04-01
+## 5    5       Me    78 2024-04-01
+## 6    6       Me    54 2024-04-01</code></pre>
 <div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    plot observer n_obs       date
-## 15    5      You    61 2025-01-01
-## 16    6      You    47 2025-01-01
-## 17    7      You    53 2025-01-01
-## 18    8      You    28 2025-01-01
-## 19    9      You    60 2025-01-01
-## 20   10      You    80 2025-01-01</code></pre>
+## 15    5      You    34 2025-01-01
+## 16    6      You    82 2025-01-01
+## 17    7      You    52 2025-01-01
+## 18    8      You    88 2025-01-01
+## 19    9      You    67 2025-01-01
+## 20   10      You    57 2025-01-01</code></pre>
 <p><code>bind_rows</code> looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:</p>
 <div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ds1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, observer <span class="op">=</span> <span class="st">"Me"</span>, n_obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
@@ -197,11 +197,11 @@
 <div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ds_full</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   plot observer n_obs Plot  obs  N
-## 1    1       Me    34   NA &lt;NA&gt; NA
-## 2    2       Me    96   NA &lt;NA&gt; NA
-## 3    3       Me     8   NA &lt;NA&gt; NA
-## 4    4       Me    95   NA &lt;NA&gt; NA
-## 5    5       Me    30   NA &lt;NA&gt; NA
+## 1    1       Me    14   NA &lt;NA&gt; NA
+## 2    2       Me    73   NA &lt;NA&gt; NA
+## 3    3       Me    30   NA &lt;NA&gt; NA
+## 4    4       Me    70   NA &lt;NA&gt; NA
+## 5    5       Me    38   NA &lt;NA&gt; NA
 ## 6    6       Me    58   NA &lt;NA&gt; NA</code></pre>
 <p>We can also add more information with <code>bind_cols</code>, though joins (below) are usually a better way to add columns to a data set. <code>bind_cols</code> is also useful for creating new data frames from vectors:</p>
 <div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
@@ -432,27 +432,27 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">survey_data</span></span></code></pre></div>
 <pre><code>##    year site1 site2 site3 site4 site5 site6 site7 site8 site9 site10 site11
-## 1  2000    33    73    99    54    54    46    25    55    61     74     50
-## 2  2001    37    74    68    87    90    61     1    29     6     95     80
-## 3  2002     8    17    95    60    10    20    53    44    76     34     24
-## 4  2003    28    83    49    64    97   100    23    47    60     54     31
-## 5  2004    75    58    55     5    66    15    75    96     1     87     67
-## 6  2005    91    27    90    20    21    53    35    60    94     97     86
-## 7  2006    76    62    49    79    38    31    11    42    43     70     82
-## 8  2007    20    25    93    33    40    28    89    30    71     49     14
-## 9  2008    88    23    50     7    37    97    32    11    91     71      2
-## 10 2009    94    48     1     1    14    86    45     1    15     51     55
+## 1  2000    27    90    80    16    42    90    91    96    70     14      6
+## 2  2001    93    90    34    85    99    39    25    67    10     95     66
+## 3  2002    17    14    76    12    63    92    82    63     9     27     10
+## 4  2003    99    39    74    48    25    69    29    26    63     99     25
+## 5  2004    28    85     1    99    81    28    52    70    47     72     78
+## 6  2005    27     8    28    42    33    84    87    31    15     28     53
+## 7  2006     3    45    30     0    50    71     5    83    65     11     55
+## 8  2007    90    37    36    94    87    92     0    89    16     13     65
+## 9  2008    63    36    45    15    53    59     1    92    55     63     64
+## 10 2009    82    35    18    75     0     5    75     0    35     79     13
 ##    site12
-## 1      15
-## 2       0
-## 3      68
-## 4      92
-## 5      10
-## 6      27
-## 7      30
-## 8      77
-## 9      91
-## 10     43</code></pre>
+## 1      93
+## 2     100
+## 3       0
+## 4      62
+## 5      55
+## 6       9
+## 7      80
+## 8      86
+## 9      88
+## 10     92</code></pre>
 <p>(Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)</p>
 <div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -460,16 +460,16 @@
 <pre><code>## # A tibble: 120 × 3
 ##     year site   count
 ##    &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
-##  1  2000 site1     33
-##  2  2000 site2     73
-##  3  2000 site3     99
-##  4  2000 site4     54
-##  5  2000 site5     54
-##  6  2000 site6     46
-##  7  2000 site7     25
-##  8  2000 site8     55
-##  9  2000 site9     61
-## 10  2000 site10    74
+##  1  2000 site1     27
+##  2  2000 site2     90
+##  3  2000 site3     80
+##  4  2000 site4     16
+##  5  2000 site5     42
+##  6  2000 site6     90
+##  7  2000 site7     91
+##  8  2000 site8     96
+##  9  2000 site9     70
+## 10  2000 site10    14
 ## # ℹ 110 more rows</code></pre>
 <p>Here, we use the <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> function, also from <code>tidyr</code> and identify the columns that we want to pivot with <code>cols</code>. Because we want to get values from all the columns <em>except</em> the <code>year</code> column, we use a minus sign (-) to indicate that. We could also list all the columns (<code>c(site1, site2, site3)</code>), but this would be unwieldy. We also specify the column names of the new columns we are creating: one for what were the column names in the old wide data frame (<code>names_to</code>) and one for what were the values.</p>
 <p>One common challenge with pivoting longer is when we have a data frame that has more columns than the ones we want to include in the long data. For example, let’s say our survey data also included information about the observer:</p>
@@ -488,28 +488,28 @@
 <pre><code>## # A tibble: 6 × 3
 ##    year site  count
 ##   &lt;int&gt; &lt;chr&gt; &lt;int&gt;
-## 1  2000 site1    33
-## 2  2000 site2    73
-## 3  2000 site3    99
-## 4  2000 site4    54
-## 5  2000 site5    54
-## 6  2000 site6    46</code></pre>
+## 1  2000 site1    27
+## 2  2000 site2    90
+## 3  2000 site3    80
+## 4  2000 site4    16
+## 5  2000 site5    42
+## 6  2000 site6    90</code></pre>
 <div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">observer</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"site"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## # A tibble: 120 × 4
 ##     year observer site   count
 ##    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt;
-##  1  2000 A        site1     33
-##  2  2000 A        site2     73
-##  3  2000 A        site3     99
-##  4  2000 A        site4     54
-##  5  2000 A        site5     54
-##  6  2000 A        site6     46
-##  7  2000 A        site7     25
-##  8  2000 A        site8     55
-##  9  2000 A        site9     61
-## 10  2000 A        site10    74
+##  1  2000 B        site1     27
+##  2  2000 B        site2     90
+##  3  2000 B        site3     80
+##  4  2000 B        site4     16
+##  5  2000 B        site5     42
+##  6  2000 B        site6     90
+##  7  2000 B        site7     91
+##  8  2000 B        site8     96
+##  9  2000 B        site9     70
+## 10  2000 B        site10    14
 ## # ℹ 110 more rows</code></pre>
 
 </div>
@@ -553,7 +553,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-04-15.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-04-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
