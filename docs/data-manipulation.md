@@ -118,12 +118,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs       date
-## 1    1       Me    55 2024-04-01
-## 2    2       Me    81 2024-04-01
-## 3    3       Me    80 2024-04-01
-## 4    4       Me    69 2024-04-01
-## 5    5       Me    78 2024-04-01
-## 6    6       Me    54 2024-04-01
+## 1    1       Me     8 2024-04-01
+## 2    2       Me    88 2024-04-01
+## 3    3       Me     9 2024-04-01
+## 4    4       Me    98 2024-04-01
+## 5    5       Me    10 2024-04-01
+## 6    6       Me    12 2024-04-01
 ```
 
 ``` r
@@ -132,12 +132,12 @@ tail(ds_full)
 
 ```
 ##    plot observer n_obs       date
-## 15    5      You    34 2025-01-01
-## 16    6      You    82 2025-01-01
-## 17    7      You    52 2025-01-01
-## 18    8      You    88 2025-01-01
-## 19    9      You    67 2025-01-01
-## 20   10      You    57 2025-01-01
+## 15    5      You     3 2025-01-01
+## 16    6      You    80 2025-01-01
+## 17    7      You     5 2025-01-01
+## 18    8      You    83 2025-01-01
+## 19    9      You     1 2025-01-01
+## 20   10      You    78 2025-01-01
 ```
 
 `bind_rows` looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:
@@ -161,12 +161,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs Plot  obs  N
-## 1    1       Me    14   NA <NA> NA
-## 2    2       Me    73   NA <NA> NA
-## 3    3       Me    30   NA <NA> NA
-## 4    4       Me    70   NA <NA> NA
-## 5    5       Me    38   NA <NA> NA
-## 6    6       Me    58   NA <NA> NA
+## 1    1       Me    68   NA <NA> NA
+## 2    2       Me    59   NA <NA> NA
+## 3    3       Me    28   NA <NA> NA
+## 4    4       Me    95   NA <NA> NA
+## 5    5       Me    89   NA <NA> NA
+## 6    6       Me    49   NA <NA> NA
 ```
 
 We can also add more information with `bind_cols`, though joins (below) are usually a better way to add columns to a data set. `bind_cols` is also useful for creating new data frames from vectors:
@@ -503,27 +503,27 @@ survey_data
 
 ```
 ##    year site1 site2 site3 site4 site5 site6 site7 site8 site9 site10 site11
-## 1  2000    27    90    80    16    42    90    91    96    70     14      6
-## 2  2001    93    90    34    85    99    39    25    67    10     95     66
-## 3  2002    17    14    76    12    63    92    82    63     9     27     10
-## 4  2003    99    39    74    48    25    69    29    26    63     99     25
-## 5  2004    28    85     1    99    81    28    52    70    47     72     78
-## 6  2005    27     8    28    42    33    84    87    31    15     28     53
-## 7  2006     3    45    30     0    50    71     5    83    65     11     55
-## 8  2007    90    37    36    94    87    92     0    89    16     13     65
-## 9  2008    63    36    45    15    53    59     1    92    55     63     64
-## 10 2009    82    35    18    75     0     5    75     0    35     79     13
+## 1  2000    66    85    45    51    30    77    86    87    20     47     17
+## 2  2001    33     5    96    79    29    27    34    82     3     26     91
+## 3  2002    59     2    94    68    35    88    80    44     7     16     98
+## 4  2003    84    31    79    10    46    84     5    36    94     13      7
+## 5  2004    50    99     7    78    95    63    88    22     1     20     49
+## 6  2005    76    51    48    11    23    33    12    63    45     20     80
+## 7  2006    41    73    70    29    34    38     8    14    43      7     28
+## 8  2007    85    85     3    68    99     5    24    20    59     18     25
+## 9  2008    52    10    36    57    55    15    90     6     2     43     50
+## 10 2009    56   100    96    70    46    12    21     7    34     87     59
 ##    site12
-## 1      93
-## 2     100
-## 3       0
-## 4      62
-## 5      55
-## 6       9
-## 7      80
-## 8      86
-## 9      88
-## 10     92
+## 1      11
+## 2      56
+## 3      42
+## 4      34
+## 5      13
+## 6      87
+## 7      43
+## 8      16
+## 9      36
+## 10     44
 ```
 
 (Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)
@@ -538,16 +538,16 @@ survey_data %>%
 ## # A tibble: 120 × 3
 ##     year site   count
 ##    <int> <chr>  <int>
-##  1  2000 site1     27
-##  2  2000 site2     90
-##  3  2000 site3     80
-##  4  2000 site4     16
-##  5  2000 site5     42
-##  6  2000 site6     90
-##  7  2000 site7     91
-##  8  2000 site8     96
-##  9  2000 site9     70
-## 10  2000 site10    14
+##  1  2000 site1     66
+##  2  2000 site2     85
+##  3  2000 site3     45
+##  4  2000 site4     51
+##  5  2000 site5     30
+##  6  2000 site6     77
+##  7  2000 site7     86
+##  8  2000 site8     87
+##  9  2000 site9     20
+## 10  2000 site10    47
 ## # ℹ 110 more rows
 ```
 
@@ -581,12 +581,12 @@ survey_data %>%
 ## # A tibble: 6 × 3
 ##    year site  count
 ##   <int> <chr> <int>
-## 1  2000 site1    27
-## 2  2000 site2    90
-## 3  2000 site3    80
-## 4  2000 site4    16
-## 5  2000 site5    42
-## 6  2000 site6    90
+## 1  2000 site1    66
+## 2  2000 site2    85
+## 3  2000 site3    45
+## 4  2000 site4    51
+## 5  2000 site5    30
+## 6  2000 site6    77
 ```
 
 ``` r
@@ -598,16 +598,16 @@ survey_data %>%
 ## # A tibble: 120 × 4
 ##     year observer site   count
 ##    <int> <chr>    <chr>  <int>
-##  1  2000 B        site1     27
-##  2  2000 B        site2     90
-##  3  2000 B        site3     80
-##  4  2000 B        site4     16
-##  5  2000 B        site5     42
-##  6  2000 B        site6     90
-##  7  2000 B        site7     91
-##  8  2000 B        site8     96
-##  9  2000 B        site9     70
-## 10  2000 B        site10    14
+##  1  2000 C        site1     66
+##  2  2000 C        site2     85
+##  3  2000 C        site3     45
+##  4  2000 C        site4     51
+##  5  2000 C        site5     30
+##  6  2000 C        site6     77
+##  7  2000 C        site7     86
+##  8  2000 C        site8     87
+##  9  2000 C        site9     20
+## 10  2000 C        site10    47
 ## # ℹ 110 more rows
 ```
 

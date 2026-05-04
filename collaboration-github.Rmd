@@ -12,10 +12,15 @@ In [the previous lesson](#git), we learned how to manage your own code using ver
 
 * Code often builds on itself, so a single small change can change an entire workflow (or break a script).
 * Unlike in word processing programs, there is limited opportunity for "track changes" in code.
-* A section of code usually depends on what comes before it, so it isn't usually feasible for collaborators to write code chunks separately and combine them later.
+* A section of code usually depends on what comes before it, so it isn't usually feasible for collaborators to write code chunks separately and combine them later, as you might for a document.
+
+These tools are also useful even if you aren't working with other people on code. For example, using GitHub can help you:
+
+* Sync repositories and changes across your personal devices
+* Share code and data associated with a publication or report
+* Host websites and other materials (like this book!)
 
 Much rest of this lesson is copied, with minimal editing to images and links, from materials for [WILD 6900: Tools for Reproducible Science](https://ecorepsci.github.io/reproducible-science/), Spring 2021, Utah State University, by Dr. Simona Picardi, published under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. 
-
 
 ## Adding a remote repository (sending your code to GitHub)
 
@@ -36,8 +41,152 @@ GitHub Desktop makes this process easy! The "publish repository" button allows y
 knitr::include_graphics("images/ghdesktop_publishrepo.png")
 ```
 
+## Cloning (adding a GitHub repository to your computer)
 
-<!-- ### Using the command line -->
+The other way to get a local-remote repository pair set up is to *clone* a GitHub repository to your computer. You could do this before starting a project, with an empty repository, or to collaborate on a shared repository. You and your collaborator/s can all have a copy of the same repository on each of your computers by cloning a shared remote repository, which will then be synchronized with changes made by anyone on the team. The person who created the repository will need to add the others as collaborators so that they’re able to clone it.
+
+### Using GitHub Desktop
+
+This is where we use the "Clone repository" option from the last lesson.
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/ghdesktop_newrepo.png")
+```
+
+Following the prompts, you can add repositories from your personal GitHub account or from a URL.
+
+## Fetching, pulling, and pushing commits
+
+Now, we have a copy of a repository on our computer and one online. However, commits you make locally will not automatically appear on GitHub, and changes on GitHub will not automatically sync to your computer. Why? Well, imagine you and a colleague are working on the same repository at the same time. Changes they make, even if not to the same file, might impact your workflow in ways you aren't ready for. By choosing when to sync, you keep control of your repository. Here, we have three main verbs:
+
+* **Fetching**: Look for changes on GitHub that haven't get been synced locally
+* **Pulling**: Syncing changes on GitHub to your local repository
+* **Pushing**: Synching changes to your local repository to GitHub
+
+Again, GitHub Desktop makes these steps easy. At the top of your GitHub Desktop window, the far-right button will tell you what step you are at. First, fetch changes:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/ghdesktop_fetch.png")
+```
+
+If there are changes on GitHub that aren't reflected in your local respository, you can now pull them:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/ghdesktop_pull.png")
+```
+
+And once you've made a commit locally, you will have the option to push it to GitHub:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/ghdesktop_push.png")
+```
+
+The numbers reflect the number of commits that have been made since you last pushed or pulled.
+
+## Forking a repository 
+
+Forking a repository means creating a copy of an existing repository where you can make changes without affecting the original repository. You can technically fork your own repository, but forking is mostly used to get a copy of somebody else's repository. For example, if you want to contribute to a project that was created by a person you don't know, or if you want to build off of their code because it does something similar to what you need to do, you can fork their repository and work on it without their copy being affected. 
+
+The cool thing about forking is that, if the owner makes changes to their repository, you can pull those changes to your fork so that your copy of the repository stays in sync with the original. Also, you can contribute your own changes by submitting them to the original repository through pull requests. This is the main difference between forking and cloning somebody else's repository: by cloning, you won't be able to update your copy to include new changes made in the original and you won't be able to contribute back unless you're added as a collaborator. 
+
+Unlike all the other functionalities we have seen so far, which are Git commands, forking is a GitHub functionality. There is no built-in Git function to fork a repository from the command line. To fork a repository, go to the web page of that repository and click "Fork" in the top-right corner. This will create a copy of the repository on your GitHub account. 
+
+```{r github03, fig.cap="Fork GitHub repository", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/fork.png")
+```
+
+The repository is now in your GitHub account. If you also want a local copy of this repository on your computer, you can clone your fork, just like you did above. 
+
+
+You won't be able to push changes to the original repository because you do not have collaborator privileges, but you can push changes to your copy.  
+
+## Pull requests
+
+Pull requests are the way to ask that the edits you made in a fork (or a branch) get merged into the original repository (or main branch). To ask the owner of a repository to view and potentially integrate the changes you made in your own forked version, you submit a pull request. Similarly, to let your collaborators know about the edits you made and let them review them before they get merged, you submit a pull request. There is a key difference here: while as an external agent you have no other choice but submitting a pull request to merge a fork into a repository, as a collaborator you could simply merge your edits if you wanted to. If you are working on your own repository by yourself, there is no need to go through pull requests to merge a branch. But if you are collaborating with people, it is still good and courteous practice to use pull requests as a heads-up before you merge your changes, so that others on the project can review and approve them.
+
+The most straightforward way to submit a pull request is from the GitHub website. To start a pull request, you must have some changes committed to the repository or branch where you want to merge them. Then you can go to the repository page on GitHub and click on the 'Pull requests' tab, then click 'New pull request'. Choose your target branch, enter a title and description, and then click 'Send pull request'. Once the pull request is open, everyone can write comments on it, see all the commits it includes, and look at the changes it proposes within files. 
+
+Once everyone is happy with the proposed changes, you are ready to merge the pull request. If there are no merge conflicts, you will see a 'Merge pull request' button. 
+
+## Merge conflicts
+
+Having to deal with merge conflicts is eventually very likely when working on collaborative projects, but they can be handled and resolved without too much pain.
+
+If two collaborators edit the same file at the same time without pulling each other's changes first, when one tries to push their changes to the remote they will get an error message that looks like this:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/ghdesktop_conflict.png")
+```
+
+This is telling me that I have a merge conflict in my `Readme.md` file. If I open the file in RStudio, as suggested, I see this:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("images/ghdesktop_resolve.png")
+```
+
+Here, 
+
+* `<<<<<<< HEAD`: Marks the beginning of the changes in my current local version.
+* `=======`: Separates my changes from the incoming changes.
+* `>>>>>>> [branch name]`: Marks the end of the incoming changes.
+
+So, in this case, I added "in Natural Resources" to my local version, and I changed the course number in the incoming version. All I need to do is create the version I want, remove the `<<<<<<< HEAD`, `=======`, and `>>>>>>> [branch name]`, and save the file. Then, I can click "Continue Merge."
+
+It is up to us to reconcile these changes however we consider appropriate. We could keep our own changes, keep the changes made by our collaborator, write something new to replace both, or delete the change entirely. Once the conflict is removed and the file is saved, we can proceed as usual by staging the file, committing it, and pushing it. Now, when any of the other collaborators pulls from the repository again, they will get the merged version of this file.
+
+This takes some work, especially when changes are bigger than just a couple of words!
+
+## Avoiding conflicts
+
+Merge conflicts need to be manually resolved by a person, which is time-consuming. More importantly, the person who resolves a merge conflicts is making a judgement call on what is the best way of fixing the situation. Having to introduce subjective judgement calls is perhaps the weakest spot of the entire collaborative version control workflow. Preventing conflicts from happening in the first place is better than having to fix them. There are a few things that can help prevent merge conflicts:
+
+* Pull often: decreases probability that your working version is not up-to-date;
+* Make small and frequent commits: decreases probability that your recent changes are not in other people's working version;
+* Organize your code in small modules: decreases probability of two users working on the same file;
+* Working on branches or forks... more on this in the next sections.
+
+## Working with branches
+
+By default, a new repository contains a single branch: the main branch. However, we can create new branches within a repository. A branch is like a parallel universe where any changes we make on the files only exist on that branch and do not affect the main branch. Branches allow you to freely experiment with editing files and code without affecting the original project until you're ready to merge them.
+
+To create a new branch in GitHub Desktop, we use the middle panel in the menu:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://docs.github.com/assets/cb-26427/mw-1440/images/help/desktop/new-branch-button-mac.webp")
+```
+
+Or, if we already committed a change but want to make that commit into a new branch, we can use the History menu:
+
+```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
+knitr::include_graphics("https://docs.github.com/assets/cb-141477/mw-1440/images/help/desktop/create-branch-from-commit-context-menu.webp")
+```
+
+Branches follow the same processes for committing, publishing, fetching, pushing, and pulling as does the main branch. You can also bring your changes back and forth between branches. For more, see [the GitHub Desktop help page](https://docs.github.com/en/desktop/making-changes-in-a-branch/managing-branches-in-github-desktop).
+
+
+<!-- ### Cloning -->
+
+<!-- To clone a repository, open the terminal and navigate to the folder where you want to download it. Then use the following command: -->
+
+<!-- ```{bash, eval = F} -->
+<!-- git clone https://github.com/cteitel/hello-world.git -->
+<!-- ``` -->
+
+<!-- The repository will be copied to your computer into the folder you specified. -->
+
+<!-- ## Synchronizing changes among collaborators -->
+
+<!-- The inverse of pushing is pulling, which transfers files and changes from the remote repository to the local one: -->
+
+<!-- ```{bash, eval = F} -->
+<!-- git pull  -->
+<!-- ``` -->
+
+<!-- When you are working with collaborators on a shared GitHub repository, you will periodically need to pull from it to make sure your local copy is synchronized with changes somebody else might have made. You always need to pull before you push your own changes, because Git won't allow you to push if the remote repository has changes that you don't have on your local copy. It is therefore good practice to pull changes before starting work. If the two repositories are already up-to-date and you try to pull, nothing will happen because there are no changes on the remote repository that aren't already in the local.  -->
+
+<!-- If a collaborator makes a change that is in conflict with what we committed to our own local repository, when we try to pull we are going to encounter a merge conflict. Merge conflicts occur when two collaborators work on the same file at the same time. GitHub does not know how to automatically reconcile changes to the same file (how would it?), and it will throw an error that we'll need to resolve manually.  -->
+
+<!-- ### Another way -->
 
 <!-- Starting from an existing Git repository on your computer, you can link this to its GitHub counterpart by adding a remote URL. To set up a URL, go on the GitHub website, click on the ‘+’ sign in the top-right corner and select ‘New Repository’. -->
 
@@ -67,53 +216,21 @@ knitr::include_graphics("images/ghdesktop_publishrepo.png")
 
 <!-- Once you push, all the files you committed are transferred and your two repositories will mirror each other. To keep the remote repository synchronized with the local, any time you commit changes to tracked files you will also need to push them. -->
 
-
-## Cloning (adding a GitHub repository to your computer)
-
-The other way to get a local-remote repository pair set up is to cone a GitHub repository to your computer. You could do this before starting a project, with an empty repository, or to collaborate on a shared repository. You and your collaborator/s can all have a copy of the same repository on each of your computers by cloning a shared remote repository, which will then be synchronized with changes made by anyone on the team. The person who created the repository will need to add the others as collaborators so that they’re able to clone it.
-
-### Using GitHub Desktop
-
-This is where we use the "Clone repository" option from the last lesson.
-
-```{r, fig.cap="", fig.align='left', out.width='90%', echo = FALSE, eval = TRUE}
-knitr::include_graphics("images/ghdesktop_newrepo.png")
-```
-
-Following the prompts, you can add repositories from your personal GitHub account or from a URL.
-
-
-## Fetching, pulling, and pushing commits
-
-TO BE ADDED
-
-<!-- ### Using the command line -->
-
-<!-- To clone a repository, open the terminal and navigate to the folder where you want to download it. Then use the following command: -->
+<!-- For example, if I forked octocat's Spoon-Knife repository onto my GitHub account, I could then clone it onto my computer like so: -->
 
 <!-- ```{bash, eval = F} -->
-<!-- git clone https://github.com/cteitel/hello-world.git -->
+<!-- git clone https://github.com/picardis/Spoon-Knife -->
 <!-- ``` -->
 
-<!-- The repository will be copied to your computer into the folder you specified. -->
-
-<!-- ## Synchronizing changes among collaborators -->
-
-<!-- The inverse of pushing is pulling, which transfers files and changes from the remote repository to the local one: -->
+<!-- To keep my fork up-to-date with the original repository, I can configure it as follows:  -->
 
 <!-- ```{bash, eval = F} -->
-<!-- git pull  -->
+<!-- git remote add upstream https://github.com/octocat/Spoon-Knife.git -->
 <!-- ``` -->
 
-<!-- When you are working with collaborators on a shared GitHub repository, you will periodically need to pull from it to make sure your local copy is synchronized with changes somebody else might have made. You always need to pull before you push your own changes, because Git won't allow you to push if the remote repository has changes that you don't have on your local copy. It is therefore good practice to pull changes before starting work. If the two repositories are already up-to-date and you try to pull, nothing will happen because there are no changes on the remote repository that aren't already in the local.  -->
+<!-- Now I will be able to pull from the original repository and keep my local copy synchronized. -->
 
-<!-- If a collaborator makes a change that is in conflict with what we committed to our own local repository, when we try to pull we are going to encounter a merge conflict. Merge conflicts occur when two collaborators work on the same file at the same time. GitHub does not know how to automatically reconcile changes to the same file (how would it?), and it will throw an error that we'll need to resolve manually.  -->
-
-<!-- ## Resolving conflicts -->
-
-<!-- Having to deal with merge conflicts is eventually very likely when working on collaborative projects, but they can be handled and resolved without too much pain.  -->
-
-<!-- If two collaborators edit the same file at the same time without pulling each other's changes first, when one tries to push their changes to the remote they will get an error message that looks like this:  -->
+<!-- ## Resolving Conflicts -->
 
 <!-- ```{bash, eval = F} -->
 <!-- To https://github.com/picardis/myrepo.git -->
@@ -138,14 +255,6 @@ TO BE ADDED
 
 <!-- In some cases, collaborators will make simultaneous changes to a file that are mutually exclusive -- for example, one person will delete a line of code while another person will edit that same line. However, changes don't need to be mutually exclusive for a merge conflict to happen: any time two users edit the same line of the same file at the same time, Git is going to play it safe and call a merge conflict regardless of whether the changes contradict each other or not. Conflict resolution requires the user to verify whether the changes affect each other and if they can both stay or not. -->
 
-<!-- ## Avoiding conflicts -->
-
-<!-- Merge conflicts need to be manually resolved by a person, which is time-consuming. More importantly, the person who resolves a merge conflicts is making a judgement call on what is the best way of fixing the situation. Having to introduce subjective judgement calls is perhaps the weakest spot of the entire collaborative version control workflow. Preventing conflicts from happening in the first place is better than having to fix them. There are a few things that can help prevent merge conflicts: -->
-
-<!-- * Pull often: decreases probability that your working version is not up-to-date; -->
-<!-- * Make small and frequent commits: decreases probability that your recent changes are not in other people's working version;  -->
-<!-- * Organize your code in small modules: decreases probability of two users working on the same file; -->
-<!-- * Working on branches or forks... more on this in the next sections.  -->
 
 <!-- ## Working with branches -->
 
@@ -186,43 +295,6 @@ TO BE ADDED
 <!-- ``` -->
 
 <!-- If there are conflicting changes on the two branches we are trying to merge, Git will halt the process and issue a merge conflict similar to what we have seen before. -->
-
-## Forking a repository 
-
-Forking a repository means creating a copy of an existing repository where you can make changes without affecting the original repository. You can technically fork your own repository, but forking is mostly used to get a copy of somebody else's repository. For example, if you want to contribute to a project that was created by a person you don't know, or if you want to build off of their code because it does something similar to what you need to do, you can fork their repository and work on it without their copy being affected. 
-
-The cool thing about forking is that, if the owner makes changes to their repository, you can pull those changes to your fork so that your copy of the repository stays in sync with the original. Also, you can contribute your own changes by submitting them to the original repository through pull requests. This is the main difference between forking and cloning somebody else's repository: by cloning, you won't be able to update your copy to include new changes made in the original and you won't be able to contribute back unless you're added as a collaborator. 
-
-Unlike all the other functionalities we have seen so far, which are Git commands, forking is a GitHub functionality. There is no built-in Git function to fork a repository from the command line. To fork a repository, go to the web page of that repository and click "Fork" in the top-right corner. This will create a copy of the repository on your GitHub account. 
-
-```{r github03, fig.cap="Fork GitHub repository", fig.align='center', out.width='80%', echo = FALSE, eval = TRUE}
-knitr::include_graphics("images/fork.png")
-```
-
-The repository is now in your GitHub account. If you also want a local copy of this repository on your computer, you can clone your fork, just like you did above. 
-<!-- For example, if I forked octocat's Spoon-Knife repository onto my GitHub account, I could then clone it onto my computer like so: -->
-
-<!-- ```{bash, eval = F} -->
-<!-- git clone https://github.com/picardis/Spoon-Knife -->
-<!-- ``` -->
-
-<!-- To keep my fork up-to-date with the original repository, I can configure it as follows:  -->
-
-<!-- ```{bash, eval = F} -->
-<!-- git remote add upstream https://github.com/octocat/Spoon-Knife.git -->
-<!-- ``` -->
-
-<!-- Now I will be able to pull from the original repository and keep my local copy synchronized. -->
-
-You won't be able to push changes to the original repository because you do not have collaborator privileges, but you can push changes to your copy.  
-
-## Pull requests
-
-Pull requests are the way to ask that the edits you made in a fork (or a branch) get merged into the original repository (or main branch). To ask the owner of a repository to view and potentially integrate the changes you made in your own forked version, you submit a pull request. Similarly, to let your collaborators know about the edits you made and let them review them before they get merged, you submit a pull request. There is a key difference here: while as an external agent you have no other choice but submitting a pull request to merge a fork into a repository, as a collaborator you could simply merge your edits if you wanted to. If you are working on your own repository by yourself, there is no need to go through pull requests to merge a branch. But if you are collaborating with people, it is still good and courteous practice to use pull requests as a heads-up before you merge your changes, so that others on the project can review and approve them.
-
-The most straightforward way to submit a pull request is from the GitHub website. To start a pull request, you must have some changes committed to the repository or branch where you want to merge them. Then you can go to the repository page on GitHub and click on the 'Pull requests' tab, then click 'New pull request'. Choose your target branch, enter a title and description, and then click 'Send pull request'. Once the pull request is open, everyone can write comments on it, see all the commits it includes, and look at the changes it proposes within files. 
-
-Once everyone is happy with the proposed changes, you are ready to merge the pull request. If there are no merge conflicts, you will see a 'Merge pull request' button. 
 
 ## References
 

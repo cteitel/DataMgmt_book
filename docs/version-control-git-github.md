@@ -39,6 +39,8 @@ You can also easily see the changes made at each stage:
 <p class="caption">(\#fig:unnamed-chunk-4)A diff example</p>
 </div>
 
+Importantly, I now only have a single copy of each file on my computer, and the changes to past versions are saved in Git's log.
+
 Additional reading: https://swcarpentry.github.io/git-novice/01-basics.html
 
 ## Getting started with Git and GitHub

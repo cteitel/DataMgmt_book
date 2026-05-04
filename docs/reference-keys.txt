@@ -204,6 +204,9 @@ using-github-desktop-1
 fetching-pulling-and-pushing-commits
 forking-a-repository
 pull-requests
+merge-conflicts
+avoiding-conflicts
+working-with-branches
 references
 markdown
 objectives-13
