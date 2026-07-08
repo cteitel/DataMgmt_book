@@ -305,7 +305,7 @@ urban_data %>%
   ggplot(aes(x = udiff_1000, y = r)) +
   geom_point() +
   labs(x = "Urban gradient (1 km)", y = "Effect size (r)") +
-  geom_text(aes(label = AUTHORS), position = position_jitter(width = 1, height = .1))
+  geom_text(aes(label = AUTHORS), position = position_jitter(width = 1, height = .1, seed = 12))
 ```
 
 <img src="data-presentation-ggplot_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" />

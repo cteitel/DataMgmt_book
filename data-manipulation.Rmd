@@ -46,6 +46,7 @@ Often, we have multiple data sets that relate to each other in one way or anothe
 Adding ("binding") rows and columns is the easiest way to add data to a data frame. For example, if we have two separate data sets, we can add more rows with `bind_rows`:
 
 ```{r}
+set.seed(1023)
 ds1 <- data.frame(plot = 1:10, observer = "Me", n_obs = sample(1:100, 10), date = "2024-04-01")
 ds2 <- data.frame(plot = 1:10, observer = "You", n_obs = sample(1:100, 10), date = "2025-01-01")
 
@@ -58,6 +59,7 @@ tail(ds_full)
 `bind_rows` looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:
 
 ```{r}
+set.seed(45732)
 ds1 <- data.frame(plot = 1:10, observer = "Me", n_obs = sample(1:100, 10))
 ds2 <- data.frame(Plot = 1:10, obs = "You", N = sample(1:100, 10))
 
@@ -69,6 +71,7 @@ head(ds_full)
 We can also add more information with `bind_cols`, though joins (below) are usually a better way to add columns to a data set. `bind_cols` is also useful for creating new data frames from vectors:
 
 ```{r}
+set.seed(9104)
 plots <- c(1:10)
 observers <- rep("Me", 10)
 N <- sample(1:100, 10)
@@ -179,6 +182,7 @@ In the second case, we end up with the health and habitat data being sandwiched 
 In the other direction, we sometimes end up with data that is wide and needs to be long. For example, let's say we have a data set with counts by site across years:
 
 ```{r}
+set.seed(2401)
 survey_data <- sample(0:100, 10*12, replace = T) %>% 
   matrix(nrow = 10, ncol = 12) %>%
   as.data.frame() %>%
@@ -200,6 +204,7 @@ Here, we use the `pivot_longer()` function, also from `tidyr` and identify the c
 One common challenge with pivoting longer is when we have a data frame that has more columns than the ones we want to include in the long data. For example, let's say our survey data also included information about the observer:
 
 ```{r, error = T}
+set.seed(4171)
 survey_data <- mutate(survey_data, observer = sample(c("A","B","C"), nrow(survey_data), replace = T))
 survey_data %>%
   pivot_longer(cols = -year, names_to = "site", values_to = "count")

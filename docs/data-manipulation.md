@@ -101,6 +101,7 @@ Adding ("binding") rows and columns is the easiest way to add data to a data fra
 
 
 ``` r
+set.seed(1023)
 ds1 <- data.frame(plot = 1:10, observer = "Me", n_obs = sample(1:100, 10), date = "2024-04-01")
 ds2 <- data.frame(plot = 1:10, observer = "You", n_obs = sample(1:100, 10), date = "2025-01-01")
 
@@ -118,12 +119,12 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs       date
-## 1    1       Me     8 2024-04-01
-## 2    2       Me    88 2024-04-01
-## 3    3       Me     9 2024-04-01
-## 4    4       Me    98 2024-04-01
-## 5    5       Me    10 2024-04-01
-## 6    6       Me    12 2024-04-01
+## 1    1       Me    86 2024-04-01
+## 2    2       Me    66 2024-04-01
+## 3    3       Me    31 2024-04-01
+## 4    4       Me    59 2024-04-01
+## 5    5       Me     6 2024-04-01
+## 6    6       Me     3 2024-04-01
 ```
 
 ``` r
@@ -132,18 +133,19 @@ tail(ds_full)
 
 ```
 ##    plot observer n_obs       date
-## 15    5      You     3 2025-01-01
-## 16    6      You    80 2025-01-01
-## 17    7      You     5 2025-01-01
-## 18    8      You    83 2025-01-01
-## 19    9      You     1 2025-01-01
-## 20   10      You    78 2025-01-01
+## 15    5      You    43 2025-01-01
+## 16    6      You    19 2025-01-01
+## 17    7      You    55 2025-01-01
+## 18    8      You    96 2025-01-01
+## 19    9      You    34 2025-01-01
+## 20   10      You    31 2025-01-01
 ```
 
 `bind_rows` looks for column names to know how to match up the data. This is great when your columns are in different orders, but be careful with column names:
 
 
 ``` r
+set.seed(45732)
 ds1 <- data.frame(plot = 1:10, observer = "Me", n_obs = sample(1:100, 10))
 ds2 <- data.frame(Plot = 1:10, obs = "You", N = sample(1:100, 10))
 
@@ -161,18 +163,19 @@ head(ds_full)
 
 ```
 ##   plot observer n_obs Plot  obs  N
-## 1    1       Me    68   NA <NA> NA
-## 2    2       Me    59   NA <NA> NA
-## 3    3       Me    28   NA <NA> NA
-## 4    4       Me    95   NA <NA> NA
-## 5    5       Me    89   NA <NA> NA
-## 6    6       Me    49   NA <NA> NA
+## 1    1       Me    79   NA <NA> NA
+## 2    2       Me    64   NA <NA> NA
+## 3    3       Me    71   NA <NA> NA
+## 4    4       Me    19   NA <NA> NA
+## 5    5       Me    68   NA <NA> NA
+## 6    6       Me    43   NA <NA> NA
 ```
 
 We can also add more information with `bind_cols`, though joins (below) are usually a better way to add columns to a data set. `bind_cols` is also useful for creating new data frames from vectors:
 
 
 ``` r
+set.seed(9104)
 plots <- c(1:10)
 observers <- rep("Me", 10)
 N <- sample(1:100, 10)
@@ -492,6 +495,7 @@ In the other direction, we sometimes end up with data that is wide and needs to 
 
 
 ``` r
+set.seed(2401)
 survey_data <- sample(0:100, 10*12, replace = T) %>% 
   matrix(nrow = 10, ncol = 12) %>%
   as.data.frame() %>%
@@ -503,27 +507,27 @@ survey_data
 
 ```
 ##    year site1 site2 site3 site4 site5 site6 site7 site8 site9 site10 site11
-## 1  2000    66    85    45    51    30    77    86    87    20     47     17
-## 2  2001    33     5    96    79    29    27    34    82     3     26     91
-## 3  2002    59     2    94    68    35    88    80    44     7     16     98
-## 4  2003    84    31    79    10    46    84     5    36    94     13      7
-## 5  2004    50    99     7    78    95    63    88    22     1     20     49
-## 6  2005    76    51    48    11    23    33    12    63    45     20     80
-## 7  2006    41    73    70    29    34    38     8    14    43      7     28
-## 8  2007    85    85     3    68    99     5    24    20    59     18     25
-## 9  2008    52    10    36    57    55    15    90     6     2     43     50
-## 10 2009    56   100    96    70    46    12    21     7    34     87     59
+## 1  2000    74    64     5    59    87    56    40    90    25     59     26
+## 2  2001     6    57    42    27    78    19    26    50    75     24     58
+## 3  2002    86    23    59    55    40   100    73    58    21      4     62
+## 4  2003    67     9    10    47    20    97    18    71    22     91     38
+## 5  2004    21    39    36    55    65    67    12    92    30      1     64
+## 6  2005     5    41    99     4    67     4    45    59    99     43     32
+## 7  2006    12    39    65     2    84    94    56    13    29     84      7
+## 8  2007    94    76    38    31    29    92    69    34     1     26     23
+## 9  2008    74    17    86    82    75    42    82    24    62     15     79
+## 10 2009     9    30    68    49    52    49    43    88    97     41     19
 ##    site12
-## 1      11
-## 2      56
-## 3      42
-## 4      34
-## 5      13
-## 6      87
-## 7      43
-## 8      16
-## 9      36
-## 10     44
+## 1      16
+## 2      75
+## 3       2
+## 4      36
+## 5      37
+## 6      71
+## 7      34
+## 8      87
+## 9      86
+## 10     36
 ```
 
 (Side note: this is an example of how to simulate data to test code. We can go into this in more detail later in the course.)
@@ -538,16 +542,16 @@ survey_data %>%
 ## # A tibble: 120 × 3
 ##     year site   count
 ##    <int> <chr>  <int>
-##  1  2000 site1     66
-##  2  2000 site2     85
-##  3  2000 site3     45
-##  4  2000 site4     51
-##  5  2000 site5     30
-##  6  2000 site6     77
-##  7  2000 site7     86
-##  8  2000 site8     87
-##  9  2000 site9     20
-## 10  2000 site10    47
+##  1  2000 site1     74
+##  2  2000 site2     64
+##  3  2000 site3      5
+##  4  2000 site4     59
+##  5  2000 site5     87
+##  6  2000 site6     56
+##  7  2000 site7     40
+##  8  2000 site8     90
+##  9  2000 site9     25
+## 10  2000 site10    59
 ## # ℹ 110 more rows
 ```
 
@@ -557,6 +561,7 @@ One common challenge with pivoting longer is when we have a data frame that has 
 
 
 ``` r
+set.seed(4171)
 survey_data <- mutate(survey_data, observer = sample(c("A","B","C"), nrow(survey_data), replace = T))
 survey_data %>%
   pivot_longer(cols = -year, names_to = "site", values_to = "count")
@@ -581,12 +586,12 @@ survey_data %>%
 ## # A tibble: 6 × 3
 ##    year site  count
 ##   <int> <chr> <int>
-## 1  2000 site1    66
-## 2  2000 site2    85
-## 3  2000 site3    45
-## 4  2000 site4    51
-## 5  2000 site5    30
-## 6  2000 site6    77
+## 1  2000 site1    74
+## 2  2000 site2    64
+## 3  2000 site3     5
+## 4  2000 site4    59
+## 5  2000 site5    87
+## 6  2000 site6    56
 ```
 
 ``` r
@@ -598,16 +603,16 @@ survey_data %>%
 ## # A tibble: 120 × 4
 ##     year observer site   count
 ##    <int> <chr>    <chr>  <int>
-##  1  2000 C        site1     66
-##  2  2000 C        site2     85
-##  3  2000 C        site3     45
-##  4  2000 C        site4     51
-##  5  2000 C        site5     30
-##  6  2000 C        site6     77
-##  7  2000 C        site7     86
-##  8  2000 C        site8     87
-##  9  2000 C        site9     20
-## 10  2000 C        site10    47
+##  1  2000 B        site1     74
+##  2  2000 B        site2     64
+##  3  2000 B        site3      5
+##  4  2000 B        site4     59
+##  5  2000 B        site5     87
+##  6  2000 B        site6     56
+##  7  2000 B        site7     40
+##  8  2000 B        site8     90
+##  9  2000 B        site9     25
+## 10  2000 B        site10    59
 ## # ℹ 110 more rows
 ```
 
