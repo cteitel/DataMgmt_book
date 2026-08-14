@@ -396,14 +396,14 @@ mean_temp
 ```
 
 ```
-## class       : SpatRaster 
+## class       : SpatRaster
 ## size        : 1080, 2160, 1  (nrow, ncol, nlyr)
 ## resolution  : 0.1666667, 0.1666667  (x, y)
 ## extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
-## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-## source      : wc2.1_10m_tavg_01.tif 
-## name        : wc2.1_10m_tavg_01 
-## min value   :          -45.8840 
+## coord. ref. : lon/lat WGS 84 (EPSG:4326)
+## source      : wc2.1_10m_tavg_01.tif
+## name        : wc2.1_10m_tavg_01
+## min value   :           -45.884
 ## max value   :           34.0095
 ```
 
@@ -460,15 +460,15 @@ mean_temp_merc
 ```
 
 ```
-## class       : SpatRaster 
+## class       : SpatRaster
 ## size        : 2406, 203, 1  (nrow, ncol, nlyr)
 ## resolution  : 197411.3, 197508.6  (x, y)
-## extent      : -20037508, 20036995, -232677114, 242528681  (xmin, xmax, ymin, ymax)
-## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857) 
+## extent      : -2.003751e+07, 2.0037e+07, -2.326771e+08, 2.425287e+08  (xmin, xmax, ymin, ymax)
+## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 ## source(s)   : memory
-## name        : wc2.1_10m_tavg_01 
-## min value   :         -44.15975 
-## max value   :          33.12519
+## name        : wc2.1_10m_tavg_01
+## min value   :        -44.159748
+## max value   :         33.125191
 ```
 
 However, reprojecting rasters is a little more complicated than reprojecting

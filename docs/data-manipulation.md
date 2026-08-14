@@ -25,11 +25,11 @@ library(tidyverse)
 
 ```
 ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ dplyr     1.2.1     ✔ readr     2.2.0
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-## ✔ purrr     1.2.1     
+## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.2     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -312,8 +312,12 @@ urban_data %>%
 ```
 
 ```
-## `summarise()` has grouped output by 'health'. You can override using the
-## `.groups` argument.
+## `summarise()` has regrouped the output.
+## ℹ Summaries were computed grouped by health and YEAR.
+## ℹ Output is grouped by health.
+## ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+## ℹ Use `summarise(.by = c(health, YEAR))` for per-operation grouping
+##   (`?dplyr::dplyr_by`) instead.
 ```
 
 ```
@@ -345,8 +349,12 @@ urban_data %>%
 ```
 
 ```
-## `summarise()` has grouped output by 'health'. You can override using the
-## `.groups` argument.
+## `summarise()` has regrouped the output.
+## ℹ Summaries were computed grouped by health and YEAR.
+## ℹ Output is grouped by health.
+## ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+## ℹ Use `summarise(.by = c(health, YEAR))` for per-operation grouping
+##   (`?dplyr::dplyr_by`) instead.
 ```
 
 ```
@@ -388,8 +396,12 @@ urban_data %>%
 ```
 
 ```
-## `summarise()` has grouped output by 'health', 'YEAR'. You can override using
-## the `.groups` argument.
+## `summarise()` has regrouped the output.
+## ℹ Summaries were computed grouped by health, YEAR, and aqterr.
+## ℹ Output is grouped by health and YEAR.
+## ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+## ℹ Use `summarise(.by = c(health, YEAR, aqterr))` for per-operation grouping
+##   (`?dplyr::dplyr_by`) instead.
 ```
 
 ```
@@ -441,8 +453,12 @@ urban_data %>%
 ```
 
 ```
-## `summarise()` has grouped output by 'health', 'YEAR'. You can override using
-## the `.groups` argument.
+## `summarise()` has regrouped the output.
+## ℹ Summaries were computed grouped by health, YEAR, and aqterr.
+## ℹ Output is grouped by health and YEAR.
+## ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+## ℹ Use `summarise(.by = c(health, YEAR, aqterr))` for per-operation grouping
+##   (`?dplyr::dplyr_by`) instead.
 ```
 
 ```
@@ -467,8 +483,12 @@ urban_data %>%
 ```
 
 ```
-## `summarise()` has grouped output by 'health', 'YEAR'. You can override using
-## the `.groups` argument.
+## `summarise()` has regrouped the output.
+## ℹ Summaries were computed grouped by health, YEAR, and aqterr.
+## ℹ Output is grouped by health and YEAR.
+## ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+## ℹ Use `summarise(.by = c(health, YEAR, aqterr))` for per-operation grouping
+##   (`?dplyr::dplyr_by`) instead.
 ```
 
 ```

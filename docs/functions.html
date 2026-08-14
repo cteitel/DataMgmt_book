@@ -7,7 +7,7 @@
 <title>19 Writing Your Own Functions | Data Management and Reproducible Science</title>
 <meta name="author" content="Claire S Teitelbaum">
 <meta name="description" content="19.1 Objectives Understand when custom functions are useful Build simple custom functions with multiple arguments Efficiently handle potential errors when writing functions and loops  19.2...">
-<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta name="generator" content="bookdown 0.47 with bs4_book()">
 <meta property="og:title" content="19 Writing Your Own Functions | Data Management and Reproducible Science">
 <meta property="og:type" content="book">
 <meta property="og:description" content="19.1 Objectives Understand when custom functions are useful Build simple custom functions with multiple arguments Efficiently handle potential errors when writing functions and loops  19.2...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="19.1 Objectives Understand when custom functions are useful Build simple custom functions with multiple arguments Efficiently handle potential errors when writing functions and loops  19.2...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.11.0/transition.js"></script><script src="libs/bs3compat-0.11.0/tabs.js"></script><script src="libs/bs3compat-0.11.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
 <script src="libs/tabwid-1.1.3/tabwid.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -297,7 +297,7 @@ produce an error:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>## [1] 7</code></pre>
+<pre><code>## [1] 3</code></pre>
 <div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vectors</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Error in `mode_calc2()`:
@@ -319,8 +319,8 @@ element, which you see because I have two outputs before my error message:</p>
 <span>  <span class="va">mode_val</span> <span class="op">&lt;-</span> <span class="fu">mode_calc2</span><span class="op">(</span><span class="va">vect</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mode_val</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code>## [1] 9
-## [1]  1  2  3  9 10</code></pre>
+<pre><code>## [1] 1 6 9
+## [1] 2</code></pre>
 <pre><code>## Error in `mode_calc2()`:
 ## ! Vector has only 1 non-NA value</code></pre>
 <p>I can once again enclose my function within <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>:</p>
@@ -332,13 +332,13 @@ element, which you see because I have two outputs before my error message:</p>
 <span>  <span class="op">}</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mode_val</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code>## [1] 9
-## [1]  1  2  3  9 10
+<pre><code>## [1] 1 6 9
+## [1] 2
 ## [1] NA
-## [1] 10
-## [1] 1 2 5 9
-## [1] 3 4 5 8 9
-## [1] 4 6 9</code></pre>
+## [1] 1
+## [1] 5 6 9
+## [1] 1 3 4 5 6
+## [1] 5</code></pre>
 <p>This brings up another point about <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>: you want it to enclose the function, but not
 the assignment. This is because in this case the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> is <code>NA</code>, so we want to
 assign <code>mode_val</code> <em>to the output of <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code></em>. Using curly brackets allows us to include as many lines
@@ -388,7 +388,7 @@ elements:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-07-08.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-08-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
