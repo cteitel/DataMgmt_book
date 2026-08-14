@@ -143,7 +143,7 @@ Sys.time() #careful, this is not the same as system.time. We might get to that o
 ```
 
 ```
-## [1] "2026-08-14 15:04:29 EDT"
+## [1] "2026-08-14 15:15:11 EDT"
 ```
 
 ### Formatting dates

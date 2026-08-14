@@ -48,8 +48,9 @@ Below is the current schedule for this course. This is subject to change as the 
 library(tidyverse)
 library(kableExtra)
 tab <- readxl::read_excel("../DataMgmtSchedule.xlsx") %>%
+  select(-`Assignments due (EOD)`) %>%
   mutate(Date = format(Date, "%A, %B %e, %Y")) %>%
-  mutate_all(replace_na, "")
+  mutate_all(replace_na, "") 
 knitr::kable(tab) 
 
 library(gt)
