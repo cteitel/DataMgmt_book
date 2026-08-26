@@ -146,26 +146,26 @@ We can also select columns based on their properties using the `where()` functio
 
 
 ``` r
-select(urban_data, where(is.character))
+urban_chars <- select(urban_data, where(is.character))
+str(urban_chars)
 ```
 
 ```
-## # A tibble: 516 × 14
-##    TITLE     AUTHORS JOURNAL health condition toxtype ptype stress2 host.species
-##    <chr>     <chr>   <chr>   <chr>  <chr>     <chr>   <chr> <chr>   <chr>       
-##  1 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Prev… <NA>    Trichosurus…
-##  2 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Prev… <NA>    Trichosurus…
-##  3 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Rich… <NA>    Trichosurus…
-##  4 Ectopara… Webste… Wildli… condi… Adjusted  <NA>    <NA>  <NA>    Trichosurus…
-##  5 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Inte… <NA>    Trichosurus…
-##  6 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Inte… <NA>    Trichosurus…
-##  7 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Prev… <NA>    Trichosurus…
-##  8 Ectopara… Webste… Wildli… paras… <NA>      <NA>    Prev… <NA>    Trichosurus…
-##  9 Effects … Hargit… Scienc… toxic… <NA>      metal   <NA>  <NA>    Parus_major 
-## 10 Effects … Hargit… Scienc… toxic… <NA>      metal   <NA>  <NA>    Parus_major 
-## # ℹ 506 more rows
-## # ℹ 5 more variables: host.class <chr>, aqterr <chr>, parasite2 <chr>,
-## #   mroute <chr>, COUNTRY <chr>
+## tibble [516 × 14] (S3: tbl_df/tbl/data.frame)
+##  $ TITLE       : chr [1:516] "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" ...
+##  $ AUTHORS     : chr [1:516] "Webster et al." "Webster et al." "Webster et al." "Webster et al." ...
+##  $ JOURNAL     : chr [1:516] "Wildlife Biology" "Wildlife Biology" "Wildlife Biology" "Wildlife Biology" ...
+##  $ health      : chr [1:516] "parasites" "parasites" "parasites" "condition" ...
+##  $ condition   : chr [1:516] NA NA NA "Adjusted" ...
+##  $ toxtype     : chr [1:516] NA NA NA NA ...
+##  $ ptype       : chr [1:516] "Prevalence" "Prevalence" "Richness" NA ...
+##  $ stress2     : chr [1:516] NA NA NA NA ...
+##  $ host.species: chr [1:516] "Trichosurus_vulpecula" "Trichosurus_vulpecula" "Trichosurus_vulpecula" "Trichosurus_vulpecula" ...
+##  $ host.class  : chr [1:516] "mammals" "mammals" "mammals" "mammals" ...
+##  $ aqterr      : chr [1:516] "terrestrial" "terrestrial" "terrestrial" "terrestrial" ...
+##  $ parasite2   : chr [1:516] "Macroparasite" "Macroparasite" "Macroparasite" NA ...
+##  $ mroute      : chr [1:516] "multiple" "single" NA NA ...
+##  $ COUNTRY     : chr [1:516] "Australia" "Australia" "Australia" "Australia" ...
 ```
 
 ### Subsetting data with `filter()`
@@ -174,30 +174,25 @@ The `filter()` function subsets a data frame to rows that meet some criteria. Fo
 
 
 ``` r
-filter(urban_data, host.class == "birds")
+urban_birds <- filter(urban_data, host.class == "birds")
+select(urban_birds, study, host.class)
 ```
 
 ```
-## # A tibble: 159 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  3  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  8  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  9  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-## 10  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
+## # A tibble: 159 × 2
+##    study host.class
+##    <dbl> <chr>     
+##  1  1326 birds     
+##  2  1326 birds     
+##  3  1326 birds     
+##  4  1426 birds     
+##  5  1426 birds     
+##  6  1426 birds     
+##  7  1426 birds     
+##  8  1426 birds     
+##  9  1480 birds     
+## 10  1480 birds     
 ## # ℹ 149 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
 ```
 
 Now we are introducing logical statements with the `==` sign! `==` means "is equal to". It is very different from `=`, which specifies arguments in functions (and can be used as an assignment operator, but that is not recommended). A few other useful operators and functions for filtering are:
@@ -209,173 +204,138 @@ Now we are introducing logical statements with the `==` sign! `==` means "is equ
 
 
 ``` r
-filter(urban_data, host.class != "mammals")
+urban_data_sub <- select(urban_data, study, host.class, pval, YEAR, ptype, SAMPLE_SIZE) #choosing some example columns to view
+filter(urban_data_sub, host.class == "mammals")
 ```
 
 ```
-## # A tibble: 321 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  3  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  8  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  9  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-## 10  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-## # ℹ 311 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
+## # A tibble: 195 × 6
+##    study host.class     pval  YEAR ptype      SAMPLE_SIZE
+##    <dbl> <chr>         <dbl> <dbl> <chr>            <dbl>
+##  1  1236 mammals     1        2014 Prevalence          59
+##  2  1236 mammals     0.477    2014 Prevalence          59
+##  3  1236 mammals     0.2      2014 Richness           278
+##  4  1236 mammals    NA        2014 <NA>                49
+##  5  1236 mammals    NA        2014 Intensity           16
+##  6  1236 mammals    NA        2014 Intensity           10
+##  7  1236 mammals     0.00785  2014 Prevalence          59
+##  8  1236 mammals     0.143    2014 Prevalence          59
+##  9  1955 mammals     0.242    2003 Prevalence          12
+## 10  2129 mammals     0.169    2008 Intensity          127
+## # ℹ 185 more rows
 ```
 
 ``` r
-filter(urban_data, host.class %in% c("birds","fish"))
+filter(urban_data_sub, !host.class %in% c("mammals","birds"))
 ```
 
 ```
-## # A tibble: 251 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  3  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  8  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  9  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-## 10  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-## # ℹ 241 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
+## # A tibble: 162 × 6
+##    study host.class      pval  YEAR ptype      SAMPLE_SIZE
+##    <dbl> <chr>          <dbl> <dbl> <chr>            <dbl>
+##  1  1903 fish          NA      1999 <NA>                20
+##  2  1903 fish          NA      1999 <NA>                16
+##  3  1903 fish          NA      1999 <NA>                16
+##  4  1903 fish          NA      1999 <NA>                20
+##  5  1903 fish          NA      1999 <NA>                16
+##  6  1903 fish          NA      1999 <NA>                20
+##  7  2124 fish          NA      2000 <NA>                39
+##  8  2166 invertebrates  0.600  2012 Prevalence          10
+##  9  2166 invertebrates  0.425  2012 Prevalence          10
+## 10  2166 invertebrates  0.550  2012 Prevalence          10
+## # ℹ 152 more rows
 ```
 
 ``` r
-filter(urban_data, is.na(pval))
+filter(urban_data_sub, is.na(pval))
 ```
 
 ```
-## # A tibble: 253 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  <NA>    <NA>  <NA>   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  4  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  5  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-##  6  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-##  7  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-##  8  1480 Environme… Garcia…  2005 Bullet… toxic… <NA>      metal   <NA>  <NA>   
-##  9  1869 Great Tit… Torne-…  2013 J Orni… stress <NA>      <NA>    <NA>  other  
-## 10  1903 halogenat… Olsson…  1999 Scienc… condi… Raw       <NA>    <NA>  <NA>   
+## # A tibble: 253 × 6
+##    study host.class  pval  YEAR ptype     SAMPLE_SIZE
+##    <dbl> <chr>      <dbl> <dbl> <chr>           <dbl>
+##  1  1236 mammals       NA  2014 <NA>               49
+##  2  1236 mammals       NA  2014 Intensity          16
+##  3  1236 mammals       NA  2014 Intensity          10
+##  4  1326 birds         NA  2016 <NA>               39
+##  5  1480 birds         NA  2005 <NA>               14
+##  6  1480 birds         NA  2005 <NA>               14
+##  7  1480 birds         NA  2005 <NA>               14
+##  8  1480 birds         NA  2005 <NA>               14
+##  9  1869 birds         NA  2013 <NA>              177
+## 10  1903 fish          NA  1999 <NA>               20
 ## # ℹ 243 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
 ```
 
 ``` r
-filter(urban_data, YEAR >= 2010)
+filter(urban_data_sub, YEAR >= 2010)
 ```
 
 ```
-## # A tibble: 422 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Rich… <NA>   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  <NA>    <NA>  <NA>   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  6  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  7  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  8  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  9  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-## 10  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
+## # A tibble: 422 × 6
+##    study host.class     pval  YEAR ptype      SAMPLE_SIZE
+##    <dbl> <chr>         <dbl> <dbl> <chr>            <dbl>
+##  1  1236 mammals     1        2014 Prevalence          59
+##  2  1236 mammals     0.477    2014 Prevalence          59
+##  3  1236 mammals     0.2      2014 Richness           278
+##  4  1236 mammals    NA        2014 <NA>                49
+##  5  1236 mammals    NA        2014 Intensity           16
+##  6  1236 mammals    NA        2014 Intensity           10
+##  7  1236 mammals     0.00785  2014 Prevalence          59
+##  8  1236 mammals     0.143    2014 Prevalence          59
+##  9  1326 birds      NA        2016 <NA>                39
+## 10  1326 birds       0.07     2016 <NA>                39
 ## # ℹ 412 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
 ```
 
 We can also filter using multiple criteria simultaneously using `&` (AND) and `|` (OR):
 
 
 ``` r
-filter(urban_data, host.class != "mammals" & !is.na(pval))
+filter(urban_data_sub, host.class != "mammals" & !is.na(pval))
 ```
 
 ```
-## # A tibble: 133 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-##  3  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… <NA>      metal   <NA>  <NA>   
-##  8  1934 Helminth … Rzad e…  2014 Helmin… paras… <NA>      <NA>    Prev… <NA>   
-##  9  2166 Influence… Goulso…  2012 Functi… paras… <NA>      <NA>    Prev… <NA>   
-## 10  2166 Influence… Goulso…  2012 Functi… paras… <NA>      <NA>    Prev… <NA>   
+## # A tibble: 133 × 6
+##    study host.class      pval  YEAR ptype      SAMPLE_SIZE
+##    <dbl> <chr>          <dbl> <dbl> <chr>            <dbl>
+##  1  1326 birds         0.07    2016 <NA>                39
+##  2  1326 birds         0.06    2016 <NA>                40
+##  3  1426 birds         0.004   2003 <NA>                25
+##  4  1426 birds         0.06    2003 <NA>                28
+##  5  1426 birds         0.0001  2003 <NA>                25
+##  6  1426 birds         0.06    2003 <NA>                28
+##  7  1426 birds         0.03    2003 <NA>                16
+##  8  1934 birds         0.178   2014 Prevalence          45
+##  9  2166 invertebrates 0.600   2012 Prevalence          10
+## 10  2166 invertebrates 0.425   2012 Prevalence          10
 ## # ℹ 123 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
 ```
 
 ``` r
-filter(urban_data, ptype == "Prevalence" | SAMPLE_SIZE > 100)
+filter(urban_data_sub, ptype == "Prevalence" | SAMPLE_SIZE > 100)
 ```
 
 ```
-## # A tibble: 218 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Rich… <NA>   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  6  1869 Great Tit… Torne-…  2013 J Orni… stress <NA>      <NA>    <NA>  other  
-##  7  1934 Helminth … Rzad e…  2014 Helmin… paras… <NA>      <NA>    Prev… <NA>   
-##  8  1955 high freq… Bagagl…  2003 Medica… paras… <NA>      <NA>    Prev… <NA>   
-##  9  2129 infection… Robard…  2008 Parasi… paras… <NA>      <NA>    Inte… <NA>   
-## 10  2129 infection… Robard…  2008 Parasi… paras… <NA>      <NA>    Inte… <NA>   
+## # A tibble: 218 × 6
+##    study host.class     pval  YEAR ptype      SAMPLE_SIZE
+##    <dbl> <chr>         <dbl> <dbl> <chr>            <dbl>
+##  1  1236 mammals     1        2014 Prevalence          59
+##  2  1236 mammals     0.477    2014 Prevalence          59
+##  3  1236 mammals     0.2      2014 Richness           278
+##  4  1236 mammals     0.00785  2014 Prevalence          59
+##  5  1236 mammals     0.143    2014 Prevalence          59
+##  6  1869 birds      NA        2013 <NA>               177
+##  7  1934 birds       0.178    2014 Prevalence          45
+##  8  1955 mammals     0.242    2003 Prevalence          12
+##  9  2129 mammals     0.169    2008 Intensity          127
+## 10  2129 mammals     0.169    2008 Intensity          127
 ## # ℹ 208 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
 ```
 
 Can you describe what is being included and excluded in each of these statements?
 
-Use the `urban_data` data to make a data frame with data from 2000 through 2010.
+Challenge: How would you use the `urban_data` data to make a data frame with data from 2000 through 2010?
 
 
 
@@ -385,19 +345,20 @@ Another common task is making new columns using values in existing columns. For 
 
 
 ``` r
-urban_data <- mutate(urban_data, gdpbill10 = gdpbill/10)
+urban_data_sub <- select(urban_data, study, gdpbill, YEAR) #choosing some new  columns to view
+urban_data_sub <- mutate(urban_data_sub, gdpbill10 = gdpbill/10)
 ```
 
 `mutate` can also create multiple columns at once, separated by a comma:
 
 
 ``` r
-urban_data <- mutate(urban_data, gdpbill10 = gdpbill10/10,
-                      years_since_1998 = YEAR - 1998) #not the best column name - a little long
+urban_data_sub <- mutate(urban_data_sub, gdpbill10 = gdpbill10/10,
+                         years_since_1998 = YEAR - 1998) #not the best column name - a little long
 # To view the new columns, we will select them, 
 # because this data frame has too many columns to print them all
 # and our new columns are placed at the end
-select(urban_data, gdpbill, gdpbill10, YEAR, years_since_1998)
+select(urban_data_sub, gdpbill, gdpbill10, YEAR, years_since_1998)
 ```
 
 ```
@@ -464,7 +425,26 @@ Finally, we can also apply exactly the same function to multiple columns:
 
 
 ``` r
-urban_data_lgl <- mutate(urban_data, across(c(close, nonclose, vector, intermediate), as.logical))
+urban_data_lgl <- mutate(urban_data, 
+                         across(c(close, nonclose, vector, intermediate), as.logical))
+select(urban_data_lgl, close,  nonclose, vector, intermediate)
+```
+
+```
+## # A tibble: 516 × 4
+##    close nonclose vector intermediate
+##    <lgl> <lgl>    <lgl>  <lgl>       
+##  1 TRUE  TRUE     FALSE  FALSE       
+##  2 FALSE TRUE     FALSE  FALSE       
+##  3 NA    NA       NA     NA          
+##  4 NA    NA       NA     NA          
+##  5 FALSE TRUE     FALSE  FALSE       
+##  6 FALSE TRUE     FALSE  FALSE       
+##  7 NA    NA       NA     NA          
+##  8 FALSE TRUE     FALSE  FALSE       
+##  9 NA    NA       NA     NA          
+## 10 NA    NA       NA     NA          
+## # ℹ 506 more rows
 ```
 
 Note that this is a little more complicated! The first argument is still the data set (`urban_data`), but the second argument is now a vector of column names, enclosed within `c()`, and the function `across` applies the function to multiple columns. The second argument to `across` is the function that is applied to all the columns.
@@ -473,60 +453,27 @@ Another common task is to replace NAs with another value, or to replace certain 
 
 
 ``` r
-mutate(urban_data, udiff_1000 = na_if(udiff_1000, 0))
+urban_data <- mutate(urban_data, udiff_1000_na = na_if(udiff_1000, 0))
+head(urban_data$udiff_1000)
 ```
 
 ```
-## # A tibble: 516 × 44
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Rich… <NA>   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  <NA>    <NA>  <NA>   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  6  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  7  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  8  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  9  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-## 10  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-## # ℹ 506 more rows
-## # ℹ 34 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
+## [1] 0 0 0 0 0 0
+```
+
+``` r
+head(urban_data$udiff_1000_na)
+```
+
+```
+## [1] NA NA NA NA NA NA
 ```
 
 Finally, a very useful function for creating new columns is `if_else()` (or the base R version, `ifelse`). This is a simplified version of the `if` statements that we will learn about later in the class. Again makes a vector as a function of another vector, this time conditionally. I provide a conditional statement ("if") and an alternative ("else"). The example above is essentially a streamlined ifelse function; the following code does the same thing:
 
 
 ``` r
-mutate(urban_data, udiff_1000 = if_else(udiff_1000 == 0, NA, udiff_1000))
-```
-
-```
-## # A tibble: 516 × 44
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    <dbl> <chr>      <chr>   <dbl> <chr>   <chr>  <chr>     <chr>   <chr> <chr>  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Rich… <NA>   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  <NA>    <NA>  <NA>   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  6  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Inte… <NA>   
-##  7  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  8  1236 Ectoparas… Webste…  2014 Wildli… paras… <NA>      <NA>    Prev… <NA>   
-##  9  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-## 10  1326 Effects o… Hargit…  2016 Scienc… toxic… <NA>      metal   <NA>  <NA>   
-## # ℹ 506 more rows
-## # ℹ 34 more variables: SAMPLE_SIZE <dbl>, EFFECT_DIRECTION <dbl>, pval <dbl>,
-## #   r <dbl>, yi <dbl>, vi <dbl>, rlower <dbl>, rupper <dbl>, yir <dbl>,
-## #   ott_id <dbl>, host.species <chr>, host.class <chr>, aqterr <chr>,
-## #   parasite2 <chr>, close <dbl>, nonclose <dbl>, vector <dbl>,
-## #   intermediate <dbl>, routes <dbl>, mroute <chr>, mlat <dbl>, mlon <dbl>,
-## #   udiff_1000 <dbl>, udiff_10000 <dbl>, uchange_1000 <dbl>, …
+urban_data <- mutate(urban_data, udiff_1000_na = if_else(udiff_1000 == 0, NA, udiff_1000))
 ```
 
 Here, the first argument is the condition: I am asking whether `udiff_1000` is equal to zero. The second argument is the output if the condition is true: in this place I would like the function to return `NA`. The second argument is the output if the condition is false: in this case I would like it to return the original value of the vector/column, i.e., `udiff_1000`.
@@ -549,7 +496,7 @@ if_else(species %in% c("snow leopard", "indian leopard", "bengal tiger"), "cat" 
 # Create a vector
 nums <- c(50, 194, 281, 92)
 # Check if each element is even or odd
-if_else(nums %% 2 == 0,"even","odd")
+if_else(nums %% 2 == 0, "even", "odd")
 ```
 
 ```
@@ -660,6 +607,7 @@ And the base R function `sort` will order a vector:
 
 
 ``` r
+x <- factor(c("a", "i", "e", "f", "g", "c", "i", "b"))
 sort(x)
 ```
 

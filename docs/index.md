@@ -1,7 +1,7 @@
 --- 
 title: "Data Management and Reproducible Science"
 author: "Claire S Teitelbaum"
-date: "2026-08-20"
+date: "2026-08-26"
 site: bookdown::bookdown_site
 format:
   html:

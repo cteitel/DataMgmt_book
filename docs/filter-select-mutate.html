@@ -189,23 +189,23 @@
 <p>You should be careful when using this method, since you are being less explicit about which columns you want. However, it can be useful if you have a data frame with many columns and you don’t want to type out too many names.</p>
 <p>We can also select columns based on their properties using the <code><a href="https://tidyselect.r-lib.org/reference/where.html">where()</a></code> function. For example, to select all character columns:</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 516 × 14
-##    TITLE     AUTHORS JOURNAL health condition toxtype ptype stress2 host.species
-##    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       
-##  1 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;    Trichosurus…
-##  2 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;    Trichosurus…
-##  3 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Rich… &lt;NA&gt;    Trichosurus…
-##  4 Ectopara… Webste… Wildli… condi… Adjusted  &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;    Trichosurus…
-##  5 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;    Trichosurus…
-##  6 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;    Trichosurus…
-##  7 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;    Trichosurus…
-##  8 Ectopara… Webste… Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;    Trichosurus…
-##  9 Effects … Hargit… Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;    Parus_major 
-## 10 Effects … Hargit… Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;    Parus_major 
-## # ℹ 506 more rows
-## # ℹ 5 more variables: host.class &lt;chr&gt;, aqterr &lt;chr&gt;, parasite2 &lt;chr&gt;,
-## #   mroute &lt;chr&gt;, COUNTRY &lt;chr&gt;</code></pre>
+<code class="sourceCode R"><span><span class="va">urban_chars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">urban_chars</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## tibble [516 × 14] (S3: tbl_df/tbl/data.frame)
+##  $ TITLE       : chr [1:516] "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" "Ectoparasite infestation patterns, haematology and serum biochemistry of urban-dwelling common brushtail possums" ...
+##  $ AUTHORS     : chr [1:516] "Webster et al." "Webster et al." "Webster et al." "Webster et al." ...
+##  $ JOURNAL     : chr [1:516] "Wildlife Biology" "Wildlife Biology" "Wildlife Biology" "Wildlife Biology" ...
+##  $ health      : chr [1:516] "parasites" "parasites" "parasites" "condition" ...
+##  $ condition   : chr [1:516] NA NA NA "Adjusted" ...
+##  $ toxtype     : chr [1:516] NA NA NA NA ...
+##  $ ptype       : chr [1:516] "Prevalence" "Prevalence" "Richness" NA ...
+##  $ stress2     : chr [1:516] NA NA NA NA ...
+##  $ host.species: chr [1:516] "Trichosurus_vulpecula" "Trichosurus_vulpecula" "Trichosurus_vulpecula" "Trichosurus_vulpecula" ...
+##  $ host.class  : chr [1:516] "mammals" "mammals" "mammals" "mammals" ...
+##  $ aqterr      : chr [1:516] "terrestrial" "terrestrial" "terrestrial" "terrestrial" ...
+##  $ parasite2   : chr [1:516] "Macroparasite" "Macroparasite" "Macroparasite" NA ...
+##  $ mroute      : chr [1:516] "multiple" "single" NA NA ...
+##  $ COUNTRY     : chr [1:516] "Australia" "Australia" "Australia" "Australia" ...</code></pre>
 </div>
 <div id="subsetting-data-with-filter" class="section level3" number="6.4.2">
 <h3>
@@ -213,27 +213,22 @@
 </h3>
 <p>The <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> function subsets a data frame to rows that meet some criteria. For example, to get all rows where the taxon sampled was a bird:</p>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op">==</span> <span class="st">"birds"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 159 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  3  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  8  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  9  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## 10  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 149 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="va">urban_birds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op">==</span> <span class="st">"birds"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_birds</span>, <span class="va">study</span>, <span class="va">host.class</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 159 × 2
+##    study host.class
+##    &lt;dbl&gt; &lt;chr&gt;     
+##  1  1326 birds     
+##  2  1326 birds     
+##  3  1326 birds     
+##  4  1426 birds     
+##  5  1426 birds     
+##  6  1426 birds     
+##  7  1426 birds     
+##  8  1426 birds     
+##  9  1480 birds     
+## 10  1480 birds     
+## # ℹ 149 more rows</code></pre>
 <p>Now we are introducing logical statements with the <code>==</code> sign! <code>==</code> means “is equal to”. It is very different from <code>=</code>, which specifies arguments in functions (and can be used as an assignment operator, but that is not recommended). A few other useful operators and functions for filtering are:</p>
 <ul>
 <li>
@@ -246,140 +241,105 @@
 <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, and <code>&lt;=</code>, which filter based on the values of numeric columns.</li>
 </ul>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op">!=</span> <span class="st">"mammals"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 321 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  3  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  8  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  9  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## 10  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 311 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="va">urban_data_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">study</span>, <span class="va">host.class</span>, <span class="va">pval</span>, <span class="va">YEAR</span>, <span class="va">ptype</span>, <span class="va">SAMPLE_SIZE</span><span class="op">)</span> <span class="co">#choosing some example columns to view</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="va">host.class</span> <span class="op">==</span> <span class="st">"mammals"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 195 × 6
+##    study host.class     pval  YEAR ptype      SAMPLE_SIZE
+##    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+##  1  1236 mammals     1        2014 Prevalence          59
+##  2  1236 mammals     0.477    2014 Prevalence          59
+##  3  1236 mammals     0.2      2014 Richness           278
+##  4  1236 mammals    NA        2014 &lt;NA&gt;                49
+##  5  1236 mammals    NA        2014 Intensity           16
+##  6  1236 mammals    NA        2014 Intensity           10
+##  7  1236 mammals     0.00785  2014 Prevalence          59
+##  8  1236 mammals     0.143    2014 Prevalence          59
+##  9  1955 mammals     0.242    2003 Prevalence          12
+## 10  2129 mammals     0.169    2008 Intensity          127
+## # ℹ 185 more rows</code></pre>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"birds"</span>,<span class="st">"fish"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 251 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  3  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  8  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  9  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## 10  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 241 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="op">!</span><span class="va">host.class</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mammals"</span>,<span class="st">"birds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 162 × 6
+##    study host.class      pval  YEAR ptype      SAMPLE_SIZE
+##    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+##  1  1903 fish          NA      1999 &lt;NA&gt;                20
+##  2  1903 fish          NA      1999 &lt;NA&gt;                16
+##  3  1903 fish          NA      1999 &lt;NA&gt;                16
+##  4  1903 fish          NA      1999 &lt;NA&gt;                20
+##  5  1903 fish          NA      1999 &lt;NA&gt;                16
+##  6  1903 fish          NA      1999 &lt;NA&gt;                20
+##  7  2124 fish          NA      2000 &lt;NA&gt;                39
+##  8  2166 invertebrates  0.600  2012 Prevalence          10
+##  9  2166 invertebrates  0.425  2012 Prevalence          10
+## 10  2166 invertebrates  0.550  2012 Prevalence          10
+## # ℹ 152 more rows</code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 253 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  4  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  5  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  6  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  7  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  8  1480 Environme… Garcia…  2005 Bullet… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  9  1869 Great Tit… Torne-…  2013 J Orni… stress &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;  other  
-## 10  1903 halogenat… Olsson…  1999 Scienc… condi… Raw       &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 243 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 253 × 6
+##    study host.class  pval  YEAR ptype     SAMPLE_SIZE
+##    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1  1236 mammals       NA  2014 &lt;NA&gt;               49
+##  2  1236 mammals       NA  2014 Intensity          16
+##  3  1236 mammals       NA  2014 Intensity          10
+##  4  1326 birds         NA  2016 &lt;NA&gt;               39
+##  5  1480 birds         NA  2005 &lt;NA&gt;               14
+##  6  1480 birds         NA  2005 &lt;NA&gt;               14
+##  7  1480 birds         NA  2005 &lt;NA&gt;               14
+##  8  1480 birds         NA  2005 &lt;NA&gt;               14
+##  9  1869 birds         NA  2013 &lt;NA&gt;              177
+## 10  1903 fish          NA  1999 &lt;NA&gt;               20
+## # ℹ 243 more rows</code></pre>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">YEAR</span> <span class="op">&gt;=</span> <span class="fl">2010</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 422 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Rich… &lt;NA&gt;   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  6  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  7  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  8  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  9  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## 10  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 412 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="va">YEAR</span> <span class="op">&gt;=</span> <span class="fl">2010</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 422 × 6
+##    study host.class     pval  YEAR ptype      SAMPLE_SIZE
+##    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+##  1  1236 mammals     1        2014 Prevalence          59
+##  2  1236 mammals     0.477    2014 Prevalence          59
+##  3  1236 mammals     0.2      2014 Richness           278
+##  4  1236 mammals    NA        2014 &lt;NA&gt;                49
+##  5  1236 mammals    NA        2014 Intensity           16
+##  6  1236 mammals    NA        2014 Intensity           10
+##  7  1236 mammals     0.00785  2014 Prevalence          59
+##  8  1236 mammals     0.143    2014 Prevalence          59
+##  9  1326 birds      NA        2016 &lt;NA&gt;                39
+## 10  1326 birds       0.07     2016 &lt;NA&gt;                39
+## # ℹ 412 more rows</code></pre>
 <p>We can also filter using multiple criteria simultaneously using <code>&amp;</code> (AND) and <code>|</code> (OR):</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op">!=</span> <span class="st">"mammals"</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 133 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  2  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  3  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  4  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  5  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  6  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  7  1426 Egrets as… Boncom…  2003 Archiv… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-##  8  1934 Helminth … Rzad e…  2014 Helmin… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  9  2166 Influence… Goulso…  2012 Functi… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-## 10  2166 Influence… Goulso…  2012 Functi… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-## # ℹ 123 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="va">host.class</span> <span class="op">!=</span> <span class="st">"mammals"</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 133 × 6
+##    study host.class      pval  YEAR ptype      SAMPLE_SIZE
+##    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+##  1  1326 birds         0.07    2016 &lt;NA&gt;                39
+##  2  1326 birds         0.06    2016 &lt;NA&gt;                40
+##  3  1426 birds         0.004   2003 &lt;NA&gt;                25
+##  4  1426 birds         0.06    2003 &lt;NA&gt;                28
+##  5  1426 birds         0.0001  2003 &lt;NA&gt;                25
+##  6  1426 birds         0.06    2003 &lt;NA&gt;                28
+##  7  1426 birds         0.03    2003 &lt;NA&gt;                16
+##  8  1934 birds         0.178   2014 Prevalence          45
+##  9  2166 invertebrates 0.600   2012 Prevalence          10
+## 10  2166 invertebrates 0.425   2012 Prevalence          10
+## # ℹ 123 more rows</code></pre>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">ptype</span> <span class="op">==</span> <span class="st">"Prevalence"</span> <span class="op">|</span> <span class="va">SAMPLE_SIZE</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 218 × 42
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Rich… &lt;NA&gt;   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  6  1869 Great Tit… Torne-…  2013 J Orni… stress &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;  other  
-##  7  1934 Helminth … Rzad e…  2014 Helmin… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  8  1955 high freq… Bagagl…  2003 Medica… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  9  2129 infection… Robard…  2008 Parasi… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-## 10  2129 infection… Robard…  2008 Parasi… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-## # ℹ 208 more rows
-## # ℹ 32 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="va">ptype</span> <span class="op">==</span> <span class="st">"Prevalence"</span> <span class="op">|</span> <span class="va">SAMPLE_SIZE</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 218 × 6
+##    study host.class     pval  YEAR ptype      SAMPLE_SIZE
+##    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+##  1  1236 mammals     1        2014 Prevalence          59
+##  2  1236 mammals     0.477    2014 Prevalence          59
+##  3  1236 mammals     0.2      2014 Richness           278
+##  4  1236 mammals     0.00785  2014 Prevalence          59
+##  5  1236 mammals     0.143    2014 Prevalence          59
+##  6  1869 birds      NA        2013 &lt;NA&gt;               177
+##  7  1934 birds       0.178    2014 Prevalence          45
+##  8  1955 mammals     0.242    2003 Prevalence          12
+##  9  2129 mammals     0.169    2008 Intensity          127
+## 10  2129 mammals     0.169    2008 Intensity          127
+## # ℹ 208 more rows</code></pre>
 <p>Can you describe what is being included and excluded in each of these statements?</p>
-<p>Use the <code>urban_data</code> data to make a data frame with data from 2000 through 2010.</p>
+<p>Challenge: How would you use the <code>urban_data</code> data to make a data frame with data from 2000 through 2010?</p>
 </div>
 <div id="making-new-columns-with-mutate" class="section level3" number="6.4.3">
 <h3>
@@ -387,15 +347,16 @@
 </h3>
 <p>Another common task is making new columns using values in existing columns. For example, we we can create a new column that measures gross domestic product (GDP, the <code>gdpbill</code> column) length in tens of billions instead of billions of dollars:</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, gdpbill10 <span class="op">=</span> <span class="va">gdpbill</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">urban_data_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">study</span>, <span class="va">gdpbill</span>, <span class="va">YEAR</span><span class="op">)</span> <span class="co">#choosing some new  columns to view</span></span>
+<span><span class="va">urban_data_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, gdpbill10 <span class="op">=</span> <span class="va">gdpbill</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><code>mutate</code> can also create multiple columns at once, separated by a comma:</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, gdpbill10 <span class="op">=</span> <span class="va">gdpbill10</span><span class="op">/</span><span class="fl">10</span>,</span>
-<span>                      years_since_1998 <span class="op">=</span> <span class="va">YEAR</span> <span class="op">-</span> <span class="fl">1998</span><span class="op">)</span> <span class="co">#not the best column name - a little long</span></span>
+<code class="sourceCode R"><span><span class="va">urban_data_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, gdpbill10 <span class="op">=</span> <span class="va">gdpbill10</span><span class="op">/</span><span class="fl">10</span>,</span>
+<span>                         years_since_1998 <span class="op">=</span> <span class="va">YEAR</span> <span class="op">-</span> <span class="fl">1998</span><span class="op">)</span> <span class="co">#not the best column name - a little long</span></span>
 <span><span class="co"># To view the new columns, we will select them, </span></span>
 <span><span class="co"># because this data frame has too many columns to print them all</span></span>
 <span><span class="co"># and our new columns are placed at the end</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">gdpbill</span>, <span class="va">gdpbill10</span>, <span class="va">YEAR</span>, <span class="va">years_since_1998</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data_sub</span>, <span class="va">gdpbill</span>, <span class="va">gdpbill10</span>, <span class="va">YEAR</span>, <span class="va">years_since_1998</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 516 × 4
 ##    gdpbill gdpbill10  YEAR years_since_1998
 ##      &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt;
@@ -430,77 +391,58 @@
 <span>                      nonclose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">nonclose</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we can also apply exactly the same function to multiple columns:</p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">urban_data_lgl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">close</span>, <span class="va">nonclose</span>, <span class="va">vector</span>, <span class="va">intermediate</span><span class="op">)</span>, <span class="va">as.logical</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">urban_data_lgl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, </span>
+<span>                         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">close</span>, <span class="va">nonclose</span>, <span class="va">vector</span>, <span class="va">intermediate</span><span class="op">)</span>, <span class="va">as.logical</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data_lgl</span>, <span class="va">close</span>,  <span class="va">nonclose</span>, <span class="va">vector</span>, <span class="va">intermediate</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 516 × 4
+##    close nonclose vector intermediate
+##    &lt;lgl&gt; &lt;lgl&gt;    &lt;lgl&gt;  &lt;lgl&gt;       
+##  1 TRUE  TRUE     FALSE  FALSE       
+##  2 FALSE TRUE     FALSE  FALSE       
+##  3 NA    NA       NA     NA          
+##  4 NA    NA       NA     NA          
+##  5 FALSE TRUE     FALSE  FALSE       
+##  6 FALSE TRUE     FALSE  FALSE       
+##  7 NA    NA       NA     NA          
+##  8 FALSE TRUE     FALSE  FALSE       
+##  9 NA    NA       NA     NA          
+## 10 NA    NA       NA     NA          
+## # ℹ 506 more rows</code></pre>
 <p>Note that this is a little more complicated! The first argument is still the data set (<code>urban_data</code>), but the second argument is now a vector of column names, enclosed within <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>, and the function <code>across</code> applies the function to multiple columns. The second argument to <code>across</code> is the function that is applied to all the columns.</p>
 <p>Another common task is to replace NAs with another value, or to replace certain character strings (e.g., <code>""</code>) with <code>NA</code>s. For example, for studies with no difference in urbanization across the study area (the <code>udiff_1000</code> column), we might want to replace <code>0</code> with a missing value. Here, we can use a combination of <code>mutate</code> with the <code>na_if</code> function from <code>tidyr</code>:</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, udiff_1000 <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/na_if.html">na_if</a></span><span class="op">(</span><span class="va">udiff_1000</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 516 × 44
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Rich… &lt;NA&gt;   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  6  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  7  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  8  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  9  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## 10  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 506 more rows
-## # ℹ 34 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, udiff_1000_na <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/na_if.html">na_if</a></span><span class="op">(</span><span class="va">udiff_1000</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">$</span><span class="va">udiff_1000</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0 0 0 0 0 0</code></pre>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">urban_data</span><span class="op">$</span><span class="va">udiff_1000_na</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] NA NA NA NA NA NA</code></pre>
 <p>Finally, a very useful function for creating new columns is <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> (or the base R version, <code>ifelse</code>). This is a simplified version of the <code>if</code> statements that we will learn about later in the class. Again makes a vector as a function of another vector, this time conditionally. I provide a conditional statement (“if”) and an alternative (“else”). The example above is essentially a streamlined ifelse function; the following code does the same thing:</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, udiff_1000 <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">udiff_1000</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA</span>, <span class="va">udiff_1000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 516 × 44
-##    study TITLE      AUTHORS  YEAR JOURNAL health condition toxtype ptype stress2
-##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  
-##  1  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  2  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  3  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Rich… &lt;NA&gt;   
-##  4  1236 Ectoparas… Webste…  2014 Wildli… condi… Adjusted  &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   
-##  5  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  6  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Inte… &lt;NA&gt;   
-##  7  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  8  1236 Ectoparas… Webste…  2014 Wildli… paras… &lt;NA&gt;      &lt;NA&gt;    Prev… &lt;NA&gt;   
-##  9  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## 10  1326 Effects o… Hargit…  2016 Scienc… toxic… &lt;NA&gt;      metal   &lt;NA&gt;  &lt;NA&gt;   
-## # ℹ 506 more rows
-## # ℹ 34 more variables: SAMPLE_SIZE &lt;dbl&gt;, EFFECT_DIRECTION &lt;dbl&gt;, pval &lt;dbl&gt;,
-## #   r &lt;dbl&gt;, yi &lt;dbl&gt;, vi &lt;dbl&gt;, rlower &lt;dbl&gt;, rupper &lt;dbl&gt;, yir &lt;dbl&gt;,
-## #   ott_id &lt;dbl&gt;, host.species &lt;chr&gt;, host.class &lt;chr&gt;, aqterr &lt;chr&gt;,
-## #   parasite2 &lt;chr&gt;, close &lt;dbl&gt;, nonclose &lt;dbl&gt;, vector &lt;dbl&gt;,
-## #   intermediate &lt;dbl&gt;, routes &lt;dbl&gt;, mroute &lt;chr&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-## #   udiff_1000 &lt;dbl&gt;, udiff_10000 &lt;dbl&gt;, uchange_1000 &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urban_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data</span>, udiff_1000_na <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">udiff_1000</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA</span>, <span class="va">udiff_1000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here, the first argument is the condition: I am asking whether <code>udiff_1000</code> is equal to zero. The second argument is the output if the condition is true: in this place I would like the function to return <code>NA</code>. The second argument is the output if the condition is false: in this case I would like it to return the original value of the vector/column, i.e., <code>udiff_1000</code>.</p>
 <p>Some simpler examples:</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a vector</span></span>
 <span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"elephant"</span>, <span class="st">"snow leopard"</span>, <span class="st">"indian leopard"</span>, <span class="st">"sloth bear"</span>, <span class="st">"bengal tiger"</span><span class="op">)</span></span>
 <span><span class="co"># Check whether these animals are cats</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snow leopard"</span>, <span class="st">"indian leopard"</span>, <span class="st">"bengal tiger"</span><span class="op">)</span>, <span class="st">"cat"</span> , <span class="st">"not a cat"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "not a cat" "cat"       "cat"       "not a cat" "cat"</code></pre>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a vector</span></span>
 <span><span class="va">nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">194</span>, <span class="fl">281</span>, <span class="fl">92</span><span class="op">)</span></span>
 <span><span class="co"># Check if each element is even or odd</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">nums</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>,<span class="st">"even"</span>,<span class="st">"odd"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">nums</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"even"</span>, <span class="st">"odd"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "even" "even" "odd"  "even"</code></pre>
 <p>Notice that here, <code>%%</code> returns the remainder of a division, so numbers divided by two with a remainder of zero are even.</p>
 <p>The main difference between the <code>tidyverse's</code> <code>if_else</code> and base R’s <code>ifelse</code> is that <code>if_else</code> preserves factor levels and other types (for example, dates, which we will learn about soon).</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Unlike `ifelse()`, `if_else()` preserves types</span></span>
 <span><span class="co"># This example comes from the help page for if_else</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"i"</span>, <span class="st">"e"</span>, <span class="st">"f"</span>, <span class="st">"g"</span>, <span class="st">"c"</span>, <span class="st">"i"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, <span class="va">x</span>, <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1]  1 NA NA NA NA  3 NA  2</code></pre>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, <span class="va">x</span>, <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] a    &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; c    &lt;NA&gt; b   
 ## Levels: a b c e f g i</code></pre>
@@ -510,7 +452,7 @@
 <span class="header-section-number">6.4.4</span> Sorting data tables<a class="anchor" aria-label="anchor" href="#sorting-data-tables"><i class="fas fa-link"></i></a>
 </h3>
 <p>In many cases, the order of data in table is not important; the information is the same regardless of its row number. Sorting and ordering tables can be useful for filtering them and for calculating some columns. The <code>dplyr</code> function <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> will sort a data frame by a column:</p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">study</span>, <span class="va">AUTHORS</span>, <span class="va">r</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   study AUTHORS              r
@@ -521,7 +463,7 @@
 ## 4  1236 Webster et al.  0.200 
 ## 5  1236 Webster et al. -0.301 
 ## 6  1236 Webster et al.  0.063</code></pre>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r_ordered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">r</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">r_ordered</span>, <span class="va">study</span>, <span class="va">AUTHORS</span>, <span class="va">r</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
@@ -534,7 +476,7 @@
 ## 5   521 Abu El-Saad et al. -0.977
 ## 6   521 Abu El-Saad et al. -0.975</code></pre>
 <p><code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> can take multiple column names, in which case the data frame is sorted first by the first column. Then, if any values are duplicated in that column, the rows are sorted within that group by the second column, and so on:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">author_ordered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">AUTHORS</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">author_ordered</span>, <span class="va">study</span>, <span class="va">AUTHORS</span>, <span class="va">r</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
@@ -546,7 +488,7 @@
 ## 4   521 Abu El-Saad et al. -0.900
 ## 5   521 Abu El-Saad et al. -0.974
 ## 6   521 Abu El-Saad et al. -0.952</code></pre>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">author_r_ordered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">AUTHORS</span>, <span class="va">r</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">author_r_ordered</span>, <span class="va">study</span>, <span class="va">AUTHORS</span>, <span class="va">r</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
@@ -559,8 +501,9 @@
 ## 5   521 Abu El-Saad et al. -0.963
 ## 6   521 Abu El-Saad et al. -0.952</code></pre>
 <p>And the base R function <code>sort</code> will order a vector:</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"i"</span>, <span class="st">"e"</span>, <span class="st">"f"</span>, <span class="st">"g"</span>, <span class="st">"c"</span>, <span class="st">"i"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] a b c e f g i i
 ## Levels: a b c e f g i</code></pre>
 </div>
@@ -570,14 +513,14 @@
 <span class="header-section-number">6.5</span> Pipes<a class="anchor" aria-label="anchor" href="#pipes"><i class="fas fa-link"></i></a>
 </h2>
 <p>What if you want to do a bunch of operations in order, for example filtering your data and creating new columns. The most basic way to do this is to create intermediate objects:</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data_mamm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">urban_data</span>, <span class="va">host.class</span> <span class="op">==</span> <span class="st">"mammals"</span><span class="op">)</span></span>
 <span><span class="va">urban_data_mamm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data_mamm</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">close</span>, <span class="va">nonclose</span>, <span class="va">vector</span>, <span class="va">intermediate</span><span class="op">)</span>, <span class="va">as.logical</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You could also nest your functions, but as you can see this gets unwieldy quickly:</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data_mamm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">urban_data_mamm</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">close</span>, <span class="va">nonclose</span>, <span class="va">vector</span>, <span class="va">intermediate</span><span class="op">)</span>, <span class="va">as.logical</span><span class="op">)</span><span class="op">)</span>, <span class="va">host.class</span> <span class="op">==</span> <span class="st">"mammals"</span><span class="op">)</span></span></code></pre></div>
 <p><code>tidyverse</code> provides a powerful way to tie a squence of actions together: the pipe (<code>%&gt;%</code>). Pipes can initially be intimidating (what are those <code>%</code> doing?!) and they are by no means necessary to use, but they can make your code neat and easier to understand.</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urban_data_mamm</span> <span class="op">&lt;-</span> <span class="va">urban_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">host.class</span> <span class="op">==</span> <span class="st">"mammals"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">close</span>, <span class="va">nonclose</span>, <span class="va">vector</span>, <span class="va">intermediate</span><span class="op">)</span>, <span class="va">as.logical</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -626,7 +569,7 @@ is <code>Ctrl + Shift + M</code> on Windows and <code>Cmd + Shift + M</code> on 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-08-20.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-08-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -55,7 +55,8 @@ You should be careful when using this method, since you are being less explicit 
 We can also select columns based on their properties using the `where()` function. For example, to select all character columns:
 
 ```{r}
-select(urban_data, where(is.character))
+urban_chars <- select(urban_data, where(is.character))
+str(urban_chars)
 ```
 
 ### Subsetting data with `filter()`
@@ -63,7 +64,8 @@ select(urban_data, where(is.character))
 The `filter()` function subsets a data frame to rows that meet some criteria. For example, to get all rows where the taxon sampled was a bird:
 
 ```{r}
-filter(urban_data, host.class == "birds")
+urban_birds <- filter(urban_data, host.class == "birds")
+select(urban_birds, study, host.class)
 ```
 
 Now we are introducing logical statements with the `==` sign! `==` means "is equal to". It is very different from `=`, which specifies arguments in functions (and can be used as an assignment operator, but that is not recommended). A few other useful operators and functions for filtering are:
@@ -74,22 +76,23 @@ Now we are introducing logical statements with the `==` sign! `==` means "is equ
 * `>`, `>=`, `<`, and `<=`, which filter based on the values of numeric columns.
 
 ```{r}
-filter(urban_data, host.class != "mammals")
-filter(urban_data, host.class %in% c("birds","fish"))
-filter(urban_data, is.na(pval))
-filter(urban_data, YEAR >= 2010)
+urban_data_sub <- select(urban_data, study, host.class, pval, YEAR, ptype, SAMPLE_SIZE) #choosing some example columns to view
+filter(urban_data_sub, host.class == "mammals")
+filter(urban_data_sub, !host.class %in% c("mammals","birds"))
+filter(urban_data_sub, is.na(pval))
+filter(urban_data_sub, YEAR >= 2010)
 ```
 
 We can also filter using multiple criteria simultaneously using `&` (AND) and `|` (OR):
 
 ```{r}
-filter(urban_data, host.class != "mammals" & !is.na(pval))
-filter(urban_data, ptype == "Prevalence" | SAMPLE_SIZE > 100)
+filter(urban_data_sub, host.class != "mammals" & !is.na(pval))
+filter(urban_data_sub, ptype == "Prevalence" | SAMPLE_SIZE > 100)
 ```
 
 Can you describe what is being included and excluded in each of these statements?
 
-Use the `urban_data` data to make a data frame with data from 2000 through 2010.
+Challenge: How would you use the `urban_data` data to make a data frame with data from 2000 through 2010?
 
 ```{r}
 ```
@@ -99,18 +102,19 @@ Use the `urban_data` data to make a data frame with data from 2000 through 2010.
 Another common task is making new columns using values in existing columns. For example, we we can create a new column that measures gross domestic product (GDP, the `gdpbill` column) length in tens of billions instead of billions of dollars:
 
 ```{r}
-urban_data <- mutate(urban_data, gdpbill10 = gdpbill/10)
+urban_data_sub <- select(urban_data, study, gdpbill, YEAR) #choosing some new  columns to view
+urban_data_sub <- mutate(urban_data_sub, gdpbill10 = gdpbill/10)
 ```
 
 `mutate` can also create multiple columns at once, separated by a comma:
 
 ```{r}
-urban_data <- mutate(urban_data, gdpbill10 = gdpbill10/10,
-                      years_since_1998 = YEAR - 1998) #not the best column name - a little long
+urban_data_sub <- mutate(urban_data_sub, gdpbill10 = gdpbill10/10,
+                         years_since_1998 = YEAR - 1998) #not the best column name - a little long
 # To view the new columns, we will select them, 
 # because this data frame has too many columns to print them all
 # and our new columns are placed at the end
-select(urban_data, gdpbill, gdpbill10, YEAR, years_since_1998)
+select(urban_data_sub, gdpbill, gdpbill10, YEAR, years_since_1998)
 ```
 
 We can also use `mutate` to modify values in existing columns. For example, we see that the transmission mode columns are coded as integers instead of logical:
@@ -143,7 +147,9 @@ urban_data_lgl2 <- mutate(urban_data, close = as.logical(close),
 Finally, we can also apply exactly the same function to multiple columns:
 
 ```{r}
-urban_data_lgl <- mutate(urban_data, across(c(close, nonclose, vector, intermediate), as.logical))
+urban_data_lgl <- mutate(urban_data, 
+                         across(c(close, nonclose, vector, intermediate), as.logical))
+select(urban_data_lgl, close,  nonclose, vector, intermediate)
 ```
 
 Note that this is a little more complicated! The first argument is still the data set (`urban_data`), but the second argument is now a vector of column names, enclosed within `c()`, and the function `across` applies the function to multiple columns. The second argument to `across` is the function that is applied to all the columns.
@@ -151,13 +157,15 @@ Note that this is a little more complicated! The first argument is still the dat
 Another common task is to replace NAs with another value, or to replace certain character strings (e.g., `""`) with `NA`s. For example, for studies with no difference in urbanization across the study area (the `udiff_1000` column), we might want to replace `0` with a missing value. Here, we can use a combination of `mutate` with the `na_if` function from `tidyr`:
 
 ```{r}
-mutate(urban_data, udiff_1000 = na_if(udiff_1000, 0))
+urban_data <- mutate(urban_data, udiff_1000_na = na_if(udiff_1000, 0))
+head(urban_data$udiff_1000)
+head(urban_data$udiff_1000_na)
 ```
 
 Finally, a very useful function for creating new columns is `if_else()` (or the base R version, `ifelse`). This is a simplified version of the `if` statements that we will learn about later in the class. Again makes a vector as a function of another vector, this time conditionally. I provide a conditional statement ("if") and an alternative ("else"). The example above is essentially a streamlined ifelse function; the following code does the same thing:
 
 ```{r}
-mutate(urban_data, udiff_1000 = if_else(udiff_1000 == 0, NA, udiff_1000))
+urban_data <- mutate(urban_data, udiff_1000_na = if_else(udiff_1000 == 0, NA, udiff_1000))
 ```
 
 Here, the first argument is the condition: I am asking whether `udiff_1000` is equal to zero. The second argument is the output if the condition is true: in this place I would like the function to return `NA`. The second argument is the output if the condition is false: in this case I would like it to return the original value of the vector/column, i.e., `udiff_1000`.
@@ -173,7 +181,7 @@ if_else(species %in% c("snow leopard", "indian leopard", "bengal tiger"), "cat" 
 # Create a vector
 nums <- c(50, 194, 281, 92)
 # Check if each element is even or odd
-if_else(nums %% 2 == 0,"even","odd")
+if_else(nums %% 2 == 0, "even", "odd")
 ```
 
 Notice that here, `%%` returns the remainder of a division, so numbers divided by two with a remainder of zero are even.
@@ -212,6 +220,7 @@ head(select(author_r_ordered, study, AUTHORS, r))
 And the base R function `sort` will order a vector:
 
 ```{r}
+x <- factor(c("a", "i", "e", "f", "g", "c", "i", "b"))
 sort(x)
 ```
 

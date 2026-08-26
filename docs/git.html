@@ -279,31 +279,31 @@ Figure 14.2: A diff example
 <p>And on Windows</p>
 <pre><code>C:\Users\username&gt;</code></pre>
 <p>To move around directories we use the command <code>cd</code>, which stands for “change directory”. For example, to move to the Research subfolder in my Documents folder, I might type in:</p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb518-1"><a href="git.html#cb518-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Research</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb520-1"><a href="git.html#cb520-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Research</span></code></pre></div>
 <p>To go up a directory, use “..”. The following command would take me back up to my Documents folder:</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb519-1"><a href="git.html#cb519-1" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb521-1"><a href="git.html#cb521-1" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div>
 </div>
 <div id="configuring-git-one-time-only" class="section level3" number="14.6.2">
 <h3>
 <span class="header-section-number">14.6.2</span> Configuring Git (one time only)<a class="anchor" aria-label="anchor" href="#configuring-git-one-time-only"><i class="fas fa-link"></i></a>
 </h3>
 <p>On a command line, Git commands are written as <code>git</code> <code>verb</code> <code>options</code>, where <code>verb</code> is what we actually want to do and <code>options</code> is additional optional information which may be needed for the verb. To set up Git for the first time:</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb520-1"><a href="git.html#cb520-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"My name"</span></span>
-<span id="cb520-2"><a href="git.html#cb520-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"myemail@uga.edu"</span></span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb522-1"><a href="git.html#cb522-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"My name"</span></span>
+<span id="cb522-2"><a href="git.html#cb522-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"myemail@uga.edu"</span></span></code></pre></div>
 <p>This user name and email will be associated with your subsequent Git activity, which means that any changes pushed to GitHub, BitBucket, GitLab, etc. will include this information. The email address used should be the same as the one used when setting up your account. There are more configuration options you can personalize, but we won’t get into that. If you want to check what configuration options you have active, you can use:</p>
-<div class="sourceCode" id="cb521"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb521-1"><a href="git.html#cb521-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--list</span></span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb523-1"><a href="git.html#cb523-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--list</span></span></code></pre></div>
 </div>
 <div id="creating-a-repository-one-time-per-project-1" class="section level3" number="14.6.3">
 <h3>
 <span class="header-section-number">14.6.3</span> Creating a repository (one time per project)<a class="anchor" aria-label="anchor" href="#creating-a-repository-one-time-per-project-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>To create a repository (in other words, to put a directory under version control), we first have to navigate to that directory. Here, we will create a repository for this class.</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb522-1"><a href="git.html#cb522-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Classes/FANR8950_Fall2025</span></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb524-1"><a href="git.html#cb524-1" tabindex="-1"></a><span class="bu">cd</span> Documents/Classes/FANR8950_Fall2025</span></code></pre></div>
 <blockquote>
 <p>A side note: if you have spaces in any of your directory names (for example, if your directories are in OneDrive), you will need to put the path in quotes. Otherwise, the terminal thinks those spaces indicate a new argument or command.</p>
 </blockquote>
 <p>Now we will enable Git to start tracking everything inside this folder:</p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb523-1"><a href="git.html#cb523-1" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb525-1"><a href="git.html#cb525-1" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div>
 <p>This command initializes Git. You won’t immediately notice any changes in the directory, but if you show hidden files in your file explorer you will notice there is a new subfolder called .git. That folder is where Git will store all of its version control information. You don’t have to worry about the content of that folder.</p>
 </div>
 <div id="staging-files" class="section level3" number="14.6.4">
@@ -311,11 +311,11 @@ Figure 14.2: A diff example
 <span class="header-section-number">14.6.4</span> Staging files<a class="anchor" aria-label="anchor" href="#staging-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>Creating a repository enables Git to start tracking files within it, but that does not happen automatically. We have to tell Git which files we want to track. We can check what Git is tracking so far by using:</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb524-1"><a href="git.html#cb524-1" tabindex="-1"></a><span class="fu">git</span> status </span></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb526-1"><a href="git.html#cb526-1" tabindex="-1"></a><span class="fu">git</span> status </span></code></pre></div>
 <p>At the bottom, we’ll see a list of untracked files. We need to switch on tracking on those. To begin tracking a new file, we use the verb ‘add’. For example, to track a file named “exercise2.R” we would type:</p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb525-1"><a href="git.html#cb525-1" tabindex="-1"></a><span class="fu">git</span> add exercise2.R</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb527-1"><a href="git.html#cb527-1" tabindex="-1"></a><span class="fu">git</span> add exercise2.R</span></code></pre></div>
 <p>This works well if we want to add a specific file. If we want to start tracking the whole content of the folder, we can do:</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb526-1"><a href="git.html#cb526-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb528-1"><a href="git.html#cb528-1" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span></code></pre></div>
 <p>If you create a .gitignore file before adding all files, those listed in .gitignore will not be added.</p>
 </div>
 <div id="committing-files" class="section level3" number="14.6.5">
@@ -324,7 +324,7 @@ Figure 14.2: A diff example
 </h3>
 <p>Now that our files are staged, we are ready to send them to the local repository. This is called committing. Each commit is a snapshot of what the repository looked like at the time it was committed. When you commit a file, you save that version forever and will be able to go back to it. Remember, this is many steps beyond clicking “Save” on your script - you should commit a file when you feel you have made significant changes that you might want to go back to (or undo).</p>
 <p>For our first commit, we use the following command:</p>
-<div class="sourceCode" id="cb527"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb527-1"><a href="git.html#cb527-1" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"First commit"</span></span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb529-1"><a href="git.html#cb529-1" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"First commit"</span></span></code></pre></div>
 <p>Each commit should be accompanied by a message, added with the flag -m. The message should describe the changes made to the file/s since the previous commit. It is a good habit to write detailed commit messages, so that when we need to go back and recover a previous version of a file, you can read the history of commits and easily find the version we are looking for.</p>
 <p>When you next edit any of these files, you will need to repeat this process: move it to the staging area and commit those changes.</p>
 </div>
@@ -333,9 +333,9 @@ Figure 14.2: A diff example
 <span class="header-section-number">14.6.6</span> Un-staging files<a class="anchor" aria-label="anchor" href="#un-staging-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>Staging initially seems like an annoying extra step, but it serves as a good check on your process before you commit something (because committing is permanent!). The following command un-stages files and saves us from having to commit them:</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb528-1"><a href="git.html#cb528-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> filename</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb530-1"><a href="git.html#cb530-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> filename</span></code></pre></div>
 <p>You can use pattern matching here as well, but you’ll need to put a backslash in front of the wildcard:</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb529-1"><a href="git.html#cb529-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="dt">\*</span>.jpg</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb531-1"><a href="git.html#cb531-1" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="dt">\*</span>.jpg</span></code></pre></div>
 <p>In both of these cases, you probably then want to add the file names or extensions to your .gitignore file.</p>
 </div>
 <div id="accessing-file-histories" class="section level3" number="14.6.7">
@@ -343,12 +343,12 @@ Figure 14.2: A diff example
 <span class="header-section-number">14.6.7</span> Accessing file histories<a class="anchor" aria-label="anchor" href="#accessing-file-histories"><i class="fas fa-link"></i></a>
 </h3>
 <p>Git will allow you to recover previous versions of any tracked file at the time it was committed. You can access the history of commits using:</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb530-1"><a href="git.html#cb530-1" tabindex="-1"></a><span class="fu">git</span> log</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb532-1"><a href="git.html#cb532-1" tabindex="-1"></a><span class="fu">git</span> log</span></code></pre></div>
 <div class="inline-figure"><img src="images/git_history.png" alt="" width="80%" style="display: block; margin: auto auto auto 0;"></div>
 <p>The string of numbers and letters following the word ‘commit’ in the log is called the hash and it uniquely identifies each commit. If I wanted to revert to the version of the data manipulation lesson before I split it in two, I would use:</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb531-1"><a href="git.html#cb531-1" tabindex="-1"></a><span class="fu">git</span> checkout 91568057d886b9b2cf9966ccbd82c4fd51ba119f <span class="at">--</span> data_manipulation.Rmd</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb533-1"><a href="git.html#cb533-1" tabindex="-1"></a><span class="fu">git</span> checkout 91568057d886b9b2cf9966ccbd82c4fd51ba119f <span class="at">--</span> data_manipulation.Rmd</span></code></pre></div>
 <p>If my commit messages are not as helpful as I would like, or I want more detail, I can also ask for a line-by-line comparison of old and new versions of a file using <code>git diff</code>. Text I added will be preceded by a “+” and text I deleted with a “-”.</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb532-1"><a href="git.html#cb532-1" tabindex="-1"></a><span class="fu">git</span> diff version-control-git-github.Rmd</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb534-1"><a href="git.html#cb534-1" tabindex="-1"></a><span class="fu">git</span> diff version-control-git-github.Rmd</span></code></pre></div>
 
 </div>
 </div>
@@ -408,7 +408,7 @@ Figure 14.2: A diff example
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-08-20.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-08-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
