@@ -534,7 +534,22 @@
 <p>Finally, after our data is clean, we save a new version of it in the “clean” data folder.</p>
 <div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">fish</span>, <span class="st">"data/clean/georgia_fish_data_clean.csv"</span><span class="op">)</span></span></code></pre></div>
-
+</div>
+<div id="the-janitor-package" class="section level2" number="17.7">
+<h2>
+<span class="header-section-number">17.7</span> The <code>janitor</code> package<a class="anchor" aria-label="anchor" href="#the-janitor-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html"><code>janitor</code></a> package in R provides a lot of useful function related to data cleaning. Many, if not all, of these can be re-created in just a couple lines of code using the <code>tidyverse</code> functions you already know, but they provide a clean, useful way to explore and clean your data. A few key functions include:</p>
+<ul>
+<li>
+<code>clean_names()</code>: converts variable names that may not have translated well from a spreadsheet, for example those that contained spaces.</li>
+<li>
+<code>tabyl()</code>: creates a frequency table of columns (summarizing how often each value occurs). This can help identify unusual, possibly incorrect, values.</li>
+<li>
+<code>get_dupes()</code>: identifies duplicate rows (for an entire data frame) or values (for a column)</li>
+<li>
+<code>remove_empty()</code>: eliminates rows and columns without any values. These often appear when reading in from Excel (for example, 100 empty rows below your actual data).</li>
+</ul>
 </div>
 </div>
   <div class="chapter-nav">
@@ -566,6 +581,7 @@
 </ul>
 </li>
 <li><a class="nav-link" href="#saving-clean-data"><span class="header-section-number">17.6</span> Saving clean data</a></li>
+<li><a class="nav-link" href="#the-janitor-package"><span class="header-section-number">17.7</span> The janitor package</a></li>
 </ul>
 
       <div class="book-extra">
@@ -582,7 +598,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-08-26.</p>
+    <p>"<strong>Data Management and Reproducible Science</strong>" was written by Claire S Teitelbaum. It was last built on 2026-10-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

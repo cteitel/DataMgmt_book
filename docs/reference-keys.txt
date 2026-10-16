@@ -231,6 +231,7 @@ dealing-with-missing-data
 filtering
 imputing
 saving-clean-data
+the-janitor-package
 for-if
 objectives-15
 additional-reading-12
